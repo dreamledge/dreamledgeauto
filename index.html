@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="Dreamledge Auto - Mobile mechanic services. Get back on the road fast!">
+  <title>Dreamledge Auto | Mobile Mechanic Services</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0A0A0A;
+      --white: #FFFFFF;
+      --gray-50: #F9F9F9;
+      --gray-100: #F0F0F0;
+      --gray-200: #E5E5E5;
+      --gray-300: #CCCCCC;
+      --gray-400: #999999;
+      --gray-500: #666666;
+      --gray-600: #333333;
+      --accent: #FF3B30;
+      --success: #34C759;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; width: 100%; overflow-x: hidden; }
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+      background: var(--white); 
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+    #root { height: 100%; width: 100%; }
+    
+    /* Animation Keyframes */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    @keyframes wobble { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px) rotate(-1deg); } 75% { transform: translateX(5px) rotate(1deg); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes borderGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(255,59,48,0); } 50% { box-shadow: 0 0 20px 5px rgba(255,59,48,0.3); } }
+    
+    .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+    .animate-fade-in-down { animation: fadeInDown 0.6s ease-out forwards; }
+    .animate-slide-in-right { animation: slideInRight 0.5s ease-out forwards; }
+    .animate-slide-in-left { animation: slideInLeft 0.5s ease-out forwards; }
+    .animate-scale-in { animation: scaleIn 0.4s ease-out forwards; }
+    .animate-wobble { animation: wobble 2s ease-in-out infinite; }
+    .animate-float { animation: float 3s ease-in-out infinite; }
+    .animate-pulse { animation: pulse 2s ease-in-out infinite; }
+    .animate-spin { animation: spin 1s linear infinite; }
+    .animate-border-glow { animation: borderGlow 2s ease-in-out infinite; }
+    
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+    
+    /* Interactive */
+    button:active { transform: scale(0.97); transition: transform 0.1s; }
+    .card:active { transform: scale(0.98); }
+    .nav-item:active { transform: scale(0.95); }
+    
+    /* Base Styles */
+    .container { height: 100%; display: flex; flex-direction: column; }
+    .flex { flex: 1; overflow-y: auto; }
+    .center { display: flex; justify-content: center; align-items: center; }
+    .centerH { display: flex; justify-content: center; }
+    .centerV { display: flex; align-items: center; }
+    .row { display: flex; flex-direction: row; align-items: center; }
+    .col { display: flex; flex-direction: column; }
+    .between { display: flex; justify-content: space-between; }
+    .wrap { flex-wrap: wrap; }
+    
+    .p-xs { padding: 4px; }
+    .p-sm { padding: 8px; }
+    .p-md { padding: 16px; }
+    .p-lg { padding: 24px; }
+    .p-xl { padding: 32px; }
+    .p-2xl { padding: 48px; }
+    .pt-xl { padding-top: 48px; }
+    .pt-2xl { padding-top: 72px; }
+    .pb-md { padding-bottom: 16px; }
+    .pl-md { padding-left: 16px; }
+    .pr-md { padding-right: 16px; }
+    .px-lg { padding-left: 24px; padding-right: 24px; }
+    .py-lg { padding-top: 24px; padding-bottom: 24px; }
+    
+    .m-auto { margin: auto; }
+    .m-xs { margin: 4px; }
+    .m-sm { margin: 8px; }
+    .m-md { margin: 16px; }
+    .m-lg { margin: 24px; }
+    .mt-sm { margin-top: 8px; }
+    .mt-md { margin-top: 16px; }
+    .mt-lg { margin-top: 24px; }
+    .mt-xl { margin-top: 32px; }
+    .mb-sm { margin-bottom: 8px; }
+    .mb-md { margin-bottom: 16px; }
+    .mb-lg { margin-bottom: 24px; }
+    .ml-sm { margin-left: 8px; }
+    .ml-md { margin-left: 16px; }
+    .ml-lg { margin-left: 24px; }
+    .mr-sm { margin-right: 8px; }
+    .mr-md { margin-right: 16px; }
+    .gap-xs { gap: 4px; }
+    .gap-sm { gap: 8px; }
+    .gap-md { gap: 16px; }
+    .gap-lg { gap: 24px; }
+    .gap-xl { gap: 32px; }
+    
+    .text-xs { font-size: 10px; }
+    .text-sm { font-size: 12px; }
+    .text-base { font-size: 14px; }
+    .text-lg { font-size: 16px; }
+    .text-xl { font-size: 18px; }
+    .text-2xl { font-size: 24px; }
+    .text-3xl { font-size: 30px; }
+    .text-4xl { font-size: 36px; }
+    .text-5xl { font-size: 48px; }
+    .text-6xl { font-size: 60px; }
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    .font-black { font-weight: 900; }
+    .text-center { text-align: center; }
+    .text-left { text-align: left; }
+    .uppercase { text-transform: uppercase; }
+    .tracking-wide { letter-spacing: 0.05em; }
+    .leading-tight { line-height: 1.2; }
+    .leading-normal { line-height: 1.5; }
+    
+    .w-full { width: 100%; }
+    .h-full { height: 100%; }
+    .min-h-screen { min-height: 100vh; }
+    .max-w-md { max-width: 420px; }
+    .max-w-lg { max-width: 520px; }
+    .max-w-xl { max-width: 640px; }
+    
+    .bg-black { background: var(--black); }
+    .bg-white { background: var(--white); }
+    .bg-gray { background: var(--gray-50); }
+    .bg-surface { background: var(--gray-100); }
+    .bg-accent { background: var(--accent); }
+    .bg-gradient { background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%); }
+    .bg-diagonal { background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px); }
+    
+    .text-black { color: var(--black); }
+    .text-white { color: var(--white); }
+    .text-gray { color: var(--gray-500); }
+    .text-muted { color: var(--gray-400); }
+    .text-accent { color: var(--accent); }
+    .text-success { color: var(--success); }
+    
+    .border { border: 1px solid var(--gray-200); }
+    .border-t { border-top: 1px solid var(--gray-200); }
+    .border-b { border-bottom: 1px solid var(--gray-200); }
+    .border-2 { border: 2px solid var(--gray-200); }
+    .border-black { border-color: var(--black); }
+    .rounded-sm { border-radius: 4px; }
+    .rounded { border-radius: 8px; }
+    .rounded-lg { border-radius: 12px; }
+    .rounded-xl { border-radius: 16px; }
+    .rounded-2xl { border-radius: 24px; }
+    .rounded-full { border-radius: 9999px; }
+    
+    .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .shadow { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .shadow-md { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .shadow-lg { box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
+    .shadow-xl { box-shadow: 0 24px 64px rgba(0,0,0,0.2); }
+    
+    .input { 
+      height: 52px; 
+      border: 2px solid var(--gray-200); 
+      border-radius: 12px; 
+      padding: 0 20px; 
+      font-size: 16px; 
+      background: var(--gray-50); 
+      width: 100%;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .input:focus { outline: none; border-color: var(--black); background: var(--white); }
+    .input::placeholder { color: var(--gray-400); }
+    
+    .btn { 
+      height: 56px; 
+      background: var(--black); 
+      border-radius: 12px; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-white { background: var(--white); border: 2px solid var(--gray-200); }
+    .btn-outline { background: transparent; border: 2px solid var(--black); }
+    .btn-sm { height: 44px; font-size: 14px; }
+    .btn-lg { height: 64px; font-size: 18px; }
+    .btn-accent { background: var(--accent); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    
+    .card { 
+      background: var(--white); 
+      border-radius: 20px; 
+      padding: 24px;
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); cursor: pointer; }
+    .card-grid { 
+      background: var(--gray-50); 
+      border-radius: 16px; 
+      padding: 20px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .card-grid:hover { background: var(--white); box-shadow: var(--shadow); transform: translateY(-4px); }
+    .card-grid:active { transform: scale(0.97); }
+    
+    .nav { 
+      display: flex; 
+      flex-direction: row; 
+      border-top: 1px solid var(--gray-200); 
+      padding: 8px 0;
+      background: var(--white);
+    }
+    .nav-item { 
+      flex: 1; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      padding: 8px 0;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-item:active { transform: scale(0.95); }
+    .nav-item.active { color: var(--black); }
+    
+    .grid { display: flex; flex-wrap: wrap; }
+    .grid-2 { width: 48%; }
+    .grid-3 { width: 31%; }
+    
+    .step { flex: 1; height: 4px; background: var(--gray-200); border-radius: 2px; transition: background 0.3s; }
+    .step-active { background: var(--black); }
+    
+    .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .badge-success { background: rgba(52,199,89,0.15); color: var(--success); }
+    .badge-accent { background: rgba(255,59,48,0.15); color: var(--accent); }
+    .badge-muted { background: var(--gray-200); color: var(--gray-500); }
+    
+    .cursor-pointer { cursor: pointer; }
+    .no-select { user-select: none; }
+    .overflow-hidden { overflow: hidden; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .top-0 { top: 0; }
+    .right-0 { right: 0; }
+    .top-md { top: 16px; }
+    .right-md { right: 16px; }
+    .z-10 { z-index: 10; }
+    .z-50 { z-index: 50; }
+    
+    .divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
+    .divider-text { display: flex; align-items: center; gap: 16px; }
+    .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
+    
+    .toggle {
+      width: 52px;
+      height: 28px;
+      appearance: none;
+      background: var(--gray-200);
+      border-radius: 14px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .toggle:before {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: var(--white);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: left 0.3s;
+    }
+    .toggle:checked { background: var(--success); }
+    .toggle:checked:before { left: 26px; }
+    
+    .checkbox {
+      width: 24px; height: 24px;
+      appearance: none;
+      border: 2px solid var(--gray-300);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .checkbox:checked {
+      background: var(--black);
+      border-color: var(--black);
+    }
+    .checkbox:checked::after {
+      content: '✓';
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: var(--black);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-pattern {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.02) 0%, transparent 40%),
+        linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 48%, rgba(255,255,255,0.02) 52%, transparent 52%);
+      background-size: 100% 100%, 100% 100%, 20px 20px;
+    }
+    .hero-grid {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    
+    /* Logo */
+    .logo { font-size: 56px; line-height: 1; }
+    .logo-sm { font-size: 32px; }
+    
+    /* Feature Cards */
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--gray-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    
+    /* Stats */
+    .stat-card {
+      background: var(--gray-50);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    /* Testimonial */
+    .testimonial-card {
+      background: var(--gray-50);
+      border-radius: 20px;
+      padding: 24px;
+    }
+    
+    /* Landing Page Desktop Styles */
+    .desktop-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--gray-100); }
+    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    
+    const SERVICE_TYPES = [
+      { key: 'mechanic', label: 'Mobile Mechanic', icon: '🔧', desc: 'On-site repairs' },
+      { key: 'tire_change', label: 'Tire Change', icon: '❕', desc: 'Flat tire fix' },
+      { key: 'battery_jump', label: 'Battery Jump', icon: '🔋', desc: 'Dead battery' },
+      { key: 'towing', label: 'Towing', icon: '🚗', desc: 'Vehicle transport' },
+      { key: 'fuel_delivery', label: 'Fuel Delivery', icon: '⛽', desc: 'Gas delivery' },
+      { key: 'lockout', label: 'Lockout', icon: '🔐', desc: 'Key issues' },
+    ];
+
+    const FEATURES = [
+      { icon: '⚡', title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
+      { icon: '💰', title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
+      { icon: '⭐', title: 'Verified Pros', desc: 'Background-checked mechanics' },
+      { icon: '📱', title: 'Easy Booking', desc: 'Book in seconds' },
+    ];
+
+    const TESTIMONIALS = [
+      { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5 },
+      { name: 'Mike D.', text: 'Best pricing ever. Highly recommend!', rating: 5 },
+      { name: 'Lisa K.', text: 'So easy to use. Found help instantly.', rating: 5 },
+    ];
+
+    function App() {
+      const [screen, setScreen] = useState('landing');
+      
+      const screens = {
+        'landing': <LandingPage onNavigate={setScreen} />,
+        'role-select': <RoleSelectScreen onNavigate={setScreen} />,
+        'customer-signup': <CustomerSignupScreen onNavigate={setScreen} />,
+        'provider-signup': <ProviderSignupScreen onNavigate={setScreen} />,
+        'login': <LoginScreen onNavigate={setScreen} />,
+        'customer-home': <CustomerHomeScreen onNavigate={setScreen} />,
+        'customer-request': <CustomerRequestScreen onNavigate={setScreen} />,
+        'customer-offers': <CustomerOffersScreen onNavigate={setScreen} />,
+        'provider-jobs': <ProviderJobsScreen onNavigate={setScreen} />,
+        'provider-earnings': <ProviderEarningsScreen onNavigate={setScreen} />,
+      };
+      
+      return (
+        <div className="h-full w-full">
+          {screen === 'landing' && screens[screen]}
+          {screen !== 'landing' && (
+            <div className="animate-fade-in" key={screen}>
+              {screens[screen]}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ============================================
+    // LANDING PAGE (Shows on Desktop)
+    // ============================================
+    function LandingPage({ onNavigate }) {
+      return (
+        <div className="min-h-screen" style={{overflowY: 'auto'}}>
+          {/* Navigation */}
+          <nav className="desktop-nav p-md">
+            <div className="row between centerV">
+              <div className="row centerV gap-md">
+                <span className="text-2xl font-black">🚗</span>
+                <span className="text-xl font-bold">Dreamledge</span>
+              </div>
+              <div className="row gap-md">
+                <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}>Sign In</button>
+                <button className="btn btn-sm" onClick={() => onNavigate('role-select')}>Get Started</button>
+              </div>
+            </div>
+          </nav>
+
+          {/* Hero */}
+          <section className="hero min-h-screen center">
+            <div className="p-xl center col relative z-10" style={{maxWidth: 800}}>
+              <div className="text-6xl font-black text-white text-center mb-md animate-fade-in-up">
+                GET BACK ON THE ROAD
+                <br /><span className="text-accent">FAST</span>
+              </div>
+              <div className="text-xl text-gray text-center mb-xl animate-fade-in-up delay-200">
+                Book in seconds, help arrives in minutes.
+              </div>
+              <div className="row gap-md center animate-fade-in-up delay-300">
+                <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')}>
+                  🚗 I Need Help
+                </button>
+                <button className="btn btn-lg btn-white" onClick={() => onNavigate('provider-signup')}>
+                  🔧 I'm a Mechanic
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Stats */}
+          <section className="p-2xl bg-surface">
+            <div className="row wrap gap-lg center">
+              <div className="stat-card"><div className="text-4xl font-bold">500+</div><div className="text-muted">Jobs Completed</div></div>
+              <div className="stat-card"><div className="text-4xl font-bold">50+</div><div className="text-muted">Mechanics</div></div>
+              <div className="stat-card"><div className="text-4xl font-bold">4.9</div><div className="text-muted">Avg Rating</div></div>
+              <div className="stat-card"><div className="text-4xl font-bold">25min</div><div className="text-muted">Avg Arrival</div></div>
+            </div>
+          </section>
+
+          {/* Services */}
+          <section className="p-2xl" style={{maxWidth: 900, margin: '0 auto'}}>
+            <div className="text-center mb-xl">
+              <div className="text-3xl font-bold mb-sm">WHAT WE FIX</div>
+              <div className="text-muted">From dead batteries to flat tires, we've got you covered</div>
+            </div>
+            <div className="grid gap-lg">
+              {SERVICE_TYPES.map((s, i) => (
+                <div key={s.key} className="card-grid grid-2 animate-fade-in-up" style={{animationDelay: `${i * 0.1}s`}}>
+                  <div className="text-4xl mb-sm">{s.icon}</div>
+                  <div className="font-semibold">{s.label}</div>
+                  <div className="text-sm text-muted">{s.desc}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Features */}
+          <section className="p-2xl bg-black">
+            <div className="row wrap gap-lg center" style={{maxWidth: 900, margin: '0 auto'}}>
+              {FEATURES.map((f, i) => (
+                <div key={i} className="col center" style={{maxWidth: 200}}>
+                  <div className="text-4xl mb-sm">{f.icon}</div>
+                  <div className="font-semibold text-white mb-xs">{f.title}</div>
+                  <div className="text-sm text-gray text-center">{f.desc}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Testimonials */}
+          <section className="p-2xl">
+            <div className="text-center mb-xl">
+              <div className="text-3xl font-bold">WHAT PEOPLE SAY</div>
+            </div>
+            <div className="row wrap gap-lg center">
+              {TESTIMONIALS.map((t, i) => (
+                <div key={i} className="testimonial-card" style={{maxWidth: 300}}>
+                  <div className="text-accent mb-sm">{'⭐'.repeat(t.rating)}</div>
+                  <div className="font-medium mb-sm">"{t.text}"</div>
+                  <div className="text-muted text-sm">- {t.name}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* CTA */}
+          <section className="hero p-2xl center">
+            <div className="center col relative z-10">
+              <div className="text-4xl font-bold text-white text-center mb-lg">
+                READY TO GET BACK ON THE ROAD?
+              </div>
+              <button className="btn btn-lg bg-accent" onClick={() => onNavigate('customer-signup')}>
+                GET HELP NOW
+              </button>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="p-xl bg-surface">
+            <div className="row between wrap centerV">
+              <div className="row centerV gap-md">
+                <span className="text-xl font-black">🚗</span>
+                <span className="font-semibold">Dreamledge Auto</span>
+              </div>
+              <div className="text-sm text-muted">
+                © 2026 Dreamledge Auto.
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    // ============================================
+    // APP SCREENS
+    // ============================================
+    function RoleSelectScreen({ onNavigate }) {
+      return (
+        <div className="container bg-white">
+          <div className="p-2xl pt-2xl center animate-fade-in-down">
+            <div className="logo mb-lg">🚗</div>
+            <div className="text-3xl font-bold mb-xs">Dreamledge Auto</div>
+            <div className="text-base text-gray">Get back on the road fast</div>
+          </div>
+          
+          <div className="flex p-lg">
+            <div className="card card-hover mb-md animate-fade-in-up delay-100" onClick={() => onNavigate('customer-signup')}>
+              <div className="text-4xl mb-md">🚙</div>
+              <div className="text-xl font-semibold">I Need Help</div>
+              <div className="text-base text-gray mt-sm">Request roadside assistance</div>
+            </div>
+            
+            <div className="card card-hover animate-fade-in-up delay-200" onClick={() => onNavigate('provider-signup')}>
+              <div className="text-4xl mb-md">🔧</div>
+              <div className="text-xl font-semibold">I'm a Mechanic</div>
+              <div className="text-base text-gray mt-sm">Offer mobile repair services</div>
+            </div>
+          </div>
+          
+          <div className="p-lg centerH animate-fade-in delay-300">
+            <span className="text-base text-gray">Already have an account?</span>
+            <span className="text-base font-semibold text-black ml-sm" onClick={() => onNavigate('login')}>Sign In</span>
+          </div>
+        </div>
+      );
+    }
+
+    function CustomerSignupScreen({ onNavigate }) {
+      const [name, setName] = useState('');
+      const [phone, setPhone] = useState('');
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [loading, setLoading] = useState(false);
+
+      const handleSubmit = () => {
+        setLoading(true);
+        setTimeout(() => onNavigate('customer-home'), 1000);
+      };
+
+      return (
+        <div className="container">
+          <div className="p-md" onClick={() => onNavigate('role-select')}>
+            <span className="text-2xl cursor-pointer">←</span>
+          </div>
+          <div className="p-lg">
+            <div className="text-2xl font-bold animate-fade-in-up">Create Account</div>
+            <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">Get help on the road</div>
+          </div>
+          <div className="flex p-lg">
+            <div className="text-sm font-semibold text-gray mb-sm">FULL NAME</div>
+            <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
+            
+            <div className="text-sm font-semibold text-gray mb-sm">PHONE</div>
+            <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
+            
+            <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
+            <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
+            
+            <div className="text-sm font-semibold text-gray mb-sm">PASSWORD</div>
+            <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
+            
+            <div className={`btn mt-md animate-fade-in-up delay-400`} onClick={handleSubmit} disabled={loading}>
+              <span className="text-base font-semibold text-white">{loading ? 'Creating...' : 'Create Account'}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function ProviderSignupScreen({ onNavigate }) {
+      const [step, setStep] = useState(1);
+      const [name, setName] = useState('');
+      const [phone, setPhone] = useState('');
+      const [email, setEmail] = useState('');
+      const [selectedServices, setSelectedServices] = useState([]);
+
+      const toggleService = (key) => {
+        setSelectedServices(prev => prev.includes(key) ? prev.filter(s => s !== key) : [...prev, key]);
+      };
+
+      return (
+        <div className="container">
+          <div className="p-md" onClick={() => onNavigate('role-select')}>
+            <span className="text-2xl cursor-pointer">←</span>
+          </div>
+          
+          <div className="p-lg row gap-sm animate-fade-in-down">
+            <div className={`step ${step >= 1 ? 'step-active' : ''}`}></div>
+            <div className={`step ${step >= 2 ? 'step-active' : ''}`}></div>
+            <div className={`step ${step >= 3 ? 'step-active' : ''}`}></div>
+          </div>
+          
+          <div className="p-lg">
+            <div className="text-xl font-semibold">
+              {step === 1 ? 'Your Info' : step === 2 ? 'Select Services' : 'Business Details'}
+            </div>
+          </div>
+          
+          <div className="flex p-lg">
+            {step === 1 && (
+              <>
+                <div className="text-sm font-semibold text-gray mb-sm">NAME</div>
+                <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
+                <div className="text-sm font-semibold text-gray mb-sm">PHONE</div>
+                <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
+                <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
+                <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
+              </>
+            )}
+            
+            {step === 2 && (
+              <div className="grid gap-md">
+                {SERVICE_TYPES.map((s) => (
+                  <div 
+                    key={s.key} 
+                    className={`card row between ${selectedServices.includes(s.key) ? 'bg-black text-white' : ''}`}
+                    onClick={() => toggleService(s.key)}
+                  >
+                    <div className="row centerV">
+                      <span className="text-2xl mr-md">{s.icon}</span>
+                      <div>
+                        <div className="font-semibold">{s.label}</div>
+                      </div>
+                    </div>
+                    <input type="checkbox" className="checkbox" checked={selectedServices.includes(s.key)} readOnly />
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {step === 3 && (
+              <div className="card animate-scale-in">
+                <div className="text-xl font-semibold mb-md">You're almost done!</div>
+                <div className="text-base text-gray">Your account will be reviewed within 1-2 business days.</div>
+                <div className="divider" />
+                <div className="row centerV gap-sm mb-sm"><span>✓</span><span>Background check</span></div>
+                <div className="row centerV gap-sm mb-sm"><span>✓</span><span>Insurance verified</span></div>
+                <div className="row centerV gap-sm"><span>✓</span><span>Service area set</span></div>
+              </div>
+            )}
+            
+            <div className="btn mt-lg" onClick={() => step < 3 ? setStep(step + 1) : onNavigate('provider-jobs')}>
+              <span className="text-base font-semibold text-white">{step < 3 ? 'Continue' : 'Create Account'}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function LoginScreen({ onNavigate }) {
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [loading, setLoading] = useState(false);
+
+      const handleLogin = () => {
+        setLoading(true);
+        setTimeout(() => onNavigate('customer-home'), 1000);
+      };
+
+      return (
+        <div className="container">
+          <div className="p-md" onClick={() => onNavigate('role-select')}>
+            <span className="text-2xl cursor-pointer">←</span>
+          </div>
+          <div className="p-lg">
+            <div className="text-2xl font-bold animate-fade-in-up">Welcome Back</div>
+            <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">Sign in to continue</div>
+          </div>
+          <div className="flex p-lg">
+            <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
+            <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
+            <div className="text-sm font-semibold text-gray mb-sm">PASSWORD</div>
+            <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
+            <div className={`btn mt-md animate-fade-in-up delay-300`} onClick={handleLogin} disabled={loading}>
+              <span className="text-base font-semibold text-white">{loading ? 'Signing In...' : 'Sign In'}</span>
+            </div>
+          </div>
+          <div className="p-lg centerH animate-fade-in delay-400">
+            <span className="text-base text-gray">Don't have an account?</span>
+            <span className="text-base font-semibold text-black ml-sm" onClick={() => onNavigate('role-select')}>Sign Up</span>
+          </div>
+        </div>
+      );
+    }
+
+    function CustomerHomeScreen({ onNavigate }) {
+      return (
+        <div className="container bg-white">
+          <div className="p-lg pt-2xl animate-fade-in-down">
+            <div className="text-2xl font-bold">Hello! 👋</div>
+            <div className="text-base text-gray mt-xs">How can we help?</div>
+          </div>
+          
+          <div className="flex p-lg">
+            <div className="text-lg font-semibold mb-md">SERVICES</div>
+            <div className="grid gap-md">
+              {SERVICE_TYPES.map((s, i) => (
+                <div 
+                  key={s.key} 
+                  className="card-grid grid-2 animate-fade-in-up" 
+                  style={{animationDelay: `${i * 0.05}s`}}
+                  onClick={() => onNavigate('customer-request')}
+                >
+                  <div className="text-3xl mb-sm">{s.icon}</div>
+                  <div className="text-sm font-semibold">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="nav">
+            <div className="nav-item active">
+              <span className="text-xl">🏠</span>
+              <span className="text-xs font-semibold mt-xs">Home</span>
+            </div>
+            <div className="nav-item">
+              <span className="text-xl">📋</span>
+              <span className="text-xs text-gray mt-xs">Jobs</span>
+            </div>
+            <div className="nav-item">
+              <span className="text-xl">⚙️</span>
+              <span className="text-xs text-gray mt-xs">Settings</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function CustomerRequestScreen({ onNavigate }) {
+      const [address, setAddress] = useState('123 Main St');
+      const [description, setDescription] = useState('');
+      const [loading, setLoading] = useState(false);
+
+      const handleFind = () => {
+        setLoading(true);
+        setTimeout(() => onNavigate('customer-offers'), 1000);
+      };
+
+      return (
+        <div className="container">
+          <div className="p-md" onClick={() => onNavigate('customer-home')}>
+            <span className="text-2xl cursor-pointer">←</span>
+          </div>
+          <div className="p-lg center animate-fade-in-down">
+            <div className="text-4xl animate-float mb-md">🔧</div>
+            <div className="text-xl font-semibold">Mobile Mechanic</div>
+          </div>
+          <div className="flex p-lg">
+            <div className="text-sm font-semibold text-gray mb-sm">LOCATION</div>
+            <div className="row bg-surface p-md rounded-lg mb-md">
+              <span className="text-xl mr-md">📍</span>
+              <input className="input bg-transparent" style={{flex:1}} value={address} onChange={e => setAddress(e.target.value)} />
+            </div>
+            
+            <div className="text-sm font-semibold text-gray mb-sm">DESCRIBE THE ISSUE</div>
+            <textarea 
+              className="input mb-md" 
+              style={{height: 140, paddingTop: 16, resize: 'none'}}
+              value={description} 
+              onChange={e => setDescription(e.target.value)} 
+              placeholder="What's wrong with your vehicle?"
+            />
+            
+            <div className={`btn mt-md animate-fade-in-up delay-300`} onClick={handleFind} disabled={loading}>
+              <span className="text-base font-semibold text-white">{loading ? 'Finding...' : 'Find Providers'}</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function CustomerOffersScreen({ onNavigate }) {
+      const providers = [
+        { id: '1', name: "Mike's Auto", rating: 4.8, price: 75, distance: '2.3 mi', online: true },
+        { id: '2', name: 'Quick Fix', rating: 4.9, price: 65, distance: '3.1 mi', online: true },
+        { id: '3', name: 'Roadside Rescue', rating: 4.6, price: 85, distance: '1.5 mi', online: false },
+      ];
+
+      return (
+        <div className="container">
+          <div className="p-md" onClick={() => onNavigate('customer-request')}>
+            <span className="text-2xl cursor-pointer">←</span>
+          </div>
+          <div className="p-md bg-surface text-center text-base text-gray">
+            {providers.length} providers nearby
+          </div>
+          <div className="flex">
+            {providers.map((p, i) => (
+              <div key={p.id} className="card mb-md animate-fade-in-up" style={{animationDelay: `${i * 0.1}s`}}>
+                <div className="row between mb-sm">
+                  <div className="row centerV">
+                    <div className="w-full bg-black text-white rounded-full center" style={{width: 48, height: 48, fontSize: 20}}>
+                      {p.name.charAt(0)}
+                    </div>
+                    <div className="ml-md">
+                      <div className="font-semibold">{p.name}</div>
+                      <div className="text-sm text-gray">⭐ {p.rating}</div>
+                    </div>
+                  </div>
+                  <span className={`badge ${p.online ? 'badge-success' : 'badge-muted'}`}>
+                    {p.online ? 'Online' : 'Away'}
+                  </span>
+                </div>
+                <div className="text-sm text-gray mb-sm">📍 {p.distance}</div>
+                <div className="row between">
+                  <div className="text-xl font-bold">${p.price}</div>
+                  <div className="btn btn-sm" onClick={() => onNavigate('customer-home')}>
+                    <span className="text-sm font-semibold text-white">Select</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ProviderJobsScreen({ onNavigate }) {
+      const [isOnline, setIsOnline] = useState(false);
+      const [jobs] = useState([
+        { id: '1', service: 'mechanic', address: '123 Main St', price: 75 },
+        { id: '2', service: 'tire_change', address: '456 Oak Ave', price: 50 },
+      ]);
+
+      return (
+        <div className="container bg-white">
+          <div className="p-lg pt-2xl row between animate-fade-in-down">
+            <div>
+              <div className="text-2xl font-bold">Welcome! 👋</div>
+              <div className="text-base text-gray">{isOnline ? "You're online" : "Go online to receive jobs"}</div>
+            </div>
+            <div className="center col">
+              <input type="checkbox" className="toggle" checked={isOnline} onChange={e => setIsOnline(e.target.checked)} />
+              <div className={`text-xs font-semibold mt-sm ${isOnline ? 'text-success' : 'text-gray'}`}>
+                {isOnline ? 'LIVE' : 'OFFLINE'}
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-lg">
+            <div className="text-lg font-semibold mb-md">NEW JOBS</div>
+          </div>
+          
+          <div className="flex">
+            {jobs.map((job, i) => (
+              <div key={job.id} className="card mb-md animate-fade-in-up" style={{animationDelay: `${i * 0.1}s`}}>
+                <div className="row between mb-sm">
+                  <div className="text-xl font-bold">${job.price}</div>
+                  <span className="text-xs text-gray">10 min ago</span>
+                </div>
+                <div className="font-semibold">{SERVICE_TYPES.find(s => s.key === job.service)?.label}</div>
+                <div className="text-sm text-gray mt-xs">📍 {job.address}</div>
+                <div className="btn btn-sm mt-md" onClick={() => onNavigate('provider-earnings')}>
+                  <span className="text-sm font-semibold text-white">Accept</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="nav">
+            <div className="nav-item active">
+              <span className="text-xl">📋</span>
+              <span className="text-xs font-semibold mt-xs">Jobs</span>
+            </div>
+            <div className="nav-item" onClick={() => onNavigate('provider-earnings')}>
+              <span className="text-xl">💰</span>
+              <span className="text-xs text-gray mt-xs">Earnings</span>
+            </div>
+            <div className="nav-item">
+              <span className="text-xl">⚙️</span>
+              <span className="text-xs text-gray mt-xs">Settings</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    function ProviderEarningsScreen({ onNavigate }) {
+      return (
+        <div className="container">
+          <div className="p-lg pt-xl">
+            <span className="text-2xl cursor-pointer" onClick={() => onNavigate('provider-jobs')}>←</span>
+          </div>
+          
+          <div className="p-lg">
+            <div className="text-xl font-semibold mb-lg">Earnings</div>
+            
+            <div className="bg-gradient p-xl rounded-xl mb-lg animate-scale-in">
+              <div className="text-sm text-gray">TOTAL</div>
+              <div className="text-5xl font-bold text-white">$1,250</div>
+              <div className="row gap-lg mt-lg">
+                <div><div className="text-xl font-bold text-white">18</div><div className="text-xs text-gray">Jobs</div></div>
+                <div><div className="text-xl font-bold text-white">$69</div><div className="text-xs text-gray">Avg</div></div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="nav">
+            <div className="nav-item" onClick={() => onNavigate('provider-jobs')}>
+              <span className="text-xl">📋</span>
+              <span className="text-xs text-gray mt-xs">Jobs</span>
+            </div>
+            <div className="nav-item active">
+              <span className="text-xl">💰</span>
+              <span className="text-xs font-semibold mt-xs">Earnings</span>
+            </div>
+            <div className="nav-item">
+              <span className="text-xl">⚙️</span>
+              <span className="text-xs text-gray mt-xs">Settings</span>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
