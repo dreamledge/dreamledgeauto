@@ -196,24 +196,46 @@
     .input::placeholder { color: var(--gray-400); }
     
     .btn { 
-      height: 56px; 
+      height: 48px; 
+      padding: 0 24px;
       background: var(--black); 
-      border-radius: 12px; 
-      display: flex; 
+      border: none;
+      border-radius: 8px; 
+      display: inline-flex; 
       justify-content: center; 
       align-items: center;
       font-family: inherit;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       cursor: pointer;
       transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
-    .btn-white { background: var(--white); border: 2px solid var(--gray-200); }
+    .btn:hover {
+      box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      transform: translateY(-1px);
+    }
+    .btn:active {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      transform: translateY(0);
+    }
+    .btn-white { 
+      background: var(--white); 
+      border: 1px solid var(--gray-300);
+      color: var(--black);
+    }
+    .btn-white:hover {
+      border-color: var(--black);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
     .btn-outline { background: transparent; border: 2px solid var(--black); }
-    .btn-sm { height: 44px; font-size: 14px; }
-    .btn-lg { height: 64px; font-size: 18px; }
+    .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; }
+    .btn-lg { height: 56px; font-size: 15px; padding: 0 32px; }
     .btn-accent { background: var(--accent); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-accent:hover { background: #e6352b; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
     
     .card { 
       background: var(--white); 
@@ -474,8 +496,8 @@
                 <span className="text-xl font-bold">Dreamledge</span>
               </div>
               <div className="row gap-md">
-                <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}>Sign In</button>
-                <button className="btn btn-sm" onClick={() => onNavigate('role-select')}>Get Started</button>
+                <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}><span className="text-black">Sign In</span></button>
+                <button className="btn btn-sm" onClick={() => onNavigate('role-select')}><span className="text-white">Get Started</span></button>
               </div>
             </div>
           </nav>
@@ -492,10 +514,10 @@
               </div>
               <div className="row gap-md center animate-fade-in-up delay-300">
                 <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')}>
-                  🚗 I Need Help
+                  <span className="text-white">🚗 I Need Help</span>
                 </button>
                 <button className="btn btn-lg btn-white" onClick={() => onNavigate('provider-signup')}>
-                  🔧 I'm a Mechanic
+                  <span className="text-black">🔧 I'm a Mechanic</span>
                 </button>
               </div>
             </div>
@@ -563,8 +585,8 @@
               <div className="text-4xl font-bold text-white text-center mb-lg">
                 READY TO GET BACK ON THE ROAD?
               </div>
-              <button className="btn btn-lg bg-accent" onClick={() => onNavigate('customer-signup')}>
-                GET HELP NOW
+              <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')}>
+                <span className="text-white">GET HELP NOW</span>
               </button>
             </div>
           </section>
