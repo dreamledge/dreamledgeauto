@@ -425,6 +425,11 @@
     ::-webkit-scrollbar-track { background: var(--gray-100); }
     ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
+    
+    /* Mobile Hero Buttons */
+    @media (max-width: 767px) {
+      .hero-btns { margin-top: 8px !important; }
+    }
   </style>
 </head>
 <body>
@@ -509,10 +514,10 @@
                 GET BACK ON THE ROAD
                 <br /><span className="text-accent">FAST</span>
               </div>
-              <div className="text-xl text-gray text-center mb-xl animate-fade-in-up delay-200">
+              <div className="text-xl text-gray text-center animate-fade-in-up delay-200" style={{marginBottom: 16}}>
                 Book in seconds, help arrives in minutes.
               </div>
-              <div className="row gap-md center animate-fade-in-up delay-300">
+              <div className="row gap-md center animate-fade-in-up delay-300 hero-btns" style={{marginTop: 1}}>
                 <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')}>
                   <span className="text-white">🚗 I Need Help</span>
                 </button>
