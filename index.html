@@ -814,10 +814,15 @@
     function LoginScreen({ onNavigate }) {
       const [email, setEmail] = useState('');
       const [password, setPassword] = useState('');
-      const [role, setRole] = useState('customer');
+      const [loading, setLoading] = useState(false);
       const handleLogin = () => {
-        if (role === 'customer') onNavigate('customer-home');
-        else onNavigate('provider-home');
+        setLoading(true);
+        const emailLower = email.toLowerCase();
+        const isProvider = emailLower.includes('mechanic') || emailLower.includes('provider') || emailLower.includes('pro');
+        setTimeout(() => {
+          if (isProvider) onNavigate('provider-home');
+          else onNavigate('customer-home');
+        }, 500);
       };
       return (
         <div className="container">
@@ -829,20 +834,34 @@
             <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">Sign in to continue</div>
           </div>
           <div className="flex p-lg">
-            <div className="row gap-md mb-lg">
-              <div className={`btn ${role === 'customer' ? '' : 'btn-white'}`} onClick={() => setRole('customer')} style={{flex: 1}}>
-                <span className={role === 'customer' ? 'text-white' : 'text-black'}>Customer</span>
-              </div>
-              <div className={`btn ${role === 'provider' ? '' : 'btn-white'}`} onClick={() => setRole('provider')} style={{flex: 1}}>
-                <span className={role === 'provider' ? 'text-white' : 'text-black'}>Mechanic</span>
-              </div>
-            </div>
             <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
             <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
             <div className="text-sm font-semibold text-gray mb-sm">PASSWORD</div>
             <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
-            <div className="btn mt-md" onClick={handleLogin}>
-              <span className="text-base font-semibold text-white">Sign In</span>
+            <div style={{width: '100%', marginTop: '24px'}}>
+              <button 
+                onClick={handleLogin}
+                disabled={loading || !email || !password}
+                style={{
+                  width: '100%',
+                  height: '52px',
+                  background: 'var(--black)',
+                  border: 'none',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: 'white',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.7 : 1,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                }}
+              >
+                {loading ? 'Signing in...' : 'Sign In'}
+              </button>
             </div>
           </div>
         </div>
