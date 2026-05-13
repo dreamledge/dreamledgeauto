@@ -2,10 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="description" content="Dreamledge Auto - Mobile mechanic services. Get back on the road fast!">
+  <meta name="format-detection" content="telephone=no">
+  <script>
+    document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+    document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
+    document.addEventListener('gestureend', function(e) { e.preventDefault(); });
+    document.addEventListener('touchmove', function(e) { if (e.touches.length > 1) { e.preventDefault(); }}, { passive: false });
+  </script>
   <title>Dreamledge Auto | Mobile Mechanic Services</title>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -31,13 +38,13 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --black: #0A0A0A; --white: #FFFFFF; --gray-50: #F9F9F9; --gray-100: #F0F0F0; --gray-200: #E5E5E5; --gray-300: #CCCCCC; --gray-400: #999999; --gray-500: #666666; --gray-600: #333333; --accent: #FF3B30; --success: #34C759; }
+    :root { --black: #0A0A0A; --white: #FFFFFF; --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0; --gray-300: #CBD5E1; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569; --accent: #EA580C; --success: #059669; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; width: 100%; overflow-x: hidden; }
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
-    #root { height: 100%; width: 100%; }
+    html, body { height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+    body { font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+    #root { height: 100%; width: 100%; touch-action: pan-y; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
@@ -99,12 +106,12 @@
     .text-2xl { font-size: 24px; }
     .text-3xl { font-size: 30px; }
     .text-4xl { font-size: 36px; }
-    .text-5xl { font-size: 48px; }
-    .text-6xl { font-size: 60px; }
-    .font-medium { font-weight: 500; }
-    .font-semibold { font-weight: 600; }
-    .font-bold { font-weight: 700; }
-    .font-black { font-weight: 900; }
+    .text-5xl { font-size: 48px; font-family: 'Poppins', sans-serif; }
+    .text-6xl { font-size: 60px; font-family: 'Poppins', sans-serif; }
+    .font-medium { font-weight: 500; font-family: 'Poppins', sans-serif; }
+    .font-semibold { font-weight: 600; font-family: 'Poppins', sans-serif; }
+    .font-bold { font-weight: 700; font-family: 'Poppins', sans-serif; }
+    .font-black { font-weight: 900; font-family: 'Poppins', sans-serif; }
     .text-center { text-align: center; }
     .text-left { text-align: left; }
     .uppercase { text-transform: uppercase; }
@@ -160,51 +167,71 @@
     .shadow-md { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
     .shadow-lg { box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
     .shadow-xl { box-shadow: 0 24px 64px rgba(0,0,0,0.2); }
-    .input { height: 52px; border: 2px solid var(--gray-200); border-radius: 12px; padding: 0 20px; font-size: 16px; background: var(--gray-50); width: 100%; font-family: inherit; transition: all 0.2s; }
-    .input:focus { outline: none; border-color: var(--black); background: var(--white); }
+    .input { height: 52px; border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 0 20px; font-size: 16px; background: var(--white); width: 100%; font-family: 'Open Sans', sans-serif; transition: all 0.2s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); }
+    .input:focus { outline: none; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15); }
     .input::placeholder { color: var(--gray-400); }
-    .btn { height: 48px; padding: 0 24px; background: var(--black); border: none; border-radius: 4px; display: inline-flex; justify-content: center; align-items: center; font-family: inherit; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12); }
-    .btn:hover { box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.14), 0px 2px 9px 1px rgba(0,0,0,0.12), 0px 4px 5px -2px rgba(0,0,0,0.2); transform: translateY(-1px); }
-    .btn:active { box-shadow: 0px 1px 1px -2px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12); transform: translateY(0px); }
-    .btn-white { background: var(--white); border: 1px solid var(--gray-300); color: var(--black); }
-    .btn-white:hover { border-color: var(--black); box-shadow: 0px 6px 10px 1px rgba(0,0,0,0.14), 0px 2px 9px 1px rgba(0,0,0,0.12), 0px 4px 5px -2px rgba(0,0,0,0.2); }
-    .btn-outline { background: transparent; border: 2px solid var(--black); }
-    .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; }
-    .btn-lg { height: 56px; font-size: 15px; padding: 0 32px; }
-    .btn-accent { background: var(--accent); }
-    .btn-accent:hover { background: #e6352b; box-shadow: 0px 6px 10px 1px rgba(255,59,48,0.14), 0px 2px 9px 1px rgba(255,59,48,0.12), 0px 4px 5px -2px rgba(255,59,48,0.2); }
+    .btn { height: 48px; padding: 0 24px; background: var(--primary); border: none; border-radius: 10px; display: inline-flex; justify-content: center; align-items: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25); }
+    .btn:hover { box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35); transform: translateY(-2px); }
+    .btn:active { box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2); transform: translateY(0); }
+    .btn-white { background: var(--white); border: 1.5px solid var(--gray-200); }
+    .btn-white:hover { border-color: var(--primary); box-shadow: 0 6px 20px rgba(5, 150, 105, 0.15); }
+    .btn-outline { background: transparent; border: 2px solid var(--black); border-radius: 10px; }
+    .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; border-radius: 8px; }
+    .btn-lg { height: 56px; font-size: 15px; padding: 0 32px; border-radius: 12px; }
+    .btn-accent { background: var(--accent); box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25); }
+    .btn-accent:hover { background: #DC5209; box-shadow: 0 6px 20px rgba(234, 88, 12, 0.35); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-    .card { background: var(--white); border-radius: 20px; padding: 24px; border: 1px solid var(--gray-200); transition: all 0.3s ease; }
-    .card-hover:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); cursor: pointer; }
-    .card-grid { background: var(--gray-50); border-radius: 16px; padding: 20px; text-align: center; transition: all 0.2s ease; }
-    .card-grid:hover { background: var(--white); box-shadow: var(--shadow); transform: translateY(-4px); }
+    .card { background: var(--white); border-radius: 16px; padding: 24px; border: 1px solid var(--gray-200); transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
+    .card:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .card-hover:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.1); transform: translateY(-3px); cursor: pointer; }
+    .card-grid { background: var(--gray-50); border-radius: 14px; padding: 20px; text-align: center; transition: all 0.2s ease; border: 1px solid var(--gray-100); }
+    .card-grid:hover { background: var(--white); box-shadow: 0 10px 24px rgba(0,0,0,0.08); transform: translateY(-4px); border-color: var(--primary); }
     .card-grid:active { transform: scale(0.97); }
-    .service-card { background: var(--white); border-radius: 12px; padding: 15px; box-shadow: 0px 10px 35px 0px rgba(0,0,0,0.1); border: 1px solid var(--gray-200); transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; }
-    .service-card:hover { box-shadow: 0px 14px 40px 0px rgba(0,0,0,0.15); transform: translateY(-2px); }
-    .service-card.selected { background: var(--black); border-color: var(--black); }
-    .service-card.selected .service-label, .service-card.selected .service-desc { color: var(--white); }
+    .service-card { background: var(--white); border-radius: 14px; padding: 16px; border: 1.5px solid var(--gray-200); transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: var(--primary); }
+    .service-card.selected { background: var(--white); border: 2px solid var(--primary); box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15), 0 8px 20px rgba(5, 150, 105, 0.15); }
+    .service-card.selected .service-label, .service-card.selected .service-desc { color: var(--black); }
     .service-card-content { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
-    .service-icon { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--gray-100); border-radius: 10px; margin-bottom: 8px; }
-    .service-card.selected .service-icon { background: rgba(255,255,255,0.2); }
+    .service-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--gray-100); border-radius: 12px; margin-bottom: 8px; }
+    .service-card.selected .service-icon { background: rgba(255,255,255,0.25); }
     .service-info { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .service-label { color: var(--black); font-weight: 600; font-size: 14px; margin-bottom: 4px; text-align: center; }
+    .service-label { color: var(--black); font-weight: 600; font-size: 14px; margin-bottom: 4px; text-align: center; font-family: 'Poppins', sans-serif; }
     .service-desc { color: var(--gray-500); font-size: 11px; text-align: center; }
     .service-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--gray-300); display: flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0; }
     .service-card.selected .service-check { background: var(--white); border-color: var(--white); }
-    .nav { display: flex; flex-direction: row; border-top: 1px solid var(--gray-200); padding: 8px 0; background: var(--white); }
+    .nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; flex-direction: row; border-top: 1px solid var(--gray-100); padding: 12px 8px; background: var(--white); box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 1000; }
     .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 8px 0; cursor: pointer; transition: all 0.2s; }
     .nav-item:active { transform: scale(0.95); }
     .nav-item.active { color: var(--black); }
+    /* Cyber Navbar Styles */
+    .cyber-nav-container { position: fixed; bottom: 0; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--gray-100); padding: 12px 16px; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); }
+    .cyber-nav { position: relative; display: flex; align-items: center; justify-content: space-around; background: #0f1016; border-radius: 20px; padding: 8px; height: 60px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), inset 0 -1px 2px rgba(255,255,255,0.05), 0 10px 30px -10px rgba(0,0,0,0.6); border: 1px solid #1f222e; }
+    .cyber-nav-item { position: relative; z-index: 2; flex: 1; display: flex; justify-content: center; align-items: center; cursor: pointer; padding: 8px; transition: all 0.3s ease; border-radius: 14px; }
+    .cyber-nav-item svg { width: 22px; height: 22px; color: #64748B; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+    .cyber-nav-item.active svg { color: #fff; filter: drop-shadow(0 0 8px #059669); transform: scale(1.1); }
+    .cyber-nav-item:hover svg { color: #94A3B8; }
+    /* Provider: 5 items = 20% each */
+    .cyber-nav-container.provider .cyber-nav-highlight { width: calc(20% - 6px); }
+    /* Customer: 3 items = 33.33% each */
+    .cyber-nav-container.customer .cyber-nav-highlight { width: calc(33.33% - 6px); }
+    .cyber-nav-container.customer .cyber-nav { height: 56px; }
+    .cyber-nav-highlight { position: absolute; top: 8px; left: 8px; height: calc(100% - 16px); background: transparent; z-index: 1; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: none; }
+    .cyber-highlight-inner { width: 100%; height: 100%; border-radius: 14px; background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 0 20px #059669, inset 0 0 15px rgba(5,150,105,0.2); backdrop-filter: blur(4px); position: relative; }
+    .cyber-highlight-inner::after { content: ""; position: absolute; top: 0; left: 10%; width: 80%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); opacity: 0.8; }
+    .cyber-nav-item .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 14px; background: radial-gradient(circle at 50% -20%, rgba(255,255,255,0.1), transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .cyber-nav-item:hover .glare { opacity: 1; }
+    @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 20px #059669, inset 0 0 15px rgba(5,150,105,0.2); } 50% { box-shadow: 0 0 25px #059669, inset 0 0 20px rgba(5,150,105,0.3); } }
+    .cyber-highlight-inner { animation: neon-pulse 3s infinite ease-in-out; }
     .grid { display: flex; flex-wrap: wrap; justify-content: center; }
     .grid-2 { width: 48%; }
     .grid-3 { width: 31%; }
     @media (max-width: 600px) { .grid-2 { width: 50% !important; flex-wrap: nowrap; } .card-grid { width: 100% !important; } }
     .step { flex: 1; height: 4px; background: var(--gray-200); border-radius: 2px; transition: background 0.3s; }
     .step-active { background: var(--black); }
-    .badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
-    .badge-success { background: rgba(52,199,89,0.15); color: var(--success); }
-    .badge-accent { background: rgba(255,59,48,0.15); color: var(--accent); }
-    .badge-muted { background: var(--gray-200); color: var(--gray-500); }
+    .badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; font-family: 'Poppins', sans-serif; }
+    .badge-success { background: rgba(5, 150, 105, 0.12); color: var(--success); }
+    .badge-accent { background: rgba(234, 88, 12, 0.12); color: var(--accent); }
+    .badge-muted { background: var(--gray-100); color: var(--gray-500); }
     .cursor-pointer { cursor: pointer; }
     .no-select { user-select: none; }
     .overflow-hidden { overflow: hidden; }
@@ -330,6 +357,46 @@
       'mechanic': ['battery', 'tire', 'fuel', 'towing', 'diagnostics']
     };
     
+    // Cyber Navbar Component
+    function CyberNav({ activeTab, onTabChange, variant = 'provider' }) {
+      const tabs = variant === 'provider' 
+        ? [
+            { id: 'home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg> },
+            { id: 'jobs', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> },
+            { id: 'earnings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> },
+            { id: 'messages', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
+            { id: 'profile', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> }
+          ]
+        : [
+            { id: 'home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> },
+            { id: 'jobs', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> },
+            { id: 'settings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> }
+          ];
+      
+      const tabIndex = tabs.findIndex(t => t.id === activeTab);
+      const translateX = tabIndex * 100;
+      
+      return (
+        <div className={`cyber-nav-container ${variant}`}>
+          <div className="cyber-nav">
+            <div className="cyber-nav-highlight" style={{transform: `translateX(${translateX}%)`}}>
+              <div className="cyber-highlight-inner"></div>
+            </div>
+            {tabs.map((tab) => (
+              <div 
+                key={tab.id} 
+                className={`cyber-nav-item ${activeTab === tab.id ? 'active' : ''}`}
+                onClick={() => onTabChange(tab.id)}
+              >
+                {tab.icon}
+                <div className="glare"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+    
     function App() {
       const [screen, setScreen] = useState('landing');
       const [scrollY, setScrollY] = useState(0);
@@ -372,7 +439,7 @@
             <span className="text-xl font-bold" style={{lineHeight: 1}}>Dreamledge <span style={{color: '#FF3B30', textShadow: '0 0 10px rgba(255,59,48,0.5)'}}>Auto</span></span>
             <div className="row gap-sm">
               <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}><span className="text-black">Sign In</span></button>
-              <button className="btn btn-sm" onClick={() => onNavigate('role-select')}><span className="text-white">Get Started</span></button>
+              <button className="btn btn-sm btn-white" onClick={() => onNavigate('role-select')}><span className="text-black">Get Started</span></button>
             </div>
           </nav>
           <section className="hero-bg center" style={{minHeight: '100vh'}}>
@@ -554,8 +621,53 @@
             <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
             <div className="text-sm font-semibold text-gray mb-sm">PHONE</div>
             <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-            <div className={`btn mt-md animate-fade-in-up delay-400`} onClick={handleSubmit} disabled={loading || !name || !email || !phone}>
-              <span className="text-base font-semibold text-white">{loading ? 'Next...' : 'Next'}</span>
+            <div style={{width: '100%', marginTop: '24px'}}>
+              <button 
+                onClick={handleSubmit} 
+                disabled={loading || !name || !email || !phone}
+                style={{
+                  width: '100%',
+                  height: '52px',
+                  background: 'var(--black)',
+                  border: 'none',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: 'white',
+                  cursor: (loading || !name || !email || !phone) ? 'not-allowed' : 'pointer',
+                  opacity: (loading || !name || !email || !phone) ? 0.6 : 1,
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => {
+                  if (!loading && name && email && phone) {
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.2)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                onMouseDown={(e) => {
+                  if (!loading && name && email && phone) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+                  }
+                }}
+                onMouseUp={(e) => {
+                  if (!loading && name && email && phone) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+                  }
+                }}
+              >
+                <span className="font-semibold">{loading ? 'Next...' : 'Next'}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -621,8 +733,53 @@
                 </div>
               ))}
             </div>
-            <div className={`btn mt-md animate-fade-in-up delay-400`} onClick={handleSubmit} disabled={loading}>
-              <span className="text-base font-semibold text-white">{loading ? 'Submitting...' : 'Apply to Drive'}</span>
+            <div style={{width: '100%', marginTop: '24px'}}>
+              <button 
+                onClick={handleSubmit} 
+                disabled={loading}
+                style={{
+                  width: '100%',
+                  height: '52px',
+                  background: 'var(--black)',
+                  border: 'none',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  fontFamily: 'Poppins, sans-serif',
+                  fontSize: '15px',
+                  fontWeight: '600',
+                  color: 'white',
+                  cursor: loading ? 'not-allowed' : 'pointer',
+                  opacity: loading ? 0.6 : 1,
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseOver={(e) => {
+                  if (!loading) {
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.2)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+                onMouseDown={(e) => {
+                  if (!loading) {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
+                  }
+                }}
+                onMouseUp={(e) => {
+                  if (!loading) {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+                  }
+                }}
+              >
+                <span className="font-semibold">{loading ? 'Submitting...' : 'Apply to Drive'}</span>
+              </button>
             </div>
           </div>
         </div>
@@ -666,8 +823,15 @@
       );
     }
     function CustomerHomeScreen({ onNavigate }) {
+      const [navTab, setNavTab] = useState('home');
+      const handleNavTabChange = (tabId) => {
+        setNavTab(tabId);
+        if (tabId === 'home') onNavigate('customer-home');
+        else if (tabId === 'jobs') onNavigate('customer-requests');
+        else if (tabId === 'settings') onNavigate('customer-settings');
+      };
       return (
-        <div className="container bg-white">
+        <div className="container bg-white" style={{paddingBottom: '70px'}}>
           <div className="p-lg pt-2xl animate-fade-in-down">
             <div className="text-2xl font-bold">Hello! 👋</div>
             <div className="text-base text-gray mt-xs">How can we help?</div>
@@ -690,20 +854,7 @@
             </div>
           </div>
           
-          <div className="nav">
-            <div className="nav-item active">
-              <span className="text-xl">🏠</span>
-              <span className="text-xs font-semibold mt-xs">Home</span>
-            </div>
-            <div className="nav-item">
-              <span className="text-xl">📋</span>
-              <span className="text-xs text-gray mt-xs">Jobs</span>
-            </div>
-            <div className="nav-item">
-              <span className="text-xl">⚙️</span>
-              <span className="text-xs text-gray mt-xs">Settings</span>
-            </div>
-          </div>
+          <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="customer" />
         </div>
       );
     }
@@ -718,7 +869,7 @@
         setTimeout(() => onNavigate('customer-offers'), 1500);
       };
       return (
-        <div className="container">
+        <div className="container" style={{paddingBottom: '70px'}}>
           <div className="p-md" onClick={() => onNavigate('customer-home')}>
             <span className="text-2xl cursor-pointer">←</span>
           </div>
@@ -800,8 +951,16 @@
       const [todayEarnings, setTodayEarnings] = useState(85);
       const [jobsCompleted, setJobsCompleted] = useState(3);
       const [declinedJobs, setDeclinedJobs] = useState([]);
+      const [navTab, setNavTab] = useState('home');
       const hour = new Date().getHours();
       const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+      
+      const handleNavTabChange = (tabId) => {
+        setNavTab(tabId);
+        if (tabId === 'home') onNavigate('provider-home');
+        else if (tabId === 'jobs') onNavigate('provider-jobs');
+        else if (tabId === 'earnings') onNavigate('provider-earnings');
+      };
       
       const isOnline = userData.isOnline;
       const userServices = userData.services || [];
@@ -872,7 +1031,7 @@
       const canAddMore = remainingServices.length > 0;
       
       return (
-        <div className="h-full w-full" style={{background: '#F5F5F5', display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden'}}>
+        <div className="h-full w-full" style={{background: '#F5F5F5', display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', paddingBottom: '70px'}}>
           <div style={{background: 'linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)', padding: '20px 16px', borderRadius: '0 0 24px 24px'}}>
             <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '16px'}}>
               <div>
@@ -954,75 +1113,79 @@
               </div>
             )}
           </div>
-          {activeJob && (
-            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}}>
-              <div style={{ background: 'var(--white)', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%'}}>
-                <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '16px'}}>
-                  <span className="font-semibold" style={{fontSize: '18px'}}>Active Job</span>
-                  <button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer'}}>✕</button>
+{activeJob && (
+            <>
+              <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}}>
+                <div style={{ background: 'var(--white)', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%'}}>
+                  <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '16px'}}>
+                    <span className="font-semibold" style={{fontSize: '18px'}}>Active Job</span>
+                    <button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer'}}>✕</button>
+                  </div>
+                  <div style={{background: 'var(--black)', borderRadius: '16px', padding: '20px', marginBottom: '20px'}}>
+                    <div className="text-white font-bold" style={{fontSize: '20px', marginBottom: '8px'}}>{activeJob.service}</div>
+                    <div className="text-white" style={{opacity: 0.7, fontSize: '14px'}}>📍 {activeJob.address}</div>
+                    <div className="text-white font-bold" style={{fontSize: '24px', color: '#34C759', marginTop: '12px'}}>{activeJob.payout}</div>
+                  </div>
+                  <button onClick={handleCompleteJob} style={{background: '#34C759', border: 'none', borderRadius: '12px', padding: '16px', width: '100%', fontWeight: '600', fontSize: '16px', color: 'white', cursor: 'pointer'}}>✅ Complete Job</button>
                 </div>
-                <div style={{background: 'var(--black)', borderRadius: '16px', padding: '20px', marginBottom: '20px'}}>
-                  <div className="text-white font-bold" style={{fontSize: '20px', marginBottom: '8px'}}>{activeJob.service}</div>
-                  <div className="text-white" style={{opacity: 0.7, fontSize: '14px'}}>📍 {activeJob.address}</div>
-                  <div className="text-white font-bold" style={{fontSize: '24px', color: '#34C759', marginTop: '12px'}}>{activeJob.payout}</div>
-                </div>
-                <button onClick={handleCompleteJob} style={{background: '#34C759', border: 'none', borderRadius: '12px', padding: '16px', width: '100%', fontWeight: '600', fontSize: '16px', color: 'white', cursor: 'pointer'}}>✅ Complete Job</button>
               </div>
-            </div>
-          )}
-          <div style={{ background: 'var(--white)', borderTop: '1px solid var(--gray-200)', padding: '12px 8px', display: 'flex', justifyContent: 'space-around'}}>
-            <div className="center col" style={{cursor: 'pointer'}}><div style={{fontSize: '24px'}}>🏠</div><div className="font-semibold" style={{fontSize: '11px', color: 'var(--black)'}}>Home</div></div>
-            <div className="center col" style={{cursor: 'pointer', opacity: 0.5}}><div style={{fontSize: '24px'}}>📋</div><div className="text-gray" style={{fontSize: '11px'}}>Jobs</div></div>
-            <div className="center col" style={{cursor: 'pointer', opacity: 0.5}}><div style={{fontSize: '24px'}}>💰</div><div className="text-gray" style={{fontSize: '11px'}}>Earnings</div></div>
-            <div className="center col" style={{cursor: 'pointer', opacity: 0.5}}><div style={{fontSize: '24px'}}>💬</div><div className="text-gray" style={{fontSize: '11px'}}>Messages</div></div>
-            <div className="center col" style={{cursor: 'pointer', opacity: 0.5}}><div style={{fontSize: '24px'}}>👤</div><div className="text-gray" style={{fontSize: '11px'}}>Profile</div></div>
-          </div>
-          
-          {showAddModal && (
-            <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setShowAddModal(false)}>
-              <div style={{background: 'var(--white)', borderRadius: 16, padding: 20, width: '85%', maxWidth: 320}} onClick={e => e.stopPropagation()}>
-                <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 16}}>
-                  <span className="font-semibold" style={{fontSize: 16}}>Add Services</span>
-                  <button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer'}}>✕</button>
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                  {remainingServices.map(s => (
-                    <div key={s.key} onClick={() => handleAddService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 12, padding: 12, background: 'var(--gray-50)', borderRadius: 8, cursor: 'pointer'}}>
-                      <span style={{fontSize: 24}}>{s.icon}</span>
-                      <div style={{flex: 1}}>
-                        <div className="font-semibold" style={{fontSize: 14}}>{s.label}</div>
-                        <div className="text-gray" style={{fontSize: 12}}>{s.desc}</div>
-                      </div>
+              {showAddModal && (
+                <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setShowAddModal(false)}>
+                  <div style={{background: 'var(--white)', borderRadius: 16, padding: 20, width: '85%', maxWidth: 320}} onClick={e => e.stopPropagation()}>
+                    <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 16}}>
+                      <span className="font-semibold" style={{fontSize: 16}}>Add Services</span>
+                      <button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer'}}>✕</button>
                     </div>
-                  ))}
+                    <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
+                      {remainingServices.map(s => (
+                        <div key={s.key} onClick={() => handleAddService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 12, padding: 12, background: 'var(--gray-50)', borderRadius: 8, cursor: 'pointer'}}>
+                          <span style={{fontSize: 24}}>{s.icon}</span>
+                          <div style={{flex: 1}}>
+                            <div className="font-semibold" style={{fontSize: 14}}>{s.label}</div>
+                            <div className="text-gray" style={{fontSize: 12}}>{s.desc}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              )}
+            </>
           )}
+          <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
         </div>
       );
     }
     function ProviderJobsScreen({ onNavigate }) {
+      const [navTab, setNavTab] = useState('jobs');
+      const handleNavTabChange = (tabId) => {
+        setNavTab(tabId);
+        if (tabId === 'home') onNavigate('provider-home');
+        else if (tabId === 'jobs') onNavigate('provider-jobs');
+        else if (tabId === 'earnings') onNavigate('provider-earnings');
+      };
       return (
-        <div className="container">
+        <div className="container" style={{paddingBottom: '70px'}}>
           <div className="p-lg pt-xl"><span className="text-2xl cursor-pointer" onClick={() => onNavigate('provider-home')}>←</span></div>
           <div className="p-lg">
             <div className="text-xl font-semibold mb-lg">Jobs</div>
             <div className="text-center text-gray p-xl">No active jobs</div>
           </div>
-          <div className="nav">
-            <div className="nav-item" onClick={() => onNavigate('provider-home')}><span className="text-xl">🏠</span><span className="text-xs text-gray mt-xs">Home</span></div>
-            <div className="nav-item active"><span className="text-xl">📋</span><span className="text-xs font-semibold mt-xs">Jobs</span></div>
-            <div className="nav-item" onClick={() => onNavigate('provider-earnings')}><span className="text-xl">💰</span><span className="text-xs text-gray mt-xs">Earnings</span></div>
-            <div className="nav-item"><span className="text-xl">⚙️</span><span className="text-xs text-gray mt-xs">Settings</span></div>
-          </div>
+          <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
         </div>
       );
     }
     function ProviderEarningsScreen({ onNavigate }) {
+      const [navTab, setNavTab] = useState('earnings');
+      const handleNavTabChange = (tabId) => {
+        setNavTab(tabId);
+        if (tabId === 'home') onNavigate('provider-home');
+        else if (tabId === 'jobs') onNavigate('provider-jobs');
+        else if (tabId === 'earnings') onNavigate('provider-earnings');
+      };
       return (
-        <div className="container">
-          <div className="p-lg pt-xl"><span className="text-2xl cursor-pointer" onClick={() => onNavigate('provider-jobs')}>←</span></div>
+        <div className="container" style={{paddingBottom: '70px'}}>
+          <div className="p-lg pt-xl"><span className="text-2xl cursor-pointer" onClick={() => onNavigate('provider-home')}>←</span></div>
           <div className="p-lg">
             <div className="text-xl font-semibold mb-lg">Earnings</div>
             <div className="bg-gradient p-xl rounded-xl mb-lg animate-scale-in">
@@ -1034,11 +1197,7 @@
               </div>
             </div>
           </div>
-          <div className="nav">
-            <div className="nav-item" onClick={() => onNavigate('provider-jobs')}><span className="text-xl">📋</span><span className="text-xs text-gray mt-xs">Jobs</span></div>
-            <div className="nav-item active"><span className="text-xl">💰</span><span className="text-xs font-semibold mt-xs">Earnings</span></div>
-            <div className="nav-item"><span className="text-xl">⚙️</span><span className="text-xs text-gray mt-xs">Settings</span></div>
-          </div>
+          <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
         </div>
       );
     }
