@@ -36,6 +36,7 @@
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@1.8.1/dist/lottie-player.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -124,6 +125,12 @@
     .max-w-md { max-width: 420px; }
     .max-w-lg { max-width: 520px; }
     .max-w-xl { max-width: 640px; }
+    .stats-row { display: flex; overflow: hidden; flex-wrap: nowrap; background: var(--white); border-radius: 20px; padding: 20px 16px; width: 100%; box-sizing: border-box; }
+    .stats-track { display: flex; gap: 0; animation: scroll-left 25s linear infinite; width: fit-content; flex-shrink: 0; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 25%; flex-shrink: 0; }
+    .stat-item .stat-num { font-size: 28px; font-weight: 700; color: var(--black); font-family: 'Poppins', sans-serif; white-space: nowrap; }
+    .stat-item .stat-label { font-size: 12px; color: var(--gray-500); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+    @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     @media (max-width: 600px) {
       .container, .min-h-screen { min-height: 100vh !important; height: auto !important; }
       .text-4xl { font-size: 1.75rem !important; }
@@ -131,7 +138,11 @@
       .text-center { text-align: center !important; }
       .row { flex-wrap: wrap !important; }
       .desktop-nav { padding: 8px 12px !important; }
-      .stat-card { min-width: 45% !important; padding: 12px !important; }
+      .stats-container { width: 100%; max-width: 600px; margin: 0 auto; }
+    .stats-wrapper { padding: 48px 0 16px !important; }
+    .stats-lottie { height: 180px; background: var(--white); border-radius: 20px; margin-bottom: 16px; width: 100%; overflow: hidden; }
+    @media (max-width: 600px) { .stats-container { max-width: 100%; } .stats-lottie { height: 140px; border-radius: 0; } .stats-row { padding: 16px 8px; border-radius: 0; } .stat-item .stat-num { font-size: 20px; } .stat-item .stat-label { font-size: 9px; } }
+    .stat-card { min-width: 45% !important; padding: 12px !important; }
       .btn { padding: 10px 16px !important; }
       .feature-card { min-width: 90% !important; padding: 16px !important; }
       .desktop-nav .text-xl { font-size: 1rem !important; }
@@ -250,7 +261,7 @@
     .divider-text { display: flex; align-items: center; gap: 16px; }
     .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
     .desktop-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--gray-200); padding: 12px 16px; display: flex; align-items: center; }
-    .desktop-nav .text-xl { font-size: 1.7rem !important; font-weight: 700 !important; line-height: 1 !important; }
+    .desktop-nav .text-xl { font-size: 1.6rem !important; font-weight: 700 !important; line-height: 1 !important; }
     @media (max-width: 600px) { .desktop-nav { padding: 8px 10px !important; } .desktop-nav .text-xl { font-size: 1rem !important; } .desktop-nav .btn-sm { padding: 4px 8px !important; font-size: 0.7rem !important; } }
     .hero-section { min-height: 100vh; display: flex; align-items: center; }
     ::-webkit-scrollbar { width: 6px; }
@@ -437,6 +448,15 @@
       );
     }
     function LandingPage({ onNavigate, scrollY = 0 }) {
+      const lottieRef = React.useRef(null);
+
+      React.useEffect(() => {
+        if (lottieRef.current) {
+          lottieRef.current.innerHTML = '<lottie-player src="public/Red Car Drive.lottie" autoplay loop mode="normal" style="width:100%;height:100%;object-fit:contain;background:transparent" renderer="svg"></lottie-player>';
+          return () => { if (lottieRef.current) lottieRef.current.innerHTML = ''; };
+        }
+      }, []);
+
       return (
         <div className="min-h-screen" style={{overflowY: 'auto'}}>
           <nav className="desktop-nav" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
@@ -464,12 +484,23 @@
               </div>
             </div>
           </section>
-          <section className="p-2xl bg-surface">
-            <div className="row wrap gap-lg center">
-              <div className="stat-card"><div className="text-4xl font-bold">500+</div><div className="text-muted">Jobs Completed</div></div>
-              <div className="stat-card"><div className="text-4xl font-bold">50+</div><div className="text-muted">Mechanics</div></div>
-              <div className="stat-card"><div className="text-4xl font-bold">4.9</div><div className="text-muted">Avg Rating</div></div>
-              <div className="stat-card"><div className="text-4xl font-bold">25min</div><div className="text-muted">Avg Arrival</div></div>
+          <section className="stats-wrapper p-2xl bg-surface">
+            <div className="stats-container">
+              <div className="stats-lottie">
+                <div ref={lottieRef} style={{width: '100%', height: '100%'}} />
+              </div>
+              <div className="stats-row">
+                <div className="stats-track">
+                  <div className="stat-item"><div className="stat-num">500+</div><div className="stat-label">Jobs</div></div>
+                  <div className="stat-item"><div className="stat-num">50+</div><div className="stat-label">Mechanics</div></div>
+                  <div className="stat-item"><div className="stat-num">4.9</div><div className="stat-label">Rating</div></div>
+                  <div className="stat-item"><div className="stat-num">25 min</div><div className="stat-label">Arrival</div></div>
+                  <div className="stat-item"><div className="stat-num">500+</div><div className="stat-label">Jobs</div></div>
+                  <div className="stat-item"><div className="stat-num">50+</div><div className="stat-label">Mechanics</div></div>
+                  <div className="stat-item"><div className="stat-num">4.9</div><div className="stat-label">Rating</div></div>
+                  <div className="stat-item"><div className="stat-num">25 min</div><div className="stat-label">Arrival</div></div>
+                </div>
+              </div>
             </div>
           </section>
           <section className="p-2xl" style={{maxWidth: 900, margin: '0 auto'}}>
