@@ -131,6 +131,14 @@
     .stat-item .stat-num { font-size: 28px; font-weight: 700; color: var(--black); font-family: 'Poppins', sans-serif; white-space: nowrap; }
     .stat-item .stat-label { font-size: 12px; color: var(--gray-500); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
     @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .how-section { background: var(--white); border-radius: 20px; margin-bottom: 16px; width: 100%; padding: 40px 32px; box-sizing: border-box; }
+    .how-title { text-align: center; font-size: 24px; font-weight: 700; color: var(--black); font-family: 'Poppins', sans-serif; margin-bottom: 36px; letter-spacing: 1px; }
+    .how-steps { display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 32px; }
+    .how-step { flex: 1; max-width: 240px; text-align: center; }
+    .how-step-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--black); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 26px; }
+    .how-step-title { font-size: 16px; font-weight: 600; color: var(--black); font-family: 'Poppins', sans-serif; margin-bottom: 6px; }
+    .how-step-desc { font-size: 13px; color: var(--gray-500); line-height: 1.5; }
+    .how-time { text-align: center; margin-top: 28px; font-size: 13px; color: var(--gray-500); }
     @media (max-width: 600px) {
       .container, .min-h-screen { min-height: 100vh !important; height: auto !important; }
       .text-4xl { font-size: 1.75rem !important; }
@@ -140,8 +148,15 @@
       .desktop-nav { padding: 8px 12px !important; }
       .stats-container { width: 100%; max-width: 600px; margin: 0 auto; }
     .stats-wrapper { padding: 48px 0 16px !important; }
-    .stats-lottie { height: 180px; background: var(--white); border-radius: 20px; margin-bottom: 16px; width: 100%; overflow: hidden; }
-    @media (max-width: 600px) { .stats-container { max-width: 100%; } .stats-lottie { height: 140px; border-radius: 0; } .stats-row { padding: 16px 8px; border-radius: 0; } .stat-item .stat-num { font-size: 20px; } .stat-item .stat-label { font-size: 9px; } }
+    .how-section { padding: 28px 16px; border-radius: 0; margin-bottom: 16px; }
+    .how-title { font-size: 18px; margin-bottom: 24px; }
+    .how-steps { flex-direction: column; align-items: center; gap: 20px; }
+    .how-step { max-width: 100%; width: 100%; }
+    .how-step-icon { width: 48px; height: 48px; font-size: 22px; }
+    .how-step-title { font-size: 14px; }
+    .how-step-desc { font-size: 12px; }
+    .how-time { margin-top: 20px; font-size: 12px; }
+    @media (max-width: 600px) { .stats-container { max-width: 100%; } .stats-row { padding: 16px 8px; border-radius: 0; } .stat-item .stat-num { font-size: 20px; } .stat-item .stat-label { font-size: 9px; } }
     .stat-card { min-width: 45% !important; padding: 12px !important; }
       .btn { padding: 10px 16px !important; }
       .feature-card { min-width: 90% !important; padding: 16px !important; }
@@ -195,9 +210,7 @@
     .card { background: var(--white); border-radius: 16px; padding: 24px; border: 1px solid var(--gray-200); transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
     .card:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
     .card-hover:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.1); transform: translateY(-3px); cursor: pointer; }
-    .card-grid { background: var(--gray-50); border-radius: 14px; padding: 20px; text-align: center; transition: all 0.2s ease; border: 1px solid var(--gray-100); }
-    .card-grid:hover { background: var(--white); box-shadow: 0 10px 24px rgba(0,0,0,0.08); transform: translateY(-4px); border-color: var(--primary); }
-    .card-grid:active { transform: scale(0.97); }
+    .card-grid { text-align: center; }
     .service-card { background: var(--white); border-radius: 14px; padding: 16px; border: 1.5px solid var(--gray-200); transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
     .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: var(--primary); }
     .service-card.selected { background: var(--white); border: 2px solid var(--primary); box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15), 0 8px 20px rgba(5, 150, 105, 0.15); }
@@ -448,15 +461,6 @@
       );
     }
     function LandingPage({ onNavigate, scrollY = 0 }) {
-      const lottieRef = React.useRef(null);
-
-      React.useEffect(() => {
-        if (lottieRef.current) {
-          lottieRef.current.innerHTML = '<lottie-player src="public/Red Car Drive.lottie" autoplay loop mode="normal" style="width:100%;height:100%;object-fit:contain;background:transparent" renderer="svg"></lottie-player>';
-          return () => { if (lottieRef.current) lottieRef.current.innerHTML = ''; };
-        }
-      }, []);
-
       return (
         <div className="min-h-screen" style={{overflowY: 'auto'}}>
           <nav className="desktop-nav" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
@@ -486,8 +490,26 @@
           </section>
           <section className="stats-wrapper p-2xl bg-surface">
             <div className="stats-container">
-              <div className="stats-lottie">
-                <div ref={lottieRef} style={{width: '100%', height: '100%'}} />
+              <div className="how-section">
+                <div className="how-title">HOW DREAMLEDGE AUTO WORKS</div>
+                <div className="how-steps">
+                  <div className="how-step">
+                    <div className="how-step-icon">🔧</div>
+                    <div className="how-step-title">Request Help</div>
+                    <div className="how-step-desc">Tell us what you need</div>
+                  </div>
+                  <div className="how-step">
+                    <div className="how-step-icon">📍</div>
+                    <div className="how-step-title">Get Matched</div>
+                    <div className="how-step-desc">Nearby mechanic accepts</div>
+                  </div>
+                  <div className="how-step">
+                    <div className="how-step-icon">🚗</div>
+                    <div className="how-step-title">Get Fixed</div>
+                    <div className="how-step-desc">They come to you</div>
+                  </div>
+                </div>
+                <div className="how-time">⏱ Average arrival time: 25 minutes</div>
               </div>
               <div className="stats-row">
                 <div className="stats-track">
@@ -529,13 +551,13 @@
               ))}
             </div>
           </section>
-          <section className="p-2xl">
+          <section className="p-2xl" style={{paddingBottom: 0}}>
             <div className="text-center mb-xl">
               <div className="text-3xl font-bold">WHAT PEOPLE SAY</div>
             </div>
             <div className="row wrap gap-lg center">
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="testimonial-card" style={{maxWidth: 300}}>
+                <div key={i} className="testimonial-card" style={{maxWidth: 300, textAlign: 'center'}}>
                   <div className="text-accent mb-sm">{'⭐'.repeat(t.rating)}</div>
                   <div className="font-medium mb-sm">"{t.text}"</div>
                   <div className="text-muted text-sm">- {t.name}</div>
