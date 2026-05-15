@@ -1048,6 +1048,23 @@
       );
     }
     function ProviderHomeScreen({ onNavigate }) {
+      const [navTab, setNavTab] = useState('home');
+      const handleNavTabChange = (tabId) => {
+        setNavTab(tabId);
+        if (tabId === 'home') onNavigate('provider-home');
+        else if (tabId === 'jobs') onNavigate('provider-jobs');
+        else if (tabId === 'earnings') onNavigate('provider-earnings');
+      };
+      return (
+        <div style={{height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: '#F5F5F5', paddingBottom: '70px'}}>
+          <div style={{fontSize: 48, marginBottom: 16}}>🏠</div>
+          <div className="font-semibold" style={{fontSize: 18}}>Home</div>
+          <div className="text-sm text-gray" style={{marginTop: 8}}>Coming soon</div>
+          <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+        </div>
+      );
+    }
+    function ProviderJobsScreen({ onNavigate }) {
       const { userData, toggleOnline, saveServices, setUserData } = useContext(UserContext);
       const [selectedCategory, setSelectedCategory] = useState('all');
       const [showAddModal, setShowAddModal] = useState(false);
@@ -1055,7 +1072,7 @@
       const [todayEarnings, setTodayEarnings] = useState(85);
       const [jobsCompleted, setJobsCompleted] = useState(3);
       const [declinedJobs, setDeclinedJobs] = useState([]);
-      const [navTab, setNavTab] = useState('home');
+      const [navTab, setNavTab] = useState('jobs');
       const hour = new Date().getHours();
       const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
       
@@ -1069,7 +1086,6 @@
       const isOnline = userData.isOnline;
       const userServices = userData.services || [];
       
-      // Map SERVICE_TYPES to categories based on selection
       const getCategoriesFromServices = () => {
         const cats = [{ key: 'all', label: 'All', icon: '📋' }];
         userServices.forEach(s => {
@@ -1097,7 +1113,6 @@
       
       const serviceCategories = getCategoriesFromServices();
       
-      // Get remaining services for add modal
       const getRemainingServices = () => {
         return SERVICE_TYPES.filter(s => !userServices.includes(s.key));
       };
@@ -1135,45 +1150,45 @@
       const canAddMore = remainingServices.length > 0;
       
       return (
-        <div className="h-full w-full" style={{background: '#F5F5F5', display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', paddingBottom: '70px'}}>
-          <div style={{background: 'linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)', padding: '20px 16px', borderRadius: '0 0 24px 24px'}}>
-            <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '16px'}}>
+        <div className="h-full w-full" style={{background: '#F5F5F5', display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
+          <div style={{background: 'linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)', padding: '14px 16px 10px', borderRadius: '0 0 24px 24px'}}>
+            <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '12px'}}>
               <div>
-                <div className="text-white font-bold" style={{fontSize: '24px'}}>{greeting}!</div>
-                <div className="text-white" style={{fontSize: '14px', opacity: 0.7}}>Ready to work?</div>
+                <div className="text-white font-bold" style={{fontSize: '18px'}}>{greeting}!</div>
+                <div className="text-white" style={{fontSize: '12px', opacity: 0.7}}>Ready to work?</div>
               </div>
-              <div className="row centerV gap-md">
-                <div style={{width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>🔔</div>
-                <div style={{width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>👤</div>
+              <div className="row centerV" style={{gap: 8}}>
+                <div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>🔔</div>
+                <div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>👤</div>
               </div>
             </div>
-            <div style={{ background: isOnline ? 'linear-gradient(135deg, #34C759 0%, #30B350 100%)' : 'rgba(255,255,255,0.15)', borderRadius: '16px', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: isOnline ? '0 4px 20px rgba(52,199,89,0.4)' : 'none'}}>
+            <div style={{ background: isOnline ? 'linear-gradient(135deg, #34C759 0%, #30B350 100%)' : 'rgba(255,255,255,0.15)', borderRadius: '16px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: isOnline ? '0 4px 20px rgba(52,199,89,0.4)' : 'none'}}>
               <div>
-                <div className="text-white font-semibold" style={{fontSize: '16px'}}>Available Jobs Nearby</div>
-                <div className="text-white font-bold" style={{fontSize: '32px', marginTop: '4px'}}>{isOnline ? filteredJobs.length : 0}</div>
-                {isOnline && <div className="text-white" style={{fontSize: '12px', opacity: 0.8}}>Live jobs in your area</div>}
+                <div className="text-white font-semibold" style={{fontSize: '14px'}}>Available Jobs Nearby</div>
+                <div className="text-white font-bold" style={{fontSize: '22px', marginTop: '2px'}}>{isOnline ? filteredJobs.length : 0}</div>
+                {isOnline && <div className="text-white" style={{fontSize: '11px', opacity: 0.8}}>Live jobs in your area</div>}
               </div>
-              <button onClick={() => toggleOnline(userData.uid, !isOnline)} style={{ background: isOnline ? 'rgba(255,255,255,0.3)' : 'var(--white)', border: 'none', borderRadius: '24px', padding: '12px 24px', fontWeight: '600', fontSize: '14px', color: isOnline ? 'var(--white)' : '#34C759', cursor: 'pointer' }}>
+              <button onClick={() => toggleOnline(userData.uid, !isOnline)} style={{ background: isOnline ? 'rgba(255,255,255,0.3)' : 'var(--white)', border: 'none', borderRadius: '24px', padding: '10px 20px', fontWeight: '600', fontSize: '13px', color: isOnline ? 'var(--white)' : '#34C759', cursor: 'pointer' }}>
                 {isOnline ? '● Go Offline' : '○ Go Online'}
               </button>
             </div>
           </div>
-          <div style={{padding: '16px', background: 'var(--white)'}}>
-            <div className="text-sm font-semibold text-gray mb-sm">Quick Filters</div>
-            <div style={{display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px'}}>
+          <div style={{padding: '12px 16px', background: 'var(--white)'}}>
+            <div className="text-xs font-semibold text-gray mb-sm">Quick Filters</div>
+            <div style={{display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '4px'}}>
               {serviceCategories.map((cat) => (
-                <button key={cat.key} onClick={() => setSelectedCategory(cat.key)} style={{ background: selectedCategory === cat.key ? 'var(--black)' : 'var(--gray-100)', color: selectedCategory === cat.key ? 'var(--white)' : 'var(--gray-600)', border: 'none', borderRadius: '20px', padding: '8px 14px', fontSize: '12px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'}}>
+                <button key={cat.key} onClick={() => setSelectedCategory(cat.key)} style={{ background: selectedCategory === cat.key ? 'var(--black)' : 'var(--gray-100)', color: selectedCategory === cat.key ? 'var(--white)' : 'var(--gray-600)', border: 'none', borderRadius: '20px', padding: '6px 12px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'}}>
                   <span>{cat.icon}</span> {cat.label}
                 </button>
               ))}
               {canAddMore && (
-                <button onClick={() => setShowAddModal(true)} style={{ background: 'var(--gray-100)', color: 'var(--gray-600)', border: 'none', borderRadius: '20px', padding: '8px 14px', fontSize: '12px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'}}>
+                <button onClick={() => setShowAddModal(true)} style={{ background: 'var(--gray-100)', color: 'var(--gray-600)', border: 'none', borderRadius: '20px', padding: '6px 12px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'}}>
                   <span>+</span> Add
                 </button>
               )}
             </div>
           </div>
-          <div style={{flex: 1, overflowY: 'auto', padding: '16px'}}>
+          <div style={{flex: 1, overflowY: 'auto', padding: '12px'}}>
             <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '12px'}}>
               <span className="font-semibold" style={{fontSize: '16px'}}>{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>
               {!isOnline && <span className="text-sm text-gray">Go online to see jobs</span>}
@@ -1217,7 +1232,7 @@
               </div>
             )}
           </div>
-{activeJob && (
+          {activeJob && (
             <>
               <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}}>
                 <div style={{ background: 'var(--white)', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%'}}>
@@ -1256,25 +1271,6 @@
               )}
             </>
           )}
-          <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
-        </div>
-      );
-    }
-    function ProviderJobsScreen({ onNavigate }) {
-      const [navTab, setNavTab] = useState('jobs');
-      const handleNavTabChange = (tabId) => {
-        setNavTab(tabId);
-        if (tabId === 'home') onNavigate('provider-home');
-        else if (tabId === 'jobs') onNavigate('provider-jobs');
-        else if (tabId === 'earnings') onNavigate('provider-earnings');
-      };
-      return (
-        <div className="container" style={{paddingBottom: '70px'}}>
-          <div className="p-lg pt-xl"><span className="text-2xl cursor-pointer" onClick={() => onNavigate('provider-home')}>←</span></div>
-          <div className="p-lg">
-            <div className="text-xl font-semibold mb-lg">Jobs</div>
-            <div className="text-center text-gray p-xl">No active jobs</div>
-          </div>
           <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
         </div>
       );
