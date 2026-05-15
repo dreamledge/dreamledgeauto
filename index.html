@@ -41,7 +41,7 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --black: #0A0A0A; --white: #FFFFFF; --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0; --gray-300: #CBD5E1; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569; --accent: #EA580C; --success: #059669; }
+    :root { --black: #0A0A0A; --white: #FFFFFF; --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0; --gray-300: #CBD5E1; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569; --accent: #FF3B30; --success: #059669; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
     body { font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
@@ -169,7 +169,7 @@
     .bg-accent { background: var(--accent); }
     .bg-gradient { background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%); }
     .bg-diagonal { background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px); }
-    .hero-bg { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('public/headerimage.png') !important; background-position: center center !important; background-repeat: no-repeat !important; background-attachment: scroll !important; background-size: 130% auto !important; background-color: #000 !important; height: 100vh; }
+    .hero-bg { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('public/headerimage.png') !important; background-position: center center !important; background-repeat: no-repeat !important; background-attachment: scroll !important; background-size: 130% auto !important; background-color: #000 !important; height: 100vh; }
     @media (max-width: 1023px) { .hero-bg { background-size: cover !important; background-position: center center !important; height: 100vh; min-height: 100vh; } }
     .text-black { color: var(--black); }
     .text-white { color: var(--white); }
@@ -204,8 +204,8 @@
     .btn-outline { background: transparent; border: 2px solid var(--black); border-radius: 10px; }
     .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; border-radius: 8px; }
     .btn-lg { height: 56px; font-size: 15px; padding: 0 32px; border-radius: 12px; }
-    .btn-accent { background: var(--accent); box-shadow: 0 4px 14px rgba(234, 88, 12, 0.25); }
-    .btn-accent:hover { background: #DC5209; box-shadow: 0 6px 20px rgba(234, 88, 12, 0.35); }
+    .btn-accent { background: var(--accent); color: var(--white); box-shadow: 0 4px 14px rgba(255, 59, 48, 0.25); }
+    .btn-accent:hover { background: #CC0000; box-shadow: 0 6px 20px rgba(255, 59, 48, 0.35); }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
     .card { background: var(--white); border-radius: 16px; padding: 24px; border: 1px solid var(--gray-200); transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
     .card:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
@@ -472,19 +472,19 @@
           </nav>
           <section className="hero-bg center" style={{minHeight: '100vh'}}>
             <div className="p-xl center col relative z-10" style={{maxWidth: 800}}>
-              <div className="text-6xl font-black text-white text-center mb-md animate-fade-in-up">
-                GET BACK ON THE ROAD<br /><span className="text-accent">FAST</span>
+              <div className="text-5xl font-bold text-white text-center mb-md animate-fade-in-up">
+                GET BACK ON THE ROAD FAST
               </div>
               <div className="text-xl text-gray text-center animate-fade-in-up delay-200" style={{marginBottom: 16}}>
                 Book in seconds, help arrives in minutes.
               </div>
-              <div className="row gap-md center animate-fade-in-up delay-300 hero-btns" style={{marginTop: 1, justifyContent: 'center'}}>
-                <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')}>
-                  <span className="text-white">I Need Help</span>
+              <div className="center col animate-fade-in-up delay-300" style={{marginTop: 8}}>
+                <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')} style={{border: 'none', boxShadow: 'none'}}>
+                  Request Help
                 </button>
-                <button className="btn btn-lg btn-white" onClick={() => onNavigate('provider-signup')}>
-                  <span className="text-black">I'm a Mechanic</span>
-                </button>
+                <div className="text-muted" style={{marginTop: 16, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('provider-signup')}>
+                  I'm a Mechanic →
+                </div>
               </div>
             </div>
           </section>
@@ -565,11 +565,11 @@
               ))}
             </div>
           </section>
-          <section className="hero p-2xl center">
+          <section className="p-2xl center bg-gradient">
             <div className="center col relative z-10">
-              <div className="text-4xl font-bold text-white text-center mb-lg">READY TO GET BACK ON THE ROAD?</div>
-              <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')}>
-                <span className="text-white">GET HELP NOW</span>
+              <div className="text-3xl font-bold text-white text-center mb-lg">READY TO GET BACK ON THE ROAD?</div>
+              <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')} style={{border: 'none', boxShadow: 'none'}}>
+                GET HELP NOW
               </button>
             </div>
           </section>
@@ -586,27 +586,29 @@
     }
     function RoleSelectScreen({ onNavigate }) {
       return (
-        <div className="container bg-white">
-          <div className="p-2xl pt-2xl center animate-fade-in-down">
-            <div className="logo mb-lg">🚗</div>
-            <div className="text-3xl font-bold mb-xs">Dreamledge Auto</div>
-            <div className="text-base text-gray">Get back on the road fast</div>
-          </div>
-          <div className="flex p-lg">
-            <div className="card card-hover mb-md animate-fade-in-up delay-100" onClick={() => onNavigate('customer-signup')}>
-              <div className="text-4xl mb-md">🚙</div>
-              <div className="text-xl font-semibold">I Need Help</div>
-              <div className="text-base text-gray mt-sm">Request roadside assistance</div>
+        <div style={{position: 'relative', minHeight: '100vh'}}>
+          <div className="container bg-white" style={{display: 'flex', flexDirection: 'column', minHeight: '100vh', padding: '8px 24px 48px'}}>
+            <div className="center col animate-fade-in-down" style={{marginBottom: 24}}>
+              <img src="public/sustainable-travel.gif" alt="" style={{width: 120, height: 120, objectFit: 'contain', display: 'block', margin: '0 auto -8px'}} />
+              <div className="text-3xl font-bold" style={{textAlign: 'center', letterSpacing: '-0.5px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
+              <div className="text-base text-gray" style={{textAlign: 'center', marginTop: 4, fontWeight: 400}}>Get back on the road fast</div>
             </div>
-            <div className="card card-hover animate-fade-in-up delay-200" onClick={() => onNavigate('provider-signup')}>
-              <div className="text-4xl mb-md">🔧</div>
-              <div className="text-xl font-semibold">I'm a Mechanic</div>
-              <div className="text-base text-gray mt-sm">Offer mobile repair services</div>
+            <div className="flex" style={{gap: 8}}>
+              <div className="card card-hover mb-md animate-fade-in-up delay-100" onClick={() => onNavigate('customer-signup')} style={{padding: '16px 24px'}}>
+                <div className="text-4xl mb-md">🚙</div>
+                <div className="text-xl font-semibold">I Need Help</div>
+                <div className="text-base text-gray mt-sm">Request roadside assistance</div>
+              </div>
+              <div className="card card-hover animate-fade-in-up delay-200" onClick={() => onNavigate('provider-signup')} style={{padding: '16px 24px'}}>
+                <div className="text-4xl mb-md">🔧</div>
+                <div className="text-xl font-semibold">I'm a Mechanic</div>
+                <div className="text-base text-gray mt-sm">Offer mobile repair services</div>
+              </div>
             </div>
           </div>
-          <div className="p-lg centerH animate-fade-in delay-300">
+          <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 4, background: 'var(--white)', padding: '12px 0'}}>
             <span className="text-base text-gray">Already have an account?</span>
-            <span className="text-base font-semibold text-black ml-sm" onClick={() => onNavigate('login')}>Sign In</span>
+            <span className="text-base font-semibold" style={{color: '#FF3B30', cursor: 'pointer'}} onClick={() => onNavigate('login')}>Sign In</span>
           </div>
         </div>
       );
@@ -619,6 +621,7 @@
       const [loading, setLoading] = useState(false);
       const handleSubmit = () => {
         setLoading(true);
+        localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'customer', name, phone }));
         setTimeout(() => onNavigate('customer-home'), 1000);
       };
       return (
@@ -678,6 +681,7 @@
       const [loading, setLoading] = useState(false);
       const handleSubmit = () => {
         setLoading(true);
+        localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'provider', name, phone }));
         setTimeout(() => onNavigate('provider-services'), 800);
       };
       return (
@@ -869,10 +873,13 @@
       const [loading, setLoading] = useState(false);
       const handleLogin = () => {
         setLoading(true);
-        const emailLower = email.toLowerCase();
-        const isProvider = emailLower.includes('mechanic') || emailLower.includes('provider') || emailLower.includes('pro');
+        const stored = localStorage.getItem('dl_user_' + email.toLowerCase());
+        let role = 'customer';
+        if (stored) {
+          try { role = JSON.parse(stored).role; } catch(e) {}
+        }
         setTimeout(() => {
-          if (isProvider) onNavigate('provider-home');
+          if (role === 'provider') onNavigate('provider-home');
           else onNavigate('customer-home');
         }, 500);
       };
