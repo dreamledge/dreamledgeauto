@@ -546,7 +546,7 @@
               {SERVICE_TYPES.map((s, i) => (
                 <div key={s.key} className="grid-2">
                   <div className="card" style={{padding: '24px 16px', textAlign: 'center', animationDelay: `${i * 0.1}s`}}>
-                    <div className="mb-sm" style={{fontSize: 28}}>{s.icon}</div>
+                    <div className="mb-sm" style={{fontSize: 28}}>{s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%) brightness(0)'}} /> : s.icon}</div>
                     <div className="font-semibold" style={{marginBottom: 4}}>{s.label}</div>
                     <div className="text-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                   </div>
@@ -572,7 +572,7 @@
             <div className="row wrap gap-lg center">
               {TESTIMONIALS.map((t, i) => (
                 <div key={i} className="card" style={{maxWidth: 300, textAlign: 'center', padding: 32}}>
-                  <div className="mb-md" style={{fontSize: 18}}>{'✦'.repeat(t.rating)}</div>
+                  <div className="mb-md" style={{display: 'flex', justifyContent: 'center', gap: 4}}>{Array.from({length: t.rating}).map((_, j) => <img key={j} src="public/star.gif" alt="" style={{width: 20, height: 20}} />)}</div>
                   <div className="font-medium mb-sm">"{t.text}"</div>
                   <div className="text-sm" style={{color: 'var(--body)'}}>- {t.name}</div>
                 </div>
