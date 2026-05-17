@@ -477,7 +477,7 @@
           <nav className="desktop-nav" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
             <span className="text-xl font-bold" style={{lineHeight: 1}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
             <div className="row gap-sm">
-              <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}>Sign In</button>
+              <button className="btn btn-white" onClick={() => onNavigate('login')} style={{height: 48, fontSize: 14, padding: '0 28px'}}>Sign In</button>
               <button className="btn btn-sm" onClick={() => onNavigate('role-select')}>Get Started</button>
             </div>
           </nav>
@@ -505,17 +505,17 @@
                 <div className="how-title">How dreamledge auto works</div>
                 <div className="how-steps">
                   <div className="how-step">
-                    <div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 24, height: 24, filter: 'grayscale(100%)'}} /></div>
+                    <div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 52, height: 52, filter: 'grayscale(100%)'}} /></div>
                     <div className="how-step-title">Request Help</div>
                     <div className="how-step-desc">Tell us what you need</div>
                   </div>
                   <div className="how-step">
-                    <div className="how-step-icon" style={{fontSize: 24}}>⊞</div>
+                    <div className="how-step-icon"><img src="public/puzzle-pieces.gif" alt="" style={{width: 52, height: 52, filter: 'grayscale(100%)'}} /></div>
                     <div className="how-step-title">Get Matched</div>
                     <div className="how-step-desc">Nearby mechanic accepts</div>
                   </div>
                   <div className="how-step">
-                    <div className="how-step-icon" style={{fontSize: 24}}>⚙</div>
+                    <div className="how-step-icon"><img src="public/technician.gif" alt="" style={{width: 52, height: 52, filter: 'grayscale(100%)'}} /></div>
                     <div className="how-step-title">Get Fixed</div>
                     <div className="how-step-desc">They come to you</div>
                   </div>
