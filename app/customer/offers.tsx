@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Colors, FontSizes, Spacing, BorderRadius, Shadows } from '../../src/constants/theme';
 
@@ -76,26 +76,24 @@ export default function CustomerOffersScreen() {
         <View style={styles.providerInfo}>
           <Text style={styles.providerName}>{item.name}</Text>
           <View style={styles.ratingContainer}>
-            <Text style={styles.ratingStar}>⭐</Text>
+            <Text style={styles.ratingStar}>★</Text>
             <Text style={styles.ratingText}>{item.rating}</Text>
             <Text style={styles.reviewsText}>({item.reviews} reviews)</Text>
           </View>
         </View>
-        <View style={[styles.statusBadge, item.isOnline ? styles.statusOnline : styles.statusOffline]}>
-          <Text style={[styles.statusText, item.isOnline ? styles.statusTextOnline : styles.statusTextOffline]}>
-            {item.isOnline ? 'Online' : 'Away'}
-          </Text>
+        <View style={[styles.statusDot, item.isOnline && styles.statusDotOnline]}>
+          <View style={[styles.statusInner, item.isOnline ? styles.statusOnline : styles.statusOffline]} />
         </View>
       </View>
 
       <View style={styles.providerDetails}>
         <View style={styles.detailItem}>
-          <Text style={styles.detailIcon}>📍</Text>
+          <Text style={styles.detailIcon}>⊡</Text>
           <Text style={styles.detailText}>{item.distance}</Text>
         </View>
         <View style={styles.detailItem}>
-          <Text style={styles.detailIcon}>💰</Text>
-          <Text style={styles.detailPrice}>${item.price}</Text>
+          <Text style={styles.detailIcon}>$</Text>
+          <Text style={styles.detailPrice}>{item.price}</Text>
         </View>
       </View>
 
@@ -148,7 +146,7 @@ export default function CustomerOffersScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
@@ -156,7 +154,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   backButton: {
     width: 40,
@@ -166,23 +164,23 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
   },
   infoBar: {
     padding: Spacing.md,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   infoText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     textAlign: 'center',
   },
   listContent: {
@@ -190,16 +188,16 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   providerCard: {
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
-    borderWidth: 2,
-    borderColor: Colors.border,
-    ...Shadows.md,
+    borderWidth: 1,
+    borderColor: Colors.gray200,
+    ...Shadows['level-1'],
   },
   providerCardSelected: {
     borderColor: Colors.primary,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   providerHeader: {
     flexDirection: 'row',
@@ -215,12 +213,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   providerAvatarOffline: {
-    backgroundColor: Colors.gray400,
+    backgroundColor: Colors.mute,
   },
   avatarText: {
     fontSize: FontSizes.xl,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   providerInfo: {
     flex: 1,
@@ -229,7 +227,7 @@ const styles = StyleSheet.create({
   providerName: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   ratingContainer: {
@@ -238,46 +236,47 @@ const styles = StyleSheet.create({
   },
   ratingStar: {
     fontSize: 14,
+    color: Colors.ink,
     marginRight: 2,
   },
   ratingText: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginRight: Spacing.xs,
   },
   reviewsText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
-  statusBadge: {
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.sm,
+  statusDot: {
+    width: 12,
+    height: 12,
+    borderRadius: BorderRadius.full,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  statusOnline: {
+  statusDotOnline: {
     backgroundColor: Colors.success + '20',
   },
+  statusInner: {
+    width: 8,
+    height: 8,
+    borderRadius: BorderRadius.full,
+  },
+  statusOnline: {
+    backgroundColor: Colors.success,
+  },
   statusOffline: {
-    backgroundColor: Colors.gray300,
-  },
-  statusText: {
-    fontSize: FontSizes.xs,
-    fontWeight: '600',
-  },
-  statusTextOnline: {
-    color: Colors.success,
-  },
-  statusTextOffline: {
-    color: Colors.gray500,
+    backgroundColor: Colors.mute,
   },
   providerDetails: {
     flexDirection: 'row',
-    gap: Spacing.xl,
+    gap: Spacing['2xl'],
     marginBottom: Spacing.md,
     paddingBottom: Spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   detailItem: {
     flexDirection: 'row',
@@ -286,21 +285,22 @@ const styles = StyleSheet.create({
   },
   detailIcon: {
     fontSize: 16,
+    color: Colors.body,
   },
   detailText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   detailPrice: {
     fontSize: FontSizes.lg,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   selectButton: {
     height: 44,
     borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: BorderRadius.md,
+    borderColor: Colors.gray200,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -311,20 +311,20 @@ const styles = StyleSheet.create({
   selectText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   selectTextSelected: {
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   footer: {
     padding: Spacing.lg,
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.gray200,
   },
   confirmButton: {
     height: 56,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -334,6 +334,6 @@ const styles = StyleSheet.create({
   confirmText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

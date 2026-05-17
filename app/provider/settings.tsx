@@ -40,25 +40,25 @@ export default function ProviderSettingsScreen() {
           <Text style={styles.sectionTitle}>Account</Text>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>👤</Text>
+            <Text style={styles.menuIcon}>→</Text>
             <Text style={styles.menuLabel}>Edit Profile</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>📋</Text>
+            <Text style={styles.menuIcon}>⊞</Text>
             <Text style={styles.menuLabel}>My Services</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>💰</Text>
+            <Text style={styles.menuIcon}>$</Text>
             <Text style={styles.menuLabel}>Pricing</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>📍</Text>
+            <Text style={styles.menuIcon}>⊡</Text>
             <Text style={styles.menuLabel}>Service Area</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
@@ -68,15 +68,15 @@ export default function ProviderSettingsScreen() {
           <Text style={styles.sectionTitle}>Notifications</Text>
           
           <View style={styles.menuItem}>
-            <Text style={styles.menuIcon}>🔔</Text>
+            <Text style={styles.menuIcon}>⊡</Text>
             <Text style={styles.menuLabel}>Push Notifications</Text>
-            <Switch value={true} trackColor={{ false: Colors.gray300, true: Colors.primary }} />
+            <Switch value={true} trackColor={{ false: Colors.mute, true: Colors.primary }} />
           </View>
           
           <View style={styles.menuItem}>
-            <Text style={styles.menuIcon}>📧</Text>
+            <Text style={styles.menuIcon}>⊞</Text>
             <Text style={styles.menuLabel}>Email Notifications</Text>
-            <Switch value={false} trackColor={{ false: Colors.gray300, true: Colors.primary }} />
+            <Switch value={false} trackColor={{ false: Colors.mute, true: Colors.primary }} />
           </View>
         </View>
 
@@ -84,19 +84,19 @@ export default function ProviderSettingsScreen() {
           <Text style={styles.sectionTitle}>Support</Text>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>❓</Text>
+            <Text style={styles.menuIcon}>?</Text>
             <Text style={styles.menuLabel}>Help Center</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>📞</Text>
+            <Text style={styles.menuIcon}>call</Text>
             <Text style={styles.menuLabel}>Contact Support</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.menuItem}>
-            <Text style={styles.menuIcon}>📄</Text>
+            <Text style={styles.menuIcon}>!</Text>
             <Text style={styles.menuLabel}>Terms & Privacy</Text>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
@@ -115,14 +115,14 @@ export default function ProviderSettingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.lg,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   backButton: {
     width: 40,
@@ -132,12 +132,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
   profileCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     marginBottom: Spacing.lg,
   },
@@ -165,15 +165,15 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: 24,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   profileInfo: {
     marginLeft: Spacing.md,
   },
   profileName: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: 2,
   },
   profileStatus: {
@@ -186,38 +186,42 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.textSecondary,
+    color: Colors.body,
     marginBottom: Spacing.sm,
     marginLeft: Spacing.xs,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
     padding: Spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors['surface-pressed'],
   },
   menuIcon: {
-    fontSize: 18,
+    fontSize: 16,
+    color: Colors.body,
     marginRight: Spacing.md,
+    fontWeight: '600',
   },
   menuLabel: {
     flex: 1,
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   menuArrow: {
     fontSize: 20,
-    color: Colors.textTertiary,
+    color: Colors.mute,
   },
   signOutButton: {
     height: 52,
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Spacing.lg,
+    borderWidth: 1,
+    borderColor: Colors.error,
   },
   signOutText: {
     fontSize: FontSizes.md,
@@ -226,7 +230,7 @@ const styles = StyleSheet.create({
   },
   version: {
     fontSize: FontSizes.sm,
-    color: Colors.textTertiary,
+    color: Colors.mute,
     textAlign: 'center',
     marginTop: Spacing.lg,
     marginBottom: Spacing.xxl,

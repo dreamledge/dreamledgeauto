@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, FontSizes, Spacing, BorderRadius, Shadows } from '../../src/constants/theme';
 import { SERVICE_LABELS, SERVICE_TYPES, SERVICE_ICONS } from '../../src/constants/config';
@@ -21,7 +21,7 @@ export default function CustomerHomeScreen() {
           <Text style={styles.subtitle}>How can we help you today?</Text>
         </View>
         <TouchableOpacity style={styles.profileButton}>
-          <Text style={styles.profileIcon}>👤</Text>
+          <Text style={styles.profileIcon}>→</Text>
         </TouchableOpacity>
       </View>
 
@@ -50,7 +50,9 @@ export default function CustomerHomeScreen() {
                 style={styles.serviceCard}
                 onPress={() => router.push({ pathname: '/customer/request', params: { serviceType: service.key } })}
               >
-                <Text style={styles.serviceIcon}>{service.icon}</Text>
+                <View style={styles.serviceIconCircle}>
+                  <Text style={styles.serviceIcon}>{service.icon}</Text>
+                </View>
                 <Text style={styles.serviceLabel}>{service.label}</Text>
               </TouchableOpacity>
             ))}
@@ -60,7 +62,7 @@ export default function CustomerHomeScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Recent Jobs</Text>
           <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>📋</Text>
+            <Text style={styles.emptyIcon}>—</Text>
             <Text style={styles.emptyText}>No recent jobs</Text>
             <Text style={styles.emptySubtext}>Your job history will appear here</Text>
           </View>
@@ -92,35 +94,36 @@ export default function CustomerHomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: Spacing.lg,
-    paddingTop: Spacing.xl,
+    paddingTop: Spacing['2xl'],
   },
   greeting: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   subtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   profileButton: {
     width: 44,
     height: 44,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
   },
   profileIcon: {
     fontSize: 20,
+    color: Colors.ink,
   },
   content: {
     flex: 1,
@@ -129,40 +132,41 @@ const styles = StyleSheet.create({
   quickActions: {
     flexDirection: 'row',
     gap: Spacing.md,
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing['2xl'],
   },
   quickAction: {
     flex: 1,
     alignItems: 'center',
     paddingVertical: Spacing.md,
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors['canvas-soft'],
+    borderRadius: BorderRadius.pill,
   },
   quickActionIcon: {
     width: 48,
     height: 48,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Spacing.sm,
   },
   quickActionEmoji: {
     fontSize: 24,
+    color: Colors.ink,
   },
   quickActionLabel: {
     fontSize: FontSizes.xs,
     fontWeight: '500',
-    color: Colors.primary,
+    color: Colors.ink,
     textAlign: 'center',
   },
   section: {
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing['2xl'],
   },
   sectionTitle: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.md,
   },
   servicesGrid: {
@@ -172,46 +176,56 @@ const styles = StyleSheet.create({
   },
   serviceCard: {
     width: '47%',
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     alignItems: 'center',
-    ...Shadows.sm,
+    ...Shadows['level-1'],
+  },
+  serviceIconCircle: {
+    width: 48,
+    height: 48,
+    borderRadius: BorderRadius.full,
+    backgroundColor: Colors['canvas-soft'],
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
   },
   serviceIcon: {
-    fontSize: 32,
-    marginBottom: Spacing.sm,
+    fontSize: 24,
+    color: Colors.ink,
   },
   serviceLabel: {
     fontSize: FontSizes.sm,
     fontWeight: '500',
-    color: Colors.primary,
+    color: Colors.ink,
     textAlign: 'center',
   },
   emptyState: {
     alignItems: 'center',
-    padding: Spacing.xl,
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
+    padding: Spacing['2xl'],
+    backgroundColor: Colors['canvas-soft'],
+    borderRadius: BorderRadius.xl,
   },
   emptyIcon: {
     fontSize: 40,
+    color: Colors.mute,
     marginBottom: Spacing.md,
   },
   emptyText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   emptySubtext: {
     fontSize: FontSizes.sm,
-    color: Colors.textTertiary,
+    color: Colors.mute,
   },
   bottomNav: {
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.gray200,
     paddingVertical: Spacing.sm,
     paddingBottom: Spacing.md,
   },
@@ -226,11 +240,11 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     fontSize: FontSizes.xs,
-    color: Colors.textTertiary,
+    color: Colors.mute,
   },
   navLabelActive: {
     fontSize: FontSizes.xs,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
 });

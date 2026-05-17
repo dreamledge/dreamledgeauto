@@ -25,3 +25,12 @@ yarn-debug.log*
 
 # Testing
 coverage/
+
+# Build output
+dist/
+dist-*/
+dist*/
+
+# Misc
+nul
+test.html

@@ -41,11 +41,14 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --black: #0A0A0A; --white: #FFFFFF; --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0; --gray-300: #CBD5E1; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569; --accent: #FF3B30; --success: #059669; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --black: #000000; --white: #FFFFFF; --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0; --gray-300: #CBD5E1; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569; --primary: #000000; --on-primary: #ffffff; --ink: #000000; --body: #5e5e5e; --mute: #afafaf; --hairline-mid: #4b4b4b; --canvas: #ffffff; --canvas-soft: #efefef; --canvas-softer: #f3f3f3; --surface-pressed: #e2e2e2; --on-dark: #ffffff; --black-elevated: #282828; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
-    body { font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
     #root { height: 100%; width: 100%; touch-action: pan-y; }
+    input, textarea, button, select { font-family: inherit; }
+    img { max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
     .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
@@ -131,51 +134,61 @@
     .stat-item .stat-num { font-size: 28px; font-weight: 700; color: var(--black); font-family: 'Poppins', sans-serif; white-space: nowrap; }
     .stat-item .stat-label { font-size: 12px; color: var(--gray-500); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
     @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .how-section { background: var(--white); border-radius: 20px; margin-bottom: 16px; width: 100%; padding: 40px 32px; box-sizing: border-box; }
-    .how-title { text-align: center; font-size: 24px; font-weight: 700; color: var(--black); font-family: 'Poppins', sans-serif; margin-bottom: 36px; letter-spacing: 1px; }
+    .how-section { background: var(--canvas); border-radius: 16px; margin-bottom: 16px; width: 100%; padding: 40px 32px; box-sizing: border-box; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .how-title { text-align: center; font-size: 24px; font-weight: 700; color: var(--ink); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin-bottom: 36px; }
     .how-steps { display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 32px; }
     .how-step { flex: 1; max-width: 240px; text-align: center; }
-    .how-step-icon { width: 60px; height: 60px; border-radius: 50%; background: var(--black); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 26px; }
-    .how-step-title { font-size: 16px; font-weight: 600; color: var(--black); font-family: 'Poppins', sans-serif; margin-bottom: 6px; }
-    .how-step-desc { font-size: 13px; color: var(--gray-500); line-height: 1.5; }
-    .how-time { text-align: center; margin-top: 28px; font-size: 13px; color: var(--gray-500); }
-    @media (max-width: 600px) {
+    .how-step-icon { width: 60px; height: 60px; border-radius: 16px; background: var(--canvas-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 26px; }
+    .how-step-title { font-size: 16px; font-weight: 600; color: var(--ink); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin-bottom: 6px; }
+    .how-step-desc { font-size: 13px; color: var(--body); line-height: 1.5; }
+    .how-time { text-align: center; margin-top: 28px; font-size: 13px; color: var(--body); }
+    @media (max-width: 768px) {
       .container, .min-h-screen { min-height: 100vh !important; height: auto !important; }
       .text-4xl { font-size: 1.75rem !important; }
-      .text-5xl { font-size: 2rem !important; }
-      .text-center { text-align: center !important; }
-      .row { flex-wrap: wrap !important; }
+      .text-5xl { font-size: 1.8rem !important; }
+      .text-3xl { font-size: 1.5rem !important; }
+      .text-2xl { font-size: 1.25rem !important; }
       .desktop-nav { padding: 8px 12px !important; }
-      .stats-container { width: 100%; max-width: 600px; margin: 0 auto; }
-    .stats-wrapper { padding: 48px 0 16px !important; }
-    .how-section { padding: 28px 16px; border-radius: 0; margin-bottom: 16px; }
-    .how-title { font-size: 18px; margin-bottom: 24px; }
-    .how-steps { flex-direction: column; align-items: center; gap: 20px; }
-    .how-step { max-width: 100%; width: 100%; }
-    .how-step-icon { width: 48px; height: 48px; font-size: 22px; }
-    .how-step-title { font-size: 14px; }
-    .how-step-desc { font-size: 12px; }
-    .how-time { margin-top: 20px; font-size: 12px; }
-    @media (max-width: 600px) { .stats-container { max-width: 100%; } .stats-row { padding: 16px 8px; border-radius: 0; } .stat-item .stat-num { font-size: 20px; } .stat-item .stat-label { font-size: 9px; } }
-    .stat-card { min-width: 45% !important; padding: 12px !important; }
-      .btn { padding: 10px 16px !important; }
-      .feature-card { min-width: 90% !important; padding: 16px !important; }
       .desktop-nav .text-xl { font-size: 1rem !important; }
+      .desktop-nav .btn-sm { font-size: 12px !important; padding: 6px 14px !important; height: 34px !important; }
+      .row { flex-wrap: wrap !important; }
+      .p-2xl { padding: 32px 16px !important; }
+      .p-xl { padding: 24px 16px !important; }
+      .p-lg { padding: 16px !important; }
+      .stats-wrapper { padding: 32px 0 16px !important; }
+      .stats-container { width: 100%; max-width: 100%; margin: 0 auto; }
+      .stats-row { padding: 16px 8px !important; border-radius: 16px !important; }
+      .stat-item .stat-num { font-size: 20px !important; }
+      .stat-item .stat-label { font-size: 9px !important; }
+      .how-section { padding: 28px 16px; border-radius: 16px; margin-bottom: 16px; }
+      .how-title { font-size: 18px; margin-bottom: 24px; }
+      .how-steps { flex-direction: column; align-items: center; gap: 20px; }
+      .how-step { max-width: 100%; width: 100%; }
+      .how-step-icon { width: 48px; height: 48px; font-size: 22px; }
+      .how-step-title { font-size: 14px; }
+      .how-step-desc { font-size: 12px; }
+      .how-time { margin-top: 20px; font-size: 12px; }
+      .grid-2 { width: 50% !important; }
+      .card-grid { width: 100% !important; }
+      .btn { padding: 10px 16px !important; }
+      .hero-bg .text-5xl { font-size: 1.6rem !important; }
+      .hero-bg .text-xl { font-size: 0.9rem !important; }
     }
     .bg-black { background: var(--black); }
     .bg-white { background: var(--white); }
     .bg-gray { background: var(--gray-50); }
     .bg-surface { background: var(--gray-100); }
-    .bg-accent { background: var(--accent); }
-    .bg-gradient { background: linear-gradient(135deg, var(--black) 0%, #1a1a1a 100%); }
+    .bg-accent { background: var(--ink); }
+    .bg-gradient { background: var(--ink); }
     .bg-diagonal { background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,0,0,0.03) 10px, rgba(0,0,0,0.03) 20px); }
-    .hero-bg { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('public/headerimage.png') !important; background-position: center center !important; background-repeat: no-repeat !important; background-attachment: scroll !important; background-size: 130% auto !important; background-color: #000 !important; height: 100vh; }
-    @media (max-width: 1023px) { .hero-bg { background-size: cover !important; background-position: center center !important; height: 100vh; min-height: 100vh; } }
+    .hero-bg { background: var(--ink); position: relative; overflow: hidden; }
+    .hero-bg::before { content: ''; position: absolute; inset: 0; background: url('public/headerimage.png') center center / cover no-repeat; opacity: 0.4; }
+    @media (max-width: 1023px) { .hero-bg::before { background-size: cover; } }
     .text-black { color: var(--black); }
     .text-white { color: var(--white); }
     .text-gray { color: var(--gray-500); }
     .text-muted { color: var(--gray-400); }
-    .text-accent { color: var(--accent); }
+    .text-accent { color: var(--ink); }
     .text-success { color: var(--success); }
     .border { border: 1px solid var(--gray-200); }
     .border-t { border-top: 1px solid var(--gray-200); }
@@ -193,36 +206,32 @@
     .shadow-md { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
     .shadow-lg { box-shadow: 0 16px 48px rgba(0,0,0,0.16); }
     .shadow-xl { box-shadow: 0 24px 64px rgba(0,0,0,0.2); }
-    .input { height: 52px; border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 0 20px; font-size: 16px; background: var(--white); width: 100%; font-family: 'Open Sans', sans-serif; transition: all 0.2s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.02); }
-    .input:focus { outline: none; border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15); }
-    .input::placeholder { color: var(--gray-400); }
-    .btn { height: 48px; padding: 0 24px; background: var(--primary); border: none; border-radius: 10px; display: inline-flex; justify-content: center; align-items: center; font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.25); }
-    .btn:hover { box-shadow: 0 6px 20px rgba(5, 150, 105, 0.35); transform: translateY(-2px); }
-    .btn:active { box-shadow: 0 2px 8px rgba(5, 150, 105, 0.2); transform: translateY(0); }
-    .btn-white { background: var(--white); border: 1.5px solid var(--gray-200); }
-    .btn-white:hover { border-color: var(--primary); box-shadow: 0 6px 20px rgba(5, 150, 105, 0.15); }
-    .btn-outline { background: transparent; border: 2px solid var(--black); border-radius: 10px; }
-    .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; border-radius: 8px; }
-    .btn-lg { height: 56px; font-size: 15px; padding: 0 32px; border-radius: 12px; }
-    .btn-accent { background: var(--accent); color: var(--white); box-shadow: 0 4px 14px rgba(255, 59, 48, 0.25); }
-    .btn-accent:hover { background: #CC0000; box-shadow: 0 6px 20px rgba(255, 59, 48, 0.35); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
-    .card { background: var(--white); border-radius: 16px; padding: 24px; border: 1px solid var(--gray-200); transition: all 0.3s ease; box-shadow: 0 4px 14px rgba(0,0,0,0.04); }
-    .card:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
-    .card-hover:hover { box-shadow: 0 12px 24px rgba(0,0,0,0.1); transform: translateY(-3px); cursor: pointer; }
+    .input { height: 52px; border: none; border-radius: 0; padding: 0 20px; font-size: 16px; background: var(--canvas-soft); width: 100%; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; transition: all 0.2s; }
+    .input:focus { outline: none; background: var(--canvas-softer); }
+    .input::placeholder { color: var(--mute); }
+    .btn { height: 48px; padding: 0 24px; background: var(--primary); color: #fff; border: none; border-radius: 999px; display: inline-flex; justify-content: center; align-items: center; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; }
+    .btn:hover { background: #333; }
+    .btn:active { transform: scale(0.97); }
+    .btn-white { background: var(--canvas); color: var(--ink); border: none; }
+    .btn-white:hover { background: var(--canvas-soft); }
+    .btn-outline { background: transparent; border: 2px solid var(--black); border-radius: 999px; }
+    .btn-outline:hover { background: var(--black); color: var(--white); }
+    .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; }
+    .btn-lg { height: 56px; font-size: 16px; padding: 0 32px; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .card { background: var(--canvas); border-radius: 16px; padding: 24px; border: none; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.16); transform: translateY(-1px); }
+    .card-hover:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.16); transform: translateY(-1px); cursor: pointer; }
     .card-grid { text-align: center; }
-    .service-card { background: var(--white); border-radius: 14px; padding: 16px; border: 1.5px solid var(--gray-200); transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .service-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); transform: translateY(-2px); border-color: var(--primary); }
-    .service-card.selected { background: var(--white); border: 2px solid var(--primary); box-shadow: 0 0 0 4px rgba(5, 150, 105, 0.15), 0 8px 20px rgba(5, 150, 105, 0.15); }
-    .service-card.selected .service-label, .service-card.selected .service-desc { color: var(--black); }
+    .service-card { background: var(--canvas); border-radius: 16px; padding: 16px; border: none; transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .service-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.16); transform: translateY(-1px); }
     .service-card-content { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
-    .service-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--gray-100); border-radius: 12px; margin-bottom: 8px; }
-    .service-card.selected .service-icon { background: rgba(255,255,255,0.25); }
+    .service-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--canvas-soft); border-radius: 16px; margin-bottom: 8px; }
     .service-info { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .service-label { color: var(--black); font-weight: 600; font-size: 14px; margin-bottom: 4px; text-align: center; font-family: 'Poppins', sans-serif; }
-    .service-desc { color: var(--gray-500); font-size: 11px; text-align: center; }
+    .service-label { color: var(--ink); font-weight: 600; font-size: 14px; margin-bottom: 4px; text-align: center; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+    .service-desc { color: var(--body); font-size: 11px; text-align: center; }
     .service-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--gray-300); display: flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0; }
-    .service-card.selected .service-check { background: var(--white); border-color: var(--white); }
+    .card-grid { text-align: center; }
     .nav { position: fixed; bottom: 0; left: 0; right: 0; display: flex; flex-direction: row; border-top: 1px solid var(--gray-100); padding: 12px 8px; background: var(--white); box-shadow: 0 -4px 20px rgba(0,0,0,0.04); z-index: 1000; }
     .nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 8px 0; cursor: pointer; transition: all 0.2s; }
     .nav-item:active { transform: scale(0.95); }
@@ -273,7 +282,7 @@
     .divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
     .divider-text { display: flex; align-items: center; gap: 16px; }
     .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
-    .desktop-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--gray-200); padding: 12px 16px; display: flex; align-items: center; }
+    .desktop-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--surface-pressed); padding: 12px 16px; display: flex; align-items: center; }
     .desktop-nav .text-xl { font-size: 1.6rem !important; font-weight: 700 !important; line-height: 1 !important; }
     @media (max-width: 600px) { .desktop-nav { padding: 8px 10px !important; } .desktop-nav .text-xl { font-size: 1rem !important; } .desktop-nav .btn-sm { padding: 4px 8px !important; font-size: 0.7rem !important; } }
     .hero-section { min-height: 100vh; display: flex; align-items: center; }
@@ -289,18 +298,18 @@
   <script type="text/babel">
     const { useState, useEffect, createContext, useContext } = React;
     const SERVICE_TYPES = [
-      { key: 'mechanic', label: 'Mobile Mechanic', icon: '🔧', desc: 'On-site repairs' },
-      { key: 'tire_change', label: 'Tire Change', icon: '❕', desc: 'Flat tire fix' },
-      { key: 'battery_jump', label: 'Battery Jump', icon: '🔋', desc: 'Dead battery' },
-      { key: 'towing', label: 'Towing', icon: '🚗', desc: 'Vehicle transport' },
+      { key: 'mechanic', label: 'Mobile Mechanic', icon: '⚙', desc: 'On-site repairs' },
+      { key: 'tire_change', label: 'Tire Change', icon: '◉', desc: 'Flat tire fix' },
+      { key: 'battery_jump', label: 'Battery Jump', icon: '⚡', desc: 'Dead battery' },
+      { key: 'towing', label: 'Towing', icon: '⊞', desc: 'Vehicle transport' },
       { key: 'fuel_delivery', label: 'Fuel Delivery', icon: '⛽', desc: 'Gas delivery' },
-      { key: 'lockout', label: 'Lockout', icon: '🔐', desc: 'Key issues' },
+      { key: 'lockout', label: 'Lockout', icon: '⊠', desc: 'Key issues' },
     ];
     const FEATURES = [
-      { icon: '⚡', title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
-      { icon: '💰', title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
-      { icon: '⭐', title: 'Verified Pros', desc: 'Background-checked mechanics' },
-      { icon: '📱', title: 'Easy Booking', desc: 'Book in seconds' },
+      { icon: '◉', title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
+      { icon: '$', title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
+      { icon: '✦', title: 'Verified Pros', desc: 'Background-checked mechanics' },
+      { icon: '⊞', title: 'Easy Booking', desc: 'Book in seconds' },
     ];
     const TESTIMONIALS = [
       { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5 },
@@ -464,52 +473,52 @@
       return (
         <div className="min-h-screen" style={{overflowY: 'auto'}}>
           <nav className="desktop-nav" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-            <span className="text-xl font-bold" style={{lineHeight: 1}}>Dreamledge <span style={{color: '#FF3B30', textShadow: '0 0 10px rgba(255,59,48,0.5)'}}>Auto</span></span>
+            <span className="text-xl font-bold" style={{lineHeight: 1}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
             <div className="row gap-sm">
-              <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}><span className="text-black">Sign In</span></button>
-              <button className="btn btn-sm btn-white" onClick={() => onNavigate('role-select')}><span className="text-black">Get Started</span></button>
+              <button className="btn btn-sm btn-white" onClick={() => onNavigate('login')}>Sign In</button>
+              <button className="btn btn-sm" onClick={() => onNavigate('role-select')}>Get Started</button>
             </div>
           </nav>
           <section className="hero-bg center" style={{minHeight: '100vh'}}>
             <div className="p-xl center col relative z-10" style={{maxWidth: 800}}>
-              <div className="text-5xl font-bold text-white text-center mb-md animate-fade-in-up">
-                GET BACK ON THE ROAD FAST
+              <div className="text-5xl font-bold text-white text-center mb-md animate-fade-in-up" style={{lineHeight: 1.25}}>
+                Get back on the road fast
               </div>
-              <div className="text-xl text-gray text-center animate-fade-in-up delay-200" style={{marginBottom: 16}}>
+              <div className="text-xl animate-fade-in-up delay-200" style={{color: 'rgba(255,255,255,0.7)', textAlign: 'center', marginBottom: 16}}>
                 Book in seconds, help arrives in minutes.
               </div>
               <div className="center col animate-fade-in-up delay-300" style={{marginTop: 8}}>
-                <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')} style={{border: 'none', boxShadow: 'none'}}>
+                <button className="btn btn-lg" onClick={() => onNavigate('customer-signup')} style={{background: '#fff', color: '#000', fontWeight: 600}}>
                   Request Help
                 </button>
-                <div className="text-muted" style={{marginTop: 16, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('provider-signup')}>
+                <div style={{marginTop: 16, fontSize: 14, cursor: 'pointer', color: 'rgba(255,255,255,0.7)'}} onClick={() => onNavigate('provider-signup')}>
                   I'm a Mechanic →
                 </div>
               </div>
             </div>
           </section>
-          <section className="stats-wrapper p-2xl bg-surface">
+          <section className="stats-wrapper p-2xl" style={{background: '#f3f3f3'}}>
             <div className="stats-container">
               <div className="how-section">
-                <div className="how-title">HOW DREAMLEDGE AUTO WORKS</div>
+                <div className="how-title">How dreamledge auto works</div>
                 <div className="how-steps">
                   <div className="how-step">
-                    <div className="how-step-icon">🔧</div>
+                    <div className="how-step-icon" style={{fontSize: 24}}>◉</div>
                     <div className="how-step-title">Request Help</div>
                     <div className="how-step-desc">Tell us what you need</div>
                   </div>
                   <div className="how-step">
-                    <div className="how-step-icon">📍</div>
+                    <div className="how-step-icon" style={{fontSize: 24}}>⊞</div>
                     <div className="how-step-title">Get Matched</div>
                     <div className="how-step-desc">Nearby mechanic accepts</div>
                   </div>
                   <div className="how-step">
-                    <div className="how-step-icon">🚗</div>
+                    <div className="how-step-icon" style={{fontSize: 24}}>⚙</div>
                     <div className="how-step-title">Get Fixed</div>
                     <div className="how-step-desc">They come to you</div>
                   </div>
                 </div>
-                <div className="how-time">⏱ Average arrival time: 25 minutes</div>
+                <div className="how-time">Average arrival time: 25 minutes</div>
               </div>
               <div className="stats-row">
                 <div className="stats-track">
@@ -527,58 +536,58 @@
           </section>
           <section className="p-2xl" style={{maxWidth: 900, margin: '0 auto'}}>
             <div className="text-center mb-xl">
-              <div className="text-3xl font-bold mb-sm">WHAT OUR PROVIDERS FIX</div>
-              <div className="text-muted">From dead batteries to flat tires, we've got you covered</div>
+              <div className="text-3xl font-bold mb-sm">What our providers fix</div>
+              <div style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
             </div>
             <div className="grid gap-lg">
               {SERVICE_TYPES.map((s, i) => (
-                <div key={s.key} className="card-grid grid-2 animate-fade-in-up" style={{animationDelay: `${i * 0.1}s`}}>
-                  <div className="text-4xl mb-sm">{s.icon}</div>
-                  <div className="font-semibold">{s.label}</div>
-                  <div className="text-sm text-muted">{s.desc}</div>
+                <div key={s.key} className="card" style={{padding: 24, textAlign: 'center', animationDelay: `${i * 0.1}s`}}>
+                  <div className="mb-sm" style={{fontSize: 28}}>{s.icon}</div>
+                  <div className="font-semibold" style={{marginBottom: 4}}>{s.label}</div>
+                  <div className="text-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                 </div>
               ))}
             </div>
           </section>
-          <section className="p-2xl bg-black">
+          <section className="p-2xl" style={{background: 'var(--ink)'}}>
             <div className="row wrap gap-lg center" style={{maxWidth: 900, margin: '0 auto'}}>
               {FEATURES.map((f, i) => (
                 <div key={i} className="col center" style={{maxWidth: 200}}>
-                  <div className="text-4xl mb-sm">{f.icon}</div>
-                  <div className="font-semibold text-white mb-xs">{f.title}</div>
-                  <div className="text-sm text-gray text-center">{f.desc}</div>
+                  <div className="mb-sm" style={{fontSize: 28, color: '#fff'}}>{f.icon}</div>
+                  <div className="font-semibold mb-xs" style={{color: '#fff'}}>{f.title}</div>
+                  <div className="text-sm text-center" style={{color: 'rgba(255,255,255,0.6)'}}>{f.desc}</div>
                 </div>
               ))}
             </div>
           </section>
           <section className="p-2xl" style={{paddingBottom: 0}}>
             <div className="text-center mb-xl">
-              <div className="text-3xl font-bold">WHAT PEOPLE SAY</div>
+              <div className="text-3xl font-bold">What people say</div>
             </div>
             <div className="row wrap gap-lg center">
               {TESTIMONIALS.map((t, i) => (
-                <div key={i} className="testimonial-card" style={{maxWidth: 300, textAlign: 'center'}}>
-                  <div className="text-accent mb-sm">{'⭐'.repeat(t.rating)}</div>
+                <div key={i} className="card" style={{maxWidth: 300, textAlign: 'center', padding: 32}}>
+                  <div className="mb-md" style={{fontSize: 18}}>{'✦'.repeat(t.rating)}</div>
                   <div className="font-medium mb-sm">"{t.text}"</div>
-                  <div className="text-muted text-sm">- {t.name}</div>
+                  <div className="text-sm" style={{color: 'var(--body)'}}>- {t.name}</div>
                 </div>
               ))}
             </div>
           </section>
-          <section className="p-2xl center bg-gradient">
+          <section className="p-2xl center" style={{background: 'var(--ink)'}}>
             <div className="center col relative z-10">
-              <div className="text-3xl font-bold text-white text-center mb-lg">READY TO GET BACK ON THE ROAD?</div>
-              <button className="btn btn-lg btn-accent" onClick={() => onNavigate('customer-signup')} style={{border: 'none', boxShadow: 'none'}}>
-                GET HELP NOW
+              <div className="text-3xl font-bold text-center mb-lg" style={{color: '#fff'}}>Ready to get back on the road?</div>
+              <button className="btn btn-lg" onClick={() => onNavigate('customer-signup')} style={{background: '#fff', color: '#000', fontWeight: 600}}>
+                Get help now
               </button>
             </div>
           </section>
-          <footer className="p-xl bg-surface">
+          <footer style={{background: 'var(--ink)', padding: '24px 32px'}}>
             <div className="row between wrap centerV">
               <div className="row centerV gap-md">
-                <span className="font-semibold">Dreamledge Auto</span>
+                <span style={{color: '#fff', fontWeight: 600}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
               </div>
-              <div className="text-sm text-muted">© 2026 Dreamledge Auto.</div>
+              <div className="text-sm" style={{color: 'rgba(255,255,255,0.5)'}}>© 2026 Dreamledge Auto.</div>
             </div>
           </footer>
         </div>
@@ -587,28 +596,28 @@
     function RoleSelectScreen({ onNavigate }) {
       return (
         <div style={{position: 'relative', minHeight: '100vh'}}>
-          <div className="container bg-white" style={{display: 'flex', flexDirection: 'column', minHeight: '100vh', padding: '8px 24px 48px'}}>
-            <div className="center col animate-fade-in-down" style={{marginBottom: 24}}>
+          <div className="container" style={{display: 'flex', flexDirection: 'column', minHeight: '100vh', padding: '8px 24px 48px', background: 'var(--canvas)'}}>
+            <div className="center col" style={{marginBottom: 24}}>
               <img src="public/sustainable-travel.gif" alt="" style={{width: 120, height: 120, objectFit: 'contain', display: 'block', margin: '0 auto -8px'}} />
-              <div className="text-3xl font-bold" style={{textAlign: 'center', letterSpacing: '-0.5px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
-              <div className="text-base text-gray" style={{textAlign: 'center', marginTop: 4, fontWeight: 400}}>Get back on the road fast</div>
+              <div className="text-3xl font-bold" style={{textAlign: 'center'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
+              <div style={{textAlign: 'center', marginTop: 4, color: 'var(--body)'}}>Get back on the road fast</div>
             </div>
             <div className="flex" style={{gap: 8}}>
-              <div className="card card-hover mb-md animate-fade-in-up delay-100" onClick={() => onNavigate('customer-signup')} style={{padding: '16px 24px'}}>
-                <div className="text-4xl mb-md">🚙</div>
+              <div className="card card-hover mb-md" onClick={() => onNavigate('customer-signup')} style={{padding: '24px'}}>
+                <div className="mb-md" style={{fontSize: 36}}>→</div>
                 <div className="text-xl font-semibold">I Need Help</div>
-                <div className="text-base text-gray mt-sm">Request roadside assistance</div>
+                <div className="mt-sm" style={{color: 'var(--body)'}}>Request roadside assistance</div>
               </div>
-              <div className="card card-hover animate-fade-in-up delay-200" onClick={() => onNavigate('provider-signup')} style={{padding: '16px 24px'}}>
-                <div className="text-4xl mb-md">🔧</div>
+              <div className="card card-hover" onClick={() => onNavigate('provider-signup')} style={{padding: '24px'}}>
+                <div className="mb-md" style={{fontSize: 36}}>⚙</div>
                 <div className="text-xl font-semibold">I'm a Mechanic</div>
-                <div className="text-base text-gray mt-sm">Offer mobile repair services</div>
+                <div className="mt-sm" style={{color: 'var(--body)'}}>Offer mobile repair services</div>
               </div>
             </div>
           </div>
-          <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 4, background: 'var(--white)', padding: '12px 0'}}>
-            <span className="text-base text-gray">Already have an account?</span>
-            <span className="text-base font-semibold" style={{color: '#FF3B30', cursor: 'pointer'}} onClick={() => onNavigate('login')}>Sign In</span>
+          <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 4, background: 'var(--canvas)', padding: '12px 0'}}>
+            <span style={{color: 'var(--body)'}}>Already have an account?</span>
+            <span className="font-semibold" style={{cursor: 'pointer'}} onClick={() => onNavigate('login')}>Sign In</span>
           </div>
         </div>
       );
@@ -630,46 +639,29 @@
             <span className="text-2xl cursor-pointer">←</span>
           </div>
           <div className="p-lg">
-            <div className="text-2xl font-bold animate-fade-in-up">Create Account</div>
-            <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">Get help on the road</div>
+            <div className="text-2xl font-bold">Create account</div>
+            <div className="mt-xs" style={{color: 'var(--body)'}}>Get help on the road</div>
           </div>
           <div className="flex p-lg">
             <div style={{display: 'flex', gap: 8, marginBottom: 16}}>
-              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--black)'}}></div>
+              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--ink)'}}></div>
             </div>
-            <div className="text-sm font-semibold text-gray mb-sm">FULL NAME</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Full name</div>
             <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
-            <div className="text-sm font-semibold text-gray mb-sm">PHONE</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Phone</div>
             <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-            <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Email</div>
             <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-            <div className="text-sm font-semibold text-gray mb-sm">PASSWORD</div>
-            <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
-            <div style={{width: '100%', marginTop: '24px'}}>
-              <button 
-                onClick={handleSubmit}
-                disabled={loading || !name || !email || !phone}
-                style={{
-                  width: '100%',
-                  height: '52px',
-                  background: 'var(--black)',
-                  border: 'none',
-                  borderRadius: '12px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  color: 'white',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  opacity: loading ? 0.7 : 1,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
-                }}
-              >
-                {loading ? 'Creating...' : 'Create Account'}
-              </button>
-            </div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Password</div>
+            <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
+            <button 
+              className="btn btn-lg"
+              onClick={handleSubmit}
+              disabled={loading || !name || !email || !phone}
+              style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1}}
+            >
+              {loading ? 'Creating...' : 'Create Account'}
+            </button>
           </div>
         </div>
       );
@@ -690,68 +682,28 @@
             <span className="text-2xl cursor-pointer">←</span>
           </div>
           <div className="p-lg">
-            <div className="text-2xl font-bold animate-fade-in-up">Become a Provider</div>
-            <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">Your info</div>
+            <div className="text-2xl font-bold">Become a provider</div>
+            <div className="mt-xs" style={{color: 'var(--body)'}}>Your info</div>
           </div>
           <div className="flex p-lg">
             <div style={{display: 'flex', gap: 8, marginBottom: 16}}>
-              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--black)'}}></div>
-              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--gray-200)'}}></div>
+              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--ink)'}}></div>
+              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--surface-pressed)'}}></div>
             </div>
-            <div className="text-sm font-semibold text-gray mb-sm">FULL NAME</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Full name</div>
             <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
-            <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Email</div>
             <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-            <div className="text-sm font-semibold text-gray mb-sm">PHONE</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Phone</div>
             <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-            <div style={{width: '100%', marginTop: '24px'}}>
-              <button 
-                onClick={handleSubmit} 
-                disabled={loading || !name || !email || !phone}
-                style={{
-                  width: '100%',
-                  height: '52px',
-                  background: 'var(--black)',
-                  border: 'none',
-                  borderRadius: '12px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  color: 'white',
-                  cursor: (loading || !name || !email || !phone) ? 'not-allowed' : 'pointer',
-                  opacity: (loading || !name || !email || !phone) ? 0.6 : 1,
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseOver={(e) => {
-                  if (!loading && name && email && phone) {
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.2)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-                onMouseDown={(e) => {
-                  if (!loading && name && email && phone) {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
-                  }
-                }}
-                onMouseUp={(e) => {
-                  if (!loading && name && email && phone) {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
-                  }
-                }}
-              >
-                <span className="font-semibold">{loading ? 'Next...' : 'Next'}</span>
-              </button>
-            </div>
+            <button 
+              className="btn btn-lg"
+              onClick={handleSubmit} 
+              disabled={loading || !name || !email || !phone}
+              style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1}}
+            >
+              {loading ? 'Next...' : 'Next'}
+            </button>
           </div>
         </div>
       );
@@ -789,18 +741,18 @@
             <span className="text-2xl cursor-pointer">←</span>
           </div>
           {error && (
-            <div style={{background: 'rgba(255,59,48,0.1)', color: '#FF3B30', padding: '12px 16px', margin: '0 16px', borderRadius: 8, fontSize: 14}}>
+            <div style={{background: 'var(--canvas-soft)', color: 'var(--ink)', padding: '12px 16px', margin: '0 16px', borderRadius: 8, fontSize: 14}}>
               {error}
             </div>
           )}
           <div className="p-lg">
-            <div className="text-2xl font-bold animate-fade-in-up">Select Services</div>
-            <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">What can you offer?</div>
+            <div className="text-2xl font-bold">Select services</div>
+            <div className="mt-xs" style={{color: 'var(--body)'}}>What can you offer?</div>
           </div>
           <div className="flex p-lg">
             <div style={{display: 'flex', gap: 8, marginBottom: 16}}>
-              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--black)'}}></div>
-              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--black)'}}></div>
+              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--ink)'}}></div>
+              <div style={{flex: 1, height: 4, borderRadius: 2, background: 'var(--ink)'}}></div>
             </div>
             <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', gap: 8, padding: '0 4px'}}>
               {SERVICE_TYPES.map(s => (
@@ -815,54 +767,14 @@
                 </div>
               ))}
             </div>
-            <div style={{width: '100%', marginTop: '24px'}}>
-              <button 
-                onClick={handleSubmit} 
-                disabled={loading}
-                style={{
-                  width: '100%',
-                  height: '52px',
-                  background: 'var(--black)',
-                  border: 'none',
-                  borderRadius: '12px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  color: 'white',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  opacity: loading ? 0.6 : 1,
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.2)',
-                  transition: 'all 0.2s ease'
-                }}
-                onMouseOver={(e) => {
-                  if (!loading) {
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                  }
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.2)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                }}
-                onMouseDown={(e) => {
-                  if (!loading) {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.2)';
-                  }
-                }}
-                onMouseUp={(e) => {
-                  if (!loading) {
-                    e.currentTarget.style.transform = 'translateY(-2px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
-                  }
-                }}
-              >
-                <span className="font-semibold">{loading ? 'Submitting...' : 'Apply to Drive'}</span>
-              </button>
-            </div>
+            <button 
+              className="btn btn-lg"
+              onClick={handleSubmit} 
+              disabled={loading}
+              style={{width: '100%', marginTop: 24, opacity: loading ? 0.5 : 1}}
+            >
+              {loading ? 'Submitting...' : 'Apply to Drive'}
+            </button>
           </div>
         </div>
       );
@@ -889,39 +801,22 @@
             <span className="text-2xl cursor-pointer">←</span>
           </div>
           <div className="p-lg">
-            <div className="text-2xl font-bold animate-fade-in-up">Welcome Back</div>
-            <div className="text-base text-gray mt-xs animate-fade-in-up delay-100">Sign in to continue</div>
+            <div className="text-2xl font-bold">Welcome back</div>
+            <div className="mt-xs" style={{color: 'var(--body)'}}>Sign in to continue</div>
           </div>
           <div className="flex p-lg">
-            <div className="text-sm font-semibold text-gray mb-sm">EMAIL</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Email</div>
             <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-            <div className="text-sm font-semibold text-gray mb-sm">PASSWORD</div>
-            <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" />
-            <div style={{width: '100%', marginTop: '24px'}}>
-              <button 
-                onClick={handleLogin}
-                disabled={loading || !email || !password}
-                style={{
-                  width: '100%',
-                  height: '52px',
-                  background: 'var(--black)',
-                  border: 'none',
-                  borderRadius: '12px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  fontFamily: 'Poppins, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: '600',
-                  color: 'white',
-                  cursor: loading ? 'not-allowed' : 'pointer',
-                  opacity: loading ? 0.7 : 1,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
-                }}
-              >
-                {loading ? 'Signing in...' : 'Sign In'}
-              </button>
-            </div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Password</div>
+            <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
+            <button 
+              className="btn btn-lg"
+              onClick={handleLogin}
+              disabled={loading || !email || !password}
+              style={{width: '100%', marginTop: 24, opacity: loading || !email || !password ? 0.5 : 1}}
+            >
+              {loading ? 'Signing in...' : 'Sign In'}
+            </button>
           </div>
         </div>
       );
@@ -931,27 +826,27 @@
       const handleNavTabChange = (tabId) => {
         setNavTab(tabId);
         if (tabId === 'home') onNavigate('customer-home');
-        else if (tabId === 'jobs') onNavigate('customer-requests');
-        else if (tabId === 'settings') onNavigate('customer-settings');
+        else if (tabId === 'jobs') onNavigate('customer-request');
+        else if (tabId === 'settings') onNavigate('customer-request');
       };
       return (
-        <div className="container bg-white" style={{paddingBottom: '70px'}}>
-          <div className="p-lg pt-2xl animate-fade-in-down">
-            <div className="text-2xl font-bold">Hello! 👋</div>
-            <div className="text-base text-gray mt-xs">How can we help?</div>
+        <div className="container" style={{paddingBottom: '70px', background: 'var(--canvas)'}}>
+          <div className="p-lg pt-2xl">
+            <div className="text-2xl font-bold">Hello!</div>
+            <div className="mt-xs" style={{color: 'var(--body)'}}>How can we help?</div>
           </div>
           
           <div className="flex p-lg">
-            <div className="text-lg font-semibold mb-md">SERVICES</div>
+            <div className="font-semibold mb-md" style={{fontSize: 16}}>Services</div>
             <div className="grid gap-md">
               {SERVICE_TYPES.map((s, i) => (
                 <div 
                   key={s.key} 
-                  className="card-grid grid-2 animate-fade-in-up" 
-                  style={{animationDelay: `${i * 0.05}s`}}
+                  className="card" 
+                  style={{padding: 20, textAlign: 'center', cursor: 'pointer', animationDelay: `${i * 0.05}s`}}
                   onClick={() => onNavigate('customer-request')}
                 >
-                  <div className="text-3xl mb-sm">{s.icon}</div>
+                  <div className="mb-sm" style={{fontSize: 28}}>{s.icon}</div>
                   <div className="text-sm font-semibold">{s.label}</div>
                 </div>
               ))}
@@ -981,9 +876,9 @@
             <div className="text-xl font-bold">Request Help</div>
           </div>
           <div className="flex p-lg">
-            <div className="text-sm font-semibold text-gray mb-sm">LOCATION</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Location</div>
             <input className="input mb-md" value={location} onChange={e => setLocation(e.target.value)} placeholder="Enter your location" />
-            <div className="text-sm font-semibold text-gray mb-sm">SERVICE</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Service</div>
             <div className="grid gap-sm mb-md">
               {SERVICE_TYPES.map(s => (
                 <div key={s.key} className={`service-card ${service === s.key ? 'selected' : ''}`} onClick={() => setService(s.key)}>
@@ -996,17 +891,17 @@
                 </div>
               ))}
             </div>
-            <div className="text-sm font-semibold text-gray mb-sm">DETAILS</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Details</div>
             <textarea className="input mb-md" style={{height: 100, paddingTop: 16}} value={details} onChange={e => setDetails(e.target.value)} placeholder="Describe your issue..." />
-            <div className="text-sm font-semibold text-gray mb-sm">PRICING</div>
+            <div className="mb-sm" style={{fontSize: 12, fontWeight: 600, color: 'var(--hairline-mid)', textTransform: 'uppercase', letterSpacing: '0.5px'}}>Pricing</div>
             <div className="row gap-sm mb-md">
               <div className={`btn btn-sm ${pricing === 'fixed' ? '' : 'btn-white'}`} onClick={() => setPricing('fixed')}>Fixed</div>
               <div className={`btn btn-sm ${pricing === 'range' ? '' : 'btn-white'}`} onClick={() => setPricing('range')}>Range</div>
               <div className={`btn btn-sm ${pricing === 'quote' ? '' : 'btn-white'}`} onClick={() => setPricing('quote')}>Quote</div>
             </div>
-            <div className="btn mt-md" onClick={handleSubmit} disabled={!service || !location || loading}>
-              <span className="text-base font-semibold text-white">{loading ? 'Finding help...' : 'Get Help Now'}</span>
-            </div>
+            <button className="btn btn-lg" onClick={handleSubmit} disabled={!service || !location || loading} style={{width: '100%', marginTop: 16, opacity: !service || !location || loading ? 0.5 : 1}}>
+              {loading ? 'Finding help...' : 'Get Help Now'}
+            </button>
           </div>
         </div>
       );
@@ -1024,22 +919,22 @@
           </div>
           <div className="p-lg">
             <div className="text-xl font-bold">Available Mechanics</div>
-            <div className="text-sm text-gray">Choose an offer</div>
+            <div className="text-sm" style={{color: 'var(--body)'}}>Choose an offer</div>
           </div>
           <div className="flex p-lg">
             {offers.map(offer => (
-              <div key={offer.id} className="card mb-md" onClick={() => onNavigate('customer-home')}>
+              <div key={offer.id} className="card mb-md" onClick={() => onNavigate('customer-home')} style={{padding: 20, cursor: 'pointer'}}>
                 <div className="row centerV gap-md mb-sm">
-                  <div className="text-3xl">🔧</div>
+                  <div style={{fontSize: 24}}>◉</div>
                   <div style={{flex: 1}}>
                     <div className="font-semibold">{offer.name}</div>
-                    <div className="text-sm text-gray">⭐ {offer.rating} · {offer.time}</div>
+                    <div className="text-sm" style={{color: 'var(--body)'}}>{offer.rating} · {offer.time}</div>
                   </div>
-                  {offer.badge && <span className="badge badge-success">{offer.badge}</span>}
+                  {offer.badge && <span className="badge" style={{background: 'var(--canvas-soft)', color: 'var(--ink)', padding: '4px 12px', borderRadius: 999, fontSize: 11, fontWeight: 600}}>{offer.badge}</span>}
                 </div>
                 <div className="row centerV between">
-                  <div className="text-xl font-bold text-accent">{offer.price}</div>
-                  <div className="btn btn-sm">Accept</div>
+                  <div className="text-xl font-bold">{offer.price}</div>
+                  <button className="btn btn-sm" onClick={(e) => { e.stopPropagation(); onNavigate('customer-home'); }}>Accept</button>
                 </div>
               </div>
             ))}
@@ -1048,18 +943,115 @@
       );
     }
     function ProviderHomeScreen({ onNavigate }) {
+      const { userData, toggleOnline } = useContext(UserContext);
       const [navTab, setNavTab] = useState('home');
+      const [isOnline, setIsOnline] = useState(userData?.isOnline || false);
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+      const name = userData?.name || 'there';
       const handleNavTabChange = (tabId) => {
         setNavTab(tabId);
         if (tabId === 'home') onNavigate('provider-home');
         else if (tabId === 'jobs') onNavigate('provider-jobs');
         else if (tabId === 'earnings') onNavigate('provider-earnings');
       };
+      const handleToggle = () => {
+        const newStatus = !isOnline;
+        setIsOnline(newStatus);
+        if (userData?.uid) toggleOnline(userData.uid, newStatus);
+      };
+      const nearbyJobs = [
+        { id: '1', service: 'Oil Change', address: '456 Oak Ave', time: '20 min away', payout: '$45 - $60' },
+        { id: '2', service: 'Tire Rotation', address: '789 Elm St', time: '25 min away', payout: '$35 - $50' },
+      ];
       return (
-        <div style={{height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: '#F5F5F5', paddingBottom: '70px'}}>
-          <div style={{fontSize: 48, marginBottom: 16}}>🏠</div>
-          <div className="font-semibold" style={{fontSize: 18}}>Home</div>
-          <div className="text-sm text-gray" style={{marginTop: 8}}>Coming soon</div>
+        <div className="h-full w-full" style={{background: 'var(--white)', display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
+          <div style={{flex: 1, overflowY: 'auto', padding: '16px'}}>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20}}>
+              <div>
+                <div className="font-bold" style={{color: 'var(--black)', fontSize: 22}}>{greeting}, {name}</div>
+                <div style={{color: 'var(--body)', marginTop: 4, fontSize: 14}}>Ready to get some jobs done?</div>
+              </div>
+              <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
+                <div style={{position: 'relative'}}>
+                  <span style={{fontSize: 22}}>◉</span>
+                  <div style={{position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: '#000'}} />
+                </div>
+                <div style={{position: 'relative'}}>
+                  <div style={{width: 36, height: 36, borderRadius: '50%', background: 'var(--canvas-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: 'var(--ink)'}}>M</div>
+                  <div style={{position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: '#34C759', border: '2px solid var(--white)'}} />
+                </div>
+              </div>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--canvas-soft)', padding: '16px', borderRadius: 16, marginBottom: 20}}>
+              <div style={{display: 'flex', alignItems: 'center'}}>
+                <span style={{fontSize: 28, color: isOnline ? '#34C759' : 'var(--mute)'}}>◉</span>
+                <div style={{marginLeft: 10}}>
+                  <div style={{color: 'var(--ink)', fontWeight: 600, fontSize: 15}}>{isOnline ? "You're Online" : "You're Offline"}</div>
+                  <div style={{color: 'var(--body)', fontSize: 12, marginTop: 2}}>{isOnline ? "Visible to customers" : "Go online to receive jobs"}</div>
+                </div>
+              </div>
+              <button onClick={handleToggle} style={{background: isOnline ? 'var(--surface-pressed)' : 'var(--ink)', border: 'none', borderRadius: 999, padding: '8px 16px', fontWeight: 600, fontSize: 13, color: isOnline ? 'var(--ink)' : '#fff', cursor: 'pointer'}}>
+                {isOnline ? 'Go Offline' : 'Go Online'}
+              </button>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20}}>
+              {[
+                { label: 'Jobs Today', value: '3' },
+                { label: 'Rating', value: '4.9' },
+                { label: 'Earnings', value: '$256' },
+                { label: 'Time', value: '8h' },
+              ].map((item, index) => (
+                <div key={index} style={{background: 'var(--canvas-soft)', padding: '12px 8px', borderRadius: 12, width: '23%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                  <div style={{color: 'var(--ink)', fontSize: 16, fontWeight: 600, marginTop: 4}}>{item.value}</div>
+                  <div style={{color: 'var(--body)', fontSize: 10, marginTop: 2}}>{item.label}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{display: 'flex', background: 'var(--canvas-soft)', padding: 16, borderRadius: 16, marginBottom: 20}}>
+              <div style={{flex: 1}}>
+                <div style={{fontSize: 10, fontWeight: 600, letterSpacing: 1, color: 'var(--body)'}}>Upcoming</div>
+                <div style={{color: 'var(--ink)', fontSize: 20, fontWeight: 700, marginTop: 4}}>10:30 AM</div>
+                <div style={{color: 'var(--ink)', fontWeight: 600, marginTop: 4}}>Jump Start</div>
+                <div style={{color: 'var(--body)', fontSize: 12, marginTop: 2}}>123 Main St</div>
+                <div style={{color: 'var(--body)', fontSize: 12}}>2.4 mi away</div>
+                <button className="btn btn-sm" style={{marginTop: 12}}>
+                  Start Navigation
+                </button>
+              </div>
+              <div style={{width: 100, height: 100, background: 'var(--canvas-softer)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}>
+                <span style={{color: 'var(--mute)', fontSize: 12}}>Map</span>
+              </div>
+            </div>
+            <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20, gap: 12}}>
+              <div style={{flex: 1, background: 'var(--canvas-soft)', padding: 16, borderRadius: 16}}>
+                <div style={{color: 'var(--body)', fontSize: 12, marginBottom: 8}}>Earnings Today</div>
+                <div style={{color: 'var(--ink)', fontSize: 22, fontWeight: 700}}>$256</div>
+                <div style={{color: 'var(--body)', fontSize: 12, marginTop: 4}}>4 Jobs Completed</div>
+              </div>
+              <div style={{flex: 1, background: 'var(--canvas-soft)', padding: 16, borderRadius: 16}}>
+                <div style={{color: 'var(--body)', fontSize: 12, marginBottom: 8}}>Incentives</div>
+                <div style={{color: 'var(--body)', fontSize: 12}}>Complete 2 more jobs to earn $50</div>
+                <div style={{height: 6, background: 'var(--surface-pressed)', borderRadius: 4, marginTop: 8, marginBottom: 4}}>
+                  <div style={{width: '50%', height: '100%', background: 'var(--ink)', borderRadius: 4}} />
+                </div>
+                <div style={{color: 'var(--body)', fontSize: 12}}>2 / 4 Jobs</div>
+              </div>
+            </div>
+            <div style={{marginBottom: 20}}>
+              <div style={{color: 'var(--ink)', fontSize: 16, fontWeight: 600, marginBottom: 12}}>Nearby Jobs</div>
+              {nearbyJobs.map((job) => (
+                <div key={job.id} style={{display: 'flex', justifyContent: 'space-between', background: 'var(--canvas-soft)', padding: 14, borderRadius: 12, marginBottom: 10, cursor: 'pointer'}}>
+                  <div>
+                    <div style={{fontSize: 12, fontWeight: 500, color: 'var(--body)'}}>{job.time}</div>
+                    <div style={{color: 'var(--ink)', fontWeight: 600, marginTop: 4}}>{job.service}</div>
+                    <div style={{color: 'var(--body)', fontSize: 12, marginTop: 2}}>{job.address}</div>
+                  </div>
+                  <div style={{fontWeight: 600, fontSize: 14, color: 'var(--ink)'}}>{job.payout}</div>
+                </div>
+              ))}
+            </div>
+          </div>
           <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
         </div>
       );
@@ -1087,7 +1079,7 @@
       const userServices = userData.services || [];
       
       const getCategoriesFromServices = () => {
-        const cats = [{ key: 'all', label: 'All', icon: '📋' }];
+        const cats = [{ key: 'all', label: 'All' }];
         userServices.forEach(s => {
           const mapped = SERVICE_CATEGORY_MAP[s];
           if (Array.isArray(mapped)) {
@@ -1095,16 +1087,14 @@
               const existing = cats.find(c => c.key === m);
               if (!existing) {
                 const labels = { battery: 'Battery', tire: 'Tire', fuel: 'Fuel', towing: 'Towing', diagnostics: 'Diagnostics', emergency: 'Emergency' };
-                const icons = { battery: '🔋', tire: '❕', fuel: '⛽', towing: '🚜', diagnostics: '🔧', emergency: '🚨' };
-                cats.push({ key: m, label: labels[m] || m, icon: icons[m] || '🔧' });
+                cats.push({ key: m, label: labels[m] || m });
               }
             });
           } else if (mapped) {
             const existing = cats.find(c => c.key === mapped);
             if (!existing) {
               const labels = { roadside: 'Roadside', battery: 'Battery', tire: 'Tire', fuel: 'Fuel', towing: 'Towing', diagnostics: 'Diagnostics', emergency: 'Emergency' };
-              const icons = { roadside: '🚗', battery: '🔋', tire: '❕', fuel: '⛽', towing: '🚜', diagnostics: '🔧', emergency: '🚨' };
-              cats.push({ key: mapped, label: labels[mapped] || mapped, icon: icons[mapped] || '🔧' });
+              cats.push({ key: mapped, label: labels[mapped] || mapped });
             }
           }
         });
@@ -1151,39 +1141,38 @@
       
       return (
         <div className="h-full w-full" style={{background: '#F5F5F5', display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
-          <div style={{background: 'linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%)', padding: '14px 16px 10px', borderRadius: '0 0 24px 24px'}}>
+          <div style={{background: 'var(--ink)', padding: '14px 16px 10px'}}>
             <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '12px'}}>
               <div>
                 <div className="text-white font-bold" style={{fontSize: '18px'}}>{greeting}!</div>
                 <div className="text-white" style={{fontSize: '12px', opacity: 0.7}}>Ready to work?</div>
               </div>
               <div className="row centerV" style={{gap: 8}}>
-                <div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>🔔</div>
-                <div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px'}}>👤</div>
+                <div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', color: '#fff'}}>◉</div>
               </div>
             </div>
-            <div style={{ background: isOnline ? 'linear-gradient(135deg, #34C759 0%, #30B350 100%)' : 'rgba(255,255,255,0.15)', borderRadius: '16px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', boxShadow: isOnline ? '0 4px 20px rgba(52,199,89,0.4)' : 'none'}}>
+            <div style={{ background: isOnline ? 'var(--black-elevated)' : 'rgba(255,255,255,0.15)', borderRadius: '16px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
               <div>
                 <div className="text-white font-semibold" style={{fontSize: '14px'}}>Available Jobs Nearby</div>
                 <div className="text-white font-bold" style={{fontSize: '22px', marginTop: '2px'}}>{isOnline ? filteredJobs.length : 0}</div>
                 {isOnline && <div className="text-white" style={{fontSize: '11px', opacity: 0.8}}>Live jobs in your area</div>}
               </div>
-              <button onClick={() => toggleOnline(userData.uid, !isOnline)} style={{ background: isOnline ? 'rgba(255,255,255,0.3)' : 'var(--white)', border: 'none', borderRadius: '24px', padding: '10px 20px', fontWeight: '600', fontSize: '13px', color: isOnline ? 'var(--white)' : '#34C759', cursor: 'pointer' }}>
-                {isOnline ? '● Go Offline' : '○ Go Online'}
+              <button onClick={() => toggleOnline(userData.uid, !isOnline)} style={{ background: isOnline ? '#fff' : 'transparent', border: '1px solid ' + (isOnline ? '#fff' : 'rgba(255,255,255,0.5)'), borderRadius: '999px', padding: '8px 20px', fontWeight: '600', fontSize: '13px', color: isOnline ? 'var(--ink)' : '#fff', cursor: 'pointer' }}>
+                {isOnline ? 'Go Offline' : 'Go Online'}
               </button>
             </div>
           </div>
-          <div style={{padding: '12px 16px', background: 'var(--white)'}}>
-            <div className="text-xs font-semibold text-gray mb-sm">Quick Filters</div>
+          <div style={{padding: '12px 16px', background: 'var(--canvas)'}}>
+            <div style={{fontSize: 10, fontWeight: 600, color: 'var(--body)', marginBottom: 8}}>Quick Filters</div>
             <div style={{display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '4px'}}>
               {serviceCategories.map((cat) => (
-                <button key={cat.key} onClick={() => setSelectedCategory(cat.key)} style={{ background: selectedCategory === cat.key ? 'var(--black)' : 'var(--gray-100)', color: selectedCategory === cat.key ? 'var(--white)' : 'var(--gray-600)', border: 'none', borderRadius: '20px', padding: '6px 12px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  <span>{cat.icon}</span> {cat.label}
+                <button key={cat.key} onClick={() => setSelectedCategory(cat.key)} style={{ background: selectedCategory === cat.key ? 'var(--ink)' : 'var(--canvas-soft)', color: selectedCategory === cat.key ? '#fff' : 'var(--body)', border: 'none', borderRadius: '999px', padding: '6px 14px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer'}}>
+                  {cat.label}
                 </button>
               ))}
               {canAddMore && (
-                <button onClick={() => setShowAddModal(true)} style={{ background: 'var(--gray-100)', color: 'var(--gray-600)', border: 'none', borderRadius: '20px', padding: '6px 12px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px'}}>
-                  <span>+</span> Add
+                <button onClick={() => setShowAddModal(true)} style={{ background: 'var(--canvas-soft)', color: 'var(--body)', border: 'none', borderRadius: '999px', padding: '6px 14px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer'}}>
+                  + Add
                 </button>
               )}
             </div>
@@ -1196,72 +1185,72 @@
             {isOnline ? (
               filteredJobs.length > 0 ? (
                 filteredJobs.map((job) => (
-                  <div key={job.id} className="animate-fade-in-up" style={{ background: 'var(--white)', borderRadius: '16px', padding: '16px', marginBottom: '12px', boxShadow: '0 2px 12px rgba(0,0,0,0.08)', position: 'relative', borderLeft: job.urgent ? '4px solid #FF3B30' : '4px solid transparent'}}>
+                  <div key={job.id} className="animate-fade-in-up" style={{ background: 'var(--canvas)', borderRadius: '16px', padding: '16px', marginBottom: '12px', boxShadow: '0 4px 16px rgba(0,0,0,0.12)'}}>
                     <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '8px'}}>
                       <div className="row centerV gap-sm">
-                        <span style={{fontSize: '18px'}}>{job.service}</span>
-                        {job.urgent && <span style={{background: 'rgba(255,59,48,0.1)', color: '#FF3B30', padding: '2px 8px', borderRadius: '8px', fontSize: '10px', fontWeight: '600'}}>URGENT</span>}
+                        <span style={{fontWeight: 600}}>{job.service}</span>
+                        {job.urgent && <span style={{background: 'var(--canvas-soft)', color: 'var(--body)', padding: '2px 8px', borderRadius: '999px', fontSize: '10px', fontWeight: '600'}}>Urgent</span>}
                       </div>
-                      <span className="text-xs text-gray">{job.time}</span>
+                      <span style={{fontSize: 12, color: 'var(--mute)'}}>{job.time}</span>
                     </div>
-                    <div className="text-sm text-gray mb-sm">📍 {job.address} · {job.distance}</div>
-                    <div className="row centerV" style={{justifyContent: 'space-between', marginTop: '12px'}}>
+                    <div style={{fontSize: 13, color: 'var(--body)', marginBottom: 12}}>{job.address} · {job.distance}</div>
+                    <div className="row centerV" style={{justifyContent: 'space-between'}}>
                       <div>
-                        <div className="font-bold" style={{fontSize: '20px', color: '#34C759'}}>{job.payout}</div>
-                        <div className="text-xs text-gray">⭐ {job.rating}</div>
+                        <div className="font-bold" style={{fontSize: '20px', color: 'var(--ink)'}}>{job.payout}</div>
+                        <div style={{fontSize: 12, color: 'var(--mute)'}}>{job.rating}</div>
                       </div>
                       <div className="row gap-sm">
-                        <button onClick={() => handleDeclineJob(job.id)} style={{ background: 'var(--gray-100)', border: 'none', borderRadius: '8px', padding: '10px 16px', fontWeight: '600', fontSize: '13px', color: 'var(--gray-600)', cursor: 'pointer'}}>Decline</button>
-                        <button onClick={() => handleAcceptJob(job)} style={{ background: 'var(--black)', border: 'none', borderRadius: '8px', padding: '10px 20px', fontWeight: '600', fontSize: '13px', color: 'var(--white)', cursor: 'pointer'}}>Accept</button>
+                        <button onClick={() => handleDeclineJob(job.id)} className="btn btn-sm btn-white">Decline</button>
+                        <button onClick={() => handleAcceptJob(job)} className="btn btn-sm">Accept</button>
                       </div>
                     </div>
                   </div>
                 ))
               ) : (
                 <div style={{textAlign: 'center', padding: '40px'}}>
-                  <div style={{fontSize: '48px', marginBottom: '16px'}}>🔍</div>
+                  <div style={{fontSize: '36px', marginBottom: '16px', color: 'var(--mute)'}}>—</div>
                   <div className="font-semibold" style={{marginBottom: '8px'}}>No jobs found</div>
-                  <div className="text-sm text-gray">Try a different filter or check back soon</div>
+                  <div className="text-sm" style={{color: 'var(--body)'}}>Try a different filter or check back soon</div>
                 </div>
               )
             ) : (
-              <div style={{ background: 'var(--white)', borderRadius: '16px', padding: '32px', textAlign: 'center', opacity: 0.7}}>
-                <div style={{fontSize: '48px', marginBottom: '16px'}}>📴</div>
+              <div style={{ background: 'var(--canvas)', borderRadius: '16px', padding: '32px', textAlign: 'center'}}>
+                <div style={{fontSize: '36px', marginBottom: '16px', color: 'var(--mute)'}}>—</div>
                 <div className="font-semibold" style={{marginBottom: '8px'}}>Go Online to Start Receiving Jobs</div>
-                <div className="text-sm text-gray">Toggle online above to begin accepting jobs</div>
+                <div className="text-sm" style={{color: 'var(--body)'}}>Toggle online above to begin accepting jobs</div>
               </div>
             )}
           </div>
           {activeJob && (
             <>
               <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}}>
-                <div style={{ background: 'var(--white)', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%'}}>
+                <div style={{ background: 'var(--canvas)', borderRadius: '24px 24px 0 0', padding: '24px', width: '100%'}}>
                   <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '16px'}}>
                     <span className="font-semibold" style={{fontSize: '18px'}}>Active Job</span>
-                    <button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer'}}>✕</button>
+                    <button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: 'var(--body)'}}>×</button>
                   </div>
-                  <div style={{background: 'var(--black)', borderRadius: '16px', padding: '20px', marginBottom: '20px'}}>
+                  <div style={{background: 'var(--ink)', borderRadius: '16px', padding: '20px', marginBottom: '20px'}}>
                     <div className="text-white font-bold" style={{fontSize: '20px', marginBottom: '8px'}}>{activeJob.service}</div>
-                    <div className="text-white" style={{opacity: 0.7, fontSize: '14px'}}>📍 {activeJob.address}</div>
-                    <div className="text-white font-bold" style={{fontSize: '24px', color: '#34C759', marginTop: '12px'}}>{activeJob.payout}</div>
+                    <div className="text-white" style={{opacity: 0.7, fontSize: '14px'}}>{activeJob.address}</div>
+                    <div className="text-white font-bold" style={{fontSize: '24px', marginTop: '12px'}}>{activeJob.payout}</div>
                   </div>
-                  <button onClick={handleCompleteJob} style={{background: '#34C759', border: 'none', borderRadius: '12px', padding: '16px', width: '100%', fontWeight: '600', fontSize: '16px', color: 'white', cursor: 'pointer'}}>✅ Complete Job</button>
+                  <button className="btn btn-lg" onClick={handleCompleteJob} style={{width: '100%'}}>Complete Job</button>
                 </div>
               </div>
               {showAddModal && (
                 <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setShowAddModal(false)}>
-                  <div style={{background: 'var(--white)', borderRadius: 16, padding: 20, width: '85%', maxWidth: 320}} onClick={e => e.stopPropagation()}>
+                  <div className="card" style={{padding: 20, width: '85%', maxWidth: 320}} onClick={e => e.stopPropagation()}>
                     <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 16}}>
                       <span className="font-semibold" style={{fontSize: 16}}>Add Services</span>
-                      <button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer'}}>✕</button>
+                      <button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: 'var(--body)'}}>×</button>
                     </div>
                     <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
                       {remainingServices.map(s => (
-                        <div key={s.key} onClick={() => handleAddService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 12, padding: 12, background: 'var(--gray-50)', borderRadius: 8, cursor: 'pointer'}}>
+                        <div key={s.key} onClick={() => handleAddService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 12, padding: 12, background: 'var(--canvas-soft)', borderRadius: 12, cursor: 'pointer'}}>
                           <span style={{fontSize: 24}}>{s.icon}</span>
                           <div style={{flex: 1}}>
                             <div className="font-semibold" style={{fontSize: 14}}>{s.label}</div>
-                            <div className="text-gray" style={{fontSize: 12}}>{s.desc}</div>
+                            <div style={{fontSize: 12, color: 'var(--body)'}}>{s.desc}</div>
                           </div>
                         </div>
                       ))}
@@ -1284,16 +1273,16 @@
         else if (tabId === 'earnings') onNavigate('provider-earnings');
       };
       return (
-        <div className="container" style={{paddingBottom: '70px'}}>
+        <div className="container" style={{paddingBottom: '70px', background: 'var(--canvas-soft)'}}>
           <div className="p-lg pt-xl"><span className="text-2xl cursor-pointer" onClick={() => onNavigate('provider-home')}>←</span></div>
           <div className="p-lg">
             <div className="text-xl font-semibold mb-lg">Earnings</div>
-            <div className="bg-gradient p-xl rounded-xl mb-lg animate-scale-in">
-              <div className="text-sm text-gray">TOTAL</div>
-              <div className="text-5xl font-bold text-white">$1,250</div>
+            <div className="p-xl" style={{background: 'var(--ink)', borderRadius: 16, marginBottom: 24}}>
+              <div style={{fontSize: 12, color: 'var(--mute)'}}>Total</div>
+              <div style={{fontSize: 40, fontWeight: 700, color: '#fff', marginTop: 4}}>$1,250</div>
               <div className="row gap-lg mt-lg">
-                <div><div className="text-xl font-bold text-white">18</div><div className="text-xs text-gray">Jobs</div></div>
-                <div><div className="text-xl font-bold text-white">$69</div><div className="text-xs text-gray">Avg</div></div>
+                <div><div style={{fontSize: 20, fontWeight: 700, color: '#fff'}}>18</div><div style={{fontSize: 12, color: 'var(--mute)'}}>Jobs</div></div>
+                <div><div style={{fontSize: 20, fontWeight: 700, color: '#fff'}}>$69</div><div style={{fontSize: 12, color: 'var(--mute)'}}>Avg</div></div>
               </div>
             </div>
           </div>

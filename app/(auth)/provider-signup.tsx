@@ -96,7 +96,7 @@ export default function ProviderSignupScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="John Smith"
-                    placeholderTextColor={Colors.textTertiary}
+                    placeholderTextColor={Colors.mute}
                     value={name}
                     onChangeText={setName}
                     autoCapitalize="words"
@@ -107,7 +107,7 @@ export default function ProviderSignupScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="(937) 555-0123"
-                    placeholderTextColor={Colors.textTertiary}
+                    placeholderTextColor={Colors.mute}
                     value={phone}
                     onChangeText={setPhone}
                     keyboardType="phone-pad"
@@ -118,7 +118,7 @@ export default function ProviderSignupScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="john@example.com"
-                    placeholderTextColor={Colors.textTertiary}
+                    placeholderTextColor={Colors.mute}
                     value={email}
                     onChangeText={setEmail}
                     autoCapitalize="none"
@@ -129,8 +129,8 @@ export default function ProviderSignupScreen() {
                   <Text style={styles.label}>Password</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="••••••••"
-                    placeholderTextColor={Colors.textTertiary}
+                    placeholder="********"
+                    placeholderTextColor={Colors.mute}
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry
@@ -140,8 +140,8 @@ export default function ProviderSignupScreen() {
                   <Text style={styles.label}>Confirm Password</Text>
                   <TextInput
                     style={styles.input}
-                    placeholder="••••••••"
-                    placeholderTextColor={Colors.textTertiary}
+                    placeholder="********"
+                    placeholderTextColor={Colors.mute}
                     value={confirmPassword}
                     onChangeText={setConfirmPassword}
                     secureTextEntry
@@ -163,14 +163,16 @@ export default function ProviderSignupScreen() {
                     onPress={() => toggleService(key)}
                   >
                     <View style={styles.serviceInfo}>
-                      <Text style={styles.serviceIcon}>
-                        {key === 'tire_change' && '❕'}
-                        {key === 'towing' && '🚗'}
-                        {key === 'battery_jump' && '🔋'}
-                        {key === 'fuel_delivery' && '⛽'}
-                        {key === 'lockout' && '🔐'}
-                        {key === 'mechanic' && '🔧'}
-                      </Text>
+                      <View style={[styles.serviceIconCircle, selectedServices.includes(key) && styles.serviceIconCircleSelected]}>
+                        <Text style={[styles.serviceIconText, selectedServices.includes(key) && styles.serviceIconTextSelected]}>
+                          {key === 'tire_change' && '◉'}
+                          {key === 'towing' && '⊞'}
+                          {key === 'battery_jump' && '⚡'}
+                          {key === 'fuel_delivery' && '⛽'}
+                          {key === 'lockout' && '⊠'}
+                          {key === 'mechanic' && '⚙'}
+                        </Text>
+                      </View>
                       <Text style={[
                         styles.serviceLabel,
                         selectedServices.includes(key) && styles.serviceLabelSelected
@@ -178,10 +180,7 @@ export default function ProviderSignupScreen() {
                         {label}
                       </Text>
                     </View>
-                    <View style={[
-                      styles.checkbox,
-                      selectedServices.includes(key) && styles.checkboxSelected
-                    ]}>
+                    <View style={[styles.checkbox, selectedServices.includes(key) && styles.checkboxSelected]}>
                       {selectedServices.includes(key) && <Text style={styles.checkmark}>✓</Text>}
                     </View>
                   </TouchableOpacity>
@@ -196,14 +195,14 @@ export default function ProviderSignupScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="Smith's Auto Repair"
-                    placeholderTextColor={Colors.textTertiary}
+                    placeholderTextColor={Colors.mute}
                     value={businessName}
                     onChangeText={setBusinessName}
                     autoCapitalize="words"
                   />
                 </View>
                 <View style={styles.infoBox}>
-                  <Text style={styles.infoIcon}>ℹ️</Text>
+                  <Text style={styles.infoIcon}>!</Text>
                   <Text style={styles.infoText}>
                     Your account will be reviewed before you can start accepting jobs. 
                     This typically takes 1-2 business days.
@@ -231,7 +230,7 @@ export default function ProviderSignupScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   keyboardView: {
     flex: 1,
@@ -251,7 +250,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   stepIndicator: {
     flexDirection: 'row',
@@ -270,7 +269,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FontSizes.xl,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   form: {
     padding: Spacing.lg,
@@ -282,24 +281,22 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray600,
+    color: Colors['hairline-mid'],
   },
   input: {
     height: 52,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
   },
   servicesContainer: {
     gap: Spacing.md,
   },
   servicesSubtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
     marginBottom: Spacing.sm,
   },
   serviceOption: {
@@ -308,25 +305,40 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.md,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: Colors.gray200,
     borderRadius: BorderRadius.md,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   serviceOptionSelected: {
     borderColor: Colors.primary,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   serviceInfo: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
   },
-  serviceIcon: {
-    fontSize: 24,
+  serviceIconCircle: {
+    width: 36,
+    height: 36,
+    borderRadius: BorderRadius.full,
+    backgroundColor: Colors['canvas-soft'],
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  serviceIconCircleSelected: {
+    backgroundColor: Colors.primary,
+  },
+  serviceIconText: {
+    fontSize: 18,
+    color: Colors.ink,
+  },
+  serviceIconTextSelected: {
+    color: Colors['on-dark'],
   },
   serviceLabel: {
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   serviceLabelSelected: {
     fontWeight: '600',
@@ -345,30 +357,32 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
   },
   checkmark: {
-    color: Colors.white,
+    color: Colors.canvas,
     fontSize: 14,
     fontWeight: '700',
   },
   infoBox: {
     flexDirection: 'row',
-    backgroundColor: Colors.gray100,
+    backgroundColor: Colors['canvas-soft'],
     padding: Spacing.md,
     borderRadius: BorderRadius.md,
     gap: Spacing.sm,
   },
   infoIcon: {
     fontSize: 18,
+    color: Colors.ink,
+    fontWeight: '700',
   },
   infoText: {
     flex: 1,
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     lineHeight: 20,
   },
   button: {
     height: 52,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Spacing.md,
@@ -379,6 +393,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

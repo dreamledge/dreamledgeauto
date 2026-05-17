@@ -59,7 +59,7 @@ export default function LoginScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="john@example.com"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
@@ -72,8 +72,8 @@ export default function LoginScreen() {
               <View style={styles.passwordContainer}>
                 <TextInput
                   style={styles.passwordInput}
-                  placeholder="••••••••"
-                  placeholderTextColor={Colors.textTertiary}
+                  placeholder="********"
+                  placeholderTextColor={Colors.mute}
                   value={password}
                   onChangeText={setPassword}
                   secureTextEntry={!showPassword}
@@ -117,7 +117,7 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   keyboardView: {
     flex: 1,
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   content: {
     flex: 1,
@@ -143,13 +143,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   subtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
-    marginBottom: Spacing.xl,
+    color: Colors.body,
+    marginBottom: Spacing['2xl'],
   },
   form: {
     gap: Spacing.md,
@@ -160,39 +160,35 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray600,
+    color: Colors['hairline-mid'],
   },
   input: {
     height: 52,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.border,
     borderRadius: BorderRadius.md,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   passwordInput: {
     flex: 1,
     height: 52,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   showButton: {
     paddingHorizontal: Spacing.md,
   },
   showText: {
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
     fontWeight: '600',
   },
   forgotButton: {
@@ -201,13 +197,13 @@ const styles = StyleSheet.create({
   },
   forgotText: {
     fontSize: FontSizes.sm,
-    color: Colors.primary,
+    color: Colors.body,
     fontWeight: '500',
   },
   button: {
     height: 52,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Spacing.lg,
@@ -218,7 +214,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
   footer: {
     flexDirection: 'row',
@@ -227,11 +223,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   signUpLink: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
 });

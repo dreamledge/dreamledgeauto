@@ -70,7 +70,6 @@ export default function CustomerRequestScreen() {
 
     setLoading(true);
     try {
-      // Job creation would be handled here
       router.push({ 
         pathname: '/customer/offers', 
         params: { 
@@ -90,7 +89,7 @@ export default function CustomerRequestScreen() {
   };
 
   const serviceLabel = SERVICE_LABELS[serviceType] || 'Service';
-  const serviceIcon = SERVICE_ICONS[serviceType] || '🔧';
+  const serviceIcon = SERVICE_ICONS[serviceType] || '⚙';
 
   return (
     <SafeAreaView style={styles.container}>
@@ -110,19 +109,19 @@ export default function CustomerRequestScreen() {
           <Text style={styles.serviceName}>{serviceLabel}</Text>
         </View>
 
-        <View style={styles.form}>
+        <View style={styles.formCard}>
           <View style={styles.inputGroup}>
             <Text style={styles.label}>Your Location</Text>
             <TouchableOpacity style={styles.locationButton} onPress={getCurrentLocation}>
-              <Text style={styles.locationIcon}>📍</Text>
+              <Text style={styles.locationIcon}>⊡</Text>
               <TextInput
                 style={styles.locationInput}
                 placeholder="Enter your address"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={address}
                 onChangeText={setAddress}
               />
-              <Text style={styles.refreshIcon}>🔄</Text>
+              <Text style={styles.refreshIcon}>⟳</Text>
             </TouchableOpacity>
           </View>
 
@@ -131,7 +130,7 @@ export default function CustomerRequestScreen() {
             <TextInput
               style={[styles.input, styles.textArea]}
               placeholder="What's wrong with your vehicle?"
-              placeholderTextColor={Colors.textTertiary}
+              placeholderTextColor={Colors.mute}
               value={description}
               onChangeText={setDescription}
               multiline
@@ -145,7 +144,7 @@ export default function CustomerRequestScreen() {
             <TextInput
               style={styles.input}
               placeholder="Year, Make, Model"
-              placeholderTextColor={Colors.textTertiary}
+              placeholderTextColor={Colors.mute}
               value={vehicleInfo}
               onChangeText={setVehicleInfo}
             />
@@ -169,7 +168,7 @@ export default function CustomerRequestScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
@@ -177,7 +176,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   backButton: {
     width: 40,
@@ -187,12 +186,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -203,67 +202,70 @@ const styles = StyleSheet.create({
   },
   serviceInfo: {
     alignItems: 'center',
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing['2xl'],
   },
   serviceIconBg: {
     width: 80,
     height: 80,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Spacing.md,
   },
   serviceIcon: {
-    fontSize: 40,
+    fontSize: 36,
+    color: Colors.ink,
   },
   serviceName: {
     fontSize: FontSizes.xl,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
   },
-  form: {
-    gap: Spacing.lg,
+  formCard: {
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing.lg,
+    ...Shadows['level-2'],
   },
   inputGroup: {
-    gap: Spacing.xs,
+    marginBottom: Spacing.lg,
   },
   label: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray600,
+    color: Colors['hairline-mid'],
+    marginBottom: Spacing.xs,
   },
   locationButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
-    backgroundColor: Colors.surface,
     paddingHorizontal: Spacing.md,
   },
   locationIcon: {
     fontSize: 18,
+    color: Colors.ink,
     marginRight: Spacing.sm,
   },
   locationInput: {
     flex: 1,
     height: 52,
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   refreshIcon: {
     fontSize: 18,
+    color: Colors.body,
   },
   input: {
     height: 52,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
   },
   textArea: {
     height: 120,
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
   submitButton: {
     height: 56,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Spacing.md,
@@ -284,6 +286,6 @@ const styles = StyleSheet.create({
   submitText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

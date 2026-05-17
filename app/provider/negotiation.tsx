@@ -21,7 +21,6 @@ export default function ProviderNegotiationScreen() {
 
     setLoading(true);
     try {
-      // Would send offer to customer
       Alert.alert('Offer Sent!', 'Waiting for customer response.', [
         { text: 'OK', onPress: () => router.replace('/provider/jobs') }
       ]);
@@ -55,7 +54,7 @@ export default function ProviderNegotiationScreen() {
         <View style={styles.jobCard}>
           <View style={styles.jobHeader}>
             <View style={styles.jobIcon}>
-              <Text style={styles.jobEmoji}>🔧</Text>
+              <Text style={styles.jobEmoji}>⚙</Text>
             </View>
             <View style={styles.jobInfo}>
               <Text style={styles.jobService}>Mobile Mechanic</Text>
@@ -65,11 +64,11 @@ export default function ProviderNegotiationScreen() {
           
           <View style={styles.jobDetails}>
             <View style={styles.detailRow}>
-              <Text style={styles.detailIcon}>📍</Text>
+              <Text style={styles.detailIcon}>⊡</Text>
               <Text style={styles.detailText}>123 Main St, Dayton, OH 45402</Text>
             </View>
             <View style={styles.detailRow}>
-              <Text style={styles.detailIcon}>🚗</Text>
+              <Text style={styles.detailIcon}>→</Text>
               <Text style={styles.detailText}>2019 Honda Civic</Text>
             </View>
           </View>
@@ -93,7 +92,7 @@ export default function ProviderNegotiationScreen() {
               <TextInput
                 style={styles.priceField}
                 placeholder="75"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={price}
                 onChangeText={setPrice}
                 keyboardType="numeric"
@@ -109,7 +108,7 @@ export default function ProviderNegotiationScreen() {
             <TextInput
               style={styles.messageInput}
               placeholder="Add a note to your customer..."
-              placeholderTextColor={Colors.textTertiary}
+              placeholderTextColor={Colors.mute}
               value={message}
               onChangeText={setMessage}
               multiline
@@ -136,7 +135,7 @@ export default function ProviderNegotiationScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
@@ -144,7 +143,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   backButton: {
     width: 40,
@@ -154,12 +153,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -169,13 +168,13 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
   },
   jobCard: {
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: Colors.gray200,
     marginBottom: Spacing.lg,
-    ...Shadows.md,
+    ...Shadows['level-1'],
   },
   jobHeader: {
     flexDirection: 'row',
@@ -186,31 +185,32 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
   },
   jobEmoji: {
     fontSize: 24,
+    color: Colors.ink,
   },
   jobInfo: {
     marginLeft: Spacing.md,
   },
   jobService: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: 2,
   },
   jobTime: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   jobDetails: {
     marginBottom: Spacing.md,
     paddingBottom: Spacing.md,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   detailRow: {
     flexDirection: 'row',
@@ -219,11 +219,12 @@ const styles = StyleSheet.create({
   },
   detailIcon: {
     fontSize: 16,
+    color: Colors.body,
     marginRight: Spacing.md,
   },
   detailText: {
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   descriptionSection: {
     marginTop: Spacing.sm,
@@ -231,21 +232,21 @@ const styles = StyleSheet.create({
   descriptionLabel: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray600,
+    color: Colors['hairline-mid'],
     marginBottom: Spacing.sm,
   },
   description: {
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
     lineHeight: 22,
   },
   offerSection: {
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing['2xl'],
   },
   sectionTitle: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.lg,
   },
   inputGroup: {
@@ -254,22 +255,20 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray600,
+    color: Colors['hairline-mid'],
     marginBottom: Spacing.sm,
   },
   priceInput: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
-    backgroundColor: Colors.surface,
   },
   dollarSign: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginRight: Spacing.xs,
   },
   priceField: {
@@ -277,28 +276,26 @@ const styles = StyleSheet.create({
     height: 56,
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   inputHint: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     marginTop: Spacing.sm,
   },
   messageInput: {
     height: 100,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     padding: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
     textAlignVertical: 'top',
   },
   sendButton: {
     height: 56,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -308,6 +305,6 @@ const styles = StyleSheet.create({
   sendText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

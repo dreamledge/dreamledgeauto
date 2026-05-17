@@ -17,12 +17,12 @@ export const SERVICE_LABELS: Record<string, string> = {
 };
 
 export const SERVICE_ICONS: Record<string, string> = {
-  [SERVICE_TYPES.TIRE_CHANGE]: '❕',
-  [SERVICE_TYPES.TOWING]: '🚗',
-  [SERVICE_TYPES.BATTERY_JUMP]: '🔋',
+  [SERVICE_TYPES.TIRE_CHANGE]: '◉',
+  [SERVICE_TYPES.TOWING]: '⊞',
+  [SERVICE_TYPES.BATTERY_JUMP]: '⚡',
   [SERVICE_TYPES.FUEL_DELIVERY]: '⛽',
-  [SERVICE_TYPES.LOCKOUT]: '🔐',
-  [SERVICE_TYPES.MECHANIC]: '🔧',
+  [SERVICE_TYPES.LOCKOUT]: '⊠',
+  [SERVICE_TYPES.MECHANIC]: '⚙',
 };
 
 export const PROVIDER_STATES = {

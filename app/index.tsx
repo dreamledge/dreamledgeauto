@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Colors, FontSizes, Spacing } from '../src/constants/theme';
 
 export default function SplashScreen() {
   const router = useRouter();
-  const fadeAnim = new Animated.Value(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 800,
-      useNativeDriver: true,
+      useNativeDriver: false,
     }).start();
 
     const timer = setTimeout(() => {
-      router.replace('/role-select');
+      router.replace('/(auth)/role-select');
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -24,8 +24,8 @@ export default function SplashScreen() {
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
-        <Text style={styles.logo}>🚗</Text>
-        <Text style={styles.title}>Dreamledge Auto</Text>
+        <Text style={styles.logo}>D</Text>
+        <Text style={styles.title}>Dreamledge <Text style={{color: '#FF3B30'}}>Auto</Text></Text>
         <Text style={styles.subtitle}>Mobile Mechanic Services</Text>
       </Animated.View>
     </View>
@@ -44,16 +44,18 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 80,
+    fontWeight: '700',
+    color: Colors['on-dark'],
     marginBottom: Spacing.lg,
   },
   title: {
     fontSize: FontSizes.xxxl,
     fontWeight: '700',
-    color: Colors.white,
+    color: Colors['on-dark'],
     marginBottom: Spacing.sm,
   },
   subtitle: {
     fontSize: FontSizes.lg,
-    color: Colors.gray400,
+    color: Colors.mute,
   },
 });

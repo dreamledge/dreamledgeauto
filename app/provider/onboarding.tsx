@@ -32,7 +32,6 @@ export default function ProviderOnboardingScreen() {
         return;
       }
       const loc = await Location.getCurrentPositionAsync({});
-      // Would save to provider profile
     } catch (error) {
       console.error('Location error:', error);
     }
@@ -51,7 +50,6 @@ export default function ProviderOnboardingScreen() {
 
     setLoading(true);
     try {
-      // Would save provider profile to Firestore
       Alert.alert('Success!', 'Your account is pending review.', [
         { text: 'OK', onPress: () => router.replace('/provider/jobs') }
       ]);
@@ -98,14 +96,16 @@ export default function ProviderOnboardingScreen() {
                   onPress={() => toggleService(key)}
                 >
                   <View style={styles.serviceInfo}>
-                    <Text style={styles.serviceEmoji}>
-                      {key === 'tire_change' && '❕'}
-                      {key === 'towing' && '🚗'}
-                      {key === 'battery_jump' && '🔋'}
-                      {key === 'fuel_delivery' && '⛽'}
-                      {key === 'lockout' && '🔐'}
-                      {key === 'mechanic' && '🔧'}
-                    </Text>
+                    <View style={[styles.serviceIconCircle, services.includes(key) && styles.serviceIconCircleSelected]}>
+                      <Text style={[styles.serviceEmoji, services.includes(key) && styles.serviceEmojiSelected]}>
+                        {key === 'tire_change' && '◉'}
+                        {key === 'towing' && '⊞'}
+                        {key === 'battery_jump' && '⚡'}
+                        {key === 'fuel_delivery' && '⛽'}
+                        {key === 'lockout' && '⊠'}
+                        {key === 'mechanic' && '⚙'}
+                      </Text>
+                    </View>
                     <Text style={[styles.serviceLabel, services.includes(key) && styles.serviceLabelSelected]}>
                       {label}
                     </Text>
@@ -128,7 +128,7 @@ export default function ProviderOnboardingScreen() {
             
             <View style={styles.locationCard}>
               <View style={styles.locationHeader}>
-                <Text style={styles.locationIcon}>📍</Text>
+                <Text style={styles.locationIcon}>⊡</Text>
                 <Text style={styles.locationLabel}>Current Location</Text>
               </View>
               <TouchableOpacity style={styles.refreshButton} onPress={getCurrentLocation}>
@@ -168,7 +168,7 @@ export default function ProviderOnboardingScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="75"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={basePrice}
                 onChangeText={setBasePrice}
                 keyboardType="numeric"
@@ -179,14 +179,14 @@ export default function ProviderOnboardingScreen() {
             </View>
 
             <View style={styles.infoCard}>
-              <Text style={styles.infoIcon}>ℹ️</Text>
+              <Text style={styles.infoIcon}>!</Text>
               <View style={styles.infoContent}>
                 <Text style={styles.infoTitle}>How payments work</Text>
                 <Text style={styles.infoText}>
-                  • Customers pay through the app{'\n'}
-                  • You receive 80% of each job{'\n'}
-                  • Platform takes 20% commission{'\n'}
-                  • Payouts to your bank weekly
+                  Customers pay through the app{'\n'}
+                  You receive 80% of each job{'\n'}
+                  Platform takes 20% commission{'\n'}
+                  Payouts to your bank weekly
                 </Text>
               </View>
             </View>
@@ -212,7 +212,7 @@ export default function ProviderOnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   backButton: {
     width: 40,
@@ -230,12 +230,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -260,14 +260,14 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: FontSizes.xl,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   sectionSubtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
-    marginBottom: Spacing.xl,
+    color: Colors.body,
+    marginBottom: Spacing['2xl'],
   },
   servicesList: {
     gap: Spacing.md,
@@ -278,25 +278,40 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: BorderRadius.md,
-    backgroundColor: Colors.white,
+    borderColor: Colors.gray200,
+    borderRadius: BorderRadius.xl,
+    backgroundColor: Colors.canvas,
   },
   serviceOptionSelected: {
     borderColor: Colors.primary,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   serviceInfo: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: Spacing.md,
   },
+  serviceIconCircle: {
+    width: 40,
+    height: 40,
+    borderRadius: BorderRadius.full,
+    backgroundColor: Colors['canvas-soft'],
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  serviceIconCircleSelected: {
+    backgroundColor: Colors.primary,
+  },
   serviceEmoji: {
-    fontSize: 24,
+    fontSize: 20,
+    color: Colors.ink,
+  },
+  serviceEmojiSelected: {
+    color: Colors['on-dark'],
   },
   serviceLabel: {
     fontSize: FontSizes.lg,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   serviceLabelSelected: {
     fontWeight: '600',
@@ -305,7 +320,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderWidth: 2,
-    borderColor: Colors.gray300,
+    borderColor: Colors.mute,
     borderRadius: BorderRadius.sm,
     justifyContent: 'center',
     alignItems: 'center',
@@ -315,15 +330,15 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
   },
   checkmark: {
-    color: Colors.white,
+    color: Colors.canvas,
     fontSize: 14,
     fontWeight: '700',
   },
   locationCard: {
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors['canvas-soft'],
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing['2xl'],
   },
   locationHeader: {
     flexDirection: 'row',
@@ -332,19 +347,20 @@ const styles = StyleSheet.create({
   },
   locationIcon: {
     fontSize: 24,
+    color: Colors.ink,
     marginRight: Spacing.sm,
   },
   locationLabel: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   refreshButton: {
     alignSelf: 'flex-start',
   },
   refreshText: {
     fontSize: FontSizes.md,
-    color: Colors.primary,
+    color: Colors.ink,
     fontWeight: '600',
   },
   radiusSection: {
@@ -356,11 +372,11 @@ const styles = StyleSheet.create({
   radiusLabel: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   radiusValue: {
     fontSize: FontSizes.lg,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   radiusButtons: {
     flexDirection: 'row',
@@ -370,8 +386,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 44,
     borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: BorderRadius.md,
+    borderColor: Colors.gray200,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -382,44 +398,44 @@ const styles = StyleSheet.create({
   radiusButtonText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   radiusButtonTextSelected: {
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   inputGroup: {
-    marginBottom: Spacing.xl,
+    marginBottom: Spacing['2xl'],
   },
   label: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.sm,
   },
   input: {
     height: 56,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.lg,
     fontSize: FontSizes.xl,
     fontWeight: '600',
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
   },
   inputHint: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     marginTop: Spacing.sm,
   },
   infoCard: {
     flexDirection: 'row',
-    backgroundColor: Colors.info + '15',
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors['canvas-soft'],
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
   },
   infoIcon: {
     fontSize: 20,
+    fontWeight: '700',
+    color: Colors.ink,
     marginRight: Spacing.md,
   },
   infoContent: {
@@ -428,22 +444,22 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.sm,
   },
   infoText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     lineHeight: 22,
   },
   footer: {
     padding: Spacing.lg,
-    paddingBottom: Spacing.xl,
+    paddingBottom: Spacing['2xl'],
   },
   button: {
     height: 56,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -453,6 +469,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

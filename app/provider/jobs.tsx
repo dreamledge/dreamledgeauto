@@ -56,8 +56,8 @@ export default function ProviderJobsScreen() {
           <Switch
             value={isOnline}
             onValueChange={toggleOnline}
-            trackColor={{ false: Colors.gray300, true: Colors.success }}
-            thumbColor={Colors.white}
+            trackColor={{ false: Colors.mute, true: Colors.success }}
+            thumbColor={Colors.canvas}
           />
         </View>
       </View>
@@ -75,7 +75,7 @@ export default function ProviderJobsScreen() {
               <View style={styles.jobHeader}>
                 <View style={styles.jobIcon}>
                   <Text style={styles.jobEmoji}>
-                    {job.serviceType === 'mechanic' ? '🔧' : '❕'}
+                    {job.serviceType === 'mechanic' ? '⚙' : '◉'}
                   </Text>
                 </View>
                 <View style={styles.jobInfo}>
@@ -89,11 +89,11 @@ export default function ProviderJobsScreen() {
               
               <View style={styles.jobDetails}>
                 <View style={styles.detailRow}>
-                  <Text style={styles.detailIcon}>📍</Text>
+                  <Text style={styles.detailIcon}>⊡</Text>
                   <Text style={styles.detailText}>{job.address}</Text>
                 </View>
                 <View style={styles.detailRow}>
-                  <Text style={styles.detailIcon}>📏</Text>
+                  <Text style={styles.detailIcon}>—</Text>
                   <Text style={styles.detailText}>{job.distance}</Text>
                 </View>
               </View>
@@ -134,26 +134,26 @@ export default function ProviderJobsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: Spacing.lg,
-    paddingTop: Spacing.xl,
+    paddingTop: Spacing['2xl'],
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   greeting: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   subtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   statusToggle: {
     flexDirection: 'row',
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   statusLabel: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray500,
+    color: Colors.mute,
   },
   statusLabelOnline: {
     color: Colors.success,
@@ -174,18 +174,18 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.md,
   },
   jobCard: {
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: Colors.gray200,
     marginBottom: Spacing.md,
-    ...Shadows.md,
+    ...Shadows['level-1'],
   },
   jobHeader: {
     flexDirection: 'row',
@@ -196,12 +196,13 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
   },
   jobEmoji: {
     fontSize: 20,
+    color: Colors.ink,
   },
   jobInfo: {
     flex: 1,
@@ -210,17 +211,17 @@ const styles = StyleSheet.create({
   jobServiceType: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: 2,
   },
   jobTime: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   jobPrice: {
     fontSize: FontSizes.xl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   jobDetails: {
     marginBottom: Spacing.sm,
@@ -232,34 +233,35 @@ const styles = StyleSheet.create({
   },
   detailIcon: {
     fontSize: 14,
+    color: Colors.body,
     marginRight: Spacing.sm,
   },
   detailText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   jobDescription: {
     fontSize: FontSizes.sm,
-    color: Colors.primary,
+    color: Colors.ink,
     lineHeight: 20,
     marginBottom: Spacing.md,
   },
   acceptButton: {
     height: 44,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
   acceptText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
   bottomNav: {
     flexDirection: 'row',
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.gray200,
     paddingVertical: Spacing.sm,
   },
   navItem: {
@@ -273,11 +275,11 @@ const styles = StyleSheet.create({
   },
   navLabel: {
     fontSize: FontSizes.xs,
-    color: Colors.textTertiary,
+    color: Colors.mute,
   },
   navLabelActive: {
     fontSize: FontSizes.xs,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
 });

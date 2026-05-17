@@ -39,7 +39,7 @@ export default function CustomerHistoryScreen() {
     <TouchableOpacity style={styles.jobCard} onPress={() => {}}>
       <View style={styles.jobHeader}>
         <View style={styles.serviceIcon}>
-          <Text style={styles.serviceEmoji}>🔧</Text>
+          <Text style={styles.serviceEmoji}>⚙</Text>
         </View>
         <View style={styles.jobInfo}>
           <Text style={styles.serviceName}>{SERVICE_LABELS[item.serviceType]}</Text>
@@ -76,7 +76,7 @@ export default function CustomerHistoryScreen() {
         contentContainerStyle={styles.listContent}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>📋</Text>
+            <Text style={styles.emptyIcon}>—</Text>
             <Text style={styles.emptyText}>No jobs yet</Text>
             <Text style={styles.emptySubtext}>Your completed jobs will appear here</Text>
           </View>
@@ -89,7 +89,7 @@ export default function CustomerHistoryScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   backButton: {
     width: 40,
@@ -107,12 +107,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -122,12 +122,12 @@ const styles = StyleSheet.create({
     gap: Spacing.md,
   },
   jobCard: {
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     borderWidth: 1,
-    borderColor: Colors.border,
-    ...Shadows.sm,
+    borderColor: Colors.gray200,
+    ...Shadows['level-1'],
   },
   jobHeader: {
     flexDirection: 'row',
@@ -138,12 +138,13 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
   },
   serviceEmoji: {
     fontSize: 20,
+    color: Colors.ink,
   },
   jobInfo: {
     flex: 1,
@@ -152,17 +153,17 @@ const styles = StyleSheet.create({
   serviceName: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: 2,
   },
   providerName: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   statusBadge: {
     paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.sm,
+    borderRadius: BorderRadius.pill,
   },
   completedBadge: {
     backgroundColor: Colors.success + '20',
@@ -185,16 +186,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: Spacing.md,
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.gray200,
   },
   dateText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   priceText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   emptyState: {
     alignItems: 'center',
@@ -202,16 +203,17 @@ const styles = StyleSheet.create({
   },
   emptyIcon: {
     fontSize: 48,
+    color: Colors.mute,
     marginBottom: Spacing.md,
   },
   emptyText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   emptySubtext: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.mute,
   },
 });

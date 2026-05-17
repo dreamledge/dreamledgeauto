@@ -65,7 +65,7 @@ export default function CustomerSignupScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="John Smith"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={name}
                 onChangeText={setName}
                 autoCapitalize="words"
@@ -77,7 +77,7 @@ export default function CustomerSignupScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="(937) 555-0123"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={phone}
                 onChangeText={setPhone}
                 keyboardType="phone-pad"
@@ -89,7 +89,7 @@ export default function CustomerSignupScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="john@example.com"
-                placeholderTextColor={Colors.textTertiary}
+                placeholderTextColor={Colors.mute}
                 value={email}
                 onChangeText={setEmail}
                 autoCapitalize="none"
@@ -101,8 +101,8 @@ export default function CustomerSignupScreen() {
               <Text style={styles.label}>Password</Text>
               <TextInput
                 style={styles.input}
-                placeholder="••••••••"
-                placeholderTextColor={Colors.textTertiary}
+                placeholder="********"
+                placeholderTextColor={Colors.mute}
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
@@ -113,8 +113,8 @@ export default function CustomerSignupScreen() {
               <Text style={styles.label}>Confirm Password</Text>
               <TextInput
                 style={styles.input}
-                placeholder="••••••••"
-                placeholderTextColor={Colors.textTertiary}
+                placeholder="********"
+                placeholderTextColor={Colors.mute}
                 value={confirmPassword}
                 onChangeText={setConfirmPassword}
                 secureTextEntry
@@ -146,7 +146,7 @@ export default function CustomerSignupScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   keyboardView: {
     flex: 1,
@@ -166,17 +166,17 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   title: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   subtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   form: {
     padding: Spacing.lg,
@@ -188,22 +188,20 @@ const styles = StyleSheet.create({
   label: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.gray600,
+    color: Colors['hairline-mid'],
   },
   input: {
     height: 52,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
   },
   button: {
     height: 52,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: Spacing.md,
@@ -214,7 +212,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
   terms: {
     marginTop: Spacing.md,
@@ -222,7 +220,7 @@ const styles = StyleSheet.create({
   },
   termsText: {
     fontSize: FontSizes.sm,
-    color: Colors.textTertiary,
+    color: Colors.mute,
     textAlign: 'center',
     lineHeight: 20,
   },

@@ -8,10 +8,32 @@
     {
       "src": "public/**/*",
       "use": "@vercel/static"
+    },
+    {
+      "src": "assets/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "/public/(.*)", "dest": "/public/$1" },
+    {
+      "src": "/public/(.*)",
+      "dest": "/public/$1",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" }
+    },
+    { "src": "/favicon.ico", "dest": "/favicon.ico" },
     { "src": "/(.*)", "dest": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)\\.(lottie|gif|png|jpg|jpeg|svg|ico|webp|avif)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
   ]
 }

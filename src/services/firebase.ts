@@ -78,13 +78,11 @@ export const getFirebaseStorage = () => {
   return storage!;
 };
 
-export {
-  auth,
-  db,
-  storage,
-  FirebaseAuth,
-  Firestore,
-  Storage,
+export type { Auth, Firestore, Storage }; 
+export type { FirebaseGeoPoint }; 
+export type { FirebaseApp }; 
+  
+export { 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   firebaseSignOut,
@@ -104,7 +102,6 @@ export {
   addDoc,
   Timestamp,
   serverTimestamp,
-  FirebaseGeoPoint,
   ref,
   uploadBytes,
   getDownloadURL,

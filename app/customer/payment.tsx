@@ -30,7 +30,6 @@ export default function CustomerPaymentScreen() {
   const handlePayment = async () => {
     setLoading(true);
     try {
-      // Stripe payment integration would go here
       Alert.alert('Success', 'Payment successful!', [
         { text: 'Continue', onPress: () => router.push('/customer/review') }
       ]);
@@ -94,7 +93,7 @@ export default function CustomerPaymentScreen() {
           <TextInput
             style={styles.customTipInput}
             placeholder="Custom amount"
-            placeholderTextColor={Colors.textTertiary}
+            placeholderTextColor={Colors.mute}
             keyboardType="numeric"
             value={customTip}
             onChangeText={handleCustomTip}
@@ -123,7 +122,7 @@ export default function CustomerPaymentScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     flexDirection: 'row',
@@ -131,7 +130,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   backButton: {
     width: 40,
@@ -141,12 +140,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -156,15 +155,15 @@ const styles = StyleSheet.create({
     padding: Spacing.lg,
   },
   summaryCard: {
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors['canvas-soft'],
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     marginBottom: Spacing.lg,
   },
   summaryTitle: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.md,
   },
   row: {
@@ -174,20 +173,20 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   value: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   valueSecondary: {
     fontSize: FontSizes.md,
-    color: Colors.textTertiary,
+    color: Colors.mute,
   },
   divider: {
     height: 1,
-    backgroundColor: Colors.border,
+    backgroundColor: Colors['surface-pressed'],
     marginVertical: Spacing.md,
   },
   tipSection: {
@@ -195,13 +194,13 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   sectionSubtitle: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     marginBottom: Spacing.md,
   },
   tipOptions: {
@@ -213,8 +212,8 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: BorderRadius.md,
+    borderColor: Colors.gray200,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -225,20 +224,19 @@ const styles = StyleSheet.create({
   tipText: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   tipTextSelected: {
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   customTipInput: {
     height: 48,
-    borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: BorderRadius.md,
+    backgroundColor: Colors['canvas-soft'],
+    borderRadius: BorderRadius.pill,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
+    textAlign: 'center',
   },
   totalSection: {
     flexDirection: 'row',
@@ -249,17 +247,17 @@ const styles = StyleSheet.create({
   totalLabel: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   totalValue: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   payButton: {
     height: 56,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -269,6 +267,6 @@ const styles = StyleSheet.create({
   payText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, TextInput, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors, FontSizes, Spacing, BorderRadius } from '../../src/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Shadows } from '../../src/constants/theme';
 
 export default function CustomerReviewScreen() {
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function CustomerReviewScreen() {
             {stars.map((star) => (
               <TouchableOpacity key={star} onPress={() => setRating(star)}>
                 <Text style={[styles.star, star <= rating && styles.starActive]}>
-                  {star <= rating ? '⭐' : '☆'}
+                  {star <= rating ? '★' : '☆'}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -53,7 +53,7 @@ export default function CustomerReviewScreen() {
           <TextInput
             style={styles.commentInput}
             placeholder="Tell us about your experience..."
-            placeholderTextColor={Colors.textTertiary}
+            placeholderTextColor={Colors.mute}
             value={comment}
             onChangeText={setComment}
             multiline
@@ -73,17 +73,17 @@ export default function CustomerReviewScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     textAlign: 'center',
   },
   content: {
@@ -92,10 +92,11 @@ const styles = StyleSheet.create({
   },
   ratingCard: {
     alignItems: 'center',
-    padding: Spacing.xl,
-    backgroundColor: Colors.surface,
-    borderRadius: BorderRadius.lg,
+    padding: Spacing['2xl'],
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     marginBottom: Spacing.lg,
+    ...Shadows['level-1'],
   },
   providerAvatar: {
     width: 70,
@@ -109,12 +110,12 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: 28,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   providerName: {
     fontSize: FontSizes.lg,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.lg,
   },
   starsContainer: {
@@ -124,14 +125,14 @@ const styles = StyleSheet.create({
   },
   star: {
     fontSize: 36,
-    opacity: 0.3,
+    color: Colors.mute,
   },
   starActive: {
-    opacity: 1,
+    color: Colors.ink,
   },
   ratingText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   commentSection: {
     flex: 1,
@@ -140,30 +141,28 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.sm,
   },
   commentInput: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: Colors.border,
+    backgroundColor: Colors['canvas-soft'],
     borderRadius: BorderRadius.md,
     padding: Spacing.md,
     fontSize: FontSizes.md,
-    color: Colors.primary,
-    backgroundColor: Colors.surface,
+    color: Colors.ink,
     textAlignVertical: 'top',
   },
   submitButton: {
     height: 56,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
   submitText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
 });

@@ -25,7 +25,7 @@ export default function ProviderEarningsScreen() {
     <View style={styles.earningCard}>
       <View style={styles.earningInfo}>
         <Text style={styles.earningJob}>{item.job}</Text>
-        <Text style={styles.earningCustomer}>{item.customer} • {item.date}</Text>
+        <Text style={styles.earningCustomer}>{item.customer}  {item.date}</Text>
       </View>
       <View style={styles.earningAmount}>
         <Text style={[styles.amount, item.status === 'pending' && styles.pendingAmount]}>
@@ -95,7 +95,7 @@ export default function ProviderEarningsScreen() {
       </View>
 
       <View style={styles.payoutInfo}>
-        <Text style={styles.payoutIcon}>💳</Text>
+        <Text style={styles.payoutIcon}>$</Text>
         <View style={styles.payoutDetails}>
           <Text style={styles.payoutLabel}>Next Payout</Text>
           <Text style={styles.payoutDate}>May 15, 2026</Text>
@@ -109,14 +109,14 @@ export default function ProviderEarningsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: Spacing.lg,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   backButton: {
     width: 40,
@@ -126,12 +126,12 @@ const styles = StyleSheet.create({
   },
   backText: {
     fontSize: 24,
-    color: Colors.primary,
+    color: Colors.ink,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   placeholder: {
     width: 40,
@@ -139,8 +139,8 @@ const styles = StyleSheet.create({
   periodToggle: {
     flexDirection: 'row',
     margin: Spacing.lg,
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.pill,
     padding: Spacing.xs,
   },
   periodButton: {
@@ -148,35 +148,35 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: BorderRadius.sm,
+    borderRadius: BorderRadius.pill,
   },
   periodButtonActive: {
     backgroundColor: Colors.primary,
   },
   periodText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   periodTextActive: {
-    color: Colors.white,
+    color: Colors['on-dark'],
     fontWeight: '600',
   },
   statsCard: {
     margin: Spacing.lg,
     marginTop: 0,
     backgroundColor: Colors.primary,
-    borderRadius: BorderRadius.lg,
-    padding: Spacing.xl,
+    borderRadius: BorderRadius.xl,
+    padding: Spacing['2xl'],
   },
   totalLabel: {
     fontSize: FontSizes.sm,
-    color: Colors.gray400,
+    color: Colors.mute,
     marginBottom: Spacing.xs,
   },
   totalAmount: {
     fontSize: 40,
     fontWeight: '700',
-    color: Colors.white,
+    color: Colors['on-dark'],
     marginBottom: Spacing.lg,
   },
   statsRow: {
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
     marginBottom: 2,
   },
   pendingValue: {
@@ -197,11 +197,11 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: FontSizes.xs,
-    color: Colors.gray400,
+    color: Colors.mute,
   },
   statDivider: {
     width: 1,
-    backgroundColor: Colors.gray600,
+    backgroundColor: Colors['hairline-mid'],
   },
   listSection: {
     padding: Spacing.lg,
@@ -209,14 +209,14 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.md,
   },
   earningCard: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
     borderRadius: BorderRadius.md,
     padding: Spacing.md,
     marginBottom: Spacing.sm,
@@ -227,12 +227,12 @@ const styles = StyleSheet.create({
   earningJob: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: 2,
   },
   earningCustomer: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   earningAmount: {
     alignItems: 'flex-end',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   pendingAmount: {
     color: Colors.warning,
@@ -260,13 +260,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: Spacing.lg,
     marginTop: 0,
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
-    ...Shadows.sm,
+    ...Shadows['level-1'],
   },
   payoutIcon: {
     fontSize: 24,
+    fontWeight: '700',
+    color: Colors.ink,
     marginRight: Spacing.md,
   },
   payoutDetails: {
@@ -274,13 +276,13 @@ const styles = StyleSheet.create({
   },
   payoutLabel: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     marginBottom: 2,
   },
   payoutDate: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   payoutAmount: {
     fontSize: FontSizes.xl,

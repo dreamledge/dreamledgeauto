@@ -8,7 +8,7 @@ import {
   updateProfile
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
-import { getFirebaseAuth, getFirebaseDb } from './firebase';
+import { getFirebaseAuth, getFirebaseDb } from '../services/firebase';
 import type { User, CustomerProfile, ProviderProfile, ProviderState } from '../types';
 
 interface AuthState {
@@ -28,7 +28,7 @@ interface AuthState {
   clearError: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>()((set, get) => ({
   user: null,
   userProfile: null,
   customerProfile: null,

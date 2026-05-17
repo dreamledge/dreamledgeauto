@@ -119,8 +119,8 @@ export default function AdminDashboardScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.logo}>🚗</Text>
-        <Text style={styles.headerTitle}>Dreamledge Auto</Text>
+        <Text style={styles.logo}>D</Text>
+        <Text style={styles.headerTitle}>Dreamledge <Text style={{color: '#FF3B30'}}>Auto</Text></Text>
         <Text style={styles.adminLabel}>Admin</Text>
       </View>
 
@@ -161,7 +161,7 @@ export default function AdminDashboardScreen() {
             <TextInput 
               style={styles.searchInput}
               placeholder="Search providers..."
-              placeholderTextColor={Colors.textTertiary}
+              placeholderTextColor={Colors.mute}
             />
           }
         />
@@ -205,7 +205,7 @@ export default function AdminDashboardScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
   },
   header: {
     flexDirection: 'row',
@@ -216,36 +216,38 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 28,
+    fontWeight: '700',
+    color: Colors['on-dark'],
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   adminLabel: {
     fontSize: FontSizes.sm,
-    color: Colors.gray400,
+    color: Colors.mute,
   },
   tabs: {
     flexDirection: 'row',
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   tab: {
     flex: 1,
     paddingVertical: Spacing.md,
     alignItems: 'center',
     borderBottomWidth: 2,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   tabActive: {
     borderBottomColor: Colors.primary,
   },
   tabText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   tabTextActive: {
-    color: Colors.primary,
+    color: Colors.ink,
     fontWeight: '600',
   },
   list: {
@@ -253,18 +255,18 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     height: 44,
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.pill,
     paddingHorizontal: Spacing.md,
     fontSize: FontSizes.md,
     marginBottom: Spacing.md,
   },
   card: {
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     marginBottom: Spacing.md,
-    ...Shadows.sm,
+    ...Shadows['level-1'],
   },
   cardHeader: {
     flexDirection: 'row',
@@ -281,7 +283,7 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   cardInfo: {
     flex: 1,
@@ -290,16 +292,16 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   cardSubtitle: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   badge: {
     paddingHorizontal: Spacing.sm,
     paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.sm,
+    borderRadius: BorderRadius.pill,
   },
   badgeApproved: {
     backgroundColor: Colors.success + '20',
@@ -326,7 +328,7 @@ const styles = StyleSheet.create({
   priceText: {
     fontSize: FontSizes.lg,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   cardDetails: {
     flexDirection: 'row',
@@ -334,16 +336,16 @@ const styles = StyleSheet.create({
     marginTop: Spacing.sm,
     paddingTop: Spacing.sm,
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.gray200,
   },
   detailText: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
     textTransform: 'capitalize',
   },
   dateText: {
     fontSize: FontSizes.sm,
-    color: Colors.textTertiary,
+    color: Colors.mute,
   },
   statusText: {
     fontSize: FontSizes.sm,
@@ -358,7 +360,7 @@ const styles = StyleSheet.create({
   actionButton: {
     flex: 1,
     height: 40,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -372,7 +374,7 @@ const styles = StyleSheet.create({
   approveText: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors.canvas,
   },
   rejectText: {
     fontSize: FontSizes.sm,
@@ -390,20 +392,20 @@ const styles = StyleSheet.create({
   },
   statCard: {
     width: '48%',
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     alignItems: 'center',
-    ...Shadows.sm,
+    ...Shadows['level-1'],
   },
   statValue: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   statLabel: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
 });

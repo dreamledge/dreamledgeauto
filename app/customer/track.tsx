@@ -26,7 +26,6 @@ export default function CustomerTrackScreen() {
   }, []);
 
   const handleCall = () => {
-    // Would integrate with expo-sms or expo-linking
   };
 
   const handleMessage = () => {
@@ -45,13 +44,13 @@ export default function CustomerTrackScreen() {
 
       <View style={styles.mapContainer}>
         <View style={styles.mapPlaceholder}>
-          <Text style={styles.mapIcon}>🗺️</Text>
+          <Text style={styles.mapIcon}>⊞</Text>
           <Text style={styles.mapText}>Live tracking map</Text>
         </View>
         
         {status === 'arriving' && (
           <View style={styles.statusCard}>
-            <Text style={styles.statusEmoji}>🚗</Text>
+            <Text style={styles.statusEmoji}>→</Text>
             <Text style={styles.statusText}>Your mechanic is on the way</Text>
             <Text style={styles.etaText}>Arriving in {eta} minutes</Text>
           </View>
@@ -59,7 +58,7 @@ export default function CustomerTrackScreen() {
 
         {status === 'arrived' && (
           <View style={styles.statusCard}>
-            <Text style={styles.statusEmoji}>✅</Text>
+            <Text style={styles.statusEmoji}>●</Text>
             <Text style={styles.statusText}>Your mechanic has arrived</Text>
             <Text style={styles.etaText}>Look for a white van</Text>
           </View>
@@ -74,7 +73,7 @@ export default function CustomerTrackScreen() {
           <View style={styles.providerDetails}>
             <Text style={styles.providerName}>Mike's Auto Repair</Text>
             <View style={styles.ratingRow}>
-              <Text style={styles.rating}>⭐ 4.8</Text>
+              <Text style={styles.rating}>★ 4.8</Text>
               <Text style={styles.reviews}>(156 reviews)</Text>
             </View>
           </View>
@@ -82,11 +81,11 @@ export default function CustomerTrackScreen() {
 
         <View style={styles.actions}>
           <TouchableOpacity style={styles.actionButton} onPress={handleCall}>
-            <Text style={styles.actionIcon}>📞</Text>
+            <Text style={styles.actionIcon}>call</Text>
             <Text style={styles.actionLabel}>Call</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.actionButton} onPress={handleMessage}>
-            <Text style={styles.actionIcon}>💬</Text>
+            <Text style={styles.actionIcon}>chat</Text>
             <Text style={styles.actionLabel}>Message</Text>
           </TouchableOpacity>
         </View>
@@ -110,17 +109,17 @@ export default function CustomerTrackScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     padding: Spacing.lg,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.border,
+    borderBottomColor: Colors.gray200,
   },
   headerTitle: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     textAlign: 'center',
   },
   mapContainer: {
@@ -129,47 +128,49 @@ const styles = StyleSheet.create({
   },
   mapPlaceholder: {
     flex: 1,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
   },
   mapIcon: {
     fontSize: 64,
+    color: Colors.ink,
     marginBottom: Spacing.md,
   },
   mapText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   statusCard: {
     position: 'absolute',
     bottom: Spacing.lg,
     left: Spacing.lg,
     right: Spacing.lg,
-    backgroundColor: Colors.white,
-    borderRadius: BorderRadius.lg,
+    backgroundColor: Colors.canvas,
+    borderRadius: BorderRadius.xl,
     padding: Spacing.lg,
     alignItems: 'center',
-    ...Shadows.md,
+    ...Shadows['level-1'],
   },
   statusEmoji: {
     fontSize: 40,
+    color: Colors.ink,
     marginBottom: Spacing.sm,
   },
   statusText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   etaText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   providerInfo: {
     padding: Spacing.lg,
     borderTopWidth: 1,
-    borderTopColor: Colors.border,
+    borderTopColor: Colors.gray200,
   },
   providerCard: {
     flexDirection: 'row',
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: FontSizes.xl,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-dark'],
   },
   providerDetails: {
     marginLeft: Spacing.md,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
   providerName: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   ratingRow: {
@@ -205,12 +206,12 @@ const styles = StyleSheet.create({
   rating: {
     fontSize: FontSizes.sm,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
     marginRight: Spacing.xs,
   },
   reviews: {
     fontSize: FontSizes.sm,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   actions: {
     flexDirection: 'row',
@@ -223,39 +224,41 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 52,
     borderWidth: 1,
-    borderColor: Colors.border,
-    borderRadius: BorderRadius.md,
+    borderColor: Colors.gray200,
+    borderRadius: BorderRadius.pill,
     gap: Spacing.sm,
   },
   actionIcon: {
-    fontSize: 20,
+    fontSize: 16,
+    color: Colors.ink,
+    fontWeight: '600',
   },
   actionLabel: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
   footer: {
     padding: Spacing.lg,
-    paddingBottom: Spacing.xl,
+    paddingBottom: Spacing['2xl'],
   },
   completeButton: {
     height: 56,
-    backgroundColor: Colors.success,
-    borderRadius: BorderRadius.md,
+    backgroundColor: Colors.primary,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },
   completeText: {
     fontSize: FontSizes.lg,
     fontWeight: '600',
-    color: Colors.white,
+    color: Colors['on-primary'],
   },
   cancelButton: {
     height: 56,
     borderWidth: 1,
     borderColor: Colors.error,
-    borderRadius: BorderRadius.md,
+    borderRadius: BorderRadius.pill,
     justifyContent: 'center',
     alignItems: 'center',
   },

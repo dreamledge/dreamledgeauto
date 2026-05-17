@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Colors, FontSizes, Spacing, BorderRadius, Shadows } from '../src/constants/theme';
+import { Colors, FontSizes, Spacing, BorderRadius, Shadows } from '../../src/constants/theme';
 
 export default function RoleSelectScreen() {
   const router = useRouter();
@@ -9,8 +9,8 @@ export default function RoleSelectScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.logo}>🚗</Text>
-        <Text style={styles.title}>Dreamledge Auto</Text>
+        <Text style={styles.logo}>D</Text>
+        <Text style={styles.title}>Dreamledge <Text style={{color: '#FF3B30'}}>Auto</Text></Text>
         <Text style={styles.subtitle}>Get back on the road fast</Text>
       </View>
 
@@ -21,7 +21,7 @@ export default function RoleSelectScreen() {
           activeOpacity={0.8}
         >
           <View style={styles.iconContainer}>
-            <Text style={styles.icon}>🚙</Text>
+            <Text style={styles.icon}>→</Text>
           </View>
           <Text style={styles.cardTitle}>I Need Help</Text>
           <Text style={styles.cardSubtitle}>
@@ -35,7 +35,7 @@ export default function RoleSelectScreen() {
           activeOpacity={0.8}
         >
           <View style={styles.iconContainer}>
-            <Text style={styles.icon}>🔧</Text>
+            <Text style={styles.icon}>⚙</Text>
           </View>
           <Text style={styles.cardTitle}>I'm a Mechanic</Text>
           <Text style={styles.cardSubtitle}>
@@ -57,7 +57,7 @@ export default function RoleSelectScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.canvas,
   },
   header: {
     paddingTop: Spacing.xxl,
@@ -66,17 +66,19 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 60,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.md,
   },
   title: {
     fontSize: FontSizes.xxl,
     fontWeight: '700',
-    color: Colors.primary,
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   subtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   content: {
     flex: 1,
@@ -85,32 +87,33 @@ const styles = StyleSheet.create({
     gap: Spacing.lg,
   },
   card: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.canvas,
     borderRadius: BorderRadius.xl,
-    padding: Spacing.xl,
-    ...Shadows.md,
+    padding: Spacing['2xl'],
+    ...Shadows['level-1'],
   },
   iconContainer: {
     width: 60,
     height: 60,
     borderRadius: BorderRadius.full,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors['canvas-soft'],
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: Spacing.md,
   },
   icon: {
     fontSize: 32,
+    color: Colors.ink,
   },
   cardTitle: {
     fontSize: FontSizes.xl,
-    fontWeight: '600',
-    color: Colors.primary,
+    fontWeight: '700',
+    color: Colors.ink,
     marginBottom: Spacing.xs,
   },
   cardSubtitle: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
     lineHeight: 22,
   },
   footer: {
@@ -120,11 +123,11 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: FontSizes.md,
-    color: Colors.textSecondary,
+    color: Colors.body,
   },
   loginLink: {
     fontSize: FontSizes.md,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.ink,
   },
 });
