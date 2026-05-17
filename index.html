@@ -128,13 +128,13 @@
     .max-w-md { max-width: 420px; }
     .max-w-lg { max-width: 520px; }
     .max-w-xl { max-width: 640px; }
-    .stats-row { display: flex; overflow: hidden; flex-wrap: nowrap; background: var(--white); border-radius: 20px; padding: 20px 16px; width: 100%; box-sizing: border-box; }
+    .stats-row { display: flex; overflow: hidden; flex-wrap: nowrap; background: var(--canvas); border-radius: 16px; padding: 20px 16px; width: 100%; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.85); box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10); }
     .stats-track { display: flex; gap: 0; animation: scroll-left 25s linear infinite; width: fit-content; flex-shrink: 0; }
     .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 25%; flex-shrink: 0; }
     .stat-item .stat-num { font-size: 28px; font-weight: 700; color: var(--black); font-family: 'Poppins', sans-serif; white-space: nowrap; }
     .stat-item .stat-label { font-size: 12px; color: var(--gray-500); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
     @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .how-section { background: var(--canvas); border-radius: 16px; margin-bottom: 16px; width: 100%; padding: 40px 32px; box-sizing: border-box; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+    .how-section { background: var(--canvas); border-radius: 16px; margin-bottom: 16px; width: 100%; padding: 40px 32px; box-sizing: border-box; border-top: 1px solid rgba(255,255,255,0.85); box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10); }
     .how-title { text-align: center; font-size: 24px; font-weight: 700; color: var(--ink); font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; margin-bottom: 36px; }
     .how-steps { display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 32px; }
     .how-step { flex: 1; max-width: 240px; text-align: center; }
@@ -168,7 +168,7 @@
       .how-step-title { font-size: 14px; }
       .how-step-desc { font-size: 12px; }
       .how-time { margin-top: 20px; font-size: 12px; }
-      .grid-2 { width: 50% !important; }
+      .grid-2 { width: calc(50% - 12px) !important; min-width: 0 !important; }
       .card-grid { width: 100% !important; }
       .btn { padding: 10px 16px !important; }
       .hero-bg .text-5xl { font-size: 1.6rem !important; }
@@ -219,12 +219,13 @@
     .btn-sm { height: 40px; font-size: 13px; padding: 0 20px; }
     .btn-lg { height: 56px; font-size: 16px; padding: 0 32px; }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .card { background: var(--canvas); border-radius: 16px; padding: 24px; border: none; transition: all 0.3s ease; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
-    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.16); transform: translateY(-1px); }
-    .card-hover:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.16); transform: translateY(-1px); cursor: pointer; }
+    .card { background: var(--canvas); border-radius: 16px; padding: 24px; border-top: 1px solid rgba(255,255,255,0.85); transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10); }
+    .card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12); transform: translateY(-2px); }
+    .card-hover:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12); transform: translateY(-2px); cursor: pointer; }
     .card-grid { text-align: center; }
-    .service-card { background: var(--canvas); border-radius: 16px; padding: 16px; border: none; transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
-    .service-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.16); transform: translateY(-1px); }
+    .service-card { background: var(--canvas); border-radius: 16px; padding: 16px; border: 2px solid transparent; border-top: 1px solid rgba(255,255,255,0.85); transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.10); }
+    .service-card:hover { box-shadow: 0 4px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12); transform: translateY(-2px); }
+    .service-card.selected { border-color: var(--ink); box-shadow: 0 2px 4px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.12); }
     .service-card-content { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
     .service-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--canvas-soft); border-radius: 16px; margin-bottom: 8px; }
     .service-info { display: flex; flex-direction: column; align-items: center; justify-content: center; }
@@ -258,10 +259,12 @@
     .cyber-nav-item:hover .glare { opacity: 1; }
     @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 20px #059669, inset 0 0 15px rgba(5,150,105,0.2); } 50% { box-shadow: 0 0 25px #059669, inset 0 0 20px rgba(5,150,105,0.3); } }
     .cyber-highlight-inner { animation: neon-pulse 3s infinite ease-in-out; }
-    .grid { display: flex; flex-wrap: wrap; justify-content: center; }
-    .grid-2 { width: 48%; }
+    .grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; }
+    .grid > * { display: flex; }
+    .grid > * > .card { flex: 1; }
+    .grid-2 { width: calc(50% - 12px); min-width: 140px; }
     .grid-3 { width: 31%; }
-    @media (max-width: 600px) { .grid-2 { width: 50% !important; flex-wrap: nowrap; } .card-grid { width: 100% !important; } }
+    @media (max-width: 600px) { .grid-2 { min-width: 0; } .card-grid { width: 100% !important; } }
     .step { flex: 1; height: 4px; background: var(--gray-200); border-radius: 2px; transition: background 0.3s; }
     .step-active { background: var(--black); }
     .badge { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; font-family: 'Poppins', sans-serif; }
@@ -541,10 +544,12 @@
             </div>
             <div className="grid gap-lg">
               {SERVICE_TYPES.map((s, i) => (
-                <div key={s.key} className="card" style={{padding: 24, textAlign: 'center', animationDelay: `${i * 0.1}s`}}>
-                  <div className="mb-sm" style={{fontSize: 28}}>{s.icon}</div>
-                  <div className="font-semibold" style={{marginBottom: 4}}>{s.label}</div>
-                  <div className="text-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
+                <div key={s.key} className="grid-2">
+                  <div className="card" style={{padding: '24px 16px', textAlign: 'center', animationDelay: `${i * 0.1}s`}}>
+                    <div className="mb-sm" style={{fontSize: 28}}>{s.icon}</div>
+                    <div className="font-semibold" style={{marginBottom: 4}}>{s.label}</div>
+                    <div className="text-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
+                  </div>
                 </div>
               ))}
             </div>
