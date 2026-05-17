@@ -546,7 +546,7 @@
               {SERVICE_TYPES.map((s, i) => (
                 <div key={s.key} className="grid-2">
                   <div className="card" style={{padding: '24px 16px', textAlign: 'center', animationDelay: `${i * 0.1}s`}}>
-                    <div className="mb-sm" style={{fontSize: 28}}>{s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%) brightness(0)'}} /> : s.icon}</div>
+                    <div className="mb-sm" style={{fontSize: 28}}>{s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'mechanic' ? <img src="public/mechanic.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'battery_jump' ? <img src="public/car-battery.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'towing' ? <img src="public/crane-truck.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'fuel_delivery' ? <img src="public/eco-fuel.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'lockout' ? <img src="public/key.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.icon}</div>
                     <div className="font-semibold" style={{marginBottom: 4}}>{s.label}</div>
                     <div className="text-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                   </div>
@@ -558,7 +558,7 @@
             <div className="row wrap gap-lg center" style={{maxWidth: 900, margin: '0 auto'}}>
               {FEATURES.map((f, i) => (
                 <div key={i} className="col center" style={{maxWidth: 200}}>
-                  <div className="mb-sm" style={{fontSize: 28, color: '#fff'}}>{f.icon}</div>
+                  <div className="mb-sm" style={{fontSize: 28, color: '#fff'}}>{f.title === 'Fast Response' ? <img src="public/delivery-truck.gif" alt="" style={{width: 40, height: 40, filter: 'invert(1)'}} /> : f.icon}</div>
                   <div className="font-semibold mb-xs" style={{color: '#fff'}}>{f.title}</div>
                   <div className="text-sm text-center" style={{color: 'rgba(255,255,255,0.6)'}}>{f.desc}</div>
                 </div>
