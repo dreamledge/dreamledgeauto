@@ -43,7 +43,7 @@
   <style>
     :root { --black: #000000; --white: #FFFFFF; --gray-50: #F8FAFC; --gray-100: #F1F5F9; --gray-200: #E2E8F0; --gray-300: #CBD5E1; --gray-400: #94A3B8; --gray-500: #64748B; --gray-600: #475569; --primary: #000000; --on-primary: #ffffff; --ink: #000000; --body: #5e5e5e; --mute: #afafaf; --hairline-mid: #4b4b4b; --canvas: #ffffff; --canvas-soft: #efefef; --canvas-softer: #f3f3f3; --surface-pressed: #e2e2e2; --on-dark: #ffffff; --black-elevated: #282828; }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    html, body { height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+    html { scroll-behavior: smooth; } body { height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif; background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
     #root { height: 100%; width: 100%; touch-action: pan-y; }
     input, textarea, button, select { font-family: inherit; }
@@ -285,8 +285,8 @@
     .divider { height: 1px; background: var(--gray-200); margin: 16px 0; }
     .divider-text { display: flex; align-items: center; gap: 16px; }
     .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--gray-200); }
-    .desktop-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--surface-pressed); padding: 12px 16px; display: flex; align-items: center; }
-    .desktop-nav .text-xl { font-size: 1.6rem !important; font-weight: 700 !important; line-height: 1 !important; }
+    .desktop-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--surface-pressed); padding: 40px 24px; display: flex; align-items: center; }
+    .desktop-nav .text-xl { font-size: 1.2rem !important; font-weight: 700 !important; line-height: 1 !important; letter-spacing: -0.03em !important; }
     @media (max-width: 600px) { .desktop-nav { padding: 8px 10px !important; } .desktop-nav .text-xl { font-size: 1rem !important; } .desktop-nav .btn-sm { padding: 4px 8px !important; font-size: 0.7rem !important; } }
     .hero-section { min-height: 100vh; display: flex; align-items: center; }
     ::-webkit-scrollbar { width: 6px; }
@@ -310,9 +310,8 @@
     ];
     const FEATURES = [
       { icon: '◉', title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
-      { icon: '$', title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
-      { icon: '✦', title: 'Verified Pros', desc: 'Background-checked mechanics' },
-      { icon: '⊞', title: 'Easy Booking', desc: 'Book in seconds' },
+      { icon: <div style={{width: 48, height: 48, backgroundColor: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}><img src="public/wallet.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)'}} /></div>, title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
+      { icon: <div style={{width: 48, height: 48, backgroundColor: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}><img src="public/calendar.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)'}} /></div>, title: 'Easy Booking', desc: 'Book in seconds' },
     ];
     const TESTIMONIALS = [
       { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5 },
@@ -491,10 +490,10 @@
                 Book in seconds, help arrives in minutes.
               </div>
               <div className="center col animate-fade-in-up delay-300" style={{marginTop: 8}}>
-                <button className="btn btn-lg" onClick={() => onNavigate('customer-signup')} style={{background: '#fff', color: '#000', fontWeight: 600}}>
+                <button className="btn btn-lg" onClick={() => onNavigate('customer-signup')} style={{background: '#fff', color: '#000', fontWeight: 600, padding: '18px 48px', fontSize: 18}}>
                   Request Help
                 </button>
-                <div style={{marginTop: 16, fontSize: 14, cursor: 'pointer', color: 'rgba(255,255,255,0.7)'}} onClick={() => onNavigate('provider-signup')}>
+                <div style={{marginTop: 20, fontSize: 16, cursor: 'pointer', color: 'rgba(255,255,255,0.7)'}} onClick={() => onNavigate('provider-signup')}>
                   I'm a Mechanic →
                 </div>
               </div>
@@ -506,7 +505,7 @@
                 <div className="how-title">How dreamledge auto works</div>
                 <div className="how-steps">
                   <div className="how-step">
-                    <div className="how-step-icon" style={{fontSize: 24}}>◉</div>
+                    <div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 24, height: 24, filter: 'grayscale(100%)'}} /></div>
                     <div className="how-step-title">Request Help</div>
                     <div className="how-step-desc">Tell us what you need</div>
                   </div>
@@ -538,9 +537,9 @@
             </div>
           </section>
           <section className="p-2xl" style={{maxWidth: 900, margin: '0 auto'}}>
-            <div className="text-center mb-xl">
-              <div className="text-3xl font-bold mb-sm">What our providers fix</div>
-              <div style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
+            <div className="text-center">
+              <div className="text-3xl font-bold" style={{marginBottom: 2}}>What our providers fix</div>
+              <div style={{color: 'var(--body)', marginBottom: 48}}>From dead batteries to flat tires, we've got you covered</div>
             </div>
             <div className="grid gap-lg">
               {SERVICE_TYPES.map((s, i) => (
@@ -555,10 +554,10 @@
             </div>
           </section>
           <section className="p-2xl" style={{background: 'var(--ink)'}}>
-            <div className="row wrap gap-lg center" style={{maxWidth: 900, margin: '0 auto'}}>
+            <div className="col center" style={{maxWidth: 600, margin: '0 auto', gap: 32}}>
               {FEATURES.map((f, i) => (
-                <div key={i} className="col center" style={{maxWidth: 200}}>
-                  <div className="mb-sm" style={{fontSize: 28, color: '#fff'}}>{f.title === 'Fast Response' ? <div style={{width: 48, height: 48, background: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><img src="public/delivery-truck.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)', mixBlendMode: 'difference'}} /></div> : f.icon}</div>
+                <div key={i} className="col center" style={{width: '100%'}}>
+                  <div className="mb-sm" style={{fontSize: 28, color: '#fff'}}>{f.title === 'Fast Response' ? <div style={{width: 48, height: 48, backgroundColor: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}><img src="public/delivery-truck.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)'}} /></div> : f.icon}</div>
                   <div className="font-semibold mb-xs" style={{color: '#fff'}}>{f.title}</div>
                   <div className="text-sm text-center" style={{color: 'rgba(255,255,255,0.6)'}}>{f.desc}</div>
                 </div>
@@ -566,7 +565,7 @@
             </div>
           </section>
           <section className="p-2xl" style={{paddingBottom: 0}}>
-            <div className="text-center mb-xl">
+            <div className="text-center" style={{marginBottom: 48}}>
               <div className="text-3xl font-bold">What people say</div>
             </div>
             <div className="row wrap gap-lg center">
