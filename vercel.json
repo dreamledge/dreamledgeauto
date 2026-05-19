@@ -1,22 +1,8 @@
 {
-  "builds": [
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "public/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "assets/**/*",
-      "use": "@vercel/static"
-    }
-  ],
   "rewrites": [
     { "source": "/public/:path*", "destination": "/public/:path*" },
     { "source": "/assets/:path*", "destination": "/assets/:path*" },
-    { "source": "/favicon.ico", "destination": "/favicon.ico" },
+    { "source": "/:path*\\.:ext*", "destination": "/:path*.:ext*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
