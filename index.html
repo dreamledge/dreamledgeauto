@@ -483,6 +483,7 @@
     // ============================================
     function SplashScreen({ onComplete }) {
       const [visible, setVisible] = useState(true);
+      const gifSrc = `public/splashscreen.gif?t=${Date.now()}`;
       
       useEffect(() => {
         const timer = setTimeout(() => {
@@ -506,7 +507,8 @@
           pointerEvents: visible ? 'auto' : 'none',
         }}>
           <img
-            src="public/splashscreen.gif"
+            key={gifSrc}
+            src={gifSrc}
             alt="Loading..."
             style={{
               width: '100vw',
