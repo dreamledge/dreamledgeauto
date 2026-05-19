@@ -482,38 +482,15 @@
     // SPLASH SCREEN
     // ============================================
     function SplashScreen({ onComplete }) {
-      const videoRef = React.useRef(null);
       const [visible, setVisible] = useState(true);
-      const [videoEnded, setVideoEnded] = useState(false);
       
       useEffect(() => {
-        const video = videoRef.current;
-        if (video) {
-          video.muted = true;
-          video.playsInline = true;
-          video.setAttribute('webkit-playsinline', '');
-          video.setAttribute('x-webkit-airplay', 'allow');
-          video.disableRemotePlayback = true;
-          const playPromise = video.play();
-          if (playPromise !== undefined) {
-            playPromise.catch(() => {
-              video.muted = true;
-              video.play();
-            });
-          }
-        }
         const timer = setTimeout(() => {
           setVisible(false);
           setTimeout(onComplete, 400);
         }, 3000);
         return () => clearTimeout(timer);
       }, [onComplete]);
-      
-      const handleVideoEnd = () => {
-        setVideoEnded(true);
-        setVisible(false);
-        setTimeout(onComplete, 400);
-      };
       
       return (
         <div style={{
@@ -529,27 +506,15 @@
           pointerEvents: visible ? 'auto' : 'none',
           overflow: 'hidden',
         }}>
-          <video
-            ref={videoRef}
-            src="public/splashscreen.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            webkit-playsinline="true"
-            x-webkit-airplay="allow"
-            disablePictureInPicture
-            disableRemotePlayback
-            controls={false}
-            preload="auto"
-            onEnded={handleVideoEnd}
+          <img
+            src="public/splashscreen.gif"
+            alt="Loading..."
             style={{
               width: '100vw',
               height: '100vh',
               objectFit: 'contain',
               maxWidth: '100%',
               maxHeight: '100%',
-              pointerEvents: 'none',
             }}
           />
         </div>
