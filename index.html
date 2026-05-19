@@ -43,138 +43,205 @@
     }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
-    body { height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
-    #root { height: 100%; width: 100%; touch-action: pan-y; }
+    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
+    #root { min-height: 100%; width: 100%; touch-action: pan-y; }
     input, textarea, button, select { font-family: inherit; }
-    img { max-width: 100%; height: auto; }
+    img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
-    .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
-    .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
-    button:active { transform: scale(0.97); }
-    .container { height: 100%; display: flex; flex-direction: column; }
+
+    /* Typography - Mobile first (Cal.com design system) */
+    .display-xl { font-size: 32px; font-weight: 600; line-height: 1.1; letter-spacing: -1px; }
+    .display-lg { font-size: 28px; font-weight: 600; line-height: 1.15; letter-spacing: -0.5px; }
+    .display-md { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.5px; }
+    .display-sm { font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.3px; }
+    .title-lg { font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -0.3px; }
+    .title-md { font-size: 18px; font-weight: 600; line-height: 1.4; }
+    .title-sm { font-size: 16px; font-weight: 600; line-height: 1.4; }
+    .body-md { font-size: 16px; font-weight: 400; line-height: 1.5; }
+    .body-sm { font-size: 14px; font-weight: 400; line-height: 1.5; }
+    .caption { font-size: 13px; font-weight: 500; line-height: 1.4; }
+
+    /* Layout */
+    .container { min-height: 100vh; display: flex; flex-direction: column; }
     .flex { flex: 1; overflow-y: auto; }
     .center { display: flex; justify-content: center; align-items: center; }
     .centerH { display: flex; justify-content: center; }
     .centerV { display: flex; align-items: center; }
-    .row { display: flex; flex-direction: row; align-items: center; flex-wrap: nowrap; }
+    .row { display: flex; flex-direction: row; align-items: center; flex-wrap: wrap; }
     .col { display: flex; flex-direction: column; }
     .between { display: flex; justify-content: space-between; }
     .wrap { flex-wrap: wrap; }
-    .p-xs { padding: 4px; } .p-sm { padding: 8px; } .p-md { padding: 16px; } .p-lg { padding: 24px; } .p-xl { padding: 32px; } .p-2xl { padding: 48px; }
-    .pt-xl { padding-top: 48px; } .pt-2xl { padding-top: 72px; }
-    .pb-md { padding-bottom: 16px; } .pl-md { padding-left: 16px; } .pr-md { padding-right: 16px; }
-    .px-lg { padding-left: 24px; padding-right: 24px; } .py-lg { padding-top: 24px; padding-bottom: 24px; }
-    .m-auto { margin: auto; } .m-xs { margin: 4px; } .m-sm { margin: 8px; } .m-md { margin: 16px; } .m-lg { margin: 24px; }
-    .mt-sm { margin-top: 8px; } .mt-md { margin-top: 16px; } .mt-lg { margin-top: 24px; } .mt-xl { margin-top: 32px; }
-    .mb-sm { margin-bottom: 8px; } .mb-md { margin-bottom: 16px; } .mb-lg { margin-bottom: 24px; }
-    .ml-sm { margin-left: 8px; } .ml-md { margin-left: 16px; } .ml-lg { margin-left: 24px; }
-    .mr-sm { margin-right: 8px; } .mr-md { margin-right: 16px; }
-    .gap-xs { gap: 4px; } .gap-sm { gap: 8px; } .gap-md { gap: 16px; } .gap-lg { gap: 24px; } .gap-xl { gap: 32px; }
-    .text-xs { font-size: 10px; } .text-sm { font-size: 12px; } .text-base { font-size: 14px; } .text-lg { font-size: 16px; } .text-xl { font-size: 18px; } .text-2xl { font-size: 24px; } .text-3xl { font-size: 30px; } .text-4xl { font-size: 36px; }
-    .text-5xl { font-size: 48px; font-weight: 600; letter-spacing: -1.5px; font-family: 'Inter', sans-serif; }
-    .text-6xl { font-size: 60px; font-weight: 600; letter-spacing: -2px; font-family: 'Inter', sans-serif; }
-    .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; } .font-black { font-weight: 900; }
-    .text-center { text-align: center; } .text-left { text-align: left; } .uppercase { text-transform: uppercase; } .tracking-wide { letter-spacing: 0.05em; } .leading-tight { line-height: 1.2; } .leading-normal { line-height: 1.5; }
-    .w-full { width: 100%; } .h-full { height: 100%; } .min-h-screen { min-height: 100vh; } .max-w-md { max-width: 420px; } .max-w-lg { max-width: 520px; } .max-w-xl { max-width: 640px; }
-    .stats-row { display: flex; overflow: hidden; flex-wrap: nowrap; background: var(--canvas); border-radius: 12px; padding: 20px 16px; width: 100%; box-sizing: border-box; border: 1px solid var(--hairline); }
-    .stats-track { display: flex; gap: 0; animation: scroll-left 25s linear infinite; width: fit-content; flex-shrink: 0; }
-    .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; min-width: 25%; flex-shrink: 0; }
-    .stat-item .stat-num { font-size: 28px; font-weight: 600; color: var(--ink); white-space: nowrap; }
-    .stat-item .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
-    @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    .how-section { background: var(--surface-card); border-radius: 12px; margin-bottom: 16px; width: 100%; padding: 40px 32px; box-sizing: border-box; }
-    .how-title { text-align: center; font-size: 28px; font-weight: 600; color: var(--ink); margin-bottom: 36px; letter-spacing: -0.5px; }
-    .how-steps { display: flex; flex-direction: row; align-items: flex-start; justify-content: center; gap: 32px; }
-    .how-step { flex: 1; max-width: 240px; text-align: center; }
-    .how-step-icon { width: 60px; height: 60px; border-radius: 12px; background: var(--surface-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 26px; }
-    .how-step-title { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
-    .how-step-desc { font-size: 13px; color: var(--body); line-height: 1.5; }
-    .how-time { text-align: center; margin-top: 28px; font-size: 13px; color: var(--body); }
-    @media (max-width: 768px) {
-      .container, .min-h-screen { min-height: 100vh !important; height: auto !important; }
-      .text-4xl { font-size: 1.75rem !important; } .text-5xl { font-size: 1.8rem !important; } .text-3xl { font-size: 1.5rem !important; } .text-2xl { font-size: 1.25rem !important; }
-      .desktop-nav { padding: 8px 12px !important; } .desktop-nav .text-xl { font-size: 1rem !important; } .desktop-nav .btn-sm { font-size: 12px !important; padding: 6px 14px !important; height: 34px !important; }
-      .row { flex-wrap: wrap !important; } .p-2xl { padding: 32px 16px !important; } .p-xl { padding: 24px 16px !important; } .p-lg { padding: 16px !important; }
-      .stats-wrapper { padding: 32px 0 16px !important; } .stats-container { width: 100%; max-width: 100%; margin: 0 auto; }
-      .stats-row { padding: 16px 8px !important; border-radius: 12px !important; } .stat-item .stat-num { font-size: 20px !important; } .stat-item .stat-label { font-size: 9px !important; }
-      .how-section { padding: 28px 16px; border-radius: 12px; margin-bottom: 16px; } .how-title { font-size: 18px; margin-bottom: 24px; }
-      .how-steps { flex-direction: column; align-items: center; gap: 20px; } .how-step { max-width: 100%; width: 100%; } .how-step-icon { width: 48px; height: 48px; font-size: 22px; }
-      .how-step-title { font-size: 14px; } .how-step-desc { font-size: 12px; } .how-time { margin-top: 20px; font-size: 12px; }
-      .grid-2 { width: calc(50% - 12px) !important; min-width: 0 !important; } .card-grid { width: 100% !important; } .btn { padding: 10px 16px !important; }
-      .hero-bg .text-5xl { font-size: 1.6rem !important; } .hero-bg .text-xl { font-size: 0.9rem !important; }
-    }
-    .bg-black { background: var(--primary); } .bg-white { background: var(--canvas); } .bg-gray { background: var(--surface-soft); } .bg-surface { background: var(--surface-card); } .bg-accent { background: var(--surface-dark); } .bg-gradient { background: var(--surface-dark); }
-    .hero-bg { background: var(--surface-dark); position: relative; overflow: hidden; }
-    .hero-bg::before { content: ''; position: absolute; inset: 0; background: url('public/headerimage.png') center center / cover no-repeat; opacity: 0.4; }
-    @media (max-width: 1023px) { .hero-bg::before { background-size: cover; } }
-    .text-black { color: var(--ink); } .text-white { color: var(--on-dark); } .text-gray { color: var(--muted); } .text-muted { color: var(--muted-soft); } .text-success { color: var(--success); }
-    .border { border: 1px solid var(--hairline); } .border-t { border-top: 1px solid var(--hairline); } .border-b { border-bottom: 1px solid var(--hairline); } .border-2 { border: 2px solid var(--hairline); }
-    .rounded-sm { border-radius: 4px; } .rounded { border-radius: 8px; } .rounded-lg { border-radius: 12px; } .rounded-xl { border-radius: 16px; } .rounded-2xl { border-radius: 24px; } .rounded-full { border-radius: 9999px; }
-    .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.05); } .shadow { box-shadow: 0 4px 12px rgba(0,0,0,0.08); } .shadow-md { box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
-    .input { height: 40px; border: 1px solid var(--hairline); border-radius: 8px; padding: 10px 14px; font-size: 16px; background: var(--canvas); width: 100%; transition: all 0.2s; color: var(--ink); }
-    .input:focus { outline: none; border-color: var(--ink); } .input::placeholder { color: var(--muted); }
-    .btn { height: 40px; padding: 0 20px; background: var(--primary); color: var(--on-primary); border: none; border-radius: 8px; display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
-    .btn:hover { background: var(--primary-active); } .btn:active { transform: scale(0.97); }
-    .btn-white { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline); } .btn-white:hover { background: var(--surface-soft); }
-    .btn-outline { background: transparent; border: 1px solid var(--hairline); border-radius: 8px; } .btn-outline:hover { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
-    .btn-sm { height: 36px; font-size: 13px; padding: 0 16px; } .btn-lg { height: 48px; font-size: 16px; padding: 0 28px; } .btn:disabled { opacity: 0.5; cursor: not-allowed; background: var(--primary-disabled); color: var(--muted); }
-    .card { background: var(--surface-card); border-radius: 12px; padding: 32px; transition: all 0.3s ease; }
-    .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
-    .card-hover:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.12); transform: translateY(-4px); cursor: pointer; }
-    .card-grid { text-align: center; }
-    .service-card { background: var(--canvas); border-radius: 12px; padding: 16px; border: 1px solid var(--hairline); transition: all 0.2s ease; cursor: pointer; min-height: 90px; display: flex; align-items: center; justify-content: center; flex: 1; width: 100%; box-sizing: border-box; text-align: center; }
-    .service-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
+
+    /* Spacing - Mobile first */
+    .p-xs { padding: 4px; } .p-sm { padding: 8px; } .p-md { padding: 16px; } .p-lg { padding: 16px; } .p-xl { padding: 24px; } .p-2xl { padding: 32px 16px; } .p-section { padding: 64px 16px; }
+    .pt-xl { padding-top: 24px; } .pt-2xl { padding-top: 48px; } .pt-section { padding-top: 64px; }
+    .pb-md { padding-bottom: 16px; }
+    .px-lg { padding-left: 16px; padding-right: 16px; }
+    .gap-xs { gap: 4px; } .gap-sm { gap: 8px; } .gap-md { gap: 12px; } .gap-lg { gap: 16px; } .gap-xl { gap: 24px; }
+    .mt-xs { margin-top: 8px; } .mt-sm { margin-top: 8px; } .mt-md { margin-top: 12px; } .mt-lg { margin-top: 16px; } .mt-xl { margin-top: 24px; }
+    .mb-xs { margin-bottom: 8px; } .mb-sm { margin-bottom: 8px; } .mb-md { margin-bottom: 12px; } .mb-lg { margin-bottom: 16px; } .mb-xl { margin-bottom: 24px; }
+
+    /* Colors */
+    .text-ink { color: var(--ink); } .text-body { color: var(--body); } .text-muted { color: var(--muted); } .text-muted-soft { color: var(--muted-soft); }
+    .text-white { color: var(--on-dark); } .text-on-dark-soft { color: var(--on-dark-soft); }
+    .bg-canvas { background: var(--canvas); } .bg-surface { background: var(--surface-card); } .bg-surface-soft { background: var(--surface-soft); }
+    .bg-dark { background: var(--surface-dark); } .bg-dark-elevated { background: var(--surface-dark-elevated); }
+
+    /* Components - Buttons (min 44px touch target) */
+    .btn { min-height: 44px; padding: 0 20px; background: var(--primary); color: var(--on-primary); border: none; border-radius: 8px; display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s ease; }
+    .btn:active { background: var(--primary-active); }
+    .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline); }
+    .btn-secondary:active { background: var(--surface-soft); }
+    .btn-outline { background: transparent; border: 1px solid var(--hairline); color: var(--ink); }
+    .btn-outline:active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .btn-sm { min-height: 44px; font-size: 13px; padding: 0 16px; }
+    .btn-lg { min-height: 48px; font-size: 16px; padding: 0 28px; border-radius: 8px; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; background: var(--primary-disabled); color: var(--muted); }
+    .btn-text { background: transparent; color: var(--ink); padding: 8px 12px; min-height: 44px; }
+    .btn-text:active { opacity: 0.7; }
+
+    /* Components - Inputs */
+    .input { min-height: 44px; border: 1px solid var(--hairline); border-radius: 8px; padding: 10px 14px; font-size: 16px; background: var(--canvas); width: 100%; transition: border-color 0.15s ease; color: var(--ink); }
+    .input:focus { outline: none; border-color: var(--ink); }
+    .input::placeholder { color: var(--muted); }
+    textarea.input { min-height: 100px; }
+
+    /* Components - Cards */
+    .card { background: var(--surface-card); border-radius: 12px; padding: 20px; }
+    .card-flat { background: var(--surface-card); border-radius: 12px; }
+    .card-elevated { background: var(--canvas); border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .card-hover:active { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+
+    /* Components - Feature card */
+    .feature-card { background: var(--surface-card); border-radius: 12px; padding: 20px; }
+    .feature-icon-card { background: var(--canvas); border-radius: 12px; padding: 16px; border: 1px solid var(--hairline); }
+
+    /* Components - Badge */
+    .badge { padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 500; display: inline-block; }
+    .badge-default { background: var(--surface-card); color: var(--ink); }
+    .badge-success { background: rgba(16, 185, 129, 0.12); color: var(--success); }
+
+    /* Components - Avatar */
+    .avatar { width: 36px; height: 36px; border-radius: 9999px; background: var(--surface-card); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--ink); flex-shrink: 0; }
+
+    /* Components - Bottom nav (Cal.com style) */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--canvas); border-top: 1px solid var(--hairline); padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); z-index: 1000; }
+    .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: 9999px; padding: 6px; max-width: 480px; margin: 0 auto; }
+    .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 8px 4px; border-radius: 9999px; min-height: 44px; }
+    .bottom-nav-item svg { width: 20px; height: 20px; color: var(--muted); margin-bottom: 2px; }
+    .bottom-nav-item.active { background: var(--canvas); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .bottom-nav-item.active svg { color: var(--ink); }
+    .bottom-nav-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .bottom-nav-item.active .bottom-nav-label { color: var(--ink); }
+
+    /* Components - Top nav */
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--canvas); border-bottom: 1px solid var(--hairline); padding: 0 16px; height: 56px; display: flex; align-items: center; }
+    .top-nav .logo { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; line-height: 1; }
+
+    /* Components - Hero */
+    .hero-band { background: var(--canvas); padding: 48px 16px; }
+
+    /* Components - CTA band */
+    .cta-band { background: var(--surface-card); border-radius: 12px; padding: 32px 20px; text-align: center; }
+
+    /* Grid - Mobile first: 1 column */
+    .grid { display: grid; gap: 12px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
+    /* Service card */
+    .service-card { background: var(--canvas); border-radius: 12px; padding: 12px; border: 1px solid var(--hairline); transition: box-shadow 0.15s ease; cursor: pointer; display: flex; align-items: center; gap: 12px; }
+    .service-card:active { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
     .service-card.selected { border-color: var(--ink); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    .service-card-content { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
-    .service-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; font-size: 28px; background: var(--surface-soft); border-radius: 12px; margin-bottom: 8px; }
-    .service-info { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .service-label { color: var(--ink); font-weight: 600; font-size: 14px; margin-bottom: 4px; text-align: center; }
-    .service-desc { color: var(--body); font-size: 11px; text-align: center; }
-    .service-check { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--surface-strong); display: flex; align-items: center; justify-content: center; margin-left: 8px; flex-shrink: 0; }
-    .cyber-nav-container { position: fixed; bottom: 0; left: 0; right: 0; background: var(--canvas); border-top: 1px solid var(--hairline); padding: 8px 12px 12px; z-index: 1000; box-shadow: 0 -4px 20px rgba(0,0,0,0.04); }
-    .cyber-nav { position: relative; display: flex; align-items: center; justify-content: space-around; background: var(--surface-dark); border-radius: 20px; padding: 8px 4px; height: 72px; max-width: 480px; margin: 0 auto; box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), inset 0 -1px 2px rgba(255,255,255,0.05), 0 10px 30px -10px rgba(0,0,0,0.6); border: 1px solid #1f222e; }
-    .cyber-nav-item { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; padding: 4px; transition: all 0.3s ease; border-radius: 14px; }
-    .cyber-nav-item svg { width: 22px; height: 22px; color: var(--muted); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); margin-bottom: 2px; }
-    .cyber-nav-item.active svg { color: var(--on-dark); filter: drop-shadow(0 0 8px var(--success)); transform: scale(1.1); }
-    .cyber-nav-item:hover svg { color: var(--muted-soft); }
-    .cyber-nav-label { font-size: 9px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.3px; transition: all 0.3s ease; }
-    .cyber-nav-item.active .cyber-nav-label { color: var(--on-dark); text-shadow: 0 0 6px var(--success); }
-    .cyber-nav-item:hover .cyber-nav-label { color: var(--muted-soft); }
-    .cyber-nav-container.provider .cyber-nav-highlight { width: 20%; }
-    .cyber-nav-container.customer .cyber-nav-highlight { width: 33.33%; }
-    .cyber-nav-container.customer .cyber-nav { height: 68px; }
-    .cyber-nav-highlight { position: absolute; top: 6px; left: 0; height: calc(100% - 12px); background: transparent; z-index: 1; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); pointer-events: none; }
-    .cyber-highlight-inner { width: 100%; height: 100%; border-radius: 14px; background: linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 0 20px var(--success), inset 0 0 15px rgba(16,185,129,0.2); backdrop-filter: blur(4px); position: relative; }
-    .cyber-highlight-inner::after { content: ""; position: absolute; top: 0; left: 10%; width: 80%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent); opacity: 0.8; }
-    .cyber-nav-item .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 14px; background: radial-gradient(circle at 50% -20%, rgba(255,255,255,0.1), transparent 60%); opacity: 0; transition: opacity 0.3s; pointer-events: none; }
-    .cyber-nav-item:hover .glare { opacity: 1; }
-    @keyframes neon-pulse { 0%, 100% { box-shadow: 0 0 20px var(--success), inset 0 0 15px rgba(16,185,129,0.2); } 50% { box-shadow: 0 0 25px var(--success), inset 0 0 20px rgba(16,185,129,0.3); } }
-    .cyber-highlight-inner { animation: neon-pulse 3s infinite ease-in-out; }
-    .grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; } .grid > * { display: flex; } .grid > * > .card { flex: 1; }
-    .grid-2 { width: calc(50% - 12px); min-width: 140px; } .grid-3 { width: 31%; }
-    @media (max-width: 600px) { .grid-2 { min-width: 0; } .card-grid { width: 100% !important; } }
-    .step { flex: 1; height: 4px; background: var(--surface-strong); border-radius: 2px; transition: background 0.3s; } .step-active { background: var(--primary); }
-    .badge { padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 500; }
-    .badge-success { background: rgba(16, 185, 129, 0.12); color: var(--success); } .badge-accent { background: rgba(234, 88, 12, 0.12); color: var(--warning); } .badge-muted { background: var(--surface-card); color: var(--muted); }
-    .cursor-pointer { cursor: pointer; } .no-select { user-select: none; } .overflow-hidden { overflow: hidden; } .relative { position: relative; } .absolute { position: absolute; } .top-0 { top: 0; } .right-0 { right: 0; } .top-md { top: 16px; } .right-md { right: 16px; } .z-10 { z-index: 10; } .z-50 { z-index: 50; }
-    .divider { height: 1px; background: var(--hairline); margin: 16px 0; }
-    .divider-text { display: flex; align-items: center; gap: 16px; } .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--hairline); }
-    .desktop-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--hairline); padding: 40px 24px; display: flex; align-items: center; }
-    .desktop-nav .text-xl { font-size: 1.2rem !important; font-weight: 600 !important; line-height: 1 !important; letter-spacing: -0.03em !important; }
-    @media (max-width: 600px) { .desktop-nav { padding: 8px 10px !important; } .desktop-nav .text-xl { font-size: 1rem !important; } .desktop-nav .btn-sm { padding: 4px 8px !important; font-size: 0.7rem !important; } }
-    .hero-section { min-height: 100vh; display: flex; align-items: center; }
-    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--surface-soft); } ::-webkit-scrollbar-thumb { background: var(--surface-strong); border-radius: 3px; } ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
-    @media (max-width: 767px) { .hero-btns { margin-top: 8px !important; } }
-    video::-webkit-media-controls { display: none !important; } video::-webkit-media-controls-start-playback-button { display: none !important; } video::-webkit-media-controls-overlay-play-button { display: none !important; } video::-webkit-media-controls-enclosure { display: none !important; }
+    .service-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--surface-soft); border-radius: 12px; flex-shrink: 0; }
+    .service-label { color: var(--ink); font-weight: 600; font-size: 14px; }
+    .service-desc { color: var(--body); font-size: 12px; }
+
+    /* Step indicator */
+    .step-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+    .step { flex: 1; height: 4px; background: var(--surface-strong); border-radius: 2px; }
+    .step-active { background: var(--primary); }
+
+    /* How section */
+    .how-section { background: var(--canvas); border-radius: 12px; padding: 24px 16px; }
+    .how-title { text-align: center; font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.5px; }
+    .how-steps { display: flex; flex-direction: column; gap: 20px; }
+    .how-step { text-align: center; }
+    .how-step-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--surface-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+    .how-step-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .how-step-desc { font-size: 13px; color: var(--body); }
+    .how-time { text-align: center; margin-top: 20px; font-size: 13px; color: var(--body); }
+
+    /* Stats */
+    .stats-row { display: flex; overflow: hidden; background: var(--canvas); border-radius: 12px; padding: 16px; border: 1px solid var(--hairline); }
+    .stats-track { display: flex; animation: scroll-left 25s linear infinite; width: fit-content; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 25%; }
+    .stat-num { font-size: 22px; font-weight: 600; color: var(--ink); }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* Animations */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
+    .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
+
+    /* Utilities */
+    .cursor-pointer { cursor: pointer; } .relative { position: relative; } .absolute { position: absolute; } .z-10 { z-index: 10; }
+    .text-center { text-align: center; } .w-full { width: 100%; } .h-full { height: 100%; } .min-h-screen { min-height: 100vh; }
+    .rounded { border-radius: 8px; } .rounded-lg { border-radius: 12px; } .rounded-xl { border-radius: 16px; } .rounded-full { border-radius: 9999px; }
+    .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--surface-soft); } ::-webkit-scrollbar-thumb { background: var(--surface-strong); border-radius: 3px; }
+
+    /* Tablet breakpoint */
+    @media (min-width: 768px) {
+      .display-xl { font-size: 48px; letter-spacing: -1.5px; }
+      .display-lg { font-size: 36px; }
+      .display-md { font-size: 30px; }
+      .display-sm { font-size: 26px; }
+      .title-lg { font-size: 22px; }
+      .p-section { padding: 96px 24px; }
+      .p-2xl { padding: 48px 24px; } .p-xl { padding: 32px; } .p-lg { padding: 24px; }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .grid-4 { grid-template-columns: repeat(4, 1fr); }
+      .how-steps { flex-direction: row; gap: 32px; }
+      .how-section { padding: 40px 32px; }
+      .how-title { font-size: 28px; margin-bottom: 36px; }
+      .how-step-icon { width: 60px; height: 60px; }
+      .hero-band { padding: 96px 24px; }
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .cta-band { padding: 48px 32px; }
+      .top-nav { height: 64px; padding: 0 24px; }
+      .top-nav .logo { font-size: 18px; }
+      .feature-card { padding: 32px; }
+      .feature-icon-card { padding: 24px; }
+      .card { padding: 32px; }
+      .service-icon { width: 52px; height: 52px; font-size: 24px; }
+      .stat-num { font-size: 28px; }
+      .stat-label { font-size: 12px; }
+    }
+
+    /* Desktop breakpoint */
+    @media (min-width: 1024px) {
+      .display-xl { font-size: 64px; letter-spacing: -2px; }
+      .display-lg { font-size: 48px; letter-spacing: -1.5px; }
+      .display-md { font-size: 36px; letter-spacing: -1px; }
+      .display-sm { font-size: 28px; letter-spacing: -0.5px; }
+      .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .hero-grid { grid-template-columns: 7fr 5fr; }
+      .hero-band { padding: 96px 24px; }
+    }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
     const { useState, useEffect, createContext, useContext } = React;
+
     const SERVICE_TYPES = [
       { key: 'mechanic', label: 'Mobile Mechanic', icon: '⚙', desc: 'On-site repairs' },
       { key: 'tire_change', label: 'Tire Change', icon: '◉', desc: 'Flat tire fix' },
@@ -183,20 +250,24 @@
       { key: 'fuel_delivery', label: 'Fuel Delivery', icon: '⛽', desc: 'Gas delivery' },
       { key: 'lockout', label: 'Lockout', icon: '⊠', desc: 'Key issues' },
     ];
+
     const FEATURES = [
       { icon: '◉', title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
-      { icon: <div style={{width: 48, height: 48, backgroundColor: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}><img src="public/wallet.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)'}} /></div>, title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
-      { icon: <div style={{width: 48, height: 48, backgroundColor: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}><img src="public/calendar.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)'}} /></div>, title: 'Easy Booking', desc: 'Book in seconds' },
+      { icon: '⊞', title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
+      { icon: '⊠', title: 'Easy Booking', desc: 'Book in seconds' },
     ];
+
     const TESTIMONIALS = [
       { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5 },
       { name: 'Mike D.', text: 'Best pricing ever. Highly recommend!', rating: 5 },
       { name: 'Lisa K.', text: 'So easy to use. Found help instantly.', rating: 5 },
     ];
+
     const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings' };
     const PATH_MAP = Object.fromEntries(Object.entries(ROUTE_MAP).map(([k, v]) => [v, k]));
     function getPath(screen) { return PATH_MAP[screen] || '/'; }
     function getScreen(path) { return ROUTE_MAP[path] || 'landing'; }
+
     function useRouter() {
       const [screen, setScreen] = useState(() => getScreen(window.location.pathname));
       const navigate = (pathOrScreen) => { const path = pathOrScreen.startsWith('/') ? pathOrScreen : getPath(pathOrScreen); window.history.pushState({ screen: getScreen(path) }, '', path); setScreen(getScreen(path)); };
@@ -204,6 +275,7 @@
       useEffect(() => { const onPopState = () => setScreen(getScreen(window.location.pathname)); window.addEventListener('popstate', onPopState); return () => window.removeEventListener('popstate', onPopState); }, []);
       return { screen, navigate, goBack };
     }
+
     const UserContext = createContext(null);
     function UserProvider({ children }) {
       const [userData, setUserData] = useState({ uid: null, services: [], isOnline: false, role: null });
@@ -213,13 +285,38 @@
       const toggleOnline = async (uid, status) => { try { if (window.firebaseDb && uid) { await setDoc(doc(window.firebaseDb, "users", uid), { isOnline: status }, { merge: true }); } setUserData(prev => ({ ...prev, isOnline: status })); } catch (e) { setUserData(prev => ({ ...prev, isOnline: status })); } };
       return (<UserContext.Provider value={{ userData, loading, fetchUserData, saveServices, toggleOnline, setUserData }}>{children}</UserContext.Provider>);
     }
+
     const SERVICE_CATEGORY_MAP = { 'battery_jump': 'battery', 'towing': 'towing', 'fuel_delivery': 'emergency', 'lockout': 'emergency', 'tire_change': 'tire', 'mechanic': ['battery', 'tire', 'fuel', 'towing', 'diagnostics'] };
-    function CyberNav({ activeTab, onTabChange, variant = 'provider' }) {
-      const tabs = variant === 'provider' ? [{ id: 'home', label: 'Home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg> }, { id: 'jobs', label: 'Jobs', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> }, { id: 'earnings', label: 'Earnings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> }, { id: 'messages', label: 'Messages', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> }, { id: 'profile', label: 'Profile', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> }] : [{ id: 'home', label: 'Home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> }, { id: 'jobs', label: 'Requests', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg> }, { id: 'settings', label: 'Settings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> }];
-      const tabIndex = tabs.findIndex(t => t.id === activeTab);
-      const translateX = tabIndex * 100;
-      return (<div className={`cyber-nav-container ${variant}`}><div className="cyber-nav"><div className="cyber-nav-highlight" style={{transform: `translateX(${translateX}%)`}}><div className="cyber-highlight-inner"></div></div>{tabs.map((tab) => (<div key={tab.id} className={`cyber-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => onTabChange(tab.id)}>{tab.icon}<div className="cyber-nav-label">{tab.label}</div><div className="glare"></div></div>))}</div></div>);
+
+    function BottomNav({ activeTab, onTabChange, variant = 'provider' }) {
+      const tabs = variant === 'provider'
+        ? [
+            { id: 'home', label: 'Home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg> },
+            { id: 'jobs', label: 'Jobs', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> },
+            { id: 'earnings', label: 'Earnings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg> },
+            { id: 'messages', label: 'Messages', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
+            { id: 'profile', label: 'Profile', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> },
+          ]
+        : [
+            { id: 'home', label: 'Home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> },
+            { id: 'jobs', label: 'Requests', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> },
+            { id: 'settings', label: 'Settings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> },
+          ];
+
+      return (
+        <div className="bottom-nav">
+          <div className="bottom-nav-inner">
+            {tabs.map((tab) => (
+              <div key={tab.id} className={`bottom-nav-item ${activeTab === tab.id ? 'active' : ''}`} onClick={() => onTabChange(tab.id)}>
+                {tab.icon}
+                <span className="bottom-nav-label">{tab.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
     }
+
     function SplashScreen({ onComplete }) {
       const [visible, setVisible] = useState(true);
       const [gifUrl, setGifUrl] = useState(null);
@@ -228,6 +325,7 @@
       if (!gifUrl) return null;
       return (<div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, opacity: visible ? 1 : 0, transition: 'opacity 0.6s ease-in-out', pointerEvents: visible ? 'auto' : 'none'}}><img key={gifUrl} src={gifUrl} alt="Loading..." style={{width: '100vw', height: '100vh', objectFit: 'contain', maxWidth: '100%', maxHeight: '100%'}} /></div>);
     }
+
     function App() {
       const { screen, navigate, goBack } = useRouter();
       const [splashDone, setSplashDone] = useState(false);
@@ -238,36 +336,49 @@
       const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} /> };
       return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div>{splashVisible && <SplashScreen onComplete={() => setSplashDone(true)} />}</UserProvider>);
     }
+
     function LandingPage({ onNavigate, scrollY = 0 }) {
       return (<div className="min-h-screen" style={{overflowY: 'auto'}}>
-        <nav className="desktop-nav" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
-          <span className="text-xl font-semibold" style={{lineHeight: 1}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
-          <div className="row gap-sm">
-            <button className="btn btn-outline" onClick={() => onNavigate('/login')} style={{height: 40, fontSize: 14, padding: '0 20px'}}>Sign In</button>
+        <nav className="top-nav">
+          <span className="logo">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
+          <div className="row gap-sm" style={{marginLeft: 'auto'}}>
+            <button className="btn btn-text" onClick={() => onNavigate('/login')}>Sign In</button>
             <button className="btn" onClick={() => onNavigate('/role-select')}>Get Started</button>
           </div>
         </nav>
-        <section className="hero-bg center" style={{minHeight: '100vh'}}>
-          <div className="p-xl center col relative z-10" style={{maxWidth: 800}}>
-            <div className="text-5xl font-semibold text-white text-center mb-md animate-fade-in-up" style={{lineHeight: 1.05, letterSpacing: '-1.5px'}}>Get back on the road fast</div>
-            <div className="text-xl animate-fade-in-up delay-200" style={{color: 'rgba(255,255,255,0.7)', textAlign: 'center', marginBottom: 16, fontWeight: 400}}>Book in seconds, help arrives in minutes.</div>
-            <div className="center col animate-fade-in-up delay-300" style={{marginTop: 8}}>
-              <button className="btn btn-lg" onClick={() => onNavigate('/customer/signup')} style={{background: var(--canvas), color: var(--ink), fontWeight: 600, padding: '14px 36px', fontSize: 16, borderRadius: 8}}>Request Help</button>
-              <div style={{marginTop: 20, fontSize: 16, cursor: 'pointer', color: 'rgba(255,255,255,0.7)'}} onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic →</div>
+        {/* Hero band - white canvas */}
+        <section className="hero-band" style={{paddingTop: 104}}>
+          <div className="hero-grid" style={{maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr', gap: 32, alignItems: 'center'}}>
+            <div className="card-elevated animate-fade-in-up delay-400" style={{borderRadius: 16, overflow: 'hidden', border: '1px solid var(--hairline)', padding: 8}}>
+              <img src="public/headerimage.png" alt="" style={{width: '100%', height: 'auto', borderRadius: 12, display: 'block'}} />
+            </div>
+            <div>
+              <div className="display-lg mb-lg animate-fade-in-up">Get back on the road fast</div>
+              <div className="body-md animate-fade-in-up delay-200" style={{color: 'var(--body)', marginBottom: 24}}>Book in seconds, help arrives in minutes.</div>
+              <div className="col gap-sm animate-fade-in-up delay-300">
+                <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Request Help</button>
+                <button className="btn btn-text" style={{width: '100%', textAlign: 'center'}} onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic</button>
+              </div>
             </div>
           </div>
         </section>
-        <section className="stats-wrapper p-2xl" style={{background: var(--surface-soft)}}>
-          <div className="stats-container">
+        {/* How section - surface-card */}
+        <section className="p-section" style={{background: 'var(--surface-card)'}}>
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <div className="how-section">
               <div className="how-title">How Dreamledge Auto works</div>
               <div className="how-steps">
-                <div className="how-step"><div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 52, height: 52, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Request Help</div><div className="how-step-desc">Tell us what you need</div></div>
-                <div className="how-step"><div className="how-step-icon"><img src="public/puzzle-pieces.gif" alt="" style={{width: 52, height: 52, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Matched</div><div className="how-step-desc">Nearby mechanic accepts</div></div>
-                <div className="how-step"><div className="how-step-icon"><img src="public/technician.gif" alt="" style={{width: 52, height: 52, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Fixed</div><div className="how-step-desc">They come to you</div></div>
+                <div className="how-step"><div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Request Help</div><div className="how-step-desc">Tell us what you need</div></div>
+                <div className="how-step"><div className="how-step-icon"><img src="public/puzzle-pieces.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Matched</div><div className="how-step-desc">Nearby mechanic accepts</div></div>
+                <div className="how-step"><div className="how-step-icon"><img src="public/technician.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Fixed</div><div className="how-step-desc">They come to you</div></div>
               </div>
               <div className="how-time">Average arrival time: 25 minutes</div>
             </div>
+          </div>
+        </section>
+        {/* Stats - white canvas */}
+        <section className="p-section">
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <div className="stats-row">
               <div className="stats-track">
                 <div className="stat-item"><div className="stat-num">500+</div><div className="stat-label">Jobs</div></div>
@@ -282,192 +393,281 @@
             </div>
           </div>
         </section>
-        <section className="p-2xl" style={{maxWidth: 900, margin: '0 auto'}}>
-          <div className="text-center">
-            <div className="text-3xl font-semibold" style={{marginBottom: 2, letterSpacing: '-1px'}}>What our providers fix</div>
-            <div style={{color: var(--body), marginBottom: 48}}>From dead batteries to flat tires, we've got you covered</div>
-          </div>
-          <div className="grid gap-lg">
-            {SERVICE_TYPES.map((s, i) => (<div key={s.key} className="grid-2"><div className="card" style={{padding: '24px 16px', textAlign: 'center', animationDelay: `${i * 0.1}s`}}><div className="mb-sm" style={{fontSize: 28}}>{s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'mechanic' ? <img src="public/mechanic.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'battery_jump' ? <img src="public/car-battery.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'towing' ? <img src="public/crane-truck.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'fuel_delivery' ? <img src="public/eco-fuel.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.key === 'lockout' ? <img src="public/key.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%)'}} /> : s.icon}</div><div className="font-semibold" style={{marginBottom: 4}}>{s.label}</div><div className="text-sm" style={{color: var(--body)}}>{s.desc}</div></div></div>))}
-          </div>
-        </section>
-        <section className="p-2xl" style={{background: var(--surface-dark)}}>
-          <div className="col center" style={{maxWidth: 600, margin: '0 auto', gap: 32}}>
-            {FEATURES.map((f, i) => (<div key={i} className="col center" style={{width: '100%'}}><div className="mb-sm" style={{fontSize: 28, color: '#fff'}}>{f.title === 'Fast Response' ? <div style={{width: 48, height: 48, backgroundColor: '#000', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden'}}><img src="public/delivery-truck.gif" alt="" style={{width: 40, height: 40, filter: 'grayscale(100%) invert(1) contrast(100)'}} /></div> : f.icon}</div><div className="font-semibold mb-xs" style={{color: '#fff'}}>{f.title}</div><div className="text-sm text-center" style={{color: 'rgba(255,255,255,0.6)'}}>{f.desc}</div></div>))}
-          </div>
-        </section>
-        <section className="p-2xl" style={{paddingBottom: 0}}>
-          <div className="text-center" style={{marginBottom: 48}}>
-            <div className="text-3xl font-semibold" style={{letterSpacing: '-1px'}}>What people say</div>
-          </div>
-          <div className="row wrap gap-lg center">
-            {TESTIMONIALS.map((t, i) => (<div key={i} className="card" style={{maxWidth: 300, textAlign: 'center', padding: 24}}><div className="mb-md" style={{display: 'flex', justifyContent: 'center', gap: 4}}>{Array.from({length: t.rating}).map((_, j) => <img key={j} src="public/star.gif" alt="" style={{width: 20, height: 20}} />)}</div><div className="font-medium mb-sm">"{t.text}"</div><div className="text-sm" style={{color: var(--body)}}>- {t.name}</div></div>))}
-          </div>
-        </section>
-        <section className="p-2xl center" style={{background: var(--surface-dark)}}>
-          <div className="center col relative z-10">
-            <div className="text-3xl font-semibold text-center mb-lg" style={{color: '#fff', letterSpacing: '-0.5px'}}>Ready to get back on the road?</div>
-            <button className="btn btn-lg" onClick={() => onNavigate('/customer/signup')} style={{background: var(--canvas), color: var(--ink), fontWeight: 600, borderRadius: 8}}>Get help now</button>
-          </div>
-        </section>
-        <footer style={{background: var(--surface-dark), padding: '48px 32px'}}>
-          <div className="row between wrap centerV">
-            <div className="row centerV gap-md">
-              <span style={{color: var(--on-dark), fontWeight: 600}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
+        {/* Services - surface-card */}
+        <section className="p-section" style={{background: 'var(--surface-card)'}}>
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
+            <div className="text-center mb-xl">
+              <div className="display-md" style={{marginBottom: 8}}>What our providers fix</div>
+              <div className="body-md" style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
             </div>
-            <div className="text-sm" style={{color: var(--on-dark-soft)}}>© 2026 Dreamledge Auto.</div>
+            <div className="grid grid-3">
+              {SERVICE_TYPES.map((s, i) => (
+                <div key={s.key} className="feature-icon-card card-hover animate-fade-in-up" style={{textAlign: 'center', animationDelay: `${i * 0.08}s`}}>
+                  <div className="mb-sm" style={{fontSize: 24, display: 'flex', justifyContent: 'center'}}>
+                    {s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
+                     s.key === 'mechanic' ? <img src="public/mechanic.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
+                     s.key === 'battery_jump' ? <img src="public/car-battery.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
+                     s.key === 'towing' ? <img src="public/crane-truck.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
+                     s.key === 'fuel_delivery' ? <img src="public/eco-fuel.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
+                     s.key === 'lockout' ? <img src="public/key.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> : s.icon}
+                  </div>
+                  <div className="title-sm mb-xs">{s.label}</div>
+                  <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        {/* Features - white canvas */}
+        <section className="p-section">
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
+            <div className="grid grid-3">
+              {FEATURES.map((f, i) => (
+                <div key={i} className="feature-card">
+                  <div className="mb-sm" style={{fontSize: 24}}>{f.icon}</div>
+                  <div className="title-md mb-xs">{f.title}</div>
+                  <div className="body-sm" style={{color: 'var(--body)'}}>{f.desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        {/* Testimonials - surface-card */}
+        <section className="p-section" style={{background: 'var(--surface-card)'}}>
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
+            <div className="text-center mb-xl">
+              <div className="display-md">What people say</div>
+            </div>
+            <div className="grid grid-3">
+              {TESTIMONIALS.map((t, i) => {
+                const pastelFills = ['var(--badge-orange)', 'var(--badge-pink)', 'var(--badge-violet)'];
+                const initials = t.name.split(' ').map(n => n[0]).join('');
+                return (
+                  <div key={i} className="card">
+                    <div className="row centerV gap-sm mb-md">
+                      <div className="avatar" style={{background: pastelFills[i % 3], color: '#fff'}}>{initials}</div>
+                      <div>
+                        <div className="title-sm">{t.name}</div>
+                        <div className="row" style={{gap: 2}}>
+                          {Array.from({length: t.rating}).map((_, j) => <span key={j} style={{color: 'var(--badge-orange)', fontSize: 14}}>★</span>)}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="body-md">"{t.text}"</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+        {/* CTA band - white canvas */}
+        <section className="p-section">
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
+            <div className="cta-band">
+              <div className="display-sm mb-lg">Ready to get back on the road?</div>
+              <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Get help now</button>
+            </div>
+          </div>
+        </section>
+        {/* Footer - surface-dark */}
+        <footer style={{background: 'var(--surface-dark)', padding: '48px 16px'}}>
+          <div className="col gap-md" style={{maxWidth: 1200, margin: '0 auto'}}>
+            <span className="text-white font-semibold">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
+            <div className="body-sm" style={{color: 'var(--on-dark-soft)'}}>© 2026 Dreamledge Auto.</div>
           </div>
         </footer>
       </div>);
     }
+
     function RoleSelectScreen({ onNavigate }) {
       return (<div style={{position: 'relative', minHeight: '100vh'}}>
-        <div className="container" style={{display: 'flex', flexDirection: 'column', minHeight: '100vh', padding: '8px 24px 48px', background: var(--canvas)}}>
-          <div className="center col" style={{marginBottom: 24}}>
-            <img src="public/sustainable-travel.gif" alt="" style={{width: 120, height: 120, objectFit: 'contain', display: 'block', margin: '0 auto -8px'}} />
-            <div className="text-3xl font-semibold" style={{textAlign: 'center', letterSpacing: '-0.5px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
-            <div style={{textAlign: 'center', marginTop: 4, color: var(--body)}}>Get back on the road fast</div>
+        <div className="container" style={{padding: '16px 16px 48px'}}>
+          <div className="center col" style={{marginBottom: 32}}>
+            <img src="public/sustainable-travel.gif" alt="" style={{width: 80, height: 80, objectFit: 'contain', marginBottom: 12}} />
+            <div className="display-sm text-center">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
+            <div className="body-md text-center mt-xs" style={{color: 'var(--body)'}}>Get back on the road fast</div>
           </div>
-          <div className="flex" style={{gap: 32}}>
-            <div className="card-hover" onClick={() => onNavigate('/customer/signup')} style={{padding: '28px 24px', border: '2px solid var(--ink)', borderRadius: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'all 0.2s ease'}}>
-              <div><div className="mb-sm" style={{fontSize: 32}}>→</div><div className="text-xl font-semibold" style={{marginBottom: 4}}>I Need Help</div><div style={{color: var(--body), fontSize: 13}}>Request roadside assistance</div></div>
-              <div style={{width: 36, height: 36, borderRadius: '50%', background: var(--ink), display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginLeft: 16}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
+          <div className="col" style={{gap: 12}}>
+            <div className="card card-elevated card-hover" onClick={() => onNavigate('/customer/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <div>
+                <div className="title-lg mb-xs">I Need Help</div>
+                <div className="body-sm" style={{color: 'var(--body)'}}>Request roadside assistance</div>
+              </div>
+              <div style={{width: 36, height: 36, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
             </div>
-            <div className="card-hover" onClick={() => onNavigate('/provider/signup')} style={{padding: '28px 24px', border: '2px solid var(--ink)', borderRadius: 12, boxShadow: '0 4px 12px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', transition: 'all 0.2s ease'}}>
-              <div><div className="mb-sm" style={{fontSize: 32}}>⚙</div><div className="text-xl font-semibold" style={{marginBottom: 4}}>I'm a Mechanic</div><div style={{color: var(--body), fontSize: 13}}>Offer mobile repair services</div></div>
-              <div style={{width: 36, height: 36, borderRadius: '50%', background: var(--ink), display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginLeft: 16}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
+            <div className="card card-elevated card-hover" onClick={() => onNavigate('/provider/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+              <div>
+                <div className="title-lg mb-xs">I'm a Mechanic</div>
+                <div className="body-sm" style={{color: 'var(--body)'}}>Offer mobile repair services</div>
+              </div>
+              <div style={{width: 36, height: 36, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
             </div>
           </div>
         </div>
-        <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 4, background: var(--canvas), padding: '12px 0'}}>
-          <span style={{color: var(--body)}}>Already have an account?</span>
-          <span className="font-semibold" style={{cursor: 'pointer'}} onClick={() => onNavigate('/login')}>Sign In</span>
+        <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 8, background: 'var(--canvas)', padding: '12px 0'}}>
+          <span className="body-sm" style={{color: 'var(--body)'}}>Already have an account?</span>
+          <span className="font-semibold cursor-pointer" onClick={() => onNavigate('/login')}>Sign In</span>
         </div>
       </div>);
     }
+
     function CustomerSignupScreen({ onNavigate, goBack }) {
       const [name, setName] = useState(''); const [phone, setPhone] = useState(''); const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
       const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'customer', name, phone })); setTimeout(() => onNavigate('/customer/home'), 1000); };
       return (<div className="container">
-        <div className="p-md" onClick={goBack}><span className="text-2xl cursor-pointer">←</span></div>
-        <div className="p-lg"><div className="text-2xl font-semibold" style={{letterSpacing: '-0.3px'}}>Create account</div><div className="mt-xs" style={{color: var(--body)}}>Get help on the road</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
+        <div className="p-lg"><div className="title-lg">Create account</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Get help on the road</div></div>
         <div className="flex p-lg">
-          <div style={{display: 'flex', gap: 8, marginBottom: 16}}><div style={{flex: 1, height: 4, borderRadius: 2, background: var(--primary)}}></div></div>
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Full name</div>
+          <div className="step-bar"><div className="step step-active"></div></div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Full name</label>
           <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Phone</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Phone</label>
           <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Email</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Email</label>
           <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Password</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Password</label>
           <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1, borderRadius: 8}}>{loading ? 'Creating...' : 'Create Account'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Creating...' : 'Create Account'}</button>
         </div>
       </div>);
     }
+
     function ProviderSignupScreen({ onNavigate, goBack }) {
       const [name, setName] = useState(''); const [email, setEmail] = useState(''); const [phone, setPhone] = useState(''); const [loading, setLoading] = useState(false);
       const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'provider', name, phone })); setTimeout(() => onNavigate('/provider/services'), 800); };
       return (<div className="container">
-        <div className="p-md" onClick={goBack}><span className="text-2xl cursor-pointer">←</span></div>
-        <div className="p-lg"><div className="text-2xl font-semibold" style={{letterSpacing: '-0.3px'}}>Become a provider</div><div className="mt-xs" style={{color: var(--body)}}>Your info</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
+        <div className="p-lg"><div className="title-lg">Become a provider</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Your info</div></div>
         <div className="flex p-lg">
-          <div style={{display: 'flex', gap: 8, marginBottom: 16}}><div style={{flex: 1, height: 4, borderRadius: 2, background: var(--primary)}}></div><div style={{flex: 1, height: 4, borderRadius: 2, background: var(--surface-strong)}}></div></div>
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Full name</div>
+          <div className="step-bar"><div className="step step-active"></div><div className="step"></div></div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Full name</label>
           <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Email</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Email</label>
           <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Phone</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Phone</label>
           <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1, borderRadius: 8}}>{loading ? 'Next...' : 'Next'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Next...' : 'Next'}</button>
         </div>
       </div>);
     }
+
     function ProviderServicesScreen({ onNavigate, goBack }) {
       const { userData, saveServices, fetchUserData, setUserData } = useContext(UserContext);
       const [services, setServices] = useState([]); const [loading, setLoading] = useState(false); const [error, setError] = useState('');
       const toggleService = (key) => { if (services.includes(key)) { setServices(services.filter(s => s !== key)); } else { setServices([...services, key]); } };
       const handleSubmit = async () => { if (services.length === 0) { setError('Please select at least one service'); setTimeout(() => setError(''), 3000); return; } setLoading(true); const mockUid = 'provider_' + Date.now(); await saveServices(mockUid, services); setUserData(prev => ({ ...prev, uid: mockUid, services: services })); setTimeout(() => onNavigate('/provider/home'), 1500); };
       return (<div className="container">
-        <div className="p-md" onClick={goBack}><span className="text-2xl cursor-pointer">←</span></div>
-        {error && (<div style={{background: var(--surface-card), color: var(--ink), padding: '12px 16px', margin: '0 16px', borderRadius: 8, fontSize: 14}}>{error}</div>)}
-        <div className="p-lg"><div className="text-2xl font-semibold" style={{letterSpacing: '-0.3px'}}>Select services</div><div className="mt-xs" style={{color: var(--body)}}>What can you offer?</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
+        {error && (<div style={{background: 'var(--surface-card)', color: 'var(--ink)', padding: '12px 16px', margin: '0 16px', borderRadius: 8, fontSize: 14}}>{error}</div>)}
+        <div className="p-lg"><div className="title-lg">Select services</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>What can you offer?</div></div>
         <div className="flex p-lg">
-          <div style={{display: 'flex', gap: 8, marginBottom: 16}}><div style={{flex: 1, height: 4, borderRadius: 2, background: var(--primary)}}></div><div style={{flex: 1, height: 4, borderRadius: 2, background: var(--primary)}}></div></div>
-          <div style={{display: 'flex', flexWrap: 'wrap', width: '100%', gap: 8, padding: '0 4px'}}>
-            {SERVICE_TYPES.map(s => (<div key={s.key} className={`service-card ${services.includes(s.key) ? 'selected' : ''}`} style={{width: '46%', minWidth: '140px', boxSizing: 'border-box', margin: '0 4px 8px 4px'}} onClick={() => toggleService(s.key)}><div className="service-card-content"><div className="service-icon">{s.icon}</div><div className="service-info"><div className="service-label">{s.label}</div><div className="service-desc">{s.desc}</div></div></div></div>))}
+          <div className="step-bar"><div className="step step-active"></div><div className="step step-active"></div></div>
+          <div className="grid grid-2" style={{gap: 8}}>
+            {SERVICE_TYPES.map(s => (
+              <div key={s.key} className={`service-card ${services.includes(s.key) ? 'selected' : ''}`} onClick={() => toggleService(s.key)}>
+                <div className="service-icon">{s.icon}</div>
+                <div><div className="service-label">{s.label}</div><div className="service-desc">{s.desc}</div></div>
+              </div>
+            ))}
           </div>
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading} style={{width: '100%', marginTop: 24, opacity: loading ? 0.5 : 1, borderRadius: 8}}>{loading ? 'Submitting...' : 'Apply to Drive'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading} style={{width: '100%', marginTop: 24, opacity: loading ? 0.5 : 1}}>{loading ? 'Submitting...' : 'Apply to Drive'}</button>
         </div>
       </div>);
     }
+
     function LoginScreen({ onNavigate, goBack }) {
       const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
       const handleLogin = () => { setLoading(true); const stored = localStorage.getItem('dl_user_' + email.toLowerCase()); let role = 'customer'; if (stored) { try { role = JSON.parse(stored).role; } catch(e) {} } setTimeout(() => { if (role === 'provider') onNavigate('/provider/home'); else onNavigate('/customer/home'); }, 500); };
       return (<div className="container">
-        <div className="p-md" onClick={goBack}><span className="text-2xl cursor-pointer">←</span></div>
-        <div className="p-lg"><div className="text-2xl font-semibold" style={{letterSpacing: '-0.3px'}}>Welcome back</div><div className="mt-xs" style={{color: var(--body)}}>Sign in to continue</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
+        <div className="p-lg"><div className="title-lg">Welcome back</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Sign in to continue</div></div>
         <div className="flex p-lg">
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Email</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Email</label>
           <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Password</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Password</label>
           <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
-          <button className="btn btn-lg" onClick={handleLogin} disabled={loading || !email || !password} style={{width: '100%', marginTop: 24, opacity: loading || !email || !password ? 0.5 : 1, borderRadius: 8}}>{loading ? 'Signing in...' : 'Sign In'}</button>
+          <button className="btn btn-lg" onClick={handleLogin} disabled={loading || !email || !password} style={{width: '100%', marginTop: 24, opacity: loading || !email || !password ? 0.5 : 1}}>{loading ? 'Signing in...' : 'Sign In'}</button>
         </div>
       </div>);
     }
+
     function CustomerHomeScreen({ onNavigate, goBack }) {
       const [navTab, setNavTab] = useState('home');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'settings') onNavigate('/customer/request'); };
-      return (<div className="container" style={{paddingBottom: '70px', background: var(--canvas)}}>
-        <div className="p-lg pt-2xl"><div className="text-2xl font-semibold" style={{letterSpacing: '-0.3px'}}>Hello!</div><div className="mt-xs" style={{color: var(--body)}}>How can we help?</div></div>
+      return (<div className="container" style={{paddingBottom: '70px'}}>
+        <div className="p-lg pt-2xl"><div className="title-lg">Hello!</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div></div>
         <div className="flex p-lg">
-          <div className="font-semibold mb-md" style={{fontSize: 16}}>Services</div>
-          <div className="grid gap-md">
-            {SERVICE_TYPES.map((s, i) => (<div key={s.key} className="card" style={{padding: 20, textAlign: 'center', cursor: 'pointer', animationDelay: `${i * 0.05}s`}} onClick={() => onNavigate('/customer/request')}><div className="mb-sm" style={{fontSize: 28}}>{s.icon}</div><div className="text-sm font-semibold">{s.label}</div></div>))}
+          <div className="title-sm mb-md">Services</div>
+          <div className="grid grid-2">
+            {SERVICE_TYPES.map((s, i) => (
+              <div key={s.key} className="card card-elevated card-hover" style={{padding: 16, textAlign: 'center', cursor: 'pointer'}} onClick={() => onNavigate('/customer/request')}>
+                <div className="mb-sm" style={{fontSize: 24}}>{s.icon}</div>
+                <div className="title-sm">{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
-        <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="customer" />
+        <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="customer" />
       </div>);
     }
+
     function CustomerRequestScreen({ onNavigate, goBack }) {
       const [service, setService] = useState(null); const [location, setLocation] = useState(''); const [details, setDetails] = useState(''); const [pricing, setPricing] = useState('fixed'); const [loading, setLoading] = useState(false);
       const handleSubmit = () => { setLoading(true); setTimeout(() => onNavigate('/customer/offers'), 1500); };
       return (<div className="container" style={{paddingBottom: '70px'}}>
-        <div className="p-md" onClick={goBack}><span className="text-2xl cursor-pointer">←</span></div>
-        <div className="p-lg"><div className="text-xl font-semibold">Request Help</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
+        <div className="p-lg"><div className="title-lg">Request Help</div></div>
         <div className="flex p-lg">
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Location</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Location</label>
           <input className="input mb-md" value={location} onChange={e => setLocation(e.target.value)} placeholder="Enter your location" />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Service</div>
-          <div className="grid gap-sm mb-md">
-            {SERVICE_TYPES.map(s => (<div key={s.key} className={`service-card ${service === s.key ? 'selected' : ''}`} onClick={() => setService(s.key)}><div className="service-card-content"><div className="service-icon">{s.icon}</div><div className="service-info"><div className="service-label">{s.label}</div></div></div></div>))}
+          <label className="caption" style={{color: 'var(--muted)'}}>Service</label>
+          <div className="grid grid-2 mb-md" style={{gap: 8}}>
+            {SERVICE_TYPES.map(s => (
+              <div key={s.key} className={`service-card ${service === s.key ? 'selected' : ''}`} onClick={() => setService(s.key)}>
+                <div className="service-icon">{s.icon}</div>
+                <div className="service-label">{s.label}</div>
+              </div>
+            ))}
           </div>
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Details</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Details</label>
           <textarea className="input mb-md" style={{height: 100, paddingTop: 16}} value={details} onChange={e => setDetails(e.target.value)} placeholder="Describe your issue..." />
-          <div className="mb-sm" style={{fontSize: 13, fontWeight: 500, color: var(--muted)}}>Pricing</div>
+          <label className="caption" style={{color: 'var(--muted)'}}>Pricing</label>
           <div className="row gap-sm mb-md">
-            <div className={`btn btn-sm ${pricing === 'fixed' ? '' : 'btn-outline'}`} onClick={() => setPricing('fixed')}>Fixed</div>
-            <div className={`btn btn-sm ${pricing === 'range' ? '' : 'btn-outline'}`} onClick={() => setPricing('range')}>Range</div>
-            <div className={`btn btn-sm ${pricing === 'quote' ? '' : 'btn-outline'}`} onClick={() => setPricing('quote')}>Quote</div>
+            <button className={`btn btn-sm ${pricing === 'fixed' ? '' : 'btn-outline'}`} onClick={() => setPricing('fixed')}>Fixed</button>
+            <button className={`btn btn-sm ${pricing === 'range' ? '' : 'btn-outline'}`} onClick={() => setPricing('range')}>Range</button>
+            <button className={`btn btn-sm ${pricing === 'quote' ? '' : 'btn-outline'}`} onClick={() => setPricing('quote')}>Quote</button>
           </div>
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={!service || !location || loading} style={{width: '100%', marginTop: 16, opacity: !service || !location || loading ? 0.5 : 1, borderRadius: 8}}>{loading ? 'Finding help...' : 'Get Help Now'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={!service || !location || loading} style={{width: '100%', marginTop: 16, opacity: !service || !location || loading ? 0.5 : 1}}>{loading ? 'Finding help...' : 'Get Help Now'}</button>
         </div>
       </div>);
     }
+
     function CustomerOffersScreen({ onNavigate, goBack }) {
       const offers = [{ id: 1, name: 'Mike\'s Auto', rating: 4.8, price: '$45', time: '12 min', badge: 'Best Match' }, { id: 2, name: 'QuickFix Pro', rating: 4.6, price: '$55', time: '18 min', badge: null }, { id: 3, name: 'Roadside Rescue', rating: 4.9, price: '$60', time: '25 min', badge: null }];
       return (<div className="container">
-        <div className="p-md" onClick={goBack}><span className="text-2xl cursor-pointer">←</span></div>
-        <div className="p-lg"><div className="text-xl font-semibold">Available Mechanics</div><div className="text-sm" style={{color: var(--body)}}>Choose an offer</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
+        <div className="p-lg"><div className="title-lg">Available Mechanics</div><div className="body-sm" style={{color: 'var(--body)'}}>Choose an offer</div></div>
         <div className="flex p-lg">
-          {offers.map(offer => (<div key={offer.id} className="card mb-md" onClick={() => onNavigate('/customer/home')} style={{padding: 20, cursor: 'pointer'}}>
-            <div className="row centerV gap-md mb-sm"><div style={{fontSize: 24}}>◉</div><div style={{flex: 1}}><div className="font-semibold">{offer.name}</div><div className="text-sm" style={{color: var(--body)}}>{offer.rating} · {offer.time}</div></div>{offer.badge && <span className="badge badge-muted">{offer.badge}</span>}</div>
-            <div className="row centerV between"><div className="text-xl font-bold">{offer.price}</div><button className="btn btn-sm" onClick={(e) => { e.stopPropagation(); onNavigate('/customer/home'); }}>Accept</button></div>
-          </div>))}
+          {offers.map(offer => (
+            <div key={offer.id} className="card card-elevated card-hover mb-md" onClick={() => onNavigate('/customer/home')} style={{padding: 16}}>
+              <div className="row centerV gap-md mb-sm">
+                <div style={{fontSize: 24}}>◉</div>
+                <div style={{flex: 1}}>
+                  <div className="title-sm">{offer.name}</div>
+                  <div className="body-sm" style={{color: 'var(--body)'}}>{offer.rating} · {offer.time}</div>
+                </div>
+                {offer.badge && <span className="badge badge-default">{offer.badge}</span>}
+              </div>
+              <div className="row between centerV">
+                <div className="display-sm">{offer.price}</div>
+                <button className="btn btn-sm" onClick={(e) => { e.stopPropagation(); onNavigate('/customer/home'); }}>Accept</button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>);
     }
+
     function ProviderHomeScreen({ onNavigate, goBack }) {
       const { userData, toggleOnline } = useContext(UserContext);
       const [navTab, setNavTab] = useState('home'); const [isOnline, setIsOnline] = useState(userData?.isOnline || false);
@@ -476,38 +676,72 @@
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
       const handleToggle = () => { const newStatus = !isOnline; setIsOnline(newStatus); if (userData?.uid) toggleOnline(userData.uid, newStatus); };
       const nearbyJobs = [{ id: '1', service: 'Oil Change', address: '456 Oak Ave', time: '20 min away', payout: '$45 - $60' }, { id: '2', service: 'Tire Rotation', address: '789 Elm St', time: '25 min away', payout: '$35 - $50' }];
-      return (<div className="h-full w-full" style={{background: var(--canvas), display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
         <div style={{flex: 1, overflowY: 'auto', padding: '16px'}}>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20}}>
-            <div><div className="font-semibold" style={{color: var(--ink), fontSize: 22, letterSpacing: '-0.3px'}}>{greeting}, {name}</div><div style={{color: var(--body), marginTop: 4, fontSize: 14}}>Ready to get some jobs done?</div></div>
-            <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
-              <div style={{position: 'relative'}}><span style={{fontSize: 22}}>◉</span><div style={{position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: var(--primary)}} /></div>
-              <div style={{position: 'relative'}}><div style={{width: 36, height: 36, borderRadius: '50%', background: var(--surface-card), display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: var(--ink)}}>M</div><div style={{position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: var(--success), border: '2px solid var(--canvas)'}} /></div>
+          <div className="row between centerV mb-lg">
+            <div><div className="title-lg">{greeting}, {name}</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Ready to get some jobs done?</div></div>
+            <div className="row centerV" style={{gap: 12}}>
+              <div style={{position: 'relative'}}><span style={{fontSize: 22}}>◉</span><div style={{position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)'}} /></div>
+              <div style={{position: 'relative'}}><div className="avatar">M</div><div style={{position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: 'var(--success)', border: '2px solid var(--canvas)'}} /></div>
             </div>
           </div>
-          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: var(--surface-card), padding: '16px', borderRadius: 12, marginBottom: 20}}>
-            <div style={{display: 'flex', alignItems: 'center'}}><span style={{fontSize: 28, color: isOnline ? var(--success) : var(--muted)}}>◉</span><div style={{marginLeft: 10}}><div style={{color: var(--ink), fontWeight: 600, fontSize: 15}}>{isOnline ? "You're Online" : "You're Offline"}</div><div style={{color: var(--body), fontSize: 12, marginTop: 2}}>{isOnline ? "Visible to customers" : "Go online to receive jobs"}</div></div></div>
-            <button onClick={handleToggle} style={{background: isOnline ? var(--surface-strong) : var(--primary), border: 'none', borderRadius: 8, padding: '8px 16px', fontWeight: 600, fontSize: 13, color: isOnline ? var(--ink) : '#fff', cursor: 'pointer'}}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
+          <div className="row between centerV card-flat mb-lg" style={{padding: 16}}>
+            <div className="row centerV" style={{gap: 12}}>
+              <span style={{fontSize: 28, color: isOnline ? 'var(--success)' : 'var(--muted)'}}>◉</span>
+              <div><div className="title-sm">{isOnline ? "You're Online" : "You're Offline"}</div><div className="body-sm" style={{color: 'var(--body)'}}>{isOnline ? "Visible to customers" : "Go online to receive jobs"}</div></div>
+            </div>
+            <button onClick={handleToggle} className={`btn btn-sm ${isOnline ? 'btn-outline' : ''}`}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
           </div>
-          <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20}}>
-            {[{ label: 'Jobs Today', value: '3' }, { label: 'Rating', value: '4.9' }, { label: 'Earnings', value: '$256' }, { label: 'Time', value: '8h' }].map((item, index) => (<div key={index} style={{background: var(--surface-card), padding: '12px 8px', borderRadius: 12, width: '23%', display: 'flex', flexDirection: 'column', alignItems: 'center'}}><div style={{color: var(--ink), fontSize: 16, fontWeight: 600, marginTop: 4}}>{item.value}</div><div style={{color: var(--body), fontSize: 10, marginTop: 2}}>{item.label}</div></div>))}
+          <div className="grid grid-4 mb-lg" style={{gap: 8}}>
+            {[{ label: 'Jobs Today', value: '3' }, { label: 'Rating', value: '4.9' }, { label: 'Earnings', value: '$256' }, { label: 'Time', value: '8h' }].map((item, index) => (
+              <div key={index} className="card-flat" style={{padding: '12px 8px', textAlign: 'center'}}>
+                <div className="title-sm">{item.value}</div>
+                <div className="caption" style={{color: 'var(--body)'}}>{item.label}</div>
+              </div>
+            ))}
           </div>
-          <div style={{display: 'flex', background: var(--surface-card), padding: 16, borderRadius: 12, marginBottom: 20}}>
-            <div style={{flex: 1}}><div style={{fontSize: 10, fontWeight: 600, letterSpacing: 1, color: var(--body)}}>Upcoming</div><div style={{color: var(--ink), fontSize: 20, fontWeight: 700, marginTop: 4}}>10:30 AM</div><div style={{color: var(--ink), fontWeight: 600, marginTop: 4}}>Jump Start</div><div style={{color: var(--body), fontSize: 12, marginTop: 2}}>123 Main St</div><div style={{color: var(--body), fontSize: 12}}>2.4 mi away</div><button className="btn btn-sm" style={{marginTop: 12}}>Start Navigation</button></div>
-            <div style={{width: 100, height: 100, background: var(--surface-soft), borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}><span style={{color: var(--muted), fontSize: 12}}>Map</span></div>
+          <div className="card-flat mb-lg" style={{padding: 16, display: 'flex', flexDirection: 'column', gap: 16}}>
+            <div>
+              <div className="caption" style={{letterSpacing: 1, color: 'var(--body)'}}>Upcoming</div>
+              <div className="display-sm" style={{marginTop: 4}}>10:30 AM</div>
+              <div className="title-sm mt-xs">Jump Start</div>
+              <div className="body-sm" style={{color: 'var(--body)'}}>123 Main St</div>
+              <div className="body-sm" style={{color: 'var(--body)'}}>2.4 mi away</div>
+              <button className="btn btn-sm" style={{marginTop: 12}}>Start Navigation</button>
+            </div>
+            <div style={{width: '100%', height: 120, background: 'var(--surface-soft)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><span style={{color: 'var(--muted)', fontSize: 12}}>Map</span></div>
           </div>
-          <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 20, gap: 12}}>
-            <div style={{flex: 1, background: var(--surface-card), padding: 16, borderRadius: 12}}><div style={{color: var(--body), fontSize: 12, marginBottom: 8}}>Earnings Today</div><div style={{color: var(--ink), fontSize: 22, fontWeight: 700}}>$256</div><div style={{color: var(--body), fontSize: 12, marginTop: 4}}>4 Jobs Completed</div></div>
-            <div style={{flex: 1, background: var(--surface-card), padding: 16, borderRadius: 12}}><div style={{color: var(--body), fontSize: 12, marginBottom: 8}}>Incentives</div><div style={{color: var(--body), fontSize: 12}}>Complete 2 more jobs to earn $50 bonus</div><div style={{height: 6, background: var(--surface-strong), borderRadius: 4, marginTop: 8, marginBottom: 4}}><div style={{width: '50%', height: '100%', background: var(--primary), borderRadius: 4}} /></div><div style={{color: var(--body), fontSize: 12}}>2 / 4 Jobs</div></div>
+          <div className="col gap-sm mb-lg">
+            <div className="card-flat" style={{padding: 16}}>
+              <div className="caption" style={{color: 'var(--body)'}}>Earnings Today</div>
+              <div className="display-sm">$256</div>
+              <div className="body-sm" style={{color: 'var(--body)', marginTop: 4}}>4 Jobs Completed</div>
+            </div>
+            <div className="card-flat" style={{padding: 16}}>
+              <div className="caption" style={{color: 'var(--body)'}}>Incentives</div>
+              <div className="body-sm">Complete 2 more jobs to earn $50 bonus</div>
+              <div style={{height: 6, background: 'var(--surface-strong)', borderRadius: 4, marginTop: 8, marginBottom: 4}}><div style={{width: '50%', height: '100%', background: 'var(--primary)', borderRadius: 4}} /></div>
+              <div className="caption" style={{color: 'var(--body)'}}>2 / 4 Jobs</div>
+            </div>
           </div>
           <div style={{marginBottom: 20}}>
-            <div style={{color: var(--ink), fontSize: 16, fontWeight: 600, marginBottom: 12}}>Nearby Jobs</div>
-            {nearbyJobs.map((job) => (<div key={job.id} style={{display: 'flex', justifyContent: 'space-between', background: var(--surface-card), padding: 14, borderRadius: 12, marginBottom: 10, cursor: 'pointer'}}><div><div style={{fontSize: 12, fontWeight: 500, color: var(--body)}}>{job.time}</div><div style={{color: var(--ink), fontWeight: 600, marginTop: 4}}>{job.service}</div><div style={{color: var(--body), fontSize: 12, marginTop: 2}}>{job.address}</div></div><div style={{fontWeight: 600, fontSize: 14, color: var(--ink)}}>{job.payout}</div></div>))}
+            <div className="title-sm mb-md">Nearby Jobs</div>
+            {nearbyJobs.map((job) => (
+              <div key={job.id} className="card-flat card-hover mb-md" style={{padding: 14, display: 'flex', justifyContent: 'space-between'}}>
+                <div>
+                  <div className="caption" style={{color: 'var(--body)'}}>{job.time}</div>
+                  <div className="title-sm mt-xs">{job.service}</div>
+                  <div className="body-sm" style={{color: 'var(--body)'}}>{job.address}</div>
+                </div>
+                <div className="title-sm">{job.payout}</div>
+              </div>
+            ))}
           </div>
         </div>
-        <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+        <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
       </div>);
     }
+
     function ProviderJobsScreen({ onNavigate, goBack }) {
       const { userData, toggleOnline, saveServices, setUserData } = useContext(UserContext);
       const [selectedCategory, setSelectedCategory] = useState('all'); const [showAddModal, setShowAddModal] = useState(false); const [activeJob, setActiveJob] = useState(null); const [todayEarnings, setTodayEarnings] = useState(85); const [jobsCompleted, setJobsCompleted] = useState(3); const [declinedJobs, setDeclinedJobs] = useState([]); const [navTab, setNavTab] = useState('jobs');
@@ -524,68 +758,95 @@
       const handleCompleteJob = () => { const payout = parseInt(activeJob.payout.split('-')[1].replace('$','')); setTodayEarnings(todayEarnings + payout); setJobsCompleted(jobsCompleted + 1); setActiveJob(null); };
       const handleAddService = async (serviceKey) => { const newServices = [...userServices, serviceKey]; await saveServices(userData.uid, newServices); setUserData(prev => ({ ...prev, services: newServices })); setShowAddModal(false); };
       const remainingServices = getRemainingServices(); const canAddMore = remainingServices.length > 0;
-      return (<div className="h-full w-full" style={{background: '#F5F5F5', display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
-        <div style={{background: var(--surface-dark), padding: '14px 16px 10px'}}>
-          <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '12px'}}>
-            <div><div className="text-white font-semibold" style={{fontSize: '18px'}}>{greeting}!</div><div className="text-white" style={{fontSize: '12px', opacity: 0.7}}>Ready to work?</div></div>
-            <div className="row centerV" style={{gap: 8}}><div style={{width: '32px', height: '32px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', color: '#fff'}}>◉</div></div>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
+        <div style={{background: 'var(--surface-dark)', padding: '14px 16px 10px'}}>
+          <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 12}}>
+            <div><div className="title-md text-white">{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
+            <div className="row centerV" style={{gap: 8}}><div style={{width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#fff'}}>◉</div></div>
           </div>
-          <div style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.15)', borderRadius: '12px', padding: '12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-            <div><div className="text-white font-semibold" style={{fontSize: '14px'}}>Available Jobs Nearby</div><div className="text-white font-bold" style={{fontSize: '22px', marginTop: '2px'}}>{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="text-white" style={{fontSize: '11px', opacity: 0.8}}>Live jobs in your area</div>}</div>
-            <button onClick={() => toggleOnline(userData.uid, !isOnline)} style={{background: isOnline ? '#fff' : 'transparent', border: '1px solid ' + (isOnline ? '#fff' : 'rgba(255,255,255,0.5)'), borderRadius: '8px', padding: '8px 20px', fontWeight: '600', fontSize: '13px', color: isOnline ? var(--ink) : '#fff', cursor: 'pointer'}}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
-          </div>
-        </div>
-        <div style={{padding: '12px 16px', background: var(--canvas)}}>
-          <div style={{fontSize: 10, fontWeight: 600, color: var(--body), marginBottom: 8}}>Quick Filters</div>
-          <div style={{display: 'flex', gap: '6px', overflowX: 'auto', paddingBottom: '4px'}}>
-            {serviceCategories.map((cat) => (<button key={cat.key} onClick={() => setSelectedCategory(cat.key)} style={{background: selectedCategory === cat.key ? var(--primary) : var(--surface-card), color: selectedCategory === cat.key ? '#fff' : var(--body), border: 'none', borderRadius: '8px', padding: '6px 14px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer'}}>{cat.label}</button>))}
-            {canAddMore && (<button onClick={() => setShowAddModal(true)} style={{background: var(--surface-card), color: var(--body), border: 'none', borderRadius: '8px', padding: '6px 14px', fontSize: '11px', fontWeight: '500', whiteSpace: 'nowrap', cursor: 'pointer'}}>+ Add</button>)}
+          <div className="row between centerV" style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.15)', borderRadius: 12, padding: 12}}>
+            <div><div className="title-sm text-white">Available Jobs Nearby</div><div className="display-sm text-white">{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="caption text-white" style={{opacity: 0.8}}>Live jobs in your area</div>}</div>
+            <button onClick={() => toggleOnline(userData.uid, !isOnline)} className={`btn btn-sm ${isOnline ? 'btn-secondary' : ''}`} style={{background: isOnline ? '#fff' : 'transparent', border: '1px solid ' + (isOnline ? '#fff' : 'rgba(255,255,255,0.5)'), color: isOnline ? 'var(--ink)' : '#fff'}}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
           </div>
         </div>
-        <div style={{flex: 1, overflowY: 'auto', padding: '12px'}}>
-          <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '12px'}}><span className="font-semibold" style={{fontSize: '16px'}}>{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>{!isOnline && <span className="text-sm text-gray">Go online to see jobs</span>}</div>
-          {isOnline ? (filteredJobs.length > 0 ? (filteredJobs.map((job) => (<div key={job.id} className="animate-fade-in-up" style={{background: var(--canvas), borderRadius: '12px', padding: '16px', marginBottom: '12px', boxShadow: '0 4px 16px rgba(0,0,0,0.08)'}}>
-            <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '8px'}}><div className="row centerV gap-sm"><span style={{fontWeight: 600}}>{job.service}</span>{job.urgent && <span className="badge badge-muted">Urgent</span>}</div><span style={{fontSize: 12, color: var(--muted)}}>{job.time}</span></div>
-            <div style={{fontSize: 13, color: var(--body), marginBottom: 12}}>{job.address} · {job.distance}</div>
-            <div className="row centerV" style={{justifyContent: 'space-between'}}><div><div className="font-bold" style={{fontSize: '20px', color: var(--ink)}}>{job.payout}</div><div style={{fontSize: 12, color: var(--muted)}}>{job.rating}</div></div><div className="row gap-sm"><button onClick={() => handleDeclineJob(job.id)} className="btn btn-sm btn-outline">Decline</button><button onClick={() => handleAcceptJob(job)} className="btn btn-sm">Accept</button></div></div>
-          </div>))) : (<div style={{textAlign: 'center', padding: '40px'}}><div style={{fontSize: '36px', marginBottom: '16px', color: var(--muted)}}>—</div><div className="font-semibold" style={{marginBottom: '8px'}}>No jobs found</div><div className="text-sm" style={{color: var(--body)}}>Try a different filter or check back soon</div></div>)) : (<div style={{background: var(--canvas), borderRadius: '12px', padding: '32px', textAlign: 'center'}}><div style={{fontSize: '36px', marginBottom: '16px', color: var(--muted)}}>—</div><div className="font-semibold" style={{marginBottom: '8px'}}>Go Online to Start Receiving Jobs</div><div className="text-sm" style={{color: var(--body)}}>Toggle online above to begin accepting jobs</div></div>)}
+        <div style={{padding: '12px 16px', background: 'var(--canvas)'}}>
+          <div className="caption mb-sm" style={{color: 'var(--body)'}}>Quick Filters</div>
+          <div className="row" style={{gap: 6, overflowX: 'auto', paddingBottom: 4}}>
+            {serviceCategories.map((cat) => (
+              <button key={cat.key} onClick={() => setSelectedCategory(cat.key)} className={`btn btn-sm ${selectedCategory === cat.key ? '' : 'btn-outline'}`} style={{whiteSpace: 'nowrap', minWidth: 44}}>{cat.label}</button>
+            ))}
+            {canAddMore && (<button onClick={() => setShowAddModal(true)} className="btn btn-sm btn-outline" style={{whiteSpace: 'nowrap', minWidth: 44}}>+ Add</button>)}
+          </div>
+        </div>
+        <div style={{flex: 1, overflowY: 'auto', padding: 12}}>
+          <div className="row between centerV mb-md"><span className="title-sm">{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>{!isOnline && <span className="caption" style={{color: 'var(--muted)'}}>Go online to see jobs</span>}</div>
+          {isOnline ? (filteredJobs.length > 0 ? (filteredJobs.map((job) => (
+            <div key={job.id} className="card card-elevated mb-md animate-fade-in-up" style={{padding: 16}}>
+              <div className="row between centerV mb-sm">
+                <div className="row centerV gap-sm"><span className="title-sm">{job.service}</span>{job.urgent && <span className="badge badge-default">Urgent</span>}</div>
+                <span className="caption" style={{color: 'var(--muted)'}}>{job.time}</span>
+              </div>
+              <div className="body-sm mb-md" style={{color: 'var(--body)'}}>{job.address} · {job.distance}</div>
+              <div className="row between centerV">
+                <div><div className="display-sm">{job.payout}</div><div className="caption" style={{color: 'var(--muted)'}}>{job.rating}</div></div>
+                <div className="row gap-sm">
+                  <button onClick={() => handleDeclineJob(job.id)} className="btn btn-sm btn-outline">Decline</button>
+                  <button onClick={() => handleAcceptJob(job)} className="btn btn-sm">Accept</button>
+                </div>
+              </div>
+            </div>
+          ))) : (<div className="text-center" style={{padding: 40}}><div style={{fontSize: 36, marginBottom: 16, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">No jobs found</div><div className="body-sm" style={{color: 'var(--body)'}}>Try a different filter or check back soon</div></div>)) : (<div className="card text-center" style={{padding: 32}}><div style={{fontSize: 36, marginBottom: 16, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">Go Online to Start Receiving Jobs</div><div className="body-sm" style={{color: 'var(--body)'}}>Toggle online above to begin accepting jobs</div></div>)}
         </div>
         {activeJob && (<>
-          <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}}>
-            <div style={{background: var(--canvas), borderRadius: '12px 12px 0 0', padding: '24px', width: '100%'}}>
-              <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: '16px'}}><span className="font-semibold" style={{fontSize: '18px'}}>Active Job</span><button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: '24px', cursor: 'pointer', color: var(--body)}}>×</button></div>
-              <div style={{background: var(--surface-dark), borderRadius: '12px', padding: '20px', marginBottom: '20px'}}><div className="text-white font-bold" style={{fontSize: '20px', marginBottom: '8px'}}>{activeJob.service}</div><div className="text-white" style={{opacity: 0.7, fontSize: '14px'}}>{activeJob.address}</div><div className="text-white font-bold" style={{fontSize: '24px', marginTop: '12px'}}>{activeJob.payout}</div></div>
-              <button className="btn btn-lg" onClick={handleCompleteJob} style={{width: '100%', borderRadius: 8}}>Complete Job</button>
+          <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}} onClick={() => setActiveJob(null)}>
+            <div style={{background: 'var(--canvas)', borderRadius: '12px 12px 0 0', padding: 24, width: '100%'}} onClick={e => e.stopPropagation()}>
+              <div className="row between centerV mb-lg"><span className="title-lg">Active Job</span><button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', color: 'var(--body)'}}>×</button></div>
+              <div className="card-flat mb-lg" style={{background: 'var(--surface-dark)', padding: 20}}>
+                <div className="display-sm text-white mb-xs">{activeJob.service}</div>
+                <div className="body-sm text-white" style={{opacity: 0.7}}>{activeJob.address}</div>
+                <div className="display-md text-white" style={{marginTop: 12}}>{activeJob.payout}</div>
+              </div>
+              <button className="btn btn-lg" onClick={handleCompleteJob} style={{width: '100%'}}>Complete Job</button>
             </div>
           </div>
           {showAddModal && (<div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setShowAddModal(false)}>
             <div className="card" style={{padding: 20, width: '85%', maxWidth: 320}} onClick={e => e.stopPropagation()}>
-              <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 16}}><span className="font-semibold" style={{fontSize: 16}}>Add Services</span><button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: var(--body)}}>×</button></div>
-              <div style={{display: 'flex', flexDirection: 'column', gap: 8}}>
-                {remainingServices.map(s => (<div key={s.key} onClick={() => handleAddService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 12, padding: 12, background: var(--surface-card), borderRadius: 12, cursor: 'pointer'}}><span style={{fontSize: 24}}>{s.icon}</span><div style={{flex: 1}}><div className="font-semibold" style={{fontSize: 14}}>{s.label}</div><div style={{fontSize: 12, color: var(--body)}}>{s.desc}</div></div></div>))}
+              <div className="row between centerV mb-lg"><span className="title-md">Add Services</span><button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: 'var(--body)'}}>×</button></div>
+              <div className="col" style={{gap: 8}}>
+                {remainingServices.map(s => (
+                  <div key={s.key} onClick={() => handleAddService(s.key)} className="row centerV card-hover" style={{gap: 12, padding: 12, background: 'var(--surface-card)', borderRadius: 12, cursor: 'pointer'}}>
+                    <span style={{fontSize: 24}}>{s.icon}</span>
+                    <div style={{flex: 1}}><div className="title-sm">{s.label}</div><div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div></div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>)}
         </>)}
-        <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+        <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
       </div>);
     }
+
     function ProviderEarningsScreen({ onNavigate, goBack }) {
       const [navTab, setNavTab] = useState('earnings');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
-      return (<div className="container" style={{paddingBottom: '70px', background: var(--surface-card)}}>
-        <div className="p-lg pt-xl"><span className="text-2xl cursor-pointer" onClick={goBack}>←</span></div>
+      return (<div className="container" style={{paddingBottom: '70px'}}>
+        <div className="p-lg pt-xl"><span className="display-sm cursor-pointer" onClick={goBack}>←</span></div>
         <div className="p-lg">
-          <div className="text-xl font-semibold mb-lg">Earnings</div>
-          <div className="p-xl" style={{background: var(--surface-dark), borderRadius: 12, marginBottom: 24}}>
-            <div style={{fontSize: 12, color: var(--muted)}}>Total</div>
-            <div style={{fontSize: 40, fontWeight: 700, color: '#fff', marginTop: 4}}>$1,250</div>
-            <div className="row gap-lg mt-lg"><div><div style={{fontSize: 20, fontWeight: 700, color: '#fff'}}>18</div><div style={{fontSize: 12, color: var(--muted)}}>Jobs</div></div><div><div style={{fontSize: 20, fontWeight: 700, color: '#fff'}}>$69</div><div style={{fontSize: 12, color: var(--muted)}}>Avg</div></div></div>
+          <div className="title-lg mb-lg">Earnings</div>
+          <div className="card-flat" style={{background: 'var(--surface-dark)', padding: 24, borderRadius: 12, marginBottom: 24}}>
+            <div className="caption" style={{color: 'var(--muted)'}}>Total</div>
+            <div className="display-xl text-white" style={{marginTop: 4}}>$1,250</div>
+            <div className="row gap-xl mt-lg">
+              <div><div className="display-sm text-white">18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
+              <div><div className="display-sm text-white">$69</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
+            </div>
           </div>
         </div>
-        <CyberNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+        <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
       </div>);
     }
+
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
