@@ -487,8 +487,8 @@
       useEffect(() => {
         const timer = setTimeout(() => {
           setVisible(false);
-          setTimeout(onComplete, 600);
-        }, 2500);
+          setTimeout(onComplete, 500);
+        }, 2000);
         return () => clearTimeout(timer);
       }, [onComplete]);
       
