@@ -487,8 +487,8 @@
       useEffect(() => {
         const timer = setTimeout(() => {
           setVisible(false);
-          setTimeout(onComplete, 400);
-        }, 3000);
+          setTimeout(onComplete, 600);
+        }, 2500);
         return () => clearTimeout(timer);
       }, [onComplete]);
       
@@ -502,9 +502,8 @@
           justifyContent: 'center',
           zIndex: 9999,
           opacity: visible ? 1 : 0,
-          transition: 'opacity 0.4s ease',
+          transition: 'opacity 0.6s ease-in-out',
           pointerEvents: visible ? 'auto' : 'none',
-          overflow: 'hidden',
         }}>
           <img
             src="public/splashscreen.gif"
@@ -524,12 +523,19 @@
     function App() {
       const { screen, navigate, goBack } = useRouter();
       const [splashDone, setSplashDone] = useState(false);
+      const [splashVisible, setSplashVisible] = useState(true);
       const [scrollY, setScrollY] = useState(0);
       useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
       }, []);
+      useEffect(() => {
+        if (splashDone) {
+          const timer = setTimeout(() => setSplashVisible(false), 100);
+          return () => clearTimeout(timer);
+        }
+      }, [splashDone]);
       const screens = {
         'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />,
         'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />,
@@ -546,17 +552,15 @@
       };
       return (
         <UserProvider>
-          {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
-          {splashDone && (
-            <div className="h-full w-full">
-              {screen === 'landing' && screens[screen]}
-              {screen !== 'landing' && (
-                <div className="animate-fade-in" key={screen}>
-                  {screens[screen]}
-                </div>
-              )}
-            </div>
-          )}
+          <div className="h-full w-full">
+            {screen === 'landing' && screens[screen]}
+            {screen !== 'landing' && (
+              <div className="animate-fade-in" key={screen}>
+                {screens[screen]}
+              </div>
+            )}
+          </div>
+          {splashVisible && <SplashScreen onComplete={() => setSplashDone(true)} />}
         </UserProvider>
       );
     }
