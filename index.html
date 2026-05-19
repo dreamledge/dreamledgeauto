@@ -294,6 +294,10 @@
     ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
     @media (max-width: 767px) { .hero-btns { margin-top: 8px !important; } }
+    video::-webkit-media-controls { display: none !important; }
+    video::-webkit-media-controls-start-playback-button { display: none !important; }
+    video::-webkit-media-controls-overlay-play-button { display: none !important; }
+    video::-webkit-media-controls-enclosure { display: none !important; }
   </style>
 </head>
 <body>
@@ -485,10 +489,18 @@
       useEffect(() => {
         const video = videoRef.current;
         if (video) {
-          video.play().catch(() => {
-            video.muted = true;
-            video.play();
-          });
+          video.muted = true;
+          video.playsInline = true;
+          video.setAttribute('webkit-playsinline', '');
+          video.setAttribute('x-webkit-airplay', 'allow');
+          video.disableRemotePlayback = true;
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(() => {
+              video.muted = true;
+              video.play();
+            });
+          }
         }
         const timer = setTimeout(() => {
           setVisible(false);
@@ -522,11 +534,14 @@
             src="public/splashscreen.mp4"
             autoPlay
             muted
-            playsInline
             loop
-            preload="auto"
+            playsInline
+            webkit-playsinline="true"
+            x-webkit-airplay="allow"
             disablePictureInPicture
-            controlsList="nodownload nofullscreen noremoteplayback"
+            disableRemotePlayback
+            controls={false}
+            preload="auto"
             onEnded={handleVideoEnd}
             style={{
               width: '100vw',
@@ -534,6 +549,7 @@
               objectFit: 'contain',
               maxWidth: '100%',
               maxHeight: '100%',
+              pointerEvents: 'none',
             }}
           />
         </div>
