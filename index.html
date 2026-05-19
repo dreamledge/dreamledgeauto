@@ -483,15 +483,32 @@
     // ============================================
     function SplashScreen({ onComplete }) {
       const [visible, setVisible] = useState(true);
-      const gifSrc = `public/splashscreen.gif?t=${Date.now()}`;
+      const [gifUrl, setGifUrl] = useState(null);
       
       useEffect(() => {
+        fetch('public/splashscreen.gif?v=' + Date.now())
+          .then(r => {
+            if (!r.ok) throw new Error('Failed to load');
+            return r.blob();
+          })
+          .then(blob => {
+            setGifUrl(URL.createObjectURL(blob));
+          })
+          .catch(() => {
+            setGifUrl('public/splashscreen.gif?v=' + Date.now());
+          });
+      }, []);
+      
+      useEffect(() => {
+        if (!gifUrl) return;
         const timer = setTimeout(() => {
           setVisible(false);
           setTimeout(onComplete, 500);
         }, 2000);
         return () => clearTimeout(timer);
-      }, [onComplete]);
+      }, [gifUrl, onComplete]);
+      
+      if (!gifUrl) return null;
       
       return (
         <div style={{
@@ -507,8 +524,8 @@
           pointerEvents: visible ? 'auto' : 'none',
         }}>
           <img
-            key={gifSrc}
-            src={gifSrc}
+            key={gifUrl}
+            src={gifUrl}
             alt="Loading..."
             style={{
               width: '100vw',
