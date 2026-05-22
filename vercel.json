@@ -1,13 +1,11 @@
 {
+  "framework": null,
   "rewrites": [
-    { "source": "/public/:path*", "destination": "/public/:path*" },
-    { "source": "/assets/:path*", "destination": "/assets/:path*" },
-    { "source": "/:path*\\.:ext*", "destination": "/:path*.:ext*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [
     {
-      "source": "/(.*)\\.(lottie|gif|png|jpg|jpeg|svg|ico|webp|avif)",
+      "source": "/(.*)\\.(lottie|gif|png|jpg|jpeg|svg|ico|webp|avif|mp4)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
