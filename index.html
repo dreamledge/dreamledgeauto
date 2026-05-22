@@ -167,6 +167,8 @@
 
     /* Hero video background - mobile only */
     .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: 0; transform: translateZ(0); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: transparent url('public/headerimage.png') center center / cover no-repeat; }
+    video::-webkit-media-controls { display: none !important; }
+    video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
     .hero-video-bg::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; opacity: 0; pointer-events: none; }
     .hero-video-bg::-webkit-media-controls { display: none !important; -webkit-appearance: none; }
     .hero-video-bg::-webkit-media-controls-enclosure { display: none !important; -webkit-appearance: none; }
@@ -539,7 +541,7 @@
         </nav>
         {/* Hero band */}
         <section className="hero-band header-with-video" style={{paddingTop: 108}}>
-          <video ref={videoRef} className="hero-video-bg" autoPlay muted loop playsInline webkit-playsinline="true" preload="auto" poster="public/headerimage.png">
+          <video ref={videoRef} className="hero-video-bg" autoPlay muted loop playsInline webkit-playsinline="true" preload="auto" controlsList="nodownload nofullscreen noremoteplayback" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
             <source src="public/headervid.mp4" type="video/mp4" />
           </video>
           <div className="hero-video-overlay" />
