@@ -116,7 +116,7 @@
     .btn-text:active { opacity: 0.7; }
 
     /* Components - Inputs (Premium) */
-    .input { min-height: 48px; border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: 12px 16px; font-size: 15px; background: var(--canvas); width: 100%; transition: all 0.2s var(--ease-out); color: var(--ink); box-shadow: var(--shadow-sm); }
+    .input { min-height: 48px; border: 1px solid var(--muted-soft); border-radius: var(--radius-md); padding: 12px 16px; font-size: 15px; background: var(--canvas); width: 100%; transition: all 0.2s var(--ease-out); color: var(--ink); box-shadow: var(--shadow-sm); }
     .input:hover { border-color: var(--surface-strong); }
     .input:focus { outline: none; border-color: var(--ink); box-shadow: var(--shadow-glow), var(--shadow-md); transform: translateY(-1px); }
     .input::placeholder { color: var(--muted-soft); }
@@ -184,7 +184,7 @@
       .hero-band.header-with-video::after { display: none !important; }
       .header-with-video .hero-image-card,
       .header-with-video .hero-badge-pill { display: none !important; }
-      .header-with-video .hero-text-content { color: #fff; background: rgba(0,0,0,0.35); border-radius: var(--radius-lg); padding: 20px; margin: -20px; }
+      .header-with-video .hero-text-content { color: #fff; text-align: center; }
       .header-with-video .hero-text-content .display-lg,
       .header-with-video .hero-text-content .body-md { color: #fff !important; }
       .header-with-video .hero-text-content .btn-lg { background: #fff !important; color: var(--ink) !important; }
@@ -559,9 +559,9 @@
                 <div className="blur-reveal-fast blur-delay-2"><div style={{position: 'relative', display: 'inline-block', overflow: 'hidden', height: '1.05em', verticalAlign: 'bottom', lineHeight: 1.05}}>{wordAnim === 'exit' ? <span key={wordIdx + 'o'} style={{color: '#FF3B30', display: 'block', animation: 'carouselOut 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : wordAnim === 'enter' ? <span key={wordIdx + 'i'} style={{color: '#FF3B30', display: 'block', animation: 'carouselIn 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : <span style={{color: '#FF3B30', display: 'block', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span>}</div></div>
               </div>
               <div className="body-md blur-reveal blur-delay-3" style={{color: 'var(--body)', marginBottom: 28, lineHeight: 1.65, textAlign: 'center'}}>Book in seconds, help arrives in minutes.</div>
-              <div className="col gap-sm blur-reveal blur-delay-4">
-                <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Request Help</button>
-                <button className="btn btn-text" style={{width: '100%', textAlign: 'center'}} onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic</button>
+              <div className="col gap-sm blur-reveal blur-delay-4" style={{alignItems: 'center'}}>
+                <button className="btn btn-lg" onClick={() => onNavigate('/customer/signup')}>Request Help</button>
+                <button className="btn btn-text" onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic</button>
               </div>
             </div>
           </div>
@@ -787,11 +787,14 @@
         <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Select services</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>What can you offer?</div></div>
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div><div className="step step-active"></div></div>
-          <div className="grid grid-2" style={{gap: 8}}>
+          <div className="col" style={{gap: 14}}>
             {SERVICE_TYPES.map(s => (
-              <div key={s.key} className={`service-card ${services.includes(s.key) ? 'selected' : ''}`} onClick={() => toggleService(s.key)}>
-                <div className="service-icon">{s.icon}</div>
-                <div><div className="service-label">{s.label}</div><div className="service-desc">{s.desc}</div></div>
+              <div key={s.key} className="card-elevated card-hover" onClick={() => toggleService(s.key)} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 'var(--radius-lg)', padding: 20, cursor: 'pointer'}}>
+                <div>
+                  <div className="title-sm">{s.label}</div>
+                  <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
+                </div>
+                <div style={{width: 40, height: 40, borderRadius: '50%', background: services.includes(s.key) ? 'var(--primary)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: services.includes(s.key) ? 'var(--shadow-md)' : 'none', border: services.includes(s.key) ? 'none' : '1px solid var(--hairline)'}}><span style={{color: services.includes(s.key) ? '#fff' : 'var(--muted)', fontSize: 18}}>{services.includes(s.key) ? '✓' : ''}</span></div>
               </div>
             ))}
           </div>
