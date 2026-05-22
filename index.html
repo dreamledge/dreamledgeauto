@@ -32,14 +32,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #111111; --primary-active: #242424; --primary-disabled: #e5e7eb;
-      --ink: #111111; --body: #374151; --muted: #6b7280; --muted-soft: #898989;
-      --hairline: #e5e7eb; --hairline-soft: #f3f4f6;
-      --canvas: #ffffff; --surface-soft: #f8f9fa; --surface-card: #f5f5f5; --surface-strong: #e5e7eb;
-      --surface-dark: #101010; --surface-dark-elevated: #1a1a1a;
+      --primary: #0a0a0a; --primary-active: #1a1a1a; --primary-hover: #111111; --primary-disabled: #e5e7eb;
+      --ink: #0a0a0a; --body: #4b5563; --muted: #6b7280; --muted-soft: #9ca3af;
+      --hairline: #e5e7eb; --hairline-soft: #f3f4f6; --hairline-subtle: #f9fafb;
+      --canvas: #ffffff; --surface-soft: #fafafa; --surface-card: #f8f8f8; --surface-strong: #e5e7eb;
+      --surface-dark: #0a0a0a; --surface-dark-elevated: #141414;
       --on-primary: #ffffff; --on-dark: #ffffff; --on-dark-soft: #a1a1aa;
-      --brand-accent: #3b82f6; --success: #10b981; --warning: #f59e0b; --error: #ef4444;
+      --brand-accent: #2563eb; --success: #10b981; --warning: #f59e0b; --error: #ef4444;
       --badge-orange: #fb923c; --badge-pink: #ec4899; --badge-violet: #8b5cf6; --badge-emerald: #34d399;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-xl: 0 16px 48px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-glow: 0 0 0 3px rgba(10,10,10,0.06);
+      --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 18px; --radius-full: 9999px;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
@@ -49,17 +57,17 @@
     img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
 
-    /* Typography - Mobile first (Cal.com design system) */
-    .display-xl { font-size: 32px; font-weight: 600; line-height: 1.1; letter-spacing: -1px; }
-    .display-lg { font-size: 28px; font-weight: 600; line-height: 1.15; letter-spacing: -0.5px; }
-    .display-md { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -0.5px; }
-    .display-sm { font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.3px; }
+    /* Typography - Premium hierarchy */
+    .display-xl { font-size: 36px; font-weight: 600; line-height: 1.05; letter-spacing: -1.5px; }
+    .display-lg { font-size: 30px; font-weight: 600; line-height: 1.1; letter-spacing: -1px; }
+    .display-md { font-size: 26px; font-weight: 600; line-height: 1.15; letter-spacing: -0.75px; }
+    .display-sm { font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.5px; }
     .title-lg { font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -0.3px; }
-    .title-md { font-size: 18px; font-weight: 600; line-height: 1.4; }
-    .title-sm { font-size: 16px; font-weight: 600; line-height: 1.4; }
-    .body-md { font-size: 16px; font-weight: 400; line-height: 1.5; }
-    .body-sm { font-size: 14px; font-weight: 400; line-height: 1.5; }
-    .caption { font-size: 13px; font-weight: 500; line-height: 1.4; }
+    .title-md { font-size: 17px; font-weight: 600; line-height: 1.35; letter-spacing: -0.15px; }
+    .title-sm { font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: -0.1px; }
+    .body-md { font-size: 15px; font-weight: 400; line-height: 1.6; letter-spacing: 0.01em; }
+    .body-sm { font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0.01em; }
+    .caption { font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: 0.02em; text-transform: uppercase; }
 
     /* Layout */
     .container { min-height: 100vh; display: flex; flex-direction: column; }
@@ -72,14 +80,14 @@
     .between { display: flex; justify-content: space-between; }
     .wrap { flex-wrap: wrap; }
 
-    /* Spacing - Mobile first */
-    .p-xs { padding: 4px; } .p-sm { padding: 8px; } .p-md { padding: 16px; } .p-lg { padding: 16px; } .p-xl { padding: 24px; } .p-2xl { padding: 32px 16px; } .p-section { padding: 64px 16px; }
-    .pt-xl { padding-top: 24px; } .pt-2xl { padding-top: 48px; } .pt-section { padding-top: 64px; }
+    /* Spacing - Premium 4px scale */
+    .p-xs { padding: 4px; } .p-sm { padding: 8px; } .p-md { padding: 16px; } .p-lg { padding: 20px; } .p-xl { padding: 28px; } .p-2xl { padding: 40px 20px; } .p-section { padding: 80px 20px; }
+    .pt-xl { padding-top: 28px; } .pt-2xl { padding-top: 56px; } .pt-section { padding-top: 80px; }
     .pb-md { padding-bottom: 16px; }
-    .px-lg { padding-left: 16px; padding-right: 16px; }
-    .gap-xs { gap: 4px; } .gap-sm { gap: 8px; } .gap-md { gap: 12px; } .gap-lg { gap: 16px; } .gap-xl { gap: 24px; }
-    .mt-xs { margin-top: 8px; } .mt-sm { margin-top: 8px; } .mt-md { margin-top: 12px; } .mt-lg { margin-top: 16px; } .mt-xl { margin-top: 24px; }
-    .mb-xs { margin-bottom: 8px; } .mb-sm { margin-bottom: 8px; } .mb-md { margin-bottom: 12px; } .mb-lg { margin-bottom: 16px; } .mb-xl { margin-bottom: 24px; }
+    .px-lg { padding-left: 20px; padding-right: 20px; }
+    .gap-xs { gap: 4px; } .gap-sm { gap: 8px; } .gap-md { gap: 14px; } .gap-lg { gap: 20px; } .gap-xl { gap: 28px; }
+    .mt-xs { margin-top: 6px; } .mt-sm { margin-top: 8px; } .mt-md { margin-top: 14px; } .mt-lg { margin-top: 20px; } .mt-xl { margin-top: 28px; }
+    .mb-xs { margin-bottom: 6px; } .mb-sm { margin-bottom: 8px; } .mb-md { margin-bottom: 14px; } .mb-lg { margin-bottom: 20px; } .mb-xl { margin-bottom: 28px; }
 
     /* Colors */
     .text-ink { color: var(--ink); } .text-body { color: var(--body); } .text-muted { color: var(--muted); } .text-muted-soft { color: var(--muted-soft); }
@@ -87,160 +95,222 @@
     .bg-canvas { background: var(--canvas); } .bg-surface { background: var(--surface-card); } .bg-surface-soft { background: var(--surface-soft); }
     .bg-dark { background: var(--surface-dark); } .bg-dark-elevated { background: var(--surface-dark-elevated); }
 
-    /* Components - Buttons (min 44px touch target) */
-    .btn { min-height: 44px; padding: 0 20px; background: var(--primary); color: var(--on-primary); border: none; border-radius: 8px; display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.15s ease; }
-    .btn:active { background: var(--primary-active); }
-    .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline); }
-    .btn-secondary:active { background: var(--surface-soft); }
-    .btn-outline { background: transparent; border: 1px solid var(--hairline); color: var(--ink); }
+    /* Components - Buttons (Premium) */
+    .btn { min-height: 48px; padding: 0 24px; background: var(--primary); color: var(--on-primary); border: none; border-radius: var(--radius-md); display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+    .btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%); opacity: 0; transition: opacity 0.2s ease; }
+    .btn:hover { background: var(--primary-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
+    .btn:hover::before { opacity: 1; }
+    .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); background: var(--primary-active); }
+    .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { background: var(--surface-soft); border-color: var(--surface-strong); box-shadow: var(--shadow-md); }
+    .btn-secondary:active { background: var(--surface-card); }
+    .btn-outline { background: transparent; border: 1px solid var(--hairline); color: var(--ink); box-shadow: none; }
+    .btn-outline:hover { background: var(--surface-soft); border-color: var(--surface-strong); }
     .btn-outline:active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
-    .btn-sm { min-height: 44px; font-size: 13px; padding: 0 16px; }
-    .btn-lg { min-height: 48px; font-size: 16px; padding: 0 28px; border-radius: 8px; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; background: var(--primary-disabled); color: var(--muted); }
-    .btn-text { background: transparent; color: var(--ink); padding: 8px 12px; min-height: 44px; }
+    .btn-sm { min-height: 40px; font-size: 13px; padding: 0 16px; border-radius: var(--radius-sm); }
+    .btn-lg { min-height: 52px; font-size: 15px; padding: 0 32px; border-radius: var(--radius-md); font-weight: 500; }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; background: var(--primary-disabled); color: var(--muted); box-shadow: none; transform: none; }
+    .btn:disabled::before { display: none; }
+    .btn-text { background: transparent; color: var(--ink); padding: 8px 14px; min-height: 44px; box-shadow: none; }
+    .btn-text:hover { background: var(--surface-soft); }
     .btn-text:active { opacity: 0.7; }
 
-    /* Components - Inputs */
-    .input { min-height: 44px; border: 1px solid var(--hairline); border-radius: 8px; padding: 10px 14px; font-size: 16px; background: var(--canvas); width: 100%; transition: border-color 0.15s ease; color: var(--ink); }
-    .input:focus { outline: none; border-color: var(--ink); }
-    .input::placeholder { color: var(--muted); }
-    textarea.input { min-height: 100px; }
+    /* Components - Inputs (Premium) */
+    .input { min-height: 48px; border: 1px solid var(--hairline); border-radius: var(--radius-md); padding: 12px 16px; font-size: 15px; background: var(--canvas); width: 100%; transition: all 0.2s var(--ease-out); color: var(--ink); box-shadow: var(--shadow-sm); }
+    .input:hover { border-color: var(--surface-strong); }
+    .input:focus { outline: none; border-color: var(--ink); box-shadow: var(--shadow-glow), var(--shadow-md); transform: translateY(-1px); }
+    .input::placeholder { color: var(--muted-soft); }
+    textarea.input { min-height: 120px; resize: vertical; }
 
-    /* Components - Cards */
-    .card { background: var(--surface-card); border-radius: 12px; padding: 20px; }
-    .card-flat { background: var(--surface-card); border-radius: 12px; }
-    .card-elevated { background: var(--canvas); border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
-    .card-hover:active { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    /* Components - Cards (Premium) */
+    .card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-sm); }
+    .card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); }
+    .card-flat { background: var(--surface-card); border-radius: var(--radius-lg); border: 1px solid var(--hairline-soft); }
+    .card-elevated { background: var(--canvas); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid var(--hairline-soft); transition: all 0.25s var(--ease-out); }
+    .card-elevated:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: var(--hairline); }
+    .card-hover:active { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
 
     /* Components - Feature card */
-    .feature-card { background: var(--surface-card); border-radius: 12px; padding: 20px; }
-    .feature-icon-card { background: var(--canvas); border-radius: 12px; padding: 16px; border: 1px solid var(--hairline); }
+    .feature-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-sm); }
+    .feature-card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); transform: translateY(-2px); }
+    .feature-icon-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--hairline-soft); transition: all 0.25s var(--ease-out); box-shadow: var(--shadow-sm); }
+    .feature-icon-card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); transform: translateY(-3px); }
 
     /* Components - Badge */
-    .badge { padding: 4px 12px; border-radius: 9999px; font-size: 13px; font-weight: 500; display: inline-block; }
-    .badge-default { background: var(--surface-card); color: var(--ink); }
-    .badge-success { background: rgba(16, 185, 129, 0.12); color: var(--success); }
+    .badge { padding: 5px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 500; display: inline-block; letter-spacing: 0.02em; }
+    .badge-default { background: var(--surface-card); color: var(--ink); border: 1px solid var(--hairline); }
+    .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.15); }
+    .badge-pill { padding: 7px 16px; border-radius: var(--radius-full); font-size: 13px; font-weight: 500; background: var(--canvas); color: var(--ink); display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); }
 
     /* Components - Avatar */
-    .avatar { width: 36px; height: 36px; border-radius: 9999px; background: var(--surface-card); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--ink); flex-shrink: 0; }
+    .avatar { width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--surface-card); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--ink); flex-shrink: 0; border: 2px solid var(--canvas); box-shadow: var(--shadow-sm); }
 
-    /* Components - Bottom nav (Cal.com style) */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--canvas); border-top: 1px solid var(--hairline); padding: 8px 12px calc(8px + env(safe-area-inset-bottom)); z-index: 1000; }
-    .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: 9999px; padding: 6px; max-width: 480px; margin: 0 auto; }
-    .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 8px 4px; border-radius: 9999px; min-height: 44px; }
-    .bottom-nav-item svg { width: 20px; height: 20px; color: var(--muted); margin-bottom: 2px; }
-    .bottom-nav-item.active { background: var(--canvas); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    /* Components - Bottom nav (Premium) */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--hairline-soft); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); z-index: 1000; }
+    .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: var(--radius-full); padding: 6px; max-width: 440px; margin: 0 auto; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
+    .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 8px 4px; border-radius: var(--radius-full); min-height: 48px; transition: all 0.2s var(--ease-out); }
+    .bottom-nav-item svg { width: 20px; height: 20px; color: var(--muted); margin-bottom: 2px; transition: color 0.2s ease; }
+    .bottom-nav-item.active { background: var(--canvas); box-shadow: var(--shadow-md); }
     .bottom-nav-item.active svg { color: var(--ink); }
-    .bottom-nav-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .bottom-nav-label { font-size: 11px; color: var(--muted); font-weight: 500; transition: color 0.2s ease; }
     .bottom-nav-item.active .bottom-nav-label { color: var(--ink); }
 
-    /* Components - Top nav */
-    .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--canvas); border-bottom: 1px solid var(--hairline); padding: 0 16px; height: 56px; display: flex; align-items: center; }
-    .top-nav .logo { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; line-height: 1; }
+    /* Components - Top nav (Premium frosted glass) */
+    .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--hairline-soft); padding: 0 20px; height: 60px; display: flex; align-items: center; transition: all 0.25s var(--ease-out); }
+    .top-nav.scrolled { box-shadow: var(--shadow-md); background: rgba(255,255,255,0.95); }
+    .top-nav .logo { font-size: 16px; font-weight: 600; letter-spacing: -0.4px; line-height: 1; }
 
-    /* Components - Hero */
-    .hero-band { background: var(--canvas); padding: 48px 16px; }
+    /* Components - Hero (Premium) */
+    .hero-band { background: var(--canvas); padding: 56px 20px; position: relative; overflow: hidden; }
+    .hero-band::before { content: ''; position: absolute; top: -30%; right: -15%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(245,245,245,0.5) 0%, transparent 70%); pointer-events: none; }
+    .hero-band::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
 
-    /* Components - CTA band */
-    .cta-band { background: var(--surface-card); border-radius: 12px; padding: 32px 20px; text-align: center; }
+    /* Hero video background - mobile only */
+    .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: 0; transform: translateZ(0); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: transparent url('public/headerimage.png') center center / cover no-repeat; }
+    .hero-video-bg::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; opacity: 0; pointer-events: none; }
+    .hero-video-bg::-webkit-media-controls { display: none !important; -webkit-appearance: none; }
+    .hero-video-bg::-webkit-media-controls-enclosure { display: none !important; -webkit-appearance: none; }
+    .hero-video-bg::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; }
+    .hero-video-bg::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; opacity: 0; pointer-events: none; }
+    .hero-video-bg:-webkit-full-page-media { display: none !important; }
+    .hero-video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.82) 100%); pointer-events: none; opacity: 0; transform: translateZ(0); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .hero-content-wrap { position: relative; z-index: 2; }
+    @media (max-width: 767px) {
+      .hero-video-bg, .hero-video-overlay { opacity: 1; }
+      .hero-band.header-with-video { background: transparent !important; min-height: 100vh; height: 100vh; padding-top: 80px; padding-bottom: 40px; display: flex; align-items: center; }
+      .hero-band.header-with-video::before,
+      .hero-band.header-with-video::after { display: none !important; }
+      .header-with-video .hero-image-card,
+      .header-with-video .hero-badge-pill { display: none !important; }
+      .header-with-video .hero-text-content { color: #fff; }
+      .header-with-video .hero-text-content .display-lg,
+      .header-with-video .hero-text-content .body-md { color: #fff !important; }
+      .header-with-video .hero-text-content .btn-lg { background: #fff !important; color: var(--ink) !important; }
+      .header-with-video .hero-text-content .btn-text { color: #fff !important; background: transparent !important; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+      .header-with-video .hero-text-content .badge-pill { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.15) !important; color: #fff !important; }
+      .header-with-video .hero-text-content .badge-pill span { color: var(--success) !important; }
+    }
+
+    /* Components - CTA band (Premium) */
+    .cta-band { background: var(--canvas); border-radius: var(--radius-xl); padding: 40px 24px; text-align: center; transition: all 0.3s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+    .cta-band::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
+    .cta-band:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
 
     /* Grid - Mobile first: 1 column */
-    .grid { display: grid; gap: 12px; }
+    .grid { display: grid; gap: 14px; }
     .grid-2 { grid-template-columns: 1fr; }
     .grid-3 { grid-template-columns: 1fr; }
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
 
-    /* Service card */
-    .service-card { background: var(--canvas); border-radius: 12px; padding: 12px; border: 1px solid var(--hairline); transition: box-shadow 0.15s ease; cursor: pointer; display: flex; align-items: center; gap: 12px; }
-    .service-card:active { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    .service-card.selected { border-color: var(--ink); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
-    .service-icon { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--surface-soft); border-radius: 12px; flex-shrink: 0; }
+    /* Service card (Premium) */
+    .service-card { background: var(--canvas); border-radius: var(--radius-md); padding: 14px; border: 1px solid var(--hairline); transition: all 0.2s var(--ease-out); cursor: pointer; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); }
+    .service-card:hover { box-shadow: var(--shadow-md); border-color: var(--surface-strong); transform: translateY(-1px); }
+    .service-card:active { box-shadow: var(--shadow-md); transform: translateY(0); }
+    .service-card.selected { border-color: var(--ink); box-shadow: var(--shadow-md); background: var(--surface-soft); }
+    .service-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--surface-soft); border-radius: var(--radius-md); flex-shrink: 0; transition: all 0.2s ease; }
+    .service-card:hover .service-icon { background: var(--surface-card); }
     .service-label { color: var(--ink); font-weight: 600; font-size: 14px; }
     .service-desc { color: var(--body); font-size: 12px; }
 
-    /* Step indicator */
-    .step-bar { display: flex; gap: 8px; margin-bottom: 16px; }
+    /* Step indicator (Premium) */
+    .step-bar { display: flex; gap: 10px; margin-bottom: 20px; }
     .step { flex: 1; height: 4px; background: var(--surface-strong); border-radius: 2px; }
     .step-active { background: var(--primary); }
 
-    /* How section */
-    .how-section { background: var(--canvas); border-radius: 12px; padding: 24px 16px; }
-    .how-title { text-align: center; font-size: 22px; font-weight: 600; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.5px; }
-    .how-steps { display: flex; flex-direction: column; gap: 20px; }
+    /* How section (Premium) */
+    .how-section { background: var(--canvas); border-radius: var(--radius-xl); padding: 32px 20px; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
+    .how-title { text-align: center; font-size: 24px; font-weight: 600; color: var(--ink); margin-bottom: 32px; letter-spacing: -0.75px; }
+    .how-steps { display: flex; flex-direction: column; gap: 28px; }
     .how-step { text-align: center; }
-    .how-step-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--surface-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
-    .how-step-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+    .how-step-icon { width: 56px; height: 56px; border-radius: var(--radius-lg); background: var(--surface-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); }
+    .how-step:hover .how-step-icon { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--canvas); }
+    .how-step-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.1px; }
     .how-step-desc { font-size: 13px; color: var(--body); }
-    .how-time { text-align: center; margin-top: 20px; font-size: 13px; color: var(--body); }
+    .how-time { text-align: center; margin-top: 28px; font-size: 13px; color: var(--body); font-weight: 500; }
 
-    /* Stats */
-    .stats-row { display: flex; overflow: hidden; background: var(--canvas); border-radius: 12px; padding: 16px; border: 1px solid var(--hairline); }
+    /* Stats (Premium) */
+    .stats-row { display: flex; overflow: hidden; background: var(--canvas); border-radius: var(--radius-xl); padding: 20px; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
     .stats-track { display: flex; animation: scroll-left 25s linear infinite; width: fit-content; }
     .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 25%; }
-    .stat-num { font-size: 22px; font-weight: 600; color: var(--ink); }
-    .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .stat-num { font-size: 24px; font-weight: 600; color: var(--ink); letter-spacing: -0.5px; }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
     @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-    /* Animations */
+    /* Scroll animations (Premium) */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.06s; }
+    .reveal-delay-2 { transition-delay: 0.12s; }
+    .reveal-delay-3 { transition-delay: 0.18s; }
+    .reveal-delay-4 { transition-delay: 0.24s; }
+    .reveal-delay-5 { transition-delay: 0.30s; }
+
+    /* Animations (Premium) */
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-    .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
-    .animate-fade-in-up { animation: fadeInUp 0.4s ease-out forwards; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    .animate-fade-in { animation: fadeIn 0.4s var(--ease-out) forwards; }
+    .animate-fade-in-up { animation: fadeInUp 0.5s var(--ease-out) forwards; }
     .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
+    .animate-float { animation: float 4s ease-in-out infinite; }
 
     /* Utilities */
     .cursor-pointer { cursor: pointer; } .relative { position: relative; } .absolute { position: absolute; } .z-10 { z-index: 10; }
     .text-center { text-align: center; } .w-full { width: 100%; } .h-full { height: 100%; } .min-h-screen { min-height: 100vh; }
-    .rounded { border-radius: 8px; } .rounded-lg { border-radius: 12px; } .rounded-xl { border-radius: 16px; } .rounded-full { border-radius: 9999px; }
+    .rounded { border-radius: var(--radius-sm); } .rounded-lg { border-radius: var(--radius-lg); } .rounded-xl { border-radius: var(--radius-xl); } .rounded-full { border-radius: var(--radius-full); }
     .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--surface-soft); } ::-webkit-scrollbar-thumb { background: var(--surface-strong); border-radius: 3px; }
+    /* Dot pattern background (subtle) */
+    .dot-pattern { background-image: radial-gradient(var(--hairline-soft) 1px, transparent 1px); background-size: 28px 28px; }
+
+    /* Scrollbar (Premium) */
+    ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface-strong); border-radius: 3px; } ::-webkit-scrollbar-thumb:hover { background: var(--muted-soft); }
 
     /* Tablet breakpoint */
     @media (min-width: 768px) {
-      .display-xl { font-size: 48px; letter-spacing: -1.5px; }
-      .display-lg { font-size: 36px; }
-      .display-md { font-size: 30px; }
-      .display-sm { font-size: 26px; }
+      .display-xl { font-size: 52px; letter-spacing: -2px; }
+      .display-lg { font-size: 40px; letter-spacing: -1.5px; }
+      .display-md { font-size: 32px; letter-spacing: -1px; }
+      .display-sm { font-size: 26px; letter-spacing: -0.75px; }
       .title-lg { font-size: 22px; }
-      .p-section { padding: 96px 24px; }
-      .p-2xl { padding: 48px 24px; } .p-xl { padding: 32px; } .p-lg { padding: 24px; }
-      .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .p-section { padding: 100px 32px; }
+      .p-2xl { padding: 56px 32px; } .p-xl { padding: 36px; } .p-lg { padding: 28px; }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .grid-4 { grid-template-columns: repeat(4, 1fr); }
-      .how-steps { flex-direction: row; gap: 32px; }
-      .how-section { padding: 40px 32px; }
-      .how-title { font-size: 28px; margin-bottom: 36px; }
-      .how-step-icon { width: 60px; height: 60px; }
-      .hero-band { padding: 96px 24px; }
+      .how-steps { flex-direction: row; gap: 40px; }
+      .how-section { padding: 48px 40px; }
+      .how-title { font-size: 30px; margin-bottom: 44px; }
+      .how-step-icon { width: 64px; height: 64px; }
+      .hero-band { padding: 100px 32px; }
       .hero-grid { grid-template-columns: 1fr !important; }
-      .cta-band { padding: 48px 32px; }
-      .top-nav { height: 64px; padding: 0 24px; }
-      .top-nav .logo { font-size: 18px; }
+      .cta-band { padding: 56px 40px; }
+      .top-nav { height: 68px; padding: 0 32px; }
+      .top-nav .logo { font-size: 17px; }
       .feature-card { padding: 32px; }
-      .feature-icon-card { padding: 24px; }
+      .feature-icon-card { padding: 28px; }
       .card { padding: 32px; }
-      .service-icon { width: 52px; height: 52px; font-size: 24px; }
-      .stat-num { font-size: 28px; }
+      .service-icon { width: 56px; height: 56px; font-size: 24px; }
+      .stat-num { font-size: 30px; }
       .stat-label { font-size: 12px; }
+      .avatar { width: 48px; height: 48px; font-size: 16px; }
     }
 
     /* Desktop breakpoint */
     @media (min-width: 1024px) {
-      .display-xl { font-size: 64px; letter-spacing: -2px; }
-      .display-lg { font-size: 48px; letter-spacing: -1.5px; }
-      .display-md { font-size: 36px; letter-spacing: -1px; }
-      .display-sm { font-size: 28px; letter-spacing: -0.5px; }
+      .display-xl { font-size: 68px; letter-spacing: -2.5px; }
+      .display-lg { font-size: 52px; letter-spacing: -2px; }
+      .display-md { font-size: 38px; letter-spacing: -1.25px; }
+      .display-sm { font-size: 28px; letter-spacing: -0.75px; }
       .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 24px; }
       .hero-grid { grid-template-columns: 7fr 5fr; }
-      .hero-band { padding: 96px 24px; }
+      .hero-band { padding: 100px 32px; }
     }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
-    const { useState, useEffect, createContext, useContext } = React;
+    const { useState, useEffect, useRef, createContext, useContext } = React;
 
     const SERVICE_TYPES = [
       { key: 'mechanic', label: 'Mobile Mechanic', icon: '⚙', desc: 'On-site repairs' },
@@ -261,6 +331,12 @@
       { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5 },
       { name: 'Mike D.', text: 'Best pricing ever. Highly recommend!', rating: 5 },
       { name: 'Lisa K.', text: 'So easy to use. Found help instantly.', rating: 5 },
+    ];
+
+    const TRUST_BADGES = [
+      { icon: '🔒', label: 'Secure payments' },
+      { icon: '✓', label: 'Verified mechanics' },
+      { icon: '⚡', label: 'Fast response' },
     ];
 
     const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings' };
@@ -287,6 +363,41 @@
     }
 
     const SERVICE_CATEGORY_MAP = { 'battery_jump': 'battery', 'towing': 'towing', 'fuel_delivery': 'emergency', 'lockout': 'emergency', 'tire_change': 'tire', 'mechanic': ['battery', 'tire', 'fuel', 'towing', 'diagnostics'] };
+
+    /* Scroll reveal hook */
+    function useReveal() {
+      const ref = useRef(null);
+      useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { el.classList.add('visible'); observer.unobserve(el); } }, { threshold: 0.15 });
+        observer.observe(el);
+        return () => observer.disconnect();
+      }, []);
+      return ref;
+    }
+
+    function Reveal({ children, className = '', delay = '' }) {
+      const ref = useReveal();
+      return <div ref={ref} className={`reveal ${className} ${delay}`}>{children}</div>;
+    }
+
+    /* Animated counter hook */
+    function useCounter(target, duration = 1500, start = false) {
+      const [count, setCount] = useState(0);
+      useEffect(() => {
+        if (!start) return;
+        let startTime = null;
+        const animate = (ts) => {
+          if (!startTime) startTime = ts;
+          const progress = Math.min((ts - startTime) / duration, 1);
+          setCount(Math.floor(progress * target));
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+      }, [start, target, duration]);
+      return count;
+    }
 
     function BottomNav({ activeTab, onTabChange, variant = 'provider' }) {
       const tabs = variant === 'provider'
@@ -338,141 +449,217 @@
     }
 
     function LandingPage({ onNavigate, scrollY = 0 }) {
+      const [statsVisible, setStatsVisible] = useState(false);
+      const statsRef = useReveal();
+      useEffect(() => {
+        const el = statsRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) { setStatsVisible(true); observer.unobserve(el); } }, { threshold: 0.3 });
+        observer.observe(el);
+        return () => observer.disconnect();
+      }, [statsRef]);
+
+      const jobsCount = useCounter(500, 1500, statsVisible);
+      const mechanicsCount = useCounter(50, 1200, statsVisible);
+      const ratingCount = useCounter(49, 1000, statsVisible);
+      const arrivalCount = useCounter(25, 1000, statsVisible);
+
+      const navRef = useRef(null);
+      useEffect(() => {
+        const handleScroll = () => { if (navRef.current) { navRef.current.classList.toggle('scrolled', window.scrollY > 10); } };
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      const videoRef = useRef(null);
+      useEffect(() => {
+        const el = videoRef.current;
+        if (!el) return;
+
+        el.muted = true;
+        el.playsInline = true;
+        el.style.transform = 'translateZ(0)';
+        void el.offsetHeight;
+
+        let attempts = 0;
+        const maxAttempts = 40;
+        const attemptPlay = () => {
+          el.play().then(() => {}).catch(() => {
+            if (++attempts < maxAttempts) setTimeout(attemptPlay, 200);
+            else {
+              const onInteraction = () => { el.play(); document.removeEventListener('touchstart', onInteraction); document.removeEventListener('touchend', onInteraction); };
+              document.addEventListener('touchstart', onInteraction);
+              document.addEventListener('touchend', onInteraction);
+            }
+          });
+        };
+        attemptPlay();
+      }, []);
+
       return (<div className="min-h-screen" style={{overflowY: 'auto'}}>
-        <nav className="top-nav">
+        <nav ref={navRef} className="top-nav">
           <span className="logo">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
           <div className="row gap-sm" style={{marginLeft: 'auto'}}>
             <button className="btn btn-text" onClick={() => onNavigate('/login')}>Sign In</button>
             <button className="btn" onClick={() => onNavigate('/role-select')}>Get Started</button>
           </div>
         </nav>
-        {/* Hero band - white canvas */}
-        <section className="hero-band" style={{paddingTop: 104}}>
-          <div className="hero-grid" style={{maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr', gap: 32, alignItems: 'center'}}>
-            <div className="card-elevated animate-fade-in-up delay-400" style={{borderRadius: 16, overflow: 'hidden', border: '1px solid var(--hairline)', padding: 8}}>
-              <img src="public/headerimage.png" alt="" style={{width: '100%', height: 'auto', borderRadius: 12, display: 'block'}} />
+        {/* Hero band */}
+        <section className="hero-band header-with-video" style={{paddingTop: 108}}>
+          <video ref={videoRef} className="hero-video-bg" autoPlay muted loop playsInline webkit-playsinline="true" preload="auto" poster="public/headerimage.png">
+            <source src="public/headervid.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-video-overlay" />
+          <div className="hero-content-wrap">
+          <div className="hero-grid" style={{maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr', gap: 40, alignItems: 'center'}}>
+            <div className="card-elevated hero-image-card animate-fade-in-up delay-400" style={{borderRadius: 'var(--radius-xl)', overflow: 'hidden', border: '1px solid var(--hairline-soft)', padding: 10, boxShadow: 'var(--shadow-xl)'}}>
+              <img src="public/headerimage.png" alt="" style={{width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)', display: 'block'}} />
             </div>
-            <div>
-              <div className="display-lg mb-lg animate-fade-in-up">Get back on the road fast</div>
-              <div className="body-md animate-fade-in-up delay-200" style={{color: 'var(--body)', marginBottom: 24}}>Book in seconds, help arrives in minutes.</div>
+            <div className="hero-text-content">
+              <div className="badge-pill hero-badge-pill mb-md animate-fade-in-up" style={{background: 'var(--canvas)', display: 'inline-flex'}}>
+                <span style={{color: 'var(--success)'}}>✓</span> Trusted by 500+ customers
+              </div>
+              <div className="display-lg mb-lg animate-fade-in-up" style={{letterSpacing: '-1.25px'}}>Get back on the road fast</div>
+              <div className="body-md animate-fade-in-up delay-200" style={{color: 'var(--body)', marginBottom: 28, lineHeight: 1.65}}>Book in seconds, help arrives in minutes.</div>
               <div className="col gap-sm animate-fade-in-up delay-300">
                 <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Request Help</button>
                 <button className="btn btn-text" style={{width: '100%', textAlign: 'center'}} onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic</button>
               </div>
             </div>
           </div>
-        </section>
-        {/* How section - surface-card */}
-        <section className="p-section" style={{background: 'var(--surface-card)'}}>
-          <div style={{maxWidth: 1200, margin: '0 auto'}}>
-            <div className="how-section">
-              <div className="how-title">How Dreamledge Auto works</div>
-              <div className="how-steps">
-                <div className="how-step"><div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Request Help</div><div className="how-step-desc">Tell us what you need</div></div>
-                <div className="how-step"><div className="how-step-icon"><img src="public/puzzle-pieces.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Matched</div><div className="how-step-desc">Nearby mechanic accepts</div></div>
-                <div className="how-step"><div className="how-step-icon"><img src="public/technician.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Fixed</div><div className="how-step-desc">They come to you</div></div>
-              </div>
-              <div className="how-time">Average arrival time: 25 minutes</div>
-            </div>
           </div>
         </section>
-        {/* Stats - white canvas */}
-        <section className="p-section">
+        {/* Trust badges */}
+        <section style={{padding: '28px 20px', background: 'var(--surface-soft)', borderTop: '1px solid var(--hairline-soft)', borderBottom: '1px solid var(--hairline-soft)'}}>
+          <div className="row centerV" style={{maxWidth: 1200, margin: '0 auto', justifyContent: 'center', gap: 32, flexWrap: 'wrap'}}>
+            {TRUST_BADGES.map((b, i) => (
+              <div key={i} className="row centerV gap-sm">
+                <span style={{fontSize: 16, opacity: 0.85}}>{b.icon}</span>
+                <span className="caption" style={{color: 'var(--body)', letterSpacing: '0.03em'}}>{b.label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+        {/* How section */}
+        <section className="p-section" style={{background: 'var(--surface-card)'}}>
+          <div style={{maxWidth: 1200, margin: '0 auto'}}>
+            <Reveal>
+              <div className="how-section">
+                <div className="how-title">How Dreamledge Auto works</div>
+                <div className="how-steps">
+                  <div className="how-step"><div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 28, height: 28, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Request Help</div><div className="how-step-desc">Tell us what you need</div></div>
+                  <div className="how-step"><div className="how-step-icon"><img src="public/puzzle-pieces.gif" alt="" style={{width: 28, height: 28, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Matched</div><div className="how-step-desc">Nearby mechanic accepts</div></div>
+                  <div className="how-step"><div className="how-step-icon"><img src="public/technician.gif" alt="" style={{width: 28, height: 28, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Fixed</div><div className="how-step-desc">They come to you</div></div>
+                </div>
+                <div className="how-time">Average arrival time: 25 minutes</div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+        {/* Stats */}
+        <section className="p-section" ref={statsRef}>
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <div className="stats-row">
-              <div className="stats-track">
-                <div className="stat-item"><div className="stat-num">500+</div><div className="stat-label">Jobs</div></div>
-                <div className="stat-item"><div className="stat-num">50+</div><div className="stat-label">Mechanics</div></div>
-                <div className="stat-item"><div className="stat-num">4.9</div><div className="stat-label">Rating</div></div>
-                <div className="stat-item"><div className="stat-num">25 min</div><div className="stat-label">Arrival</div></div>
-                <div className="stat-item"><div className="stat-num">500+</div><div className="stat-label">Jobs</div></div>
-                <div className="stat-item"><div className="stat-num">50+</div><div className="stat-label">Mechanics</div></div>
-                <div className="stat-item"><div className="stat-num">4.9</div><div className="stat-label">Rating</div></div>
-                <div className="stat-item"><div className="stat-num">25 min</div><div className="stat-label">Arrival</div></div>
-              </div>
+              <div className="stat-item"><div className="stat-num">{statsVisible ? jobsCount : 0}+</div><div className="stat-label">Jobs</div></div>
+              <div className="stat-item"><div className="stat-num">{statsVisible ? mechanicsCount : 0}+</div><div className="stat-label">Mechanics</div></div>
+              <div className="stat-item"><div className="stat-num">{statsVisible ? (ratingCount / 10).toFixed(1) : '0.0'}</div><div className="stat-label">Rating</div></div>
+              <div className="stat-item"><div className="stat-num">{statsVisible ? arrivalCount : 0} min</div><div className="stat-label">Arrival</div></div>
             </div>
           </div>
         </section>
-        {/* Services - surface-card */}
+        {/* Services */}
         <section className="p-section" style={{background: 'var(--surface-card)'}}>
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
-            <div className="text-center mb-xl">
-              <div className="display-md" style={{marginBottom: 8}}>What our providers fix</div>
-              <div className="body-md" style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
-            </div>
+            <Reveal>
+              <div className="text-center mb-xl">
+                <div className="display-md" style={{marginBottom: 10}}>What our providers fix</div>
+                <div className="body-md" style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
+              </div>
+            </Reveal>
             <div className="grid grid-3">
               {SERVICE_TYPES.map((s, i) => (
-                <div key={s.key} className="feature-icon-card card-hover animate-fade-in-up" style={{textAlign: 'center', animationDelay: `${i * 0.08}s`}}>
-                  <div className="mb-sm" style={{fontSize: 24, display: 'flex', justifyContent: 'center'}}>
-                    {s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
-                     s.key === 'mechanic' ? <img src="public/mechanic.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
-                     s.key === 'battery_jump' ? <img src="public/car-battery.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
-                     s.key === 'towing' ? <img src="public/crane-truck.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
-                     s.key === 'fuel_delivery' ? <img src="public/eco-fuel.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> :
-                     s.key === 'lockout' ? <img src="public/key.gif" alt="" style={{width: 32, height: 32, filter: 'grayscale(100%)'}} /> : s.icon}
+                <Reveal key={s.key} delay={`reveal-delay-${(i % 5) + 1}`}>
+                  <div className="feature-icon-card card-hover" style={{textAlign: 'center'}}>
+                    <div className="mb-sm" style={{fontSize: 26, display: 'flex', justifyContent: 'center'}}>
+                      {s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
+                        s.key === 'mechanic' ? <img src="public/mechanic.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
+                        s.key === 'battery_jump' ? <img src="public/car-battery.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
+                        s.key === 'towing' ? <img src="public/crane-truck.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
+                        s.key === 'fuel_delivery' ? <img src="public/eco-fuel.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
+                        s.key === 'lockout' ? <img src="public/key.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> : s.icon}
+                    </div>
+                    <div className="title-sm mb-xs">{s.label}</div>
+                    <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                   </div>
-                  <div className="title-sm mb-xs">{s.label}</div>
-                  <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
-        {/* Features - white canvas */}
+        {/* Features */}
         <section className="p-section">
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <div className="grid grid-3">
               {FEATURES.map((f, i) => (
-                <div key={i} className="feature-card">
-                  <div className="mb-sm" style={{fontSize: 24}}>{f.icon}</div>
-                  <div className="title-md mb-xs">{f.title}</div>
-                  <div className="body-sm" style={{color: 'var(--body)'}}>{f.desc}</div>
-                </div>
+                <Reveal key={i} delay={`reveal-delay-${i + 1}`}>
+                  <div className="feature-card">
+                    <div className="mb-sm" style={{fontSize: 26}}>{f.icon}</div>
+                    <div className="title-md mb-xs">{f.title}</div>
+                    <div className="body-sm" style={{color: 'var(--body)'}}>{f.desc}</div>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
         </section>
-        {/* Testimonials - surface-card */}
+        {/* Testimonials */}
         <section className="p-section" style={{background: 'var(--surface-card)'}}>
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
-            <div className="text-center mb-xl">
-              <div className="display-md">What people say</div>
-            </div>
+            <Reveal>
+              <div className="text-center mb-xl">
+                <div className="display-md">What people say</div>
+              </div>
+            </Reveal>
             <div className="grid grid-3">
               {TESTIMONIALS.map((t, i) => {
                 const pastelFills = ['var(--badge-orange)', 'var(--badge-pink)', 'var(--badge-violet)'];
                 const initials = t.name.split(' ').map(n => n[0]).join('');
                 return (
-                  <div key={i} className="card">
-                    <div className="row centerV gap-sm mb-md">
-                      <div className="avatar" style={{background: pastelFills[i % 3], color: '#fff'}}>{initials}</div>
-                      <div>
-                        <div className="title-sm">{t.name}</div>
-                        <div className="row" style={{gap: 2}}>
-                          {Array.from({length: t.rating}).map((_, j) => <span key={j} style={{color: 'var(--badge-orange)', fontSize: 14}}>★</span>)}
+                  <Reveal key={i} delay={`reveal-delay-${i + 1}`}>
+                    <div className="card" style={{position: 'relative'}}>
+                      <div style={{position: 'absolute', top: 20, right: 24, fontSize: 56, color: 'var(--hairline-soft)', fontFamily: 'Georgia, serif', lineHeight: 1}}>"</div>
+                      <div className="row centerV gap-sm mb-md">
+                        <div className="avatar" style={{background: pastelFills[i % 3], color: '#fff'}}>{initials}</div>
+                        <div>
+                          <div className="title-sm">{t.name}</div>
+                          <div className="row" style={{gap: 2}}>
+                            {Array.from({length: t.rating}).map((_, j) => <span key={j} style={{color: 'var(--badge-orange)', fontSize: 14}}>★</span>)}
+                          </div>
                         </div>
                       </div>
+                      <div className="body-md" style={{lineHeight: 1.65}}>{t.text}</div>
                     </div>
-                    <div className="body-md">"{t.text}"</div>
-                  </div>
+                  </Reveal>
                 );
               })}
             </div>
           </div>
         </section>
-        {/* CTA band - white canvas */}
+        {/* CTA band */}
         <section className="p-section">
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
-            <div className="cta-band">
-              <div className="display-sm mb-lg">Ready to get back on the road?</div>
-              <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Get help now</button>
-            </div>
+            <Reveal>
+              <div className="cta-band">
+                <div className="display-sm mb-lg" style={{letterSpacing: '-0.75px'}}>Ready to get back on the road?</div>
+                <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Get help now</button>
+              </div>
+            </Reveal>
           </div>
         </section>
-        {/* Footer - surface-dark */}
-        <footer style={{background: 'var(--surface-dark)', padding: '48px 16px'}}>
+        {/* Footer */}
+        <footer style={{background: 'var(--surface-dark)', padding: '56px 20px'}}>
           <div className="col gap-md" style={{maxWidth: 1200, margin: '0 auto'}}>
-            <span className="text-white font-semibold">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
+            <span className="text-white font-semibold" style={{letterSpacing: '-0.3px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
             <div className="body-sm" style={{color: 'var(--on-dark-soft)'}}>© 2026 Dreamledge Auto.</div>
           </div>
         </footer>
@@ -481,30 +668,30 @@
 
     function RoleSelectScreen({ onNavigate }) {
       return (<div style={{position: 'relative', minHeight: '100vh'}}>
-        <div className="container" style={{padding: '16px 16px 48px'}}>
-          <div className="center col" style={{marginBottom: 32}}>
-            <img src="public/sustainable-travel.gif" alt="" style={{width: 80, height: 80, objectFit: 'contain', marginBottom: 12}} />
-            <div className="display-sm text-center">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
+        <div className="container" style={{padding: '20px 20px 56px'}}>
+          <div className="center col" style={{marginBottom: 40}}>
+            <img src="public/sustainable-travel.gif" alt="" style={{width: 88, height: 88, objectFit: 'contain', marginBottom: 16}} />
+            <div className="display-sm text-center" style={{letterSpacing: '-0.75px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
             <div className="body-md text-center mt-xs" style={{color: 'var(--body)'}}>Get back on the road fast</div>
           </div>
-          <div className="col" style={{gap: 12}}>
-            <div className="card card-elevated card-hover" onClick={() => onNavigate('/customer/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+          <div className="col" style={{gap: 14}}>
+            <div className="card-elevated card-hover" onClick={() => onNavigate('/customer/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 'var(--radius-lg)', padding: 20}}>
               <div>
                 <div className="title-lg mb-xs">I Need Help</div>
                 <div className="body-sm" style={{color: 'var(--body)'}}>Request roadside assistance</div>
               </div>
-              <div style={{width: 36, height: 36, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
+              <div style={{width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: 'var(--shadow-md)'}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
             </div>
-            <div className="card card-elevated card-hover" onClick={() => onNavigate('/provider/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div className="card-elevated card-hover" onClick={() => onNavigate('/provider/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 'var(--radius-lg)', padding: 20}}>
               <div>
                 <div className="title-lg mb-xs">I'm a Mechanic</div>
                 <div className="body-sm" style={{color: 'var(--body)'}}>Offer mobile repair services</div>
               </div>
-              <div style={{width: 36, height: 36, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
+              <div style={{width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: 'var(--shadow-md)'}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
             </div>
           </div>
         </div>
-        <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 24, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 8, background: 'var(--canvas)', padding: '12px 0'}}>
+        <div className="animate-fade-in delay-300" style={{position: 'fixed', bottom: 28, left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: 10, background: 'var(--canvas)', padding: '14px 0'}}>
           <span className="body-sm" style={{color: 'var(--body)'}}>Already have an account?</span>
           <span className="font-semibold cursor-pointer" onClick={() => onNavigate('/login')}>Sign In</span>
         </div>
@@ -515,19 +702,19 @@
       const [name, setName] = useState(''); const [phone, setPhone] = useState(''); const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
       const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'customer', name, phone })); setTimeout(() => onNavigate('/customer/home'), 1000); };
       return (<div className="container">
-        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
-        <div className="p-lg"><div className="title-lg">Create account</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Get help on the road</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
+        <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Create account</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Get help on the road</div></div>
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div></div>
-          <label className="caption" style={{color: 'var(--muted)'}}>Full name</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Full name</label>
           <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Phone</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Phone</label>
           <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Email</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Email</label>
           <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Password</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Password</label>
           <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Creating...' : 'Create Account'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 28, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Creating...' : 'Create Account'}</button>
         </div>
       </div>);
     }
@@ -536,17 +723,17 @@
       const [name, setName] = useState(''); const [email, setEmail] = useState(''); const [phone, setPhone] = useState(''); const [loading, setLoading] = useState(false);
       const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'provider', name, phone })); setTimeout(() => onNavigate('/provider/services'), 800); };
       return (<div className="container">
-        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
-        <div className="p-lg"><div className="title-lg">Become a provider</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Your info</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
+        <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Become a provider</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Your info</div></div>
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div><div className="step"></div></div>
-          <label className="caption" style={{color: 'var(--muted)'}}>Full name</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Full name</label>
           <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Email</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Email</label>
           <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Phone</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Phone</label>
           <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 24, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Next...' : 'Next'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 28, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Next...' : 'Next'}</button>
         </div>
       </div>);
     }
@@ -557,9 +744,9 @@
       const toggleService = (key) => { if (services.includes(key)) { setServices(services.filter(s => s !== key)); } else { setServices([...services, key]); } };
       const handleSubmit = async () => { if (services.length === 0) { setError('Please select at least one service'); setTimeout(() => setError(''), 3000); return; } setLoading(true); const mockUid = 'provider_' + Date.now(); await saveServices(mockUid, services); setUserData(prev => ({ ...prev, uid: mockUid, services: services })); setTimeout(() => onNavigate('/provider/home'), 1500); };
       return (<div className="container">
-        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
-        {error && (<div style={{background: 'var(--surface-card)', color: 'var(--ink)', padding: '12px 16px', margin: '0 16px', borderRadius: 8, fontSize: 14}}>{error}</div>)}
-        <div className="p-lg"><div className="title-lg">Select services</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>What can you offer?</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
+        {error && (<div style={{background: 'var(--surface-card)', color: 'var(--ink)', padding: '14px 18px', margin: '0 20px', borderRadius: 'var(--radius-md)', fontSize: 14, border: '1px solid var(--hairline-soft)', boxShadow: 'var(--shadow-sm)'}}>{error}</div>)}
+        <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Select services</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>What can you offer?</div></div>
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div><div className="step step-active"></div></div>
           <div className="grid grid-2" style={{gap: 8}}>
@@ -579,14 +766,14 @@
       const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
       const handleLogin = () => { setLoading(true); const stored = localStorage.getItem('dl_user_' + email.toLowerCase()); let role = 'customer'; if (stored) { try { role = JSON.parse(stored).role; } catch(e) {} } setTimeout(() => { if (role === 'provider') onNavigate('/provider/home'); else onNavigate('/customer/home'); }, 500); };
       return (<div className="container">
-        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
-        <div className="p-lg"><div className="title-lg">Welcome back</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Sign in to continue</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
+        <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Welcome back</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Sign in to continue</div></div>
         <div className="flex p-lg">
-          <label className="caption" style={{color: 'var(--muted)'}}>Email</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Email</label>
           <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Password</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Password</label>
           <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
-          <button className="btn btn-lg" onClick={handleLogin} disabled={loading || !email || !password} style={{width: '100%', marginTop: 24, opacity: loading || !email || !password ? 0.5 : 1}}>{loading ? 'Signing in...' : 'Sign In'}</button>
+          <button className="btn btn-lg" onClick={handleLogin} disabled={loading || !email || !password} style={{width: '100%', marginTop: 28, opacity: loading || !email || !password ? 0.5 : 1}}>{loading ? 'Signing in...' : 'Sign In'}</button>
         </div>
       </div>);
     }
@@ -594,14 +781,14 @@
     function CustomerHomeScreen({ onNavigate, goBack }) {
       const [navTab, setNavTab] = useState('home');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'settings') onNavigate('/customer/request'); };
-      return (<div className="container" style={{paddingBottom: '70px'}}>
-        <div className="p-lg pt-2xl"><div className="title-lg">Hello!</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div></div>
+      return (<div className="container" style={{paddingBottom: '80px'}}>
+        <div className="p-lg pt-2xl"><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Hello!</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div></div>
         <div className="flex p-lg">
-          <div className="title-sm mb-md">Services</div>
+          <div className="title-sm mb-md" style={{letterSpacing: '-0.1px'}}>Services</div>
           <div className="grid grid-2">
             {SERVICE_TYPES.map((s, i) => (
-              <div key={s.key} className="card card-elevated card-hover" style={{padding: 16, textAlign: 'center', cursor: 'pointer'}} onClick={() => onNavigate('/customer/request')}>
-                <div className="mb-sm" style={{fontSize: 24}}>{s.icon}</div>
+              <div key={s.key} className="card-elevated card-hover" style={{padding: 18, textAlign: 'center', cursor: 'pointer', borderRadius: 'var(--radius-lg)'}} onClick={() => onNavigate('/customer/request')}>
+                <div className="mb-sm" style={{fontSize: 26}}>{s.icon}</div>
                 <div className="title-sm">{s.label}</div>
               </div>
             ))}
@@ -614,14 +801,14 @@
     function CustomerRequestScreen({ onNavigate, goBack }) {
       const [service, setService] = useState(null); const [location, setLocation] = useState(''); const [details, setDetails] = useState(''); const [pricing, setPricing] = useState('fixed'); const [loading, setLoading] = useState(false);
       const handleSubmit = () => { setLoading(true); setTimeout(() => onNavigate('/customer/offers'), 1500); };
-      return (<div className="container" style={{paddingBottom: '70px'}}>
-        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
-        <div className="p-lg"><div className="title-lg">Request Help</div></div>
+      return (<div className="container" style={{paddingBottom: '80px'}}>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
+        <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Request Help</div></div>
         <div className="flex p-lg">
-          <label className="caption" style={{color: 'var(--muted)'}}>Location</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Location</label>
           <input className="input mb-md" value={location} onChange={e => setLocation(e.target.value)} placeholder="Enter your location" />
-          <label className="caption" style={{color: 'var(--muted)'}}>Service</label>
-          <div className="grid grid-2 mb-md" style={{gap: 8}}>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Service</label>
+          <div className="grid grid-2 mb-md" style={{gap: 10}}>
             {SERVICE_TYPES.map(s => (
               <div key={s.key} className={`service-card ${service === s.key ? 'selected' : ''}`} onClick={() => setService(s.key)}>
                 <div className="service-icon">{s.icon}</div>
@@ -629,15 +816,15 @@
               </div>
             ))}
           </div>
-          <label className="caption" style={{color: 'var(--muted)'}}>Details</label>
-          <textarea className="input mb-md" style={{height: 100, paddingTop: 16}} value={details} onChange={e => setDetails(e.target.value)} placeholder="Describe your issue..." />
-          <label className="caption" style={{color: 'var(--muted)'}}>Pricing</label>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Details</label>
+          <textarea className="input mb-md" style={{height: 110, paddingTop: 14}} value={details} onChange={e => setDetails(e.target.value)} placeholder="Describe your issue..." />
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Pricing</label>
           <div className="row gap-sm mb-md">
             <button className={`btn btn-sm ${pricing === 'fixed' ? '' : 'btn-outline'}`} onClick={() => setPricing('fixed')}>Fixed</button>
             <button className={`btn btn-sm ${pricing === 'range' ? '' : 'btn-outline'}`} onClick={() => setPricing('range')}>Range</button>
             <button className={`btn btn-sm ${pricing === 'quote' ? '' : 'btn-outline'}`} onClick={() => setPricing('quote')}>Quote</button>
           </div>
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={!service || !location || loading} style={{width: '100%', marginTop: 16, opacity: !service || !location || loading ? 0.5 : 1}}>{loading ? 'Finding help...' : 'Get Help Now'}</button>
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={!service || !location || loading} style={{width: '100%', marginTop: 20, opacity: !service || !location || loading ? 0.5 : 1}}>{loading ? 'Finding help...' : 'Get Help Now'}</button>
         </div>
       </div>);
     }
@@ -645,13 +832,13 @@
     function CustomerOffersScreen({ onNavigate, goBack }) {
       const offers = [{ id: 1, name: 'Mike\'s Auto', rating: 4.8, price: '$45', time: '12 min', badge: 'Best Match' }, { id: 2, name: 'QuickFix Pro', rating: 4.6, price: '$55', time: '18 min', badge: null }, { id: 3, name: 'Roadside Rescue', rating: 4.9, price: '$60', time: '25 min', badge: null }];
       return (<div className="container">
-        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm">←</span></div>
-        <div className="p-lg"><div className="title-lg">Available Mechanics</div><div className="body-sm" style={{color: 'var(--body)'}}>Choose an offer</div></div>
+        <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
+        <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Available Mechanics</div><div className="body-sm" style={{color: 'var(--body)'}}>Choose an offer</div></div>
         <div className="flex p-lg">
           {offers.map(offer => (
-            <div key={offer.id} className="card card-elevated card-hover mb-md" onClick={() => onNavigate('/customer/home')} style={{padding: 16}}>
+            <div key={offer.id} className="card-elevated card-hover mb-md" onClick={() => onNavigate('/customer/home')} style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="row centerV gap-md mb-sm">
-                <div style={{fontSize: 24}}>◉</div>
+                <div style={{fontSize: 26}}>◉</div>
                 <div style={{flex: 1}}>
                   <div className="title-sm">{offer.name}</div>
                   <div className="body-sm" style={{color: 'var(--body)'}}>{offer.rating} · {offer.time}</div>
@@ -659,7 +846,7 @@
                 {offer.badge && <span className="badge badge-default">{offer.badge}</span>}
               </div>
               <div className="row between centerV">
-                <div className="display-sm">{offer.price}</div>
+                <div className="display-sm" style={{letterSpacing: '-0.5px'}}>{offer.price}</div>
                 <button className="btn btn-sm" onClick={(e) => { e.stopPropagation(); onNavigate('/customer/home'); }}>Accept</button>
               </div>
             </div>
@@ -676,58 +863,58 @@
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
       const handleToggle = () => { const newStatus = !isOnline; setIsOnline(newStatus); if (userData?.uid) toggleOnline(userData.uid, newStatus); };
       const nearbyJobs = [{ id: '1', service: 'Oil Change', address: '456 Oak Ave', time: '20 min away', payout: '$45 - $60' }, { id: '2', service: 'Tire Rotation', address: '789 Elm St', time: '25 min away', payout: '$35 - $50' }];
-      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
-        <div style={{flex: 1, overflowY: 'auto', padding: '16px'}}>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '80px'}}>
+        <div style={{flex: 1, overflowY: 'auto', padding: '20px'}}>
           <div className="row between centerV mb-lg">
-            <div><div className="title-lg">{greeting}, {name}</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Ready to get some jobs done?</div></div>
-            <div className="row centerV" style={{gap: 12}}>
-              <div style={{position: 'relative'}}><span style={{fontSize: 22}}>◉</span><div style={{position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)'}} /></div>
+            <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>{greeting}, {name}</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Ready to get some jobs done?</div></div>
+            <div className="row centerV" style={{gap: 14}}>
+              <div style={{position: 'relative'}}><span style={{fontSize: 24}}>◉</span><div style={{position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)'}} /></div>
               <div style={{position: 'relative'}}><div className="avatar">M</div><div style={{position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: 'var(--success)', border: '2px solid var(--canvas)'}} /></div>
             </div>
           </div>
-          <div className="row between centerV card-flat mb-lg" style={{padding: 16}}>
-            <div className="row centerV" style={{gap: 12}}>
-              <span style={{fontSize: 28, color: isOnline ? 'var(--success)' : 'var(--muted)'}}>◉</span>
+          <div className="row between centerV card-flat mb-lg" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
+            <div className="row centerV" style={{gap: 14}}>
+              <span style={{fontSize: 30, color: isOnline ? 'var(--success)' : 'var(--muted)'}}>◉</span>
               <div><div className="title-sm">{isOnline ? "You're Online" : "You're Offline"}</div><div className="body-sm" style={{color: 'var(--body)'}}>{isOnline ? "Visible to customers" : "Go online to receive jobs"}</div></div>
             </div>
             <button onClick={handleToggle} className={`btn btn-sm ${isOnline ? 'btn-outline' : ''}`}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
           </div>
-          <div className="grid grid-4 mb-lg" style={{gap: 8}}>
+          <div className="grid grid-4 mb-lg" style={{gap: 10}}>
             {[{ label: 'Jobs Today', value: '3' }, { label: 'Rating', value: '4.9' }, { label: 'Earnings', value: '$256' }, { label: 'Time', value: '8h' }].map((item, index) => (
-              <div key={index} className="card-flat" style={{padding: '12px 8px', textAlign: 'center'}}>
+              <div key={index} className="card-flat" style={{padding: '14px 10px', textAlign: 'center', borderRadius: 'var(--radius-md)'}}>
                 <div className="title-sm">{item.value}</div>
                 <div className="caption" style={{color: 'var(--body)'}}>{item.label}</div>
               </div>
             ))}
           </div>
-          <div className="card-flat mb-lg" style={{padding: 16, display: 'flex', flexDirection: 'column', gap: 16}}>
+          <div className="card-flat mb-lg" style={{padding: 20, borderRadius: 'var(--radius-lg)', display: 'flex', flexDirection: 'column', gap: 18}}>
             <div>
-              <div className="caption" style={{letterSpacing: 1, color: 'var(--body)'}}>Upcoming</div>
-              <div className="display-sm" style={{marginTop: 4}}>10:30 AM</div>
+              <div className="caption" style={{letterSpacing: '0.06em', color: 'var(--body)'}}>Upcoming</div>
+              <div className="display-sm" style={{marginTop: 6, letterSpacing: '-0.5px'}}>10:30 AM</div>
               <div className="title-sm mt-xs">Jump Start</div>
               <div className="body-sm" style={{color: 'var(--body)'}}>123 Main St</div>
               <div className="body-sm" style={{color: 'var(--body)'}}>2.4 mi away</div>
-              <button className="btn btn-sm" style={{marginTop: 12}}>Start Navigation</button>
+              <button className="btn btn-sm" style={{marginTop: 14}}>Start Navigation</button>
             </div>
-            <div style={{width: '100%', height: 120, background: 'var(--surface-soft)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center'}}><span style={{color: 'var(--muted)', fontSize: 12}}>Map</span></div>
+            <div style={{width: '100%', height: 130, background: 'var(--surface-soft)', borderRadius: 'var(--radius-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--hairline-soft)'}}><span style={{color: 'var(--muted)', fontSize: 12}}>Map</span></div>
           </div>
           <div className="col gap-sm mb-lg">
-            <div className="card-flat" style={{padding: 16}}>
+            <div className="card-flat" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="caption" style={{color: 'var(--body)'}}>Earnings Today</div>
-              <div className="display-sm">$256</div>
-              <div className="body-sm" style={{color: 'var(--body)', marginTop: 4}}>4 Jobs Completed</div>
+              <div className="display-sm" style={{letterSpacing: '-0.5px'}}>$256</div>
+              <div className="body-sm" style={{color: 'var(--body)', marginTop: 6}}>4 Jobs Completed</div>
             </div>
-            <div className="card-flat" style={{padding: 16}}>
+            <div className="card-flat" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="caption" style={{color: 'var(--body)'}}>Incentives</div>
               <div className="body-sm">Complete 2 more jobs to earn $50 bonus</div>
-              <div style={{height: 6, background: 'var(--surface-strong)', borderRadius: 4, marginTop: 8, marginBottom: 4}}><div style={{width: '50%', height: '100%', background: 'var(--primary)', borderRadius: 4}} /></div>
+              <div style={{height: 6, background: 'var(--surface-strong)', borderRadius: 4, marginTop: 10, marginBottom: 6}}><div style={{width: '50%', height: '100%', background: 'var(--primary)', borderRadius: 4}} /></div>
               <div className="caption" style={{color: 'var(--body)'}}>2 / 4 Jobs</div>
             </div>
           </div>
-          <div style={{marginBottom: 20}}>
-            <div className="title-sm mb-md">Nearby Jobs</div>
+          <div style={{marginBottom: 24}}>
+            <div className="title-sm mb-md" style={{letterSpacing: '-0.1px'}}>Nearby Jobs</div>
             {nearbyJobs.map((job) => (
-              <div key={job.id} className="card-flat card-hover mb-md" style={{padding: 14, display: 'flex', justifyContent: 'space-between'}}>
+              <div key={job.id} className="card-flat card-hover mb-md" style={{padding: 16, display: 'flex', justifyContent: 'space-between', borderRadius: 'var(--radius-md)'}}>
                 <div>
                   <div className="caption" style={{color: 'var(--body)'}}>{job.time}</div>
                   <div className="title-sm mt-xs">{job.service}</div>
@@ -758,64 +945,64 @@
       const handleCompleteJob = () => { const payout = parseInt(activeJob.payout.split('-')[1].replace('$','')); setTodayEarnings(todayEarnings + payout); setJobsCompleted(jobsCompleted + 1); setActiveJob(null); };
       const handleAddService = async (serviceKey) => { const newServices = [...userServices, serviceKey]; await saveServices(userData.uid, newServices); setUserData(prev => ({ ...prev, services: newServices })); setShowAddModal(false); };
       const remainingServices = getRemainingServices(); const canAddMore = remainingServices.length > 0;
-      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '70px'}}>
-        <div style={{background: 'var(--surface-dark)', padding: '14px 16px 10px'}}>
-          <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 12}}>
-            <div><div className="title-md text-white">{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
-            <div className="row centerV" style={{gap: 8}}><div style={{width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#fff'}}>◉</div></div>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '80px'}}>
+        <div style={{background: 'var(--surface-dark)', padding: '16px 20px 12px'}}>
+          <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
+            <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
+            <div className="row centerV" style={{gap: 10}}><div style={{width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#fff'}}>◉</div></div>
           </div>
-          <div className="row between centerV" style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.15)', borderRadius: 12, padding: 12}}>
-            <div><div className="title-sm text-white">Available Jobs Nearby</div><div className="display-sm text-white">{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="caption text-white" style={{opacity: 0.8}}>Live jobs in your area</div>}</div>
-            <button onClick={() => toggleOnline(userData.uid, !isOnline)} className={`btn btn-sm ${isOnline ? 'btn-secondary' : ''}`} style={{background: isOnline ? '#fff' : 'transparent', border: '1px solid ' + (isOnline ? '#fff' : 'rgba(255,255,255,0.5)'), color: isOnline ? 'var(--ink)' : '#fff'}}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
+          <div className="row between centerV" style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.12)', borderRadius: 'var(--radius-md)', padding: 14}}>
+            <div><div className="title-sm text-white">Available Jobs Nearby</div><div className="display-sm text-white" style={{marginTop: 4, letterSpacing: '-0.5px'}}>{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="caption text-white" style={{opacity: 0.8}}>Live jobs in your area</div>}</div>
+            <button onClick={() => toggleOnline(userData.uid, !isOnline)} className={`btn btn-sm ${isOnline ? 'btn-secondary' : ''}`} style={{background: isOnline ? '#fff' : 'transparent', border: '1px solid ' + (isOnline ? '#fff' : 'rgba(255,255,255,0.4)'), color: isOnline ? 'var(--ink)' : '#fff'}}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
           </div>
         </div>
-        <div style={{padding: '12px 16px', background: 'var(--canvas)'}}>
+        <div style={{padding: '14px 20px', background: 'var(--canvas)', borderBottom: '1px solid var(--hairline-soft)'}}>
           <div className="caption mb-sm" style={{color: 'var(--body)'}}>Quick Filters</div>
-          <div className="row" style={{gap: 6, overflowX: 'auto', paddingBottom: 4}}>
+          <div className="row" style={{gap: 8, overflowX: 'auto', paddingBottom: 4}}>
             {serviceCategories.map((cat) => (
               <button key={cat.key} onClick={() => setSelectedCategory(cat.key)} className={`btn btn-sm ${selectedCategory === cat.key ? '' : 'btn-outline'}`} style={{whiteSpace: 'nowrap', minWidth: 44}}>{cat.label}</button>
             ))}
             {canAddMore && (<button onClick={() => setShowAddModal(true)} className="btn btn-sm btn-outline" style={{whiteSpace: 'nowrap', minWidth: 44}}>+ Add</button>)}
           </div>
         </div>
-        <div style={{flex: 1, overflowY: 'auto', padding: 12}}>
-          <div className="row between centerV mb-md"><span className="title-sm">{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>{!isOnline && <span className="caption" style={{color: 'var(--muted)'}}>Go online to see jobs</span>}</div>
+        <div style={{flex: 1, overflowY: 'auto', padding: 14}}>
+          <div className="row between centerV mb-md"><span className="title-sm" style={{letterSpacing: '-0.1px'}}>{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>{!isOnline && <span className="caption" style={{color: 'var(--muted)'}}>Go online to see jobs</span>}</div>
           {isOnline ? (filteredJobs.length > 0 ? (filteredJobs.map((job) => (
-            <div key={job.id} className="card card-elevated mb-md animate-fade-in-up" style={{padding: 16}}>
+            <div key={job.id} className="card-elevated mb-md animate-fade-in-up" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="row between centerV mb-sm">
                 <div className="row centerV gap-sm"><span className="title-sm">{job.service}</span>{job.urgent && <span className="badge badge-default">Urgent</span>}</div>
                 <span className="caption" style={{color: 'var(--muted)'}}>{job.time}</span>
               </div>
               <div className="body-sm mb-md" style={{color: 'var(--body)'}}>{job.address} · {job.distance}</div>
               <div className="row between centerV">
-                <div><div className="display-sm">{job.payout}</div><div className="caption" style={{color: 'var(--muted)'}}>{job.rating}</div></div>
+                <div><div className="display-sm" style={{letterSpacing: '-0.5px'}}>{job.payout}</div><div className="caption" style={{color: 'var(--muted)'}}>{job.rating}</div></div>
                 <div className="row gap-sm">
                   <button onClick={() => handleDeclineJob(job.id)} className="btn btn-sm btn-outline">Decline</button>
                   <button onClick={() => handleAcceptJob(job)} className="btn btn-sm">Accept</button>
                 </div>
               </div>
             </div>
-          ))) : (<div className="text-center" style={{padding: 40}}><div style={{fontSize: 36, marginBottom: 16, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">No jobs found</div><div className="body-sm" style={{color: 'var(--body)'}}>Try a different filter or check back soon</div></div>)) : (<div className="card text-center" style={{padding: 32}}><div style={{fontSize: 36, marginBottom: 16, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">Go Online to Start Receiving Jobs</div><div className="body-sm" style={{color: 'var(--body)'}}>Toggle online above to begin accepting jobs</div></div>)}
+          ))) : (<div className="text-center" style={{padding: 48}}><div style={{fontSize: 40, marginBottom: 18, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">No jobs found</div><div className="body-sm" style={{color: 'var(--body)'}}>Try a different filter or check back soon</div></div>)) : (<div className="card text-center" style={{padding: 40, borderRadius: 'var(--radius-lg)'}}><div style={{fontSize: 40, marginBottom: 18, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">Go Online to Start Receiving Jobs</div><div className="body-sm" style={{color: 'var(--body)'}}>Toggle online above to begin accepting jobs</div></div>)}
         </div>
         {activeJob && (<>
           <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}} onClick={() => setActiveJob(null)}>
-            <div style={{background: 'var(--canvas)', borderRadius: '12px 12px 0 0', padding: 24, width: '100%'}} onClick={e => e.stopPropagation()}>
-              <div className="row between centerV mb-lg"><span className="title-lg">Active Job</span><button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: 24, cursor: 'pointer', color: 'var(--body)'}}>×</button></div>
-              <div className="card-flat mb-lg" style={{background: 'var(--surface-dark)', padding: 20}}>
-                <div className="display-sm text-white mb-xs">{activeJob.service}</div>
+            <div style={{background: 'var(--canvas)', borderRadius: 'var(--radius-xl) var(--radius-xl) 0 0', padding: 28, width: '100%'}} onClick={e => e.stopPropagation()}>
+              <div className="row between centerV mb-lg"><span className="title-lg" style={{letterSpacing: '-0.3px'}}>Active Job</span><button onClick={() => setActiveJob(null)} style={{background: 'none', border: 'none', fontSize: 26, cursor: 'pointer', color: 'var(--body)', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%'}}>×</button></div>
+              <div className="card-flat mb-lg" style={{background: 'var(--surface-dark)', padding: 24, borderRadius: 'var(--radius-lg)'}}>
+                <div className="display-sm text-white mb-xs" style={{letterSpacing: '-0.5px'}}>{activeJob.service}</div>
                 <div className="body-sm text-white" style={{opacity: 0.7}}>{activeJob.address}</div>
-                <div className="display-md text-white" style={{marginTop: 12}}>{activeJob.payout}</div>
+                <div className="display-md text-white" style={{marginTop: 14, letterSpacing: '-0.75px'}}>{activeJob.payout}</div>
               </div>
               <button className="btn btn-lg" onClick={handleCompleteJob} style={{width: '100%'}}>Complete Job</button>
             </div>
           </div>
           {showAddModal && (<div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center'}} onClick={() => setShowAddModal(false)}>
-            <div className="card" style={{padding: 20, width: '85%', maxWidth: 320}} onClick={e => e.stopPropagation()}>
-              <div className="row between centerV mb-lg"><span className="title-md">Add Services</span><button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: 'var(--body)'}}>×</button></div>
-              <div className="col" style={{gap: 8}}>
+            <div className="card" style={{padding: 24, width: '85%', maxWidth: 340, borderRadius: 'var(--radius-xl)'}} onClick={e => e.stopPropagation()}>
+              <div className="row between centerV mb-lg"><span className="title-md" style={{letterSpacing: '-0.15px'}}>Add Services</span><button onClick={() => setShowAddModal(false)} style={{background: 'none', border: 'none', fontSize: 22, cursor: 'pointer', color: 'var(--body)', width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '50%'}}>×</button></div>
+              <div className="col" style={{gap: 10}}>
                 {remainingServices.map(s => (
-                  <div key={s.key} onClick={() => handleAddService(s.key)} className="row centerV card-hover" style={{gap: 12, padding: 12, background: 'var(--surface-card)', borderRadius: 12, cursor: 'pointer'}}>
-                    <span style={{fontSize: 24}}>{s.icon}</span>
+                  <div key={s.key} onClick={() => handleAddService(s.key)} className="row centerV card-hover" style={{gap: 14, padding: 14, background: 'var(--surface-card)', borderRadius: 'var(--radius-md)', cursor: 'pointer'}}>
+                    <span style={{fontSize: 26}}>{s.icon}</span>
                     <div style={{flex: 1}}><div className="title-sm">{s.label}</div><div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div></div>
                   </div>
                 ))}
@@ -830,16 +1017,16 @@
     function ProviderEarningsScreen({ onNavigate, goBack }) {
       const [navTab, setNavTab] = useState('earnings');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
-      return (<div className="container" style={{paddingBottom: '70px'}}>
-        <div className="p-lg pt-xl"><span className="display-sm cursor-pointer" onClick={goBack}>←</span></div>
+      return (<div className="container" style={{paddingBottom: '80px'}}>
+        <div className="p-lg pt-xl"><span className="display-sm cursor-pointer" onClick={goBack} style={{opacity: 0.7}}>←</span></div>
         <div className="p-lg">
-          <div className="title-lg mb-lg">Earnings</div>
-          <div className="card-flat" style={{background: 'var(--surface-dark)', padding: 24, borderRadius: 12, marginBottom: 24}}>
+          <div className="title-lg mb-lg" style={{letterSpacing: '-0.3px'}}>Earnings</div>
+          <div className="card-flat" style={{background: 'var(--surface-dark)', padding: 28, borderRadius: 'var(--radius-xl)', marginBottom: 28}}>
             <div className="caption" style={{color: 'var(--muted)'}}>Total</div>
-            <div className="display-xl text-white" style={{marginTop: 4}}>$1,250</div>
+            <div className="display-xl text-white" style={{marginTop: 6, letterSpacing: '-2px'}}>$1,250</div>
             <div className="row gap-xl mt-lg">
-              <div><div className="display-sm text-white">18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
-              <div><div className="display-sm text-white">$69</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
+              <div><div className="display-sm text-white" style={{letterSpacing: '-0.5px'}}>18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
+              <div><div className="display-sm text-white" style={{letterSpacing: '-0.5px'}}>$69</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
             </div>
           </div>
         </div>
