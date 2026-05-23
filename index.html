@@ -431,7 +431,7 @@
       { icon: LUCIDE.zap, label: 'Fast response' },
     ];
 
-    const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings' };
+    const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings', '/profile-edit': 'profile-edit' };
     const PATH_MAP = Object.fromEntries(Object.entries(ROUTE_MAP).map(([k, v]) => [v, k]));
     function getPath(screen) { return PATH_MAP[screen] || '/'; }
     function getScreen(path) { return ROUTE_MAP[path] || 'landing'; }
