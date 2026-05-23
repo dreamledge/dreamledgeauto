@@ -1264,9 +1264,8 @@
       const remainingServices = getRemainingServices(); const canAddMore = remainingServices.length > 0;
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
         <div style={{background: 'var(--surface-dark)', padding: '60px 20px 12px'}}>
-          <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
+          <div className="row centerV" style={{marginBottom: 14}}>
             <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
-            <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer', background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.2)', color: '#fff'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
           </div>
           <div className="row between centerV" style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.12)', borderRadius: 'var(--radius-md)', padding: 14}}>
             <div><div className="title-sm text-white">Available Jobs Nearby</div><div className="display-sm text-white" style={{marginTop: 4, letterSpacing: '-0.5px'}}>{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="caption text-white" style={{opacity: 0.8}}>Live jobs in your area</div>}</div>
@@ -1362,9 +1361,8 @@
       ];
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
         <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', paddingTop: 60}}>
-          <div className="row between centerV mb-lg">
+          <div className="row centerV mb-lg">
             <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Earnings</div>
-            <div className="avatar" style={{width: 40, height: 40, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
           </div>
           <div className="card-elevated" style={{padding: 24, borderRadius: 'var(--radius-xl)', marginBottom: 20}}>
             <div className="row between centerV mb-sm">
