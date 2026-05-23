@@ -524,7 +524,7 @@
       const { screen, navigate, goBack } = useRouter();
       const [scrollY, setScrollY] = useState(0);
       useEffect(() => { const handleScroll = () => setScrollY(window.scrollY); window.addEventListener('scroll', handleScroll); return () => window.removeEventListener('scroll', handleScroll); }, []);
-      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} /> };
+      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} /> };
       return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div></UserProvider>);
     }
 
@@ -835,8 +835,9 @@
     }
 
     function CustomerSignupScreen({ onNavigate, goBack }) {
+      const { setUserData } = useContext(UserContext);
       const [name, setName] = useState(''); const [phone, setPhone] = useState(''); const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
-      const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'customer', name, phone })); setTimeout(() => onNavigate('/customer/home'), 1000); };
+      const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'customer', name, phone })); setUserData(prev => ({ ...prev, name, role: 'customer' })); setTimeout(() => onNavigate('/customer/home'), 1000); };
       return (<div className="container">
         <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
         <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Create account</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Get help on the road</div></div>
@@ -909,8 +910,9 @@
     }
 
     function LoginScreen({ onNavigate, goBack }) {
+      const { setUserData } = useContext(UserContext);
       const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
-      const handleLogin = () => { setLoading(true); const stored = localStorage.getItem('dl_user_' + email.toLowerCase()); let role = 'customer'; if (stored) { try { role = JSON.parse(stored).role; } catch(e) {} } setTimeout(() => { if (role === 'provider') onNavigate('/provider/home'); else onNavigate('/customer/home'); }, 500); };
+      const handleLogin = () => { setLoading(true); const stored = localStorage.getItem('dl_user_' + email.toLowerCase()); let role = 'customer'; let name = ''; if (stored) { try { const d = JSON.parse(stored); role = d.role; name = d.name || ''; } catch(e) {} } setUserData(prev => ({ ...prev, name, role })); setTimeout(() => { if (role === 'provider') onNavigate('/provider/home'); else onNavigate('/customer/home'); }, 500); };
       return (<div className="container">
         <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
         <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Welcome back</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Sign in to continue</div></div>
@@ -925,12 +927,15 @@
     }
 
     function CustomerHomeScreen({ onNavigate, goBack }) {
+      const { userData } = useContext(UserContext);
       const [navTab, setNavTab] = useState('home');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'settings') onNavigate('/customer/request'); };
       return (<div style={{height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
         <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 56}}>
-          <div className="title-lg" style={{letterSpacing: '-0.3px'}}>Hello!</div>
-          <div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div>
+          <div className="row between centerV mb-sm">
+            <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Hello!</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div></div>
+            <div className="avatar" style={{width: 40, height: 40, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+          </div>
           <div className="title-sm mb-md mt-lg" style={{letterSpacing: '-0.1px'}}>Services</div>
           <div className="grid grid-2">
             {SERVICE_TYPES.map((s, i) => (
@@ -1078,9 +1083,8 @@
                 <span style={{color: 'var(--muted-soft)'}}>{icons.bell}</span>
                 <div style={{position: 'absolute', top: 2, right: 2, width: 7, height: 7, borderRadius: '50%', background: 'var(--brand-accent)'}} />
               </div>
-              <div style={{position: 'relative'}}>
+              <div style={{position: 'relative', cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>
                 <div className="avatar" style={{width: 36, height: 36, fontSize: 13}}>{name.charAt(0).toUpperCase()}</div>
-                <div style={{position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%', background: isOnline ? 'var(--success)' : 'var(--muted)', border: '2px solid var(--canvas)'}} />
               </div>
             </div>
           </div>
@@ -1200,7 +1204,7 @@
         <div style={{background: 'var(--surface-dark)', padding: '16px 20px 12px'}}>
           <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
             <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
-            <div className="row centerV" style={{gap: 10}}><div style={{width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.6)'}}>{LUCIDE.settings}</div></div>
+            <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer', background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.2)', color: '#fff'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
           </div>
           <div className="row between centerV" style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.12)', borderRadius: 'var(--radius-md)', padding: 14}}>
             <div><div className="title-sm text-white">Available Jobs Nearby</div><div className="display-sm text-white" style={{marginTop: 4, letterSpacing: '-0.5px'}}>{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="caption text-white" style={{opacity: 0.8}}>Live jobs in your area</div>}</div>
@@ -1279,6 +1283,7 @@
     }
 
     function ProviderEarningsScreen({ onNavigate, goBack }) {
+      const { userData } = useContext(UserContext);
       const [navTab, setNavTab] = useState('earnings');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
       const [period, setPeriod] = useState('weekly');
@@ -1295,7 +1300,10 @@
       ];
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
         <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 16}}>
-          <div className="display-sm mb-lg" style={{letterSpacing: '-0.5px'}}>Earnings</div>
+          <div className="row between centerV mb-lg">
+            <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Earnings</div>
+            <div className="avatar" style={{width: 40, height: 40, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+          </div>
           <div className="card-elevated" style={{padding: 24, borderRadius: 'var(--radius-xl)', marginBottom: 20}}>
             <div className="row between centerV mb-sm">
               <div className="caption" style={{color: 'var(--muted)', fontWeight: 600}}>Earnings Overview</div>
@@ -1340,6 +1348,32 @@
           </div>
         </div>
         <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+      </div>);
+    }
+
+    function ProfileEditScreen({ onNavigate, goBack }) {
+      const { userData, setUserData } = useContext(UserContext);
+      const getStored = () => { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('dl_user_')) { try { return JSON.parse(localStorage.getItem(k)); } catch(e) {} } } return {}; };
+      const stored = getStored();
+      const [name, setName] = useState(stored.name || userData?.name || '');
+      const [phone, setPhone] = useState(stored.phone || '');
+      const [loading, setLoading] = useState(false);
+      const handleSave = () => { setLoading(true); for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('dl_user_')) { const d = JSON.parse(localStorage.getItem(k)); d.name = name; d.phone = phone; localStorage.setItem(k, JSON.stringify(d)); break; } } setUserData(prev => ({ ...prev, name })); setTimeout(() => { setLoading(false); goBack(); }, 300); };
+      return (<div style={{height: '100dvh', display: 'flex', flexDirection: 'column', background: 'var(--canvas)'}}>
+        <div className="row centerV" style={{padding: '16px 20px', borderBottom: '1px solid var(--hairline-soft)'}}>
+          <div onClick={goBack} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer'}}>{IX(<><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></>)}</div>
+          <div className="title-md" style={{flex: 1, textAlign: 'center', marginRight: 24}}>Edit Profile</div>
+        </div>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px'}}>
+          <div style={{display: 'flex', justifyContent: 'center', marginBottom: 32}}>
+            <div className="avatar" style={{width: 80, height: 80, fontSize: 28, border: '3px solid var(--brand-accent)'}}>{(name || '?').charAt(0).toUpperCase()}</div>
+          </div>
+          <label className="caption mb-sm" style={{color: 'var(--muted)'}}>Full name</label>
+          <div className="input-wrap mb-lg"><span className="input-icon">{IX(<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>)}</span><input className="input" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" /></div>
+          <label className="caption mb-sm" style={{color: 'var(--muted)'}}>Phone</label>
+          <div className="input-wrap mb-lg"><span className="input-icon">{IX(<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>)}</span><input className="input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="Your phone" /></div>
+          <button className="btn btn-lg" onClick={handleSave} disabled={loading || !name} style={{width: '100%', opacity: loading || !name ? 0.5 : 1}}>{loading ? 'Saving...' : 'Save Changes'}</button>
+        </div>
       </div>);
     }
 
