@@ -319,6 +319,13 @@
     /* Dot pattern background */
     .dot-pattern { background-image: radial-gradient(var(--hairline-soft) 1px, transparent 1px); background-size: 28px 28px; }
 
+    /* Messages */
+    .msg-bubble { max-width: 82%; padding: 12px 16px; line-height: 1.45; word-wrap: break-word; }
+    .msg-bubble-sent { background: var(--brand-accent); color: #fff; border-bottom-right-radius: 4px; }
+    .msg-bubble-received { background: var(--surface-card); color: var(--ink); border-bottom-left-radius: 4px; }
+    .msg-input { flex: 1; height: 44px; border: none; border-radius: var(--radius-full); background: var(--surface-soft); padding: 0 16px; font-size: 15px; outline: none; color: var(--ink); }
+    .msg-input::placeholder { color: var(--muted); }
+
     /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface-strong); border-radius: 3px; } ::-webkit-scrollbar-thumb:hover { background: var(--muted-soft); }
 
@@ -504,6 +511,7 @@
         : [
             { id: 'home', label: 'Home', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> },
             { id: 'jobs', label: 'Requests', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg> },
+            { id: 'messages', label: 'Messages', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> },
             { id: 'settings', label: 'Settings', icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg> },
           ];
 
@@ -525,7 +533,7 @@
       const { screen, navigate, goBack } = useRouter();
       const [scrollY, setScrollY] = useState(0);
       useEffect(() => { const handleScroll = () => setScrollY(window.scrollY); window.addEventListener('scroll', handleScroll); return () => window.removeEventListener('scroll', handleScroll); }, []);
-      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} /> };
+      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'customer-messages': <CustomerMessagesScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'provider-messages': <ProviderMessagesScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} /> };
       return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div></UserProvider>);
     }
 
@@ -938,7 +946,7 @@
         { id: 4, title: 'Mechanic Assigned', body: 'Mike D. has accepted your flat tire repair request', time: '5 hours ago', read: true },
         { id: 5, title: 'Welcome to Dreamledge', body: 'You\'re all set! Get help on the road anytime.', time: '2 days ago', read: true },
       ]);
-      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'settings') onNavigate('/customer/request'); };
+      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'messages') onNavigate('/customer/messages'); else if (tabId === 'settings') onNavigate('/customer/request'); };
       return (<div style={{height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
         <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', paddingTop: 60}}>
           <div className="row between centerV mb-sm">
@@ -1045,6 +1053,97 @@
       </div>);
     }
 
+    function CustomerMessagesScreen({ onNavigate, goBack }) {
+      const { userData } = useContext(UserContext);
+      const [navTab, setNavTab] = useState('messages');
+      const [view, setView] = useState('list');
+      const [activeConv, setActiveConv] = useState(null);
+      const [messageInput, setMessageInput] = useState('');
+      const [conversations, setConversations] = useState([
+        { id: 'c1', otherUserId: 'mike', otherUserName: 'Mike D.', otherUserInitial: 'M', lastMessage: "I'm on my way, ETA 8 min", lastMessageTime: '2 min ago', unread: 2 },
+        { id: 'c2', otherUserId: 'sarah', otherUserName: 'Sarah J.', otherUserInitial: 'S', lastMessage: 'All done! Your car is ready.', lastMessageTime: '1 hour ago', unread: 0 },
+        { id: 'c3', otherUserId: 'james', otherUserName: 'James T.', otherUserInitial: 'J', lastMessage: 'Can you confirm your location?', lastMessageTime: '3 hours ago', unread: 1 },
+        { id: 'c4', otherUserId: 'lisa', otherUserName: 'Lisa M.', otherUserInitial: 'L', lastMessage: 'Thanks for choosing us!', lastMessageTime: '1 day ago', unread: 0 },
+      ]);
+      const [convMessages, setConvMessages] = useState({
+        c1: [
+          { id: 'm1', senderId: 'me', text: 'Hey Mike, are you available?', time: '10:23 AM', isMe: true },
+          { id: 'm2', senderId: 'mike', text: 'Yes, what do you need?', time: '10:24 AM', isMe: false },
+          { id: 'm3', senderId: 'me', text: 'Need a jump start at 123 Main St', time: '10:25 AM', isMe: true },
+          { id: 'm4', senderId: 'mike', text: 'On my way, ETA 8 min', time: '10:28 AM', isMe: false },
+          { id: 'm5', senderId: 'mike', text: "I'm on my way, ETA 8 min", time: '10:30 AM', isMe: false },
+        ],
+        c2: [
+          { id: 'm6', senderId: 'sarah', text: 'Your tire change is complete', time: '1:15 PM', isMe: false },
+          { id: 'm7', senderId: 'me', text: 'Great, thank you!', time: '1:20 PM', isMe: true },
+          { id: 'm8', senderId: 'sarah', text: 'All done! Your car is ready.', time: '1:22 PM', isMe: false },
+        ],
+        c3: [
+          { id: 'm9', senderId: 'james', text: "I'm on my way to your location", time: '9:00 AM', isMe: false },
+          { id: 'm10', senderId: 'me', text: "Great, I'm at 456 Oak Ave", time: '9:05 AM', isMe: true },
+          { id: 'm11', senderId: 'james', text: 'Can you confirm your location?', time: '9:10 AM', isMe: false },
+        ],
+        c4: [
+          { id: 'm12', senderId: 'lisa', text: 'Your service has been scheduled', time: 'Yesterday', isMe: false },
+          { id: 'm13', senderId: 'me', text: 'Perfect, thank you!', time: 'Yesterday', isMe: true },
+          { id: 'm14', senderId: 'lisa', text: 'Thanks for choosing us!', time: 'Yesterday', isMe: false },
+        ],
+      });
+      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'messages') onNavigate('/customer/messages'); else if (tabId === 'settings') onNavigate('/customer/home'); };
+      const openThread = (conv) => { setActiveConv(conv); setView('thread'); setConversations(prev => prev.map(c => c.id === conv.id ? { ...c, unread: 0 } : c)); };
+      const sendMessage = () => { if (!messageInput.trim() || !activeConv) return; const t = messageInput.trim(); const n = { id: 'm' + Date.now(), senderId: 'me', text: t, time: 'Just now', isMe: true }; setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), n] })); setConversations(p => p.map(c => c.id === activeConv.id ? { ...c, lastMessage: t, lastMessageTime: 'Just now' } : c)); setMessageInput(''); setTimeout(() => { setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), { id: 'm' + Date.now(), senderId: activeConv.otherUserId, text: "On it! I'll be there shortly.", time: 'Just now', isMe: false }] })); }, 2000); };
+      const goBackToList = () => { setView('list'); setActiveConv(null); };
+      const handleKeyDown = (e) => { if (e.key === 'Enter') sendMessage(); };
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
+        {view === 'list' ? (<>
+          <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', paddingTop: 60}}>
+            <div className="row between centerV mb-lg">
+              <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Messages</div>
+              <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+            </div>
+            {conversations.map((conv, i) => (<div key={conv.id} className="animate-fade-in-up" style={{display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0', borderBottom: i < conversations.length - 1 ? '1px solid var(--hairline)' : 'none', cursor: 'pointer'}} onClick={() => openThread(conv)}>
+              <div className="avatar" style={{width: 44, height: 44, fontSize: 16, background: 'var(--surface-strong)', color: 'var(--ink)'}}>{conv.otherUserInitial}</div>
+              <div style={{flex: 1, minWidth: 0}}>
+                <div className="row between centerV mb-xs">
+                  <span className="title-sm" style={{fontWeight: conv.unread > 0 ? 600 : 500}}>{conv.otherUserName}</span>
+                  <span className="caption" style={{color: 'var(--muted)'}}>{conv.lastMessageTime}</span>
+                </div>
+                <div className="row between centerV">
+                  <span style={{fontSize: 13, color: 'var(--body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: conv.unread > 0 ? 'calc(100% - 28px)' : '100%'}}>{conv.lastMessage}</span>
+                  {conv.unread > 0 && <span style={{minWidth: 20, height: 20, borderRadius: 10, background: 'var(--brand-accent)', color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '0 5px'}}>{conv.unread}</span>}
+                </div>
+              </div>
+            </div>))}
+          </div>
+          <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="customer" />
+        </>) : (
+          <div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh'}}>
+            <div className="row centerV" style={{padding: '60px 20px 12px', borderBottom: '1px solid var(--hairline)'}}>
+              <div onClick={goBackToList} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 12}}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              </div>
+              <div className="avatar" style={{width: 34, height: 34, fontSize: 13, background: 'var(--surface-strong)', color: 'var(--ink)', marginRight: 10}}>{activeConv?.otherUserInitial}</div>
+              <div className="title-md" style={{flex: 1}}>{activeConv?.otherUserName}</div>
+            </div>
+            <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', display: 'flex', flexDirection: 'column', gap: 8}}>
+              {activeConv && convMessages[activeConv.id]?.map((msg) => (<div key={msg.id} className="row" style={{justifyContent: msg.isMe ? 'flex-end' : 'flex-start', animation: 'fadeIn 0.2s ease-out'}}>
+                <div style={{maxWidth: '82%', padding: '12px 16px', lineHeight: 1.45, wordWrap: 'break-word', background: msg.isMe ? 'var(--brand-accent)' : 'var(--surface-card)', color: msg.isMe ? '#fff' : 'var(--ink)', borderRadius: msg.isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px'}}>
+                  <div style={{fontSize: 14}}>{msg.text}</div>
+                  <div style={{fontSize: 10, marginTop: 4, opacity: 0.6, textAlign: msg.isMe ? 'right' : 'left'}}>{msg.time}</div>
+                </div>
+              </div>))}
+            </div>
+            <div className="row centerV" style={{padding: '12px 16px', borderTop: '1px solid var(--hairline)', background: 'var(--canvas)', gap: 10}}>
+              <input className="msg-input" value={messageInput} onChange={e => setMessageInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Type a message..." />
+              <div onClick={sendMessage} style={{width: 44, height: 44, borderRadius: '50%', background: messageInput.trim() ? 'var(--brand-accent)' : 'var(--surface-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: messageInput.trim() ? 'pointer' : 'default', color: messageInput.trim() ? '#fff' : 'var(--muted)', flexShrink: 0, transition: 'all 0.2s ease'}}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>);
+    }
+
     const jobLat = 39.7512;
     const jobLng = -84.1865;
     const jobLabel = 'Jump Start - 123 Main St, Dayton';
@@ -1083,7 +1182,7 @@
       ];
       const weekData = [28, 45, 32, 58, 41, 72, 65];
       const maxVal = Math.max(...weekData);
-      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
+      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); else if (tabId === 'messages') onNavigate('/provider/messages'); else if (tabId === 'profile') onNavigate('/profile-edit'); };
       const jobLat = 39.7512; const jobLng = -84.1865;
       const mapRef = useRef(null);
       const mapInst = useRef(null);
@@ -1250,7 +1349,7 @@
       const { userData, toggleOnline, saveServices, setUserData } = useContext(UserContext);
       const [selectedCategory, setSelectedCategory] = useState('all'); const [showAddModal, setShowAddModal] = useState(false); const [activeJob, setActiveJob] = useState(null); const [todayEarnings, setTodayEarnings] = useState(85); const [jobsCompleted, setJobsCompleted] = useState(3); const [declinedJobs, setDeclinedJobs] = useState([]); const [navTab, setNavTab] = useState('jobs');
       const greeting = 'Hey';
-      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
+      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); else if (tabId === 'messages') onNavigate('/provider/messages'); else if (tabId === 'profile') onNavigate('/profile-edit'); };
       const isOnline = userData.isOnline; const userServices = userData.services || [];
       const getCategoriesFromServices = () => { const cats = [{ key: 'all', label: 'All' }]; userServices.forEach(s => { const mapped = SERVICE_CATEGORY_MAP[s]; if (Array.isArray(mapped)) { mapped.forEach(m => { const existing = cats.find(c => c.key === m); if (!existing) { const labels = { battery: 'Battery', tire: 'Tire', fuel: 'Fuel', towing: 'Towing', diagnostics: 'Diagnostics', emergency: 'Emergency' }; cats.push({ key: m, label: labels[m] || m }); } }); } else if (mapped) { const existing = cats.find(c => c.key === mapped); if (!existing) { const labels = { roadside: 'Roadside', battery: 'Battery', tire: 'Tire', fuel: 'Fuel', towing: 'Towing', diagnostics: 'Diagnostics', emergency: 'Emergency' }; cats.push({ key: mapped, label: labels[mapped] || mapped }); } } }); return cats; };
       const serviceCategories = getCategoriesFromServices();
@@ -1346,7 +1445,7 @@
     function ProviderEarningsScreen({ onNavigate, goBack }) {
       const { userData } = useContext(UserContext);
       const [navTab, setNavTab] = useState('earnings');
-      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
+      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); else if (tabId === 'messages') onNavigate('/provider/messages'); else if (tabId === 'profile') onNavigate('/profile-edit'); };
       const [period, setPeriod] = useState('weekly');
       const periods = {
         daily: { label: 'Daily', amount: '$105', chart: [12,8,15,22,18,25,5], labels: ['6a','9a','12p','3p','6p','9p','12a'], jobs: 5, avg: '$21' },
@@ -1408,6 +1507,95 @@
           </div>
         </div>
         <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+      </div>);
+    }
+
+    function ProviderMessagesScreen({ onNavigate, goBack }) {
+      const { userData } = useContext(UserContext);
+      const [navTab, setNavTab] = useState('messages');
+      const [view, setView] = useState('list');
+      const [activeConv, setActiveConv] = useState(null);
+      const [messageInput, setMessageInput] = useState('');
+      const [conversations, setConversations] = useState([
+        { id: 'p1', otherUserId: 'john', otherUserName: 'John D.', otherUserInitial: 'J', lastMessage: 'Hey, need a jump start at 123 Main St', lastMessageTime: '2 min ago', unread: 1 },
+        { id: 'p2', otherUserId: 'emily', otherUserName: 'Emily R.', otherUserInitial: 'E', lastMessage: 'Thanks for the quick service!', lastMessageTime: '1 hour ago', unread: 0 },
+        { id: 'p3', otherUserId: 'mark', otherUserName: 'Mark T.', otherUserInitial: 'M', lastMessage: 'Can you come to 456 Oak Ave?', lastMessageTime: '3 hours ago', unread: 2 },
+        { id: 'p4', otherUserId: 'anna', otherUserName: 'Anna K.', otherUserInitial: 'A', lastMessage: 'I need a tire change please', lastMessageTime: '1 day ago', unread: 0 },
+      ]);
+      const [convMessages, setConvMessages] = useState({
+        p1: [
+          { id: 'm1', senderId: 'john', text: 'Hey, need a jump start at 123 Main St', time: '10:23 AM', isMe: false },
+          { id: 'm2', senderId: 'me', text: 'On my way! ETA 10 min', time: '10:25 AM', isMe: true },
+          { id: 'm3', senderId: 'john', text: 'Hey, need a jump start at 123 Main St', time: '10:26 AM', isMe: false },
+        ],
+        p2: [
+          { id: 'm4', senderId: 'emily', text: 'Thanks for the help today!', time: '1:15 PM', isMe: false },
+          { id: 'm5', senderId: 'me', text: 'Happy to help! Let me know if you need anything else.', time: '1:20 PM', isMe: true },
+          { id: 'm6', senderId: 'emily', text: 'Thanks for the quick service!', time: '1:22 PM', isMe: false },
+        ],
+        p3: [
+          { id: 'm7', senderId: 'mark', text: 'Are you available for a tow?', time: '9:00 AM', isMe: false },
+          { id: 'm8', senderId: 'me', text: 'Yes, what\'s your location?', time: '9:05 AM', isMe: true },
+          { id: 'm9', senderId: 'mark', text: 'Can you come to 456 Oak Ave?', time: '9:10 AM', isMe: false },
+        ],
+        p4: [
+          { id: 'm10', senderId: 'anna', text: 'Do you do tire changes?', time: 'Yesterday', isMe: false },
+          { id: 'm11', senderId: 'me', text: 'Yes, I can help with that', time: 'Yesterday', isMe: true },
+          { id: 'm12', senderId: 'anna', text: 'I need a tire change please', time: 'Yesterday', isMe: false },
+        ],
+      });
+      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); else if (tabId === 'messages') onNavigate('/provider/messages'); else if (tabId === 'profile') onNavigate('/profile-edit'); };
+      const openThread = (conv) => { setActiveConv(conv); setView('thread'); setConversations(prev => prev.map(c => c.id === conv.id ? { ...c, unread: 0 } : c)); };
+      const sendMessage = () => { if (!messageInput.trim() || !activeConv) return; const t = messageInput.trim(); const n = { id: 'm' + Date.now(), senderId: 'me', text: t, time: 'Just now', isMe: true }; setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), n] })); setConversations(p => p.map(c => c.id === activeConv.id ? { ...c, lastMessage: t, lastMessageTime: 'Just now' } : c)); setMessageInput(''); setTimeout(() => { setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), { id: 'm' + Date.now(), senderId: activeConv.otherUserId, text: 'Got it, thanks!', time: 'Just now', isMe: false }] })); }, 2000); };
+      const goBackToList = () => { setView('list'); setActiveConv(null); };
+      const handleKeyDown = (e) => { if (e.key === 'Enter') sendMessage(); };
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
+        {view === 'list' ? (<>
+          <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', paddingTop: 60}}>
+            <div className="row between centerV mb-lg">
+              <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Messages</div>
+              <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+            </div>
+            {conversations.map((conv, i) => (<div key={conv.id} className="animate-fade-in-up" style={{display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0', borderBottom: i < conversations.length - 1 ? '1px solid var(--hairline)' : 'none', cursor: 'pointer'}} onClick={() => openThread(conv)}>
+              <div className="avatar" style={{width: 44, height: 44, fontSize: 16, background: 'var(--surface-strong)', color: 'var(--ink)'}}>{conv.otherUserInitial}</div>
+              <div style={{flex: 1, minWidth: 0}}>
+                <div className="row between centerV mb-xs">
+                  <span className="title-sm" style={{fontWeight: conv.unread > 0 ? 600 : 500}}>{conv.otherUserName}</span>
+                  <span className="caption" style={{color: 'var(--muted)'}}>{conv.lastMessageTime}</span>
+                </div>
+                <div className="row between centerV">
+                  <span style={{fontSize: 13, color: 'var(--body)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: conv.unread > 0 ? 'calc(100% - 28px)' : '100%'}}>{conv.lastMessage}</span>
+                  {conv.unread > 0 && <span style={{minWidth: 20, height: 20, borderRadius: 10, background: 'var(--brand-accent)', color: '#fff', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, padding: '0 5px'}}>{conv.unread}</span>}
+                </div>
+              </div>
+            </div>))}
+          </div>
+          <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
+        </>) : (
+          <div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh'}}>
+            <div className="row centerV" style={{padding: '60px 20px 12px', borderBottom: '1px solid var(--hairline)'}}>
+              <div onClick={goBackToList} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 12}}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              </div>
+              <div className="avatar" style={{width: 34, height: 34, fontSize: 13, background: 'var(--surface-strong)', color: 'var(--ink)', marginRight: 10}}>{activeConv?.otherUserInitial}</div>
+              <div className="title-md" style={{flex: 1}}>{activeConv?.otherUserName}</div>
+            </div>
+            <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', display: 'flex', flexDirection: 'column', gap: 8}}>
+              {activeConv && convMessages[activeConv.id]?.map((msg) => (<div key={msg.id} className="row" style={{justifyContent: msg.isMe ? 'flex-end' : 'flex-start', animation: 'fadeIn 0.2s ease-out'}}>
+                <div style={{maxWidth: '82%', padding: '12px 16px', lineHeight: 1.45, wordWrap: 'break-word', background: msg.isMe ? 'var(--brand-accent)' : 'var(--surface-card)', color: msg.isMe ? '#fff' : 'var(--ink)', borderRadius: msg.isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px'}}>
+                  <div style={{fontSize: 14}}>{msg.text}</div>
+                  <div style={{fontSize: 10, marginTop: 4, opacity: 0.6, textAlign: msg.isMe ? 'right' : 'left'}}>{msg.time}</div>
+                </div>
+              </div>))}
+            </div>
+            <div className="row centerV" style={{padding: '12px 16px', borderTop: '1px solid var(--hairline)', background: 'var(--canvas)', gap: 10}}>
+              <input className="msg-input" value={messageInput} onChange={e => setMessageInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Type a message..." />
+              <div onClick={sendMessage} style={{width: 44, height: 44, borderRadius: '50%', background: messageInput.trim() ? 'var(--brand-accent)' : 'var(--surface-strong)', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: messageInput.trim() ? 'pointer' : 'default', color: messageInput.trim() ? '#fff' : 'var(--muted)', flexShrink: 0, transition: 'all 0.2s ease'}}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </div>
+            </div>
+          </div>
+        )}
       </div>);
     }
 
