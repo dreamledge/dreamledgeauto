@@ -931,7 +931,7 @@
       const [navTab, setNavTab] = useState('home');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'settings') onNavigate('/customer/request'); };
       return (<div style={{height: '100dvh', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
-        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 56}}>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 60}}>
           <div className="row between centerV mb-sm">
             <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Hello!</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div></div>
             <div className="avatar" style={{width: 40, height: 40, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
@@ -1193,7 +1193,7 @@
       const handleAddService = async (serviceKey) => { const newServices = [...userServices, serviceKey]; await saveServices(userData.uid, newServices); setUserData(prev => ({ ...prev, services: newServices })); setShowAddModal(false); };
       const remainingServices = getRemainingServices(); const canAddMore = remainingServices.length > 0;
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
-        <div style={{background: 'var(--surface-dark)', padding: '56px 20px 12px'}}>
+        <div style={{background: 'var(--surface-dark)', padding: '60px 20px 12px'}}>
           <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
             <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
             <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer', background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.2)', color: '#fff'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
@@ -1212,7 +1212,7 @@
             {canAddMore && (<button onClick={() => setShowAddModal(true)} className="btn btn-sm btn-outline" style={{whiteSpace: 'nowrap', minWidth: 44}}>+ Add</button>)}
           </div>
         </div>
-        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: 14}}>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '14px', paddingTop: 20}}>
           <div className="row between centerV mb-md"><span className="title-sm" style={{letterSpacing: '-0.1px'}}>{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>{!isOnline && <span className="caption" style={{color: 'var(--muted)'}}>Go online to see jobs</span>}</div>
           {isOnline ? (filteredJobs.length > 0 ? (filteredJobs.map((job) => (
             <div key={job.id} className="card-elevated mb-md animate-fade-in-up" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
@@ -1352,7 +1352,7 @@
       const [loading, setLoading] = useState(false);
       const handleSave = () => { setLoading(true); for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('dl_user_')) { const d = JSON.parse(localStorage.getItem(k)); d.name = name; d.phone = phone; localStorage.setItem(k, JSON.stringify(d)); break; } } setUserData(prev => ({ ...prev, name })); setTimeout(() => { setLoading(false); goBack(); }, 300); };
       return (<div style={{height: '100dvh', display: 'flex', flexDirection: 'column', background: 'var(--canvas)'}}>
-        <div className="row centerV" style={{padding: '16px 20px', borderBottom: '1px solid var(--hairline-soft)'}}>
+        <div className="row centerV" style={{padding: '60px 20px 16px', borderBottom: '1px solid var(--hairline-soft)'}}>
           <div onClick={goBack} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer'}}>{IX(<><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></>)}</div>
           <div className="title-md" style={{flex: 1, textAlign: 'center', marginRight: 24}}>Edit Profile</div>
         </div>
