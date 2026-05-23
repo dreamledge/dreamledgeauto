@@ -1146,9 +1146,12 @@
                   <div key={i} className="bar" style={{height: Math.max(4, (v / maxVal) * 32) + 'px'}} />
                 ))}
               </div>
-              <div className="row between centerV mt-xs">
-                <span className="caption" style={{color: 'var(--muted)'}}>Mon</span>
-                <span className="caption" style={{color: 'var(--muted)'}}>Today</span>
+              <div className="row between centerV mt-xs" style={{gap: 4}}>
+                {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d, i) => {
+                  const today = new Date().getDay();
+                  const todayIdx = today === 0 ? 6 : today - 1;
+                  return (<span key={i} className="caption" style={{color: i === todayIdx ? 'var(--brand-accent)' : 'var(--muted)', fontWeight: i === todayIdx ? 600 : 400}}>{i === todayIdx ? 'Today' : d}</span>);
+                })}
               </div>
             </div>
             <div className="card-clean" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
@@ -1279,9 +1282,12 @@
                 <div key={i} className="bar" style={{height: Math.max(4, (v / maxVal) * 40) + 'px'}} />
               ))}
             </div>
-            <div className="row between centerV mt-xs">
-              <span className="caption" style={{color: 'var(--muted)'}}>Mon</span>
-              <span className="caption" style={{color: 'var(--muted)'}}>Today</span>
+            <div className="row between centerV mt-xs" style={{gap: 4}}>
+              {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d, i) => {
+                const today = new Date().getDay();
+                const todayIdx = today === 0 ? 6 : today - 1;
+                return (<span key={i} className="caption" style={{color: i === todayIdx ? 'var(--brand-accent)' : 'var(--muted)', fontWeight: i === todayIdx ? 600 : 400}}>{i === todayIdx ? 'Today' : d}</span>);
+              })}
             </div>
             <div className="row mt-lg" style={{gap: 24}}>
               <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
