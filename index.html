@@ -1038,6 +1038,7 @@
       const weekData = [28, 45, 32, 58, 41, 72, 65];
       const maxVal = Math.max(...weekData);
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
+      const jobLat = 39.7512; const jobLng = -84.1865;
       const mapRef = useRef(null);
       const mapInst = useRef(null);
       useEffect(() => {
