@@ -2,17 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="description" content="Dreamledge Auto - Mobile mechanic services. Get back on the road fast!">
   <meta name="format-detection" content="telephone=no">
-  <script>
-    document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
-    document.addEventListener('gesturechange', function(e) { e.preventDefault(); });
-    document.addEventListener('gestureend', function(e) { e.preventDefault(); });
-    document.addEventListener('touchmove', function(e) { if (e.touches.length > 1) { e.preventDefault(); }}, { passive: false });
-  </script>
   <title>Dreamledge Auto | Mobile Mechanic Services</title>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -29,7 +23,7 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@1.8.1/dist/lottie-player.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0a0a0a; --primary-active: #1a1a1a; --primary-hover: #111111; --primary-disabled: #e5e7eb;
@@ -38,7 +32,8 @@
       --canvas: #ffffff; --surface-soft: #fafafa; --surface-card: #f8f8f8; --surface-strong: #e5e7eb;
       --surface-dark: #0a0a0a; --surface-dark-elevated: #141414;
       --on-primary: #ffffff; --on-dark: #ffffff; --on-dark-soft: #a1a1aa;
-      --brand-accent: #2563eb; --success: #10b981; --warning: #f59e0b; --error: #ef4444;
+      --brand-accent: #FF3B30; --brand-accent-soft: rgba(255,59,48,0.08);
+      --success: #10b981; --warning: #f59e0b; --error: #ef4444;
       --badge-orange: #fb923c; --badge-pink: #ec4899; --badge-violet: #8b5cf6; --badge-emerald: #34d399;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
@@ -48,26 +43,28 @@
       --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 18px; --radius-full: 9999px;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --font-display: 'Archivo Black', 'Archivo', sans-serif;
+      --font-body: 'Archivo', sans-serif;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
-    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
+    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
     #root { min-height: 100%; width: 100%; touch-action: pan-y; }
     input, textarea, button, select { font-family: inherit; }
     img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
 
-    /* Typography - Premium hierarchy */
-    .display-xl { font-size: 36px; font-weight: 600; line-height: 1.05; letter-spacing: -1.5px; }
-    .display-lg { font-size: 30px; font-weight: 600; line-height: 1.1; letter-spacing: -1px; }
-    .display-md { font-size: 26px; font-weight: 600; line-height: 1.15; letter-spacing: -0.75px; }
-    .display-sm { font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.5px; }
-    .title-lg { font-size: 20px; font-weight: 600; line-height: 1.3; letter-spacing: -0.3px; }
-    .title-md { font-size: 17px; font-weight: 600; line-height: 1.35; letter-spacing: -0.15px; }
-    .title-sm { font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: -0.1px; }
+    /* Typography */
+    .display-xl { font-size: 36px; font-weight: 900; line-height: 1.05; letter-spacing: -1.5px; font-family: var(--font-display); }
+    .display-lg { font-size: 30px; font-weight: 900; line-height: 1.1; letter-spacing: -1px; font-family: var(--font-display); }
+    .display-md { font-size: 26px; font-weight: 900; line-height: 1.15; letter-spacing: -0.75px; font-family: var(--font-display); }
+    .display-sm { font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; font-family: var(--font-display); }
+    .title-lg { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; font-family: var(--font-display); }
+    .title-md { font-size: 17px; font-weight: 700; line-height: 1.35; letter-spacing: -0.15px; font-family: var(--font-display); }
+    .title-sm { font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: -0.1px; font-family: var(--font-display); }
     .body-md { font-size: 15px; font-weight: 400; line-height: 1.6; letter-spacing: 0.01em; }
     .body-sm { font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0.01em; }
-    .caption { font-size: 12px; font-weight: 500; line-height: 1.4; letter-spacing: 0.02em; text-transform: uppercase; }
+    .caption { font-size: 12px; font-weight: 600; line-height: 1.4; letter-spacing: 0.05em; text-transform: uppercase; }
 
     /* Layout */
     .container { min-height: 100vh; display: flex; flex-direction: column; }
@@ -80,7 +77,7 @@
     .between { display: flex; justify-content: space-between; }
     .wrap { flex-wrap: wrap; }
 
-    /* Spacing - Premium 4px scale */
+    /* Spacing */
     .p-xs { padding: 4px; } .p-sm { padding: 8px; } .p-md { padding: 16px; } .p-lg { padding: 20px; } .p-xl { padding: 28px; } .p-2xl { padding: 40px 20px; } .p-section { padding: 80px 20px; }
     .pt-xl { padding-top: 28px; } .pt-2xl { padding-top: 56px; } .pt-section { padding-top: 80px; }
     .pb-md { padding-bottom: 16px; }
@@ -95,12 +92,12 @@
     .bg-canvas { background: var(--canvas); } .bg-surface { background: var(--surface-card); } .bg-surface-soft { background: var(--surface-soft); }
     .bg-dark { background: var(--surface-dark); } .bg-dark-elevated { background: var(--surface-dark-elevated); }
 
-    /* Components - Buttons (Premium) */
-    .btn { min-height: 48px; padding: 0 24px; background: var(--primary); color: var(--on-primary); border: none; border-radius: var(--radius-md); display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 500; letter-spacing: 0.01em; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
-    .btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 100%); opacity: 0; transition: opacity 0.2s ease; }
+    /* Buttons */
+    .btn { min-height: 48px; padding: 0 24px; background: var(--primary); color: var(--on-primary); border: none; border-radius: var(--radius-md); display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+    .btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%); opacity: 0; transition: opacity 0.2s ease; }
     .btn:hover { background: var(--primary-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
     .btn:hover::before { opacity: 1; }
-    .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); background: var(--primary-active); }
+    .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); background: var(--primary-active); transform: scale(0.98); }
     .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); }
     .btn-secondary:hover { background: var(--surface-soft); border-color: var(--surface-strong); box-shadow: var(--shadow-md); }
     .btn-secondary:active { background: var(--surface-card); }
@@ -108,21 +105,21 @@
     .btn-outline:hover { background: var(--surface-soft); border-color: var(--surface-strong); }
     .btn-outline:active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
     .btn-sm { min-height: 40px; font-size: 13px; padding: 0 16px; border-radius: var(--radius-sm); }
-    .btn-lg { min-height: 52px; font-size: 15px; padding: 0 32px; border-radius: var(--radius-md); font-weight: 500; }
+    .btn-lg { min-height: 52px; font-size: 15px; padding: 0 32px; border-radius: var(--radius-md); font-weight: 600; }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; background: var(--primary-disabled); color: var(--muted); box-shadow: none; transform: none; }
     .btn:disabled::before { display: none; }
-    .btn-text { background: transparent; color: var(--ink); padding: 8px 14px; min-height: 44px; box-shadow: none; }
+    .btn-text { background: transparent; color: var(--ink); padding: 8px 14px; min-height: 44px; box-shadow: none; font-weight: 600; }
     .btn-text:hover { background: var(--surface-soft); }
     .btn-text:active { opacity: 0.7; }
 
-    /* Components - Inputs (Premium) */
+    /* Inputs */
     .input { min-height: 48px; border: 1px solid var(--muted-soft); border-radius: var(--radius-md); padding: 12px 16px; font-size: 15px; background: var(--canvas); width: 100%; transition: all 0.2s var(--ease-out); color: var(--ink); box-shadow: var(--shadow-sm); }
     .input:hover { border-color: var(--surface-strong); }
     .input:focus { outline: none; border-color: var(--ink); box-shadow: var(--shadow-glow), var(--shadow-md); transform: translateY(-1px); }
     .input::placeholder { color: var(--muted-soft); }
     textarea.input { min-height: 120px; resize: vertical; }
 
-    /* Components - Cards (Premium) */
+    /* Cards */
     .card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-sm); }
     .card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); }
     .card-flat { background: var(--surface-card); border-radius: var(--radius-lg); border: 1px solid var(--hairline-soft); }
@@ -130,22 +127,22 @@
     .card-elevated:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: var(--hairline); }
     .card-hover:active { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
 
-    /* Components - Feature card */
+    /* Feature card */
     .feature-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-sm); }
     .feature-card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); transform: translateY(-2px); }
     .feature-icon-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--hairline-soft); transition: all 0.25s var(--ease-out); box-shadow: var(--shadow-sm); }
     .feature-icon-card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); transform: translateY(-3px); }
 
-    /* Components - Badge */
-    .badge { padding: 5px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 500; display: inline-block; letter-spacing: 0.02em; }
+    /* Badge */
+    .badge { padding: 5px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; display: inline-block; letter-spacing: 0.02em; }
     .badge-default { background: var(--surface-card); color: var(--ink); border: 1px solid var(--hairline); }
     .badge-success { background: rgba(16, 185, 129, 0.1); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.15); }
     .badge-pill { padding: 7px 16px; border-radius: var(--radius-full); font-size: 13px; font-weight: 500; background: var(--canvas); color: var(--ink); display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); }
 
-    /* Components - Avatar */
+    /* Avatar */
     .avatar { width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--surface-card); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--ink); flex-shrink: 0; border: 2px solid var(--canvas); box-shadow: var(--shadow-sm); }
 
-    /* Components - Bottom nav (Premium) */
+    /* Bottom nav */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--hairline-soft); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); z-index: 1000; }
     .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: var(--radius-full); padding: 6px; max-width: 440px; margin: 0 auto; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
     .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 8px 4px; border-radius: var(--radius-full); min-height: 48px; transition: all 0.2s var(--ease-out); }
@@ -155,17 +152,16 @@
     .bottom-nav-label { font-size: 11px; color: var(--muted); font-weight: 500; transition: color 0.2s ease; }
     .bottom-nav-item.active .bottom-nav-label { color: var(--ink); }
 
-    /* Components - Top nav (Premium frosted glass) */
+    /* Top nav - frosted glass */
     .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--hairline-soft); padding: 0 20px; height: 60px; display: flex; align-items: center; transition: all 0.25s var(--ease-out); }
     .top-nav.scrolled { box-shadow: var(--shadow-md); background: rgba(255,255,255,0.95); }
-    .top-nav .logo { font-size: 16px; font-weight: 600; letter-spacing: -0.4px; line-height: 1; }
+    .top-nav .logo { font-size: 16px; font-weight: 800; letter-spacing: -0.4px; line-height: 1; font-family: var(--font-display); }
 
-    /* Components - Hero (Premium) */
+    /* Hero */
     .hero-band { background: var(--canvas); padding: 56px 20px; position: relative; overflow: hidden; }
-    .hero-band::before { content: ''; position: absolute; top: -30%; right: -15%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(245,245,245,0.5) 0%, transparent 70%); pointer-events: none; }
+    .hero-band::before { content: ''; position: absolute; top: -30%; right: -15%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,59,48,0.06) 0%, transparent 70%); pointer-events: none; }
     .hero-band::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
 
-    /* Hero video background - mobile only */
     .hero-video-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; pointer-events: none; opacity: 0; transform: translateZ(0); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: transparent url('public/headerimage.png') center center / cover no-repeat; }
     video::-webkit-media-controls { display: none !important; }
     video::-webkit-media-controls-start-playback-button { display: none !important; -webkit-appearance: none; }
@@ -175,7 +171,7 @@
     .hero-video-bg::-webkit-media-controls-panel { display: none !important; -webkit-appearance: none; }
     .hero-video-bg::-webkit-media-controls-overlay-play-button { display: none !important; -webkit-appearance: none; opacity: 0; pointer-events: none; }
     .hero-video-bg:-webkit-full-page-media { display: none !important; }
-    .hero-video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.70) 50%, rgba(0,0,0,0.92) 100%); pointer-events: none; opacity: 0; transform: translateZ(0); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .hero-video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background: linear-gradient(180deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.92) 100%); pointer-events: none; opacity: 0; transform: translateZ(0); will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .hero-content-wrap { position: relative; z-index: 2; }
     @media (max-width: 767px) {
       .hero-video-bg, .hero-video-overlay { opacity: 1; }
@@ -188,23 +184,28 @@
       .header-with-video .hero-text-content .display-lg,
       .header-with-video .hero-text-content .body-md { color: #fff !important; }
       .header-with-video .hero-text-content .btn-lg { background: #fff !important; color: var(--ink) !important; }
-      .header-with-video .hero-text-content .btn-text { color: #fff !important; background: transparent !important; outline: none !important; -webkit-tap-highlight-color: transparent !important; }
+      .header-with-video .hero-text-content .btn-text { color: #fff !important; background: transparent !important; }
       .header-with-video .hero-text-content .badge-pill { background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.15) !important; color: #fff !important; }
       .header-with-video .hero-text-content .badge-pill span { color: var(--success) !important; }
+      .hero-band.header-with-video::after { content: '' !important; display: block !important; position: absolute; bottom: -1px; left: 15%; right: 15%; height: 2px; background: linear-gradient(90deg, transparent, var(--brand-accent), transparent); z-index: 3; opacity: 0.6; }
+      .top-nav .btn { padding: 0 14px; font-size: 13px; min-height: 36px; }
+      .top-nav .btn-text { padding: 6px 10px; font-size: 13px; min-height: 36px; }
+      .top-nav .logo { font-size: 14px; }
     }
 
-    /* Components - CTA band (Premium) */
+    /* CTA band */
     .cta-band { background: var(--canvas); border-radius: var(--radius-xl); padding: 40px 24px; text-align: center; transition: all 0.3s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
     .cta-band::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--hairline), transparent); }
+    .cta-band::after { content: ''; position: absolute; bottom: -50%; right: -20%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,59,48,0.04) 0%, transparent 70%); pointer-events: none; }
     .cta-band:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
 
-    /* Grid - Mobile first: 1 column */
+    /* Grid - mobile first */
     .grid { display: grid; gap: 14px; }
     .grid-2 { grid-template-columns: 1fr; }
     .grid-3 { grid-template-columns: 1fr; }
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
 
-    /* Service card (Premium) */
+    /* Service card */
     .service-card { background: var(--canvas); border-radius: var(--radius-md); padding: 14px; border: 1px solid var(--hairline); transition: all 0.2s var(--ease-out); cursor: pointer; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); }
     .service-card:hover { box-shadow: var(--shadow-md); border-color: var(--surface-strong); transform: translateY(-1px); }
     .service-card:active { box-shadow: var(--shadow-md); transform: translateY(0); }
@@ -214,32 +215,34 @@
     .service-label { color: var(--ink); font-weight: 600; font-size: 14px; }
     .service-desc { color: var(--body); font-size: 12px; }
 
-    /* Step indicator (Premium) */
+    /* Step indicator */
     .step-bar { display: flex; gap: 10px; margin-bottom: 20px; }
     .step { flex: 1; height: 4px; background: var(--surface-strong); border-radius: 2px; }
     .step-active { background: var(--primary); }
 
-    /* How section (Premium) */
-    .how-section { background: var(--canvas); border-radius: var(--radius-xl); padding: 32px 20px; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
-    .how-title { text-align: center; font-size: 24px; font-weight: 600; color: var(--ink); margin-bottom: 32px; letter-spacing: -0.75px; }
-    .how-steps { display: flex; flex-direction: column; gap: 28px; }
-    .how-step { text-align: center; }
-    .how-step-icon { width: 56px; height: 56px; border-radius: var(--radius-lg); background: var(--surface-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); }
-    .how-step:hover .how-step-icon { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--canvas); }
-    .how-step-title { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: -0.1px; }
-    .how-step-desc { font-size: 13px; color: var(--body); }
-    .how-time { text-align: center; margin-top: 28px; font-size: 13px; color: var(--body); font-weight: 500; }
+    /* How section - timeline */
+    .how-section { background: var(--canvas); border-radius: var(--radius-xl); padding: 32px 20px; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+    .how-section::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 160px; height: 2px; background: linear-gradient(90deg, transparent, var(--brand-accent), transparent); opacity: 0.3; }
+    .how-title { text-align: center; font-size: 24px; font-weight: 700; color: var(--ink); margin-bottom: 32px; letter-spacing: -0.75px; }
+    .how-steps { display: flex; flex-direction: column; gap: 24px; position: relative; }
+    .how-steps::before { content: ''; position: absolute; left: 27px; top: 8px; bottom: 8px; width: 2px; background: var(--hairline); }
+    .how-step { text-align: left; display: flex; align-items: flex-start; gap: 16px; position: relative; }
+    .how-step-icon { width: 56px; height: 56px; min-width: 56px; border-radius: var(--radius-full); background: var(--surface-soft); display: flex; align-items: center; justify-content: center; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); position: relative; z-index: 1; box-shadow: var(--shadow-sm); font-size: 22px; }
+    .how-step:hover .how-step-icon { transform: translateY(-3px); box-shadow: var(--shadow-md); background: var(--canvas); border-color: var(--brand-accent); }
+    .how-step-content { flex: 1; padding-top: 4px; }
+    .how-step-title { font-size: 15px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: -0.1px; }
+    .how-step-desc { font-size: 13px; color: var(--body); line-height: 1.5; }
+    .how-time { text-align: center; margin-top: 24px; font-size: 13px; color: var(--body); font-weight: 600; }
 
-    /* Stats (Premium) */
-    .stats-row { display: flex; overflow: hidden; background: var(--canvas); border-radius: var(--radius-xl); padding: 20px; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
-    .stats-track { display: flex; animation: scroll-left 25s linear infinite; width: fit-content; }
-    .stat-item { display: flex; flex-direction: column; align-items: center; min-width: 25%; }
-    .stat-num { font-size: 24px; font-weight: 600; color: var(--ink); letter-spacing: -0.5px; }
-    .stat-label { font-size: 11px; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; }
-    @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    /* Stats - grid */
+    .stats-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; padding: 20px 16px; background: var(--surface-soft); border-radius: var(--radius-lg); border: 1px solid var(--hairline-soft); transition: all 0.25s var(--ease-out); }
+    .stat-item:hover { background: var(--canvas); box-shadow: var(--shadow-sm); border-color: var(--hairline); }
+    .stat-num { font-size: 28px; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
 
-    /* Scroll animations (Premium) */
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
+    /* Scroll animations */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     .reveal-delay-1 { transition-delay: 0.06s; }
     .reveal-delay-2 { transition-delay: 0.12s; }
@@ -248,10 +251,10 @@
     .reveal-delay-5 { transition-delay: 0.30s; }
 
     /* Cinematic blur reveal */
-    @keyframes blurIn { 0% { opacity: 0; filter: blur(16px); transform: translateY(32px); } 100% { opacity: 1; filter: blur(0); transform: translateY(0); } }
-    @keyframes blurInFast { 0% { opacity: 0; filter: blur(16px); transform: scale(0.8); } 100% { opacity: 1; filter: blur(0); transform: scale(1); } }
-    .blur-reveal { animation: blurIn 0.9s var(--ease-out) both; }
-    .blur-reveal-fast { animation: blurInFast 0.9s var(--ease-out) both; }
+    @keyframes blurIn { 0% { opacity: 0; filter: blur(20px); transform: translateY(32px) scale(0.95); } 100% { opacity: 1; filter: blur(0); transform: translateY(0) scale(1); } }
+    @keyframes blurInFast { 0% { opacity: 0; filter: blur(20px); transform: scale(0.85); } 100% { opacity: 1; filter: blur(0); transform: scale(1); } }
+    .blur-reveal { animation: blurIn 1s var(--ease-out) both; }
+    .blur-reveal-fast { animation: blurInFast 0.8s var(--ease-out) both; }
     .blur-delay-1 { animation-delay: 0.15s; }
     .blur-delay-2 { animation-delay: 0.35s; }
     .blur-delay-3 { animation-delay: 0.55s; }
@@ -261,10 +264,10 @@
     @keyframes carouselOut { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100%); opacity: 0; } }
     @keyframes carouselIn { 0% { transform: translateY(100%); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
 
-    /* Animations (Premium) */
+    /* Animations */
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
     .animate-fade-in { animation: fadeIn 0.4s var(--ease-out) forwards; }
     .animate-fade-in-up { animation: fadeInUp 0.5s var(--ease-out) forwards; }
     .delay-100 { animation-delay: 0.1s; } .delay-200 { animation-delay: 0.2s; } .delay-300 { animation-delay: 0.3s; } .delay-400 { animation-delay: 0.4s; }
@@ -276,13 +279,16 @@
     .rounded { border-radius: var(--radius-sm); } .rounded-lg { border-radius: var(--radius-lg); } .rounded-xl { border-radius: var(--radius-xl); } .rounded-full { border-radius: var(--radius-full); }
     .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; }
 
-    /* Dot pattern background (subtle) */
+    /* Brand accent divider */
+    .accent-divider { width: 48px; height: 3px; background: var(--brand-accent); border-radius: 2px; margin: 0 auto 16px; }
+
+    /* Dot pattern background */
     .dot-pattern { background-image: radial-gradient(var(--hairline-soft) 1px, transparent 1px); background-size: 28px 28px; }
 
-    /* Scrollbar (Premium) */
+    /* Scrollbar */
     ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: var(--surface-strong); border-radius: 3px; } ::-webkit-scrollbar-thumb:hover { background: var(--muted-soft); }
 
-    /* Tablet breakpoint */
+    /* Tablet */
     @media (min-width: 768px) {
       .display-xl { font-size: 52px; letter-spacing: -2px; }
       .display-lg { font-size: 40px; letter-spacing: -1.5px; }
@@ -294,9 +300,12 @@
       .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 18px; }
       .grid-4 { grid-template-columns: repeat(4, 1fr); }
       .how-steps { flex-direction: row; gap: 40px; }
+      .how-steps::before { display: none; }
       .how-section { padding: 48px 40px; }
       .how-title { font-size: 30px; margin-bottom: 44px; }
-      .how-step-icon { width: 64px; height: 64px; }
+      .how-step-icon { width: 64px; height: 64px; min-width: 64px; font-size: 26px; }
+      .how-step { flex-direction: column; text-align: center; align-items: center; }
+      .how-step-content { padding-top: 0; }
       .hero-band { padding: 100px 32px; }
       .hero-grid { grid-template-columns: 1fr !important; }
       .cta-band { padding: 56px 40px; }
@@ -306,12 +315,13 @@
       .feature-icon-card { padding: 28px; }
       .card { padding: 32px; }
       .service-icon { width: 56px; height: 56px; font-size: 24px; }
+      .stats-row { grid-template-columns: repeat(4, 1fr); gap: 18px; }
       .stat-num { font-size: 30px; }
       .stat-label { font-size: 12px; }
       .avatar { width: 48px; height: 48px; font-size: 16px; }
     }
 
-    /* Desktop breakpoint */
+    /* Desktop */
     @media (min-width: 1024px) {
       .display-xl { font-size: 68px; letter-spacing: -2.5px; }
       .display-lg { font-size: 52px; letter-spacing: -2px; }
@@ -531,6 +541,17 @@
         attemptPlay();
       }, []);
 
+      const serviceIcon = (key) => {
+        const icons = { mechanic: '🔧', tire_change: '🛞', battery_jump: '🔋', towing: '🛻', fuel_delivery: '⛽', lockout: '🔑' };
+        return icons[key] || '⚙';
+      };
+
+      const HOW_STEPS = [
+        { icon: '📱', title: 'Request Help', desc: 'Describe your issue and location in seconds' },
+        { icon: '🔄', title: 'Get Matched', desc: 'A nearby mechanic accepts your request' },
+        { icon: '🔧', title: 'Get Fixed', desc: 'Help arrives and gets you back on the road' },
+      ];
+
       return (<div className="min-h-screen" style={{overflowY: 'auto'}}>
         <nav ref={navRef} className="top-nav">
           <span className="logo">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
@@ -539,7 +560,7 @@
             <button className="btn" onClick={() => onNavigate('/role-select')}>Get Started</button>
           </div>
         </nav>
-        {/* Hero band */}
+        {/* Hero */}
         <section className="hero-band header-with-video" style={{paddingTop: 108}}>
           <video ref={videoRef} className="hero-video-bg" autoPlay muted loop playsInline webkit-playsinline="true" preload="auto" controlsList="nodownload nofullscreen noremoteplayback" poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
             <source src="public/headervid.mp4" type="video/mp4" />
@@ -560,7 +581,7 @@
               </div>
               <div className="body-md blur-reveal blur-delay-3" style={{color: 'var(--body)', marginBottom: 28, lineHeight: 1.65, textAlign: 'center'}}>Book in seconds, help arrives in minutes.</div>
               <div className="col gap-sm blur-reveal blur-delay-4" style={{alignItems: 'center'}}>
-                <button className="btn btn-lg" onClick={() => onNavigate('/customer/signup')}>Request Help</button>
+                <button className="btn btn-lg" style={{paddingLeft: 48, paddingRight: 48}} onClick={() => onNavigate('/customer/signup')}>Request Help</button>
                 <button className="btn btn-text" onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic</button>
               </div>
             </div>
@@ -578,30 +599,48 @@
             ))}
           </div>
         </section>
-        {/* How section */}
+        {/* How it works - timeline */}
         <section className="p-section" style={{background: 'var(--surface-card)'}}>
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <Reveal>
               <div className="how-section">
                 <div className="how-title">How Dreamledge Auto works</div>
                 <div className="how-steps">
-                  <div className="how-step"><div className="how-step-icon"><img src="public/questions.gif" alt="" style={{width: 28, height: 28, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Request Help</div><div className="how-step-desc">Tell us what you need</div></div>
-                  <div className="how-step"><div className="how-step-icon"><img src="public/puzzle-pieces.gif" alt="" style={{width: 28, height: 28, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Matched</div><div className="how-step-desc">Nearby mechanic accepts</div></div>
-                  <div className="how-step"><div className="how-step-icon"><img src="public/technician.gif" alt="" style={{width: 28, height: 28, filter: 'grayscale(100%)'}} /></div><div className="how-step-title">Get Fixed</div><div className="how-step-desc">They come to you</div></div>
+                  {HOW_STEPS.map((step, i) => (
+                    <div key={i} className="how-step">
+                      <div className="how-step-icon">{step.icon}</div>
+                      <div className="how-step-content">
+                        <div className="how-step-title">{step.title}</div>
+                        <div className="how-step-desc">{step.desc}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
                 <div className="how-time">Average arrival time: 25 minutes</div>
               </div>
             </Reveal>
           </div>
         </section>
-        {/* Stats */}
+        {/* Stats - grid */}
         <section className="p-section" ref={statsRef}>
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <div className="stats-row">
-              <div className="stat-item"><div className="stat-num">{statsVisible ? jobsCount : 0}+</div><div className="stat-label">Jobs</div></div>
-              <div className="stat-item"><div className="stat-num">{statsVisible ? mechanicsCount : 0}+</div><div className="stat-label">Mechanics</div></div>
-              <div className="stat-item"><div className="stat-num">{statsVisible ? (ratingCount / 10).toFixed(1) : '0.0'}</div><div className="stat-label">Rating</div></div>
-              <div className="stat-item"><div className="stat-num">{statsVisible ? arrivalCount : 0} min</div><div className="stat-label">Arrival</div></div>
+              <div className="stat-item">
+                <div className="stat-num">{statsVisible ? jobsCount : 0}</div>
+                <div className="stat-label">Jobs Completed</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num">{statsVisible ? mechanicsCount : 0}</div>
+                <div className="stat-label">Active Mechanics</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num">{statsVisible ? (ratingCount / 10).toFixed(1) : '0.0'}</div>
+                <div className="stat-label">Average Rating</div>
+              </div>
+              <div className="stat-item">
+                <div className="stat-num">{statsVisible ? arrivalCount : 0} min</div>
+                <div className="stat-label">Avg Arrival Time</div>
+              </div>
             </div>
           </div>
         </section>
@@ -610,6 +649,7 @@
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <Reveal>
               <div className="text-center mb-xl">
+                <div className="accent-divider"></div>
                 <div className="display-md" style={{marginBottom: 10}}>What our providers fix</div>
                 <div className="body-md" style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
               </div>
@@ -618,13 +658,13 @@
               {SERVICE_TYPES.map((s, i) => (
                 <Reveal key={s.key} delay={`reveal-delay-${(i % 5) + 1}`}>
                   <div className="feature-icon-card card-hover" style={{textAlign: 'center'}}>
-                    <div className="mb-sm" style={{fontSize: 26, display: 'flex', justifyContent: 'center'}}>
-                      {s.key === 'tire_change' ? <img src="public/tire.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
-                        s.key === 'mechanic' ? <img src="public/mechanic.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
-                        s.key === 'battery_jump' ? <img src="public/car-battery.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
-                        s.key === 'towing' ? <img src="public/crane-truck.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
-                        s.key === 'fuel_delivery' ? <img src="public/eco-fuel.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> :
-                        s.key === 'lockout' ? <img src="public/key.gif" alt="" style={{width: 36, height: 36, filter: 'grayscale(100%)'}} /> : s.icon}
+                    <div className="mb-sm" style={{
+                      width: 44, height: 44, borderRadius: 'var(--radius-md)',
+                      background: 'var(--surface-soft)', display: 'flex',
+                      alignItems: 'center', justifyContent: 'center',
+                      margin: '0 auto 12px', fontSize: 22, border: '1px solid var(--hairline-soft)'
+                    }}>
+                      {serviceIcon(s.key)}
                     </div>
                     <div className="title-sm mb-xs">{s.label}</div>
                     <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
@@ -655,7 +695,9 @@
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <Reveal>
               <div className="text-center mb-xl">
+                <div className="accent-divider"></div>
                 <div className="display-md">What people say</div>
+                <div className="body-md mt-sm" style={{color: 'var(--body)'}}>Trusted by drivers everywhere</div>
               </div>
             </Reveal>
             <div className="grid grid-3">
@@ -665,17 +707,17 @@
                 return (
                   <Reveal key={i} delay={`reveal-delay-${i + 1}`}>
                     <div className="card" style={{position: 'relative'}}>
-                      <div style={{position: 'absolute', top: 20, right: 24, fontSize: 56, color: 'var(--hairline-soft)', fontFamily: 'Georgia, serif', lineHeight: 1}}>"</div>
+                      <div style={{position: 'absolute', top: 16, right: 20, fontSize: 48, color: 'var(--hairline-soft)', fontFamily: 'Georgia, serif', lineHeight: 1, pointerEvents: 'none'}}>"</div>
                       <div className="row centerV gap-sm mb-md">
                         <div className="avatar" style={{background: pastelFills[i % 3], color: '#fff'}}>{initials}</div>
                         <div>
                           <div className="title-sm">{t.name}</div>
                           <div className="row" style={{gap: 2}}>
-                            {Array.from({length: t.rating}).map((_, j) => <span key={j} style={{color: 'var(--badge-orange)', fontSize: 14}}>★</span>)}
+                            {Array.from({length: t.rating}).map((_, j) => <span key={j} style={{color: '#fb923c', fontSize: 14}}>★</span>)}
                           </div>
                         </div>
                       </div>
-                      <div className="body-md" style={{lineHeight: 1.65}}>{t.text}</div>
+                      <div className="body-md" style={{lineHeight: 1.65, fontStyle: 'italic', color: 'var(--body)'}}>{"\u201C"}{t.text}{"\u201D"}</div>
                     </div>
                   </Reveal>
                 );
@@ -683,13 +725,15 @@
             </div>
           </div>
         </section>
-        {/* CTA band */}
+        {/* CTA */}
         <section className="p-section">
           <div style={{maxWidth: 1200, margin: '0 auto'}}>
             <Reveal>
               <div className="cta-band">
-                <div className="display-sm mb-lg" style={{letterSpacing: '-0.75px'}}>Ready to get back on the road?</div>
-                <button className="btn btn-lg" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Get help now</button>
+                <div className="accent-divider"></div>
+                <div className="display-sm mb-sm" style={{letterSpacing: '-0.75px'}}>Ready to get back on the road?</div>
+                <div className="body-md mb-lg" style={{color: 'var(--body)'}}>Help is just a tap away</div>
+                <button className="btn btn-lg" style={{minWidth: 200, letterSpacing: '0.02em'}} onClick={() => onNavigate('/customer/signup')}>Get Help Now</button>
               </div>
             </Reveal>
           </div>
@@ -698,7 +742,7 @@
         <footer style={{background: 'var(--surface-dark)', padding: '56px 20px'}}>
           <div className="col gap-md" style={{maxWidth: 1200, margin: '0 auto'}}>
             <span className="text-white font-semibold" style={{letterSpacing: '-0.3px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
-            <div className="body-sm" style={{color: 'var(--on-dark-soft)'}}>© 2026 Dreamledge Auto.</div>
+            <div className="body-sm" style={{color: 'var(--on-dark-soft)'}}>© 2026 Dreamledge Auto. All rights reserved.</div>
           </div>
         </footer>
       </div>);
@@ -780,7 +824,7 @@
       const { userData, saveServices, fetchUserData, setUserData } = useContext(UserContext);
       const [services, setServices] = useState([]); const [loading, setLoading] = useState(false); const [error, setError] = useState('');
       const toggleService = (key) => { if (services.includes(key)) { setServices(services.filter(s => s !== key)); } else { setServices([...services, key]); } };
-      const handleSubmit = async () => { if (services.length === 0) { setError('Please select at least one service'); setTimeout(() => setError(''), 3000); return; } setLoading(true); const mockUid = 'provider_' + Date.now(); await saveServices(mockUid, services); setUserData(prev => ({ ...prev, uid: mockUid, services: services })); setTimeout(() => onNavigate('/provider/home'), 1500); };
+      const handleSubmit = async () => { if (services.length === 0) { setError('Please select at least one service'); setTimeout(() => setError(''), 3000); return; } setLoading(true); const mockUid = 'provider_' + Date.now(); let userName = ''; for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith('dl_user_')) { try { const d = JSON.parse(localStorage.getItem(k)); if (d.role === 'provider') { userName = d.name || ''; break; } } catch(e) {} } } await saveServices(mockUid, services); setUserData(prev => ({ ...prev, uid: mockUid, services: services, name: userName })); setTimeout(() => onNavigate('/provider/home'), 1500); };
       return (<div className="container">
         <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
         {error && (<div style={{background: 'var(--surface-card)', color: 'var(--ink)', padding: '14px 18px', margin: '0 20px', borderRadius: 'var(--radius-md)', fontSize: 14, border: '1px solid var(--hairline-soft)', boxShadow: 'var(--shadow-sm)'}}>{error}</div>)}
@@ -788,15 +832,23 @@
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div><div className="step step-active"></div></div>
           <div className="col" style={{gap: 14}}>
-            {SERVICE_TYPES.map(s => (
-              <div key={s.key} className="card-elevated card-hover" onClick={() => toggleService(s.key)} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 'var(--radius-lg)', padding: 20, cursor: 'pointer'}}>
-                <div>
+            {SERVICE_TYPES.map(s => {
+              const provIcon = { mechanic: '🔧', tire_change: '🛞', battery_jump: '🔋', towing: '🛻', fuel_delivery: '⛽', lockout: '🔑' };
+              return (
+              <div key={s.key} className="card-elevated card-hover" onClick={() => toggleService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 14, borderRadius: 'var(--radius-lg)', padding: 16, cursor: 'pointer'}}>
+                <div style={{width: 44, height: 44, borderRadius: 'var(--radius-md)', background: services.includes(s.key) ? 'var(--primary)' : 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, border: '1px solid ' + (services.includes(s.key) ? 'var(--primary)' : 'var(--hairline-soft)'), transition: 'all 0.2s var(--ease-out)'}}>
+                  {provIcon[s.key] || s.icon}
+                </div>
+                <div style={{flex: 1}}>
                   <div className="title-sm">{s.label}</div>
                   <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                 </div>
-                <div style={{width: 40, height: 40, borderRadius: '50%', background: services.includes(s.key) ? 'var(--primary)' : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: services.includes(s.key) ? 'var(--shadow-md)' : 'none', border: services.includes(s.key) ? 'none' : '1px solid var(--hairline)'}}><span style={{color: services.includes(s.key) ? '#fff' : 'var(--muted)', fontSize: 18}}>{services.includes(s.key) ? '✓' : ''}</span></div>
+                <div style={{width: 36, height: 36, borderRadius: '50%', background: services.includes(s.key) ? 'var(--primary)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: services.includes(s.key) ? 'none' : '1.5px solid var(--hairline)', transition: 'all 0.2s var(--ease-out)'}}>
+                  <span style={{color: services.includes(s.key) ? '#fff' : 'transparent', fontSize: 16, fontWeight: 700}}>✓</span>
+                </div>
               </div>
-            ))}
+              );
+            })}
           </div>
           <button className="btn btn-lg" onClick={handleSubmit} disabled={loading} style={{width: '100%', marginTop: 24, opacity: loading ? 0.5 : 1}}>{loading ? 'Submitting...' : 'Apply to Drive'}</button>
         </div>
