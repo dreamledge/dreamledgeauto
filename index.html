@@ -128,6 +128,8 @@
     .card-elevated::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.6) 70%, transparent); pointer-events: none; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
     .card-elevated:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: rgba(0,0,0,0.06); }
     .card-hover:active { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+    .card-clean { background: #fff; border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(0,0,0,0.06); transition: all 0.2s var(--ease-out); }
+    .card-clean:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-1px); }
 
     /* Feature card */
     .feature-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-sm); }
@@ -296,7 +298,7 @@
     /* Horizontal scroll */
     .scroll-x { display: flex; gap: 12px; overflow-x: auto; padding: 4px 0 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
     .scroll-x::-webkit-scrollbar { display: none; }
-    .scroll-x > * { scroll-snap-align: start; flex-shrink: 0; width: 220px; }
+    .scroll-x > * { scroll-snap-align: start; flex-shrink: 0; width: 230px; }
 
     /* Mini chart */
     .mini-chart { display: flex; align-items: flex-end; gap: 4px; height: 32px; }
@@ -1092,20 +1094,20 @@
           </div>
           {/* Nearby jobs */}
           <div style={{marginBottom: 20}}>
-            <div className="title-sm mb-md" style={{letterSpacing: '-0.1px'}}>Nearby Jobs</div>
+            <div className="title-md mb-md" style={{letterSpacing: '-0.15px'}}>Nearby Jobs</div>
             <div className="scroll-x">
               {nearbyJobs.map((job) => (
-                <div key={job.id} className="card-elevated" style={{width: 220, padding: 16, borderRadius: 'var(--radius-lg)', flexShrink: 0}}>
-                  <div className="caption mb-xs" style={{color: 'var(--muted)'}}>{job.time} · {job.distance}</div>
-                  <div className="title-sm mb-xs">{job.service}</div>
-                  <div className="row centerV gap-xs mb-md" style={{color: 'var(--muted)'}}>
+                <div key={job.id} className="card-clean" style={{width: 230, padding: 20, borderRadius: 'var(--radius-lg)', flexShrink: 0}}>
+                  <div className="display-md" style={{letterSpacing: '-0.5px', marginBottom: 2}}>{job.payout}</div>
+                  <div className="title-md" style={{marginBottom: 4}}>{job.service}</div>
+                  <div className="row centerV gap-xs" style={{color: 'var(--muted)', marginBottom: 12}}>
                     <span style={{display: 'flex'}}>{icons.pin}</span>
                     <span className="body-sm">{job.address}</span>
                   </div>
-                  <div className="row between centerV">
-                    <div className="title-sm">{job.payout}</div>
-                    <button className="btn btn-sm">Accept</button>
+                  <div className="row between centerV mb-md">
+                    <span className="caption" style={{color: 'var(--muted-soft)'}}>{job.distance} · {job.time}</span>
                   </div>
+                  <button className="btn btn-sm" style={{width: '100%'}}>Accept</button>
                 </div>
               ))}
             </div>
@@ -1118,7 +1120,7 @@
               { icon: 'earnings', value: '$256', label: 'Earnings' },
               { icon: 'clock', value: '8h', label: 'Online' },
             ].map((item, i) => (
-              <div key={i} className="card-elevated" style={{padding: 16, borderRadius: 'var(--radius-lg)'}}>
+              <div key={i} className="card-clean" style={{padding: 16, borderRadius: 'var(--radius-lg)'}}>
                 <div style={{color: 'var(--muted-soft)', marginBottom: 8, display: 'flex', alignItems: 'center'}}>{icons[item.icon]}</div>
                 <div className="title-lg" style={{letterSpacing: '-0.3px'}}>{item.value}</div>
                 <div className="caption" style={{color: 'var(--muted)', marginTop: 2}}>{item.label}</div>
@@ -1126,18 +1128,17 @@
             ))}
           </div>
           {/* Upcoming job */}
-          <div className="card-elevated mb-lg" style={{padding: 20, borderRadius: 'var(--radius-lg)', position: 'relative', overflow: 'hidden'}}>
-            <div style={{position: 'absolute', top: 0, left: 0, width: 4, height: '100%', background: 'var(--brand-accent)', borderRadius: '0 2px 2px 0'}} />
+          <div className="card-clean mb-lg" style={{padding: 20, borderRadius: 'var(--radius-lg)', position: 'relative'}}>
             <div className="caption mb-sm" style={{color: 'var(--muted)', letterSpacing: '0.06em', fontWeight: 600}}>Upcoming</div>
             <div className="display-lg" style={{letterSpacing: '-1px', marginBottom: 4}}>10:30 AM</div>
-            <div className="title-sm" style={{marginBottom: 2}}>Jump Start</div>
+            <div className="title-md" style={{marginBottom: 2}}>Jump Start</div>
             <div className="body-sm mb-md" style={{color: 'var(--body)'}}>123 Main St · 2.4 mi away</div>
             <div ref={mapRef} className="mini-map" style={{width: '100%', height: 120, marginBottom: 14}} />
             <button className="btn btn-lg" style={{width: '100%'}} onClick={openMaps}>Start Navigation</button>
           </div>
           {/* Earnings + Incentives */}
           <div className="col mb-lg" style={{gap: 12}}>
-            <div className="card-elevated" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
+            <div className="card-clean" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="caption mb-sm" style={{color: 'var(--muted)', fontWeight: 600}}>Earnings Today</div>
               <div className="title-lg mb-sm" style={{letterSpacing: '-0.3px'}}>$256</div>
               <div className="mini-chart">
@@ -1150,7 +1151,7 @@
                 <span className="caption" style={{color: 'var(--muted)'}}>Today</span>
               </div>
             </div>
-            <div className="card-elevated" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
+            <div className="card-clean" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="row between centerV mb-sm">
                 <div className="caption" style={{color: 'var(--muted)', fontWeight: 600}}>Incentive</div>
                 <span style={{color: 'var(--muted-soft)', display: 'flex'}}>{icons.target}</span>
