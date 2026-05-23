@@ -130,6 +130,9 @@
     .card-hover:active { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
     .card-clean { background: #fff; border-radius: var(--radius-lg); box-shadow: 0 1px 2px rgba(0,0,0,0.06); transition: all 0.2s var(--ease-out); }
     .card-clean:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-1px); }
+    .segmented-control { display: flex; background: var(--hairline); border-radius: var(--radius-sm); padding: 3px; gap: 2px; }
+    .segmented-control button { flex: 1; padding: 6px 12px; border: none; border-radius: 6px; background: transparent; font-family: var(--font-body); font-size: 12px; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.2s var(--ease-out); white-space: nowrap; }
+    .segmented-control button.active { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
     /* Feature card */
     .feature-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-sm); }
@@ -1263,8 +1266,12 @@
     function ProviderEarningsScreen({ onNavigate, goBack }) {
       const [navTab, setNavTab] = useState('earnings');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
-      const weekData = [28, 45, 32, 58, 41, 72, 65];
-      const maxVal = Math.max(...weekData);
+      const [period, setPeriod] = useState('weekly');
+      const periods = {
+        daily: { label: 'Daily', amount: '$105', chart: [12,8,15,22,18,25,5], labels: ['6a','9a','12p','3p','6p','9p','12a'], jobs: 5, avg: '$21' },
+        weekly: { label: 'Weekly', amount: '$1,250', chart: [28,45,32,58,41,72,65], labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'], jobs: 18, avg: '$69' },
+        total: { label: 'Total', amount: '$4,850', chart: [1100,1250,980,1450,1200], labels: ['Jan','Feb','Mar','Apr','May'], jobs: 72, avg: '$67' }
+      };
       const payouts = [
         { job: 'Jump Start', date: 'Today, 10:30 AM', amount: '$45' },
         { job: 'Oil Change', date: 'Today, 8:15 AM', amount: '$60' },
@@ -1275,23 +1282,33 @@
         <div style={{flex: 1, overflowY: 'auto', padding: '20px', paddingTop: 16}}>
           <div className="display-sm mb-lg" style={{letterSpacing: '-0.5px'}}>Earnings</div>
           <div className="card-elevated" style={{padding: 24, borderRadius: 'var(--radius-xl)', marginBottom: 20}}>
-            <div className="caption mb-xs" style={{color: 'var(--muted)', fontWeight: 600}}>Total Earnings</div>
-            <div className="display-xl" style={{letterSpacing: '-2px', marginBottom: 16}}>$1,250</div>
+            <div className="row between centerV mb-sm">
+              <div className="caption" style={{color: 'var(--muted)', fontWeight: 600}}>Earnings Overview</div>
+              <div className="segmented-control">
+                {['daily','weekly','total'].map(p => (
+                  <button key={p} className={period === p ? 'active' : ''} onClick={() => setPeriod(p)}>{periods[p].label}</button>
+                ))}
+              </div>
+            </div>
+            <div className="display-xl" style={{letterSpacing: '-2px', marginBottom: 16}}>{periods[period].amount}</div>
             <div className="mini-chart" style={{height: 40}}>
-              {weekData.map((v, i) => (
-                <div key={i} className="bar" style={{height: Math.max(4, (v / maxVal) * 40) + 'px'}} />
+              {periods[period].chart.map((v, i) => (
+                <div key={i} className="bar" style={{height: Math.max(4, (v / Math.max(...periods[period].chart)) * 40) + 'px'}} />
               ))}
             </div>
             <div className="row between centerV mt-xs" style={{gap: 4}}>
-              {['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((d, i) => {
-                const today = new Date().getDay();
-                const todayIdx = today === 0 ? 6 : today - 1;
-                return (<span key={i} className="caption" style={{color: i === todayIdx ? 'var(--brand-accent)' : 'var(--muted)', fontWeight: i === todayIdx ? 600 : 400}}>{i === todayIdx ? 'Today' : d}</span>);
+              {periods[period].labels.map((d, i) => {
+                let display = d, active = false;
+                if (period === 'weekly') {
+                  const today = new Date().getDay(), todayIdx = today === 0 ? 6 : today - 1;
+                  if (i === todayIdx) { display = 'Today'; active = true; }
+                }
+                return (<span key={i} className="caption" style={{color: active ? 'var(--brand-accent)' : 'var(--muted)', fontWeight: active ? 600 : 400}}>{display}</span>);
               })}
             </div>
             <div className="row mt-lg" style={{gap: 24}}>
-              <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
-              <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>$69</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
+              <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>{periods[period].jobs}</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
+              <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>{periods[period].avg}</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
             </div>
           </div>
           <div className="title-sm mb-md" style={{letterSpacing: '-0.1px'}}>Recent Payouts</div>
