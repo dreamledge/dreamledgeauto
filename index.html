@@ -1027,49 +1027,16 @@
       const { userData, toggleOnline } = useContext(UserContext);
       const [navTab, setNavTab] = useState('home');
       const [isOnline, setIsOnline] = useState(userData?.isOnline || false);
-      const hour = new Date().getHours();
-      const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+      const greeting = 'Hey';
       const name = userData?.name || 'there';
-      const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
       const handleToggle = () => { const newStatus = !isOnline; setIsOnline(newStatus); if (userData?.uid) toggleOnline(userData.uid, newStatus); };
       const nearbyJobs = [
-        { id: '1', service: 'Oil Change', address: '456 Oak Ave, Dayton', distance: '2.3 mi', payout: '$45 - $60', time: '20 min' },
-        { id: '2', service: 'Tire Rotation', address: '789 Elm St, Dayton', distance: '1.8 mi', payout: '$35 - $50', time: '15 min' },
-        { id: '3', service: 'Battery Check', address: '321 Pine Rd, Dayton', distance: '3.1 mi', payout: '$25 - $40', time: '25 min' },
+        { id: 'j1', service: 'Flat Tire Repair', payout: '$55', distance: '2.3 mi', time: '8 min ago', address: '123 Main St, Dayton', rating: 4.8 },
+        { id: 'j2', service: 'Battery Jump Start', payout: '$35', distance: '1.5 mi', time: '12 min ago', address: '456 Oak Ave, Dayton', rating: 4.9 },
+        { id: 'j3', service: 'Fuel Delivery', payout: '$50', distance: '3.1 mi', time: '5 min ago', address: '789 Elm St, Dayton', rating: 4.7 },
       ];
-      const weekData = [28, 45, 32, 58, 41, 72, 49];
+      const weekData = [28, 45, 32, 58, 41, 72, 65];
       const maxVal = Math.max(...weekData);
-
-      const mapRef = useRef(null);
-      const mapInst = useRef(null);
-      useEffect(() => {
-        if (mapRef.current && !mapInst.current && window.L) {
-          mapInst.current = window.L.map(mapRef.current, {
-            center: [jobLat, jobLng],
-            zoom: 15,
-            zoomControl: false,
-            attributionControl: false,
-            dragging: false,
-            scrollWheelZoom: false,
-          });
-          window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(mapInst.current);
-          window.L.marker([jobLat, jobLng]).addTo(mapInst.current);
-        }
-        return () => { if (mapInst.current) { mapInst.current.remove(); mapInst.current = null; } };
-      }, []);
-
-      const S = { stroke: 'currentColor', strokeWidth: 1.5, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
-      const icon = (d, w = 20, h = 20) => <svg width={w} height={h} viewBox="0 0 24 24" {...S}>{d}</svg>;
-      const icons = {
-        jobs: icon(<><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></>),
-        star: icon(<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>),
-        earnings: icon(<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>),
-        clock: icon(<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>),
-        target: icon(<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>, 18, 18),
-        pin: icon(<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>, 14, 14),
-        bell: icon(<><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>),
-      };
-
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
         <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 16}}>
           {/* Header */}
@@ -1187,7 +1154,7 @@
     function ProviderJobsScreen({ onNavigate, goBack }) {
       const { userData, toggleOnline, saveServices, setUserData } = useContext(UserContext);
       const [selectedCategory, setSelectedCategory] = useState('all'); const [showAddModal, setShowAddModal] = useState(false); const [activeJob, setActiveJob] = useState(null); const [todayEarnings, setTodayEarnings] = useState(85); const [jobsCompleted, setJobsCompleted] = useState(3); const [declinedJobs, setDeclinedJobs] = useState([]); const [navTab, setNavTab] = useState('jobs');
-      const hour = new Date().getHours(); const greeting = hour < 12 ? 'Good Morning' : hour < 17 ? 'Good Afternoon' : 'Good Evening';
+      const greeting = 'Hey';
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
       const isOnline = userData.isOnline; const userServices = userData.services || [];
       const getCategoriesFromServices = () => { const cats = [{ key: 'all', label: 'All' }]; userServices.forEach(s => { const mapped = SERVICE_CATEGORY_MAP[s]; if (Array.isArray(mapped)) { mapped.forEach(m => { const existing = cats.find(c => c.key === m); if (!existing) { const labels = { battery: 'Battery', tire: 'Tire', fuel: 'Fuel', towing: 'Towing', diagnostics: 'Diagnostics', emergency: 'Emergency' }; cats.push({ key: m, label: labels[m] || m }); } }); } else if (mapped) { const existing = cats.find(c => c.key === mapped); if (!existing) { const labels = { roadside: 'Roadside', battery: 'Battery', tire: 'Tire', fuel: 'Fuel', towing: 'Towing', diagnostics: 'Diagnostics', emergency: 'Emergency' }; cats.push({ key: mapped, label: labels[mapped] || mapped }); } } }); return cats; };
