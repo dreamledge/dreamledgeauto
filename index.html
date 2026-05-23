@@ -23,48 +23,51 @@
   <script src="https://unpkg.com/@lottiefiles/lottie-player@1.8.1/dist/lottie-player.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css" rel="stylesheet">
   <script src="https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #0a0a0a; --primary-active: #1a1a1a; --primary-hover: #111111; --primary-disabled: #e5e7eb;
       --ink: #0a0a0a; --body: #4b5563; --muted: #6b7280; --muted-soft: #9ca3af;
       --hairline: #e5e7eb; --hairline-soft: #f3f4f6; --hairline-subtle: #f9fafb;
-      --canvas: #ffffff; --surface-soft: #fafafa; --surface-card: #f8f8f8; --surface-strong: #e5e7eb;
+      --canvas: #fafaf9; --surface-soft: #f5f5f4; --surface-card: #f0efed; --surface-strong: #e5e7eb;
       --surface-dark: #0a0a0a; --surface-dark-elevated: #141414;
       --on-primary: #ffffff; --on-dark: #ffffff; --on-dark-soft: #a1a1aa;
-      --brand-accent: #FF3B30; --brand-accent-soft: rgba(255,59,48,0.08);
+      --brand-accent: #B91C1C; --brand-accent-soft: rgba(185,28,28,0.06);
+      --brand-warm: #78716C;
       --success: #10b981; --warning: #f59e0b; --error: #ef4444;
       --badge-orange: #fb923c; --badge-pink: #ec4899; --badge-violet: #8b5cf6; --badge-emerald: #34d399;
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-md: 0 2px 8px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-      --shadow-lg: 0 8px 24px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
-      --shadow-xl: 0 16px 48px rgba(0,0,0,0.1), 0 4px 16px rgba(0,0,0,0.06);
+      --shadow-md: 0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.09), 0 2px 8px rgba(0,0,0,0.05);
+      --shadow-xl: 0 16px 48px rgba(0,0,0,0.11), 0 4px 16px rgba(0,0,0,0.07);
       --shadow-glow: 0 0 0 3px rgba(10,10,10,0.06);
-      --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 18px; --radius-full: 9999px;
+      --radius-xs: 6px; --radius-sm: 8px; --radius-md: 10px; --radius-lg: 14px; --radius-xl: 18px; --radius-full: 9999px;
       --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
       --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-      --font-display: 'Archivo Black', 'Archivo', sans-serif;
-      --font-body: 'Archivo', sans-serif;
+      --font-display: 'Sora', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html { scroll-behavior: smooth; }
-    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
+    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; font-family: var(--font-body), sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
     #root { min-height: 100%; width: 100%; touch-action: pan-y; }
     input, textarea, button, select { font-family: inherit; }
     img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
 
     /* Typography */
-    .display-xl { font-size: 36px; font-weight: 900; line-height: 1.05; letter-spacing: -1.5px; font-family: var(--font-display); }
-    .display-lg { font-size: 30px; font-weight: 900; line-height: 1.1; letter-spacing: -1px; font-family: var(--font-display); }
-    .display-md { font-size: 26px; font-weight: 900; line-height: 1.15; letter-spacing: -0.75px; font-family: var(--font-display); }
+    .display-xl { font-size: 36px; font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; font-family: var(--font-display); }
+    .display-lg { font-size: 30px; font-weight: 800; line-height: 1.1; letter-spacing: -1px; font-family: var(--font-display); }
+    .display-md { font-size: 26px; font-weight: 800; line-height: 1.15; letter-spacing: -0.75px; font-family: var(--font-display); }
     .display-sm { font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.5px; font-family: var(--font-display); }
     .title-lg { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -0.3px; font-family: var(--font-display); }
-    .title-md { font-size: 17px; font-weight: 700; line-height: 1.35; letter-spacing: -0.15px; font-family: var(--font-display); }
+    .title-md { font-size: 17px; font-weight: 600; line-height: 1.35; letter-spacing: -0.15px; font-family: var(--font-display); }
     .title-sm { font-size: 15px; font-weight: 600; line-height: 1.4; letter-spacing: -0.1px; font-family: var(--font-display); }
-    .body-md { font-size: 15px; font-weight: 400; line-height: 1.6; letter-spacing: 0.01em; }
-    .body-sm { font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0.01em; }
-    .caption { font-size: 12px; font-weight: 600; line-height: 1.4; letter-spacing: 0.05em; text-transform: uppercase; }
+    .body-md { font-size: 15px; font-weight: 400; line-height: 1.6; letter-spacing: 0.01em; font-family: var(--font-body); }
+    .body-sm { font-size: 13px; font-weight: 400; line-height: 1.55; letter-spacing: 0.01em; font-family: var(--font-body); }
+    .caption { font-size: 12px; font-weight: 600; line-height: 1.4; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-body); }
 
     /* Layout */
     .container { min-height: 100vh; display: flex; flex-direction: column; }
@@ -93,21 +96,18 @@
     .bg-dark { background: var(--surface-dark); } .bg-dark-elevated { background: var(--surface-dark-elevated); }
 
     /* Buttons */
-    .btn { min-height: 48px; padding: 0 24px; background: var(--primary); color: var(--on-primary); border: none; border-radius: var(--radius-md); display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
-    .btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%); opacity: 0; transition: opacity 0.2s ease; }
+    .btn { min-height: 48px; padding: 0 24px; background: var(--primary); color: var(--on-primary); border: none; border-radius: var(--radius-md); display: inline-flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 600; letter-spacing: 0.01em; cursor: pointer; transition: all 0.2s var(--ease-out); box-shadow: var(--shadow-sm); position: relative; }
     .btn:hover { background: var(--primary-hover); box-shadow: var(--shadow-md); transform: translateY(-1px); }
-    .btn:hover::before { opacity: 1; }
-    .btn:active { transform: translateY(0); box-shadow: var(--shadow-sm); background: var(--primary-active); transform: scale(0.98); }
-    .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid var(--hairline); box-shadow: var(--shadow-sm); }
+    .btn:active { transform: translateY(0) scale(0.97); box-shadow: var(--shadow-sm); background: var(--primary-active); }
+    .btn-secondary { background: var(--canvas); color: var(--ink); border: 1px solid rgba(0,0,0,0.1); box-shadow: var(--shadow-sm); }
     .btn-secondary:hover { background: var(--surface-soft); border-color: var(--surface-strong); box-shadow: var(--shadow-md); }
-    .btn-secondary:active { background: var(--surface-card); }
-    .btn-outline { background: transparent; border: 1px solid var(--hairline); color: var(--ink); box-shadow: none; }
-    .btn-outline:hover { background: var(--surface-soft); border-color: var(--surface-strong); }
-    .btn-outline:active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .btn-secondary:active { background: var(--surface-card); transform: scale(0.97); }
+    .btn-outline { background: transparent; border: 1px solid rgba(0,0,0,0.1); color: var(--ink); box-shadow: none; }
+    .btn-outline:hover { background: var(--surface-soft); border-color: rgba(0,0,0,0.15); }
+    .btn-outline:active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); transform: scale(0.97); }
     .btn-sm { min-height: 40px; font-size: 13px; padding: 0 16px; border-radius: var(--radius-sm); }
-    .btn-lg { min-height: 52px; font-size: 15px; padding: 0 32px; border-radius: var(--radius-md); font-weight: 600; }
+    .btn-lg { min-height: 52px; font-size: 15px; padding: 0 32px; border-radius: var(--radius-md); font-weight: 650; letter-spacing: 0.02em; }
     .btn:disabled { opacity: 0.4; cursor: not-allowed; background: var(--primary-disabled); color: var(--muted); box-shadow: none; transform: none; }
-    .btn:disabled::before { display: none; }
     .btn-text { background: transparent; color: var(--ink); padding: 8px 14px; min-height: 44px; box-shadow: none; font-weight: 600; }
     .btn-text:hover { background: var(--surface-soft); }
     .btn-text:active { opacity: 0.7; }
@@ -120,18 +120,20 @@
     textarea.input { min-height: 120px; resize: vertical; }
 
     /* Cards */
-    .card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-sm); }
-    .card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); }
-    .card-flat { background: var(--surface-card); border-radius: var(--radius-lg); border: 1px solid var(--hairline-soft); }
-    .card-elevated { background: var(--canvas); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid var(--hairline-soft); transition: all 0.25s var(--ease-out); }
-    .card-elevated:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: var(--hairline); }
+    .card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-sm); position: relative; }
+    .card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5) 30%, rgba(255,255,255,0.5) 70%, transparent); pointer-events: none; }
+    .card:hover { box-shadow: var(--shadow-md); border-color: rgba(0,0,0,0.06); }
+    .card-flat { background: var(--surface-card); border-radius: var(--radius-lg); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.04); }
+    .card-elevated { background: var(--canvas); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid rgba(0,0,0,0.04); transition: all 0.25s var(--ease-out); position: relative; }
+    .card-elevated::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6) 30%, rgba(255,255,255,0.6) 70%, transparent); pointer-events: none; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+    .card-elevated:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); border-color: rgba(0,0,0,0.06); }
     .card-hover:active { box-shadow: var(--shadow-lg); transform: translateY(-1px); }
 
     /* Feature card */
-    .feature-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-sm); }
-    .feature-card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); transform: translateY(-2px); }
-    .feature-icon-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 20px; border: 1px solid var(--hairline-soft); transition: all 0.25s var(--ease-out); box-shadow: var(--shadow-sm); }
-    .feature-icon-card:hover { box-shadow: var(--shadow-md); border-color: var(--hairline); transform: translateY(-3px); }
+    .feature-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 24px; transition: all 0.25s var(--ease-out); border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-sm); }
+    .feature-card:hover { box-shadow: var(--shadow-md); border-color: rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .feature-icon-card { background: var(--canvas); border-radius: var(--radius-lg); padding: 20px; border: 1px solid rgba(0,0,0,0.04); transition: all 0.25s var(--ease-out); box-shadow: var(--shadow-sm); }
+    .feature-icon-card:hover { box-shadow: var(--shadow-md); border-color: rgba(0,0,0,0.06); transform: translateY(-2px); }
 
     /* Badge */
     .badge { padding: 5px 14px; border-radius: var(--radius-full); font-size: 12px; font-weight: 600; display: inline-block; letter-spacing: 0.02em; }
@@ -143,14 +145,13 @@
     .avatar { width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--surface-card); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--ink); flex-shrink: 0; border: 2px solid var(--canvas); box-shadow: var(--shadow-sm); }
 
     /* Bottom nav */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--hairline-soft); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); z-index: 1000; }
-    .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: var(--radius-full); padding: 6px; max-width: 440px; margin: 0 auto; border: 1px solid var(--hairline-soft); box-shadow: var(--shadow-md); }
-    .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 8px 4px; border-radius: var(--radius-full); min-height: 48px; transition: all 0.2s var(--ease-out); }
-    .bottom-nav-item svg { width: 20px; height: 20px; color: var(--muted); margin-bottom: 2px; transition: color 0.2s ease; }
-    .bottom-nav-item.active { background: var(--canvas); box-shadow: var(--shadow-md); }
-    .bottom-nav-item.active svg { color: var(--ink); }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--hairline-soft); padding: 8px 16px calc(8px + env(safe-area-inset-bottom)); z-index: 1000; }
+    .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: var(--radius-full); padding: 4px; max-width: 440px; margin: 0 auto; border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-md); }
+    .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 6px 4px; border-radius: var(--radius-full); min-height: 44px; transition: all 0.2s var(--ease-out); position: relative; }
+    .bottom-nav-item svg { width: 20px; height: 20px; color: var(--muted-soft); margin-bottom: 1px; transition: color 0.2s ease; }
+    .bottom-nav-item.active svg { color: var(--brand-accent); }
     .bottom-nav-label { font-size: 11px; color: var(--muted); font-weight: 500; transition: color 0.2s ease; }
-    .bottom-nav-item.active .bottom-nav-label { color: var(--ink); }
+    .bottom-nav-item.active .bottom-nav-label { color: var(--brand-accent); font-weight: 600; }
 
     /* Top nav - frosted glass */
     .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--hairline-soft); padding: 0 20px; height: 60px; display: flex; align-items: center; transition: all 0.25s var(--ease-out); }
@@ -206,11 +207,11 @@
     .grid-4 { grid-template-columns: repeat(2, 1fr); }
 
     /* Service card */
-    .service-card { background: var(--canvas); border-radius: var(--radius-md); padding: 14px; border: 1px solid var(--hairline); transition: all 0.2s var(--ease-out); cursor: pointer; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); }
-    .service-card:hover { box-shadow: var(--shadow-md); border-color: var(--surface-strong); transform: translateY(-1px); }
+    .service-card { background: var(--canvas); border-radius: var(--radius-md); padding: 14px; border: 1px solid rgba(0,0,0,0.04); transition: all 0.2s var(--ease-out); cursor: pointer; display: flex; align-items: center; gap: 14px; box-shadow: var(--shadow-sm); }
+    .service-card:hover { box-shadow: var(--shadow-md); border-color: rgba(0,0,0,0.06); transform: translateY(-1px); }
     .service-card:active { box-shadow: var(--shadow-md); transform: translateY(0); }
-    .service-card.selected { border-color: var(--ink); box-shadow: var(--shadow-md); background: var(--surface-soft); }
-    .service-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: var(--surface-soft); border-radius: var(--radius-md); flex-shrink: 0; transition: all 0.2s ease; }
+    .service-card.selected { border-color: var(--brand-accent); box-shadow: var(--shadow-md); background: var(--brand-accent-soft); }
+    .service-icon { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--surface-soft); border-radius: var(--radius-md); flex-shrink: 0; transition: all 0.2s ease; color: var(--muted-soft); }
     .service-card:hover .service-icon { background: var(--surface-card); }
     .service-label { color: var(--ink); font-weight: 600; font-size: 14px; }
     .service-desc { color: var(--body); font-size: 12px; }
@@ -276,11 +277,37 @@
     /* Utilities */
     .cursor-pointer { cursor: pointer; } .relative { position: relative; } .absolute { position: absolute; } .z-10 { z-index: 10; }
     .text-center { text-align: center; } .w-full { width: 100%; } .h-full { height: 100%; } .min-h-screen { min-height: 100vh; }
-    .rounded { border-radius: var(--radius-sm); } .rounded-lg { border-radius: var(--radius-lg); } .rounded-xl { border-radius: var(--radius-xl); } .rounded-full { border-radius: var(--radius-full); }
+    .rounded-xs { border-radius: var(--radius-xs); } .rounded { border-radius: var(--radius-sm); } .rounded-lg { border-radius: var(--radius-lg); } .rounded-xl { border-radius: var(--radius-xl); } .rounded-full { border-radius: var(--radius-full); }
     .font-medium { font-weight: 500; } .font-semibold { font-weight: 600; } .font-bold { font-weight: 700; }
+    .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted-soft); pointer-events: none; }
+    .input-wrap { position: relative; }
+    .input-wrap .input { padding-left: 42px; }
+    .bg-noise { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.015'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 128px; }
 
     /* Brand accent divider */
     .accent-divider { width: 48px; height: 3px; background: var(--brand-accent); border-radius: 2px; margin: 0 auto 16px; }
+
+    /* iOS toggle */
+    .toggle-track { position: relative; width: 48px; height: 28px; flex-shrink: 0; cursor: pointer; border-radius: 14px; background: var(--surface-strong); transition: background 0.25s var(--ease-out); }
+    .toggle-track.active { background: var(--brand-accent); }
+    .toggle-thumb { position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; background: #fff; border-radius: 50%; transition: transform 0.25s var(--ease-out); box-shadow: 0 1px 4px rgba(0,0,0,0.15); }
+    .toggle-track.active .toggle-thumb { transform: translateX(20px); }
+
+    /* Horizontal scroll */
+    .scroll-x { display: flex; gap: 12px; overflow-x: auto; padding: 4px 0 8px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .scroll-x::-webkit-scrollbar { display: none; }
+    .scroll-x > * { scroll-snap-align: start; flex-shrink: 0; width: 220px; }
+
+    /* Mini chart */
+    .mini-chart { display: flex; align-items: flex-end; gap: 4px; height: 32px; }
+    .mini-chart .bar { flex: 1; border-radius: 3px 3px 0 0; background: var(--hairline); min-height: 4px; }
+    .mini-chart .bar:nth-child(6) { background: var(--brand-accent); }
+    .mini-chart .bar:nth-child(7) { background: var(--brand-accent); }
+
+    /* Leaflet map overrides */
+    .mini-map .leaflet-control-zoom { display: none !important; }
+    .mini-map { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--hairline-soft); }
+    .mini-map .leaflet-control-attribution { display: none !important; }
 
     /* Dot pattern background */
     .dot-pattern { background-image: radial-gradient(var(--hairline-soft) 1px, transparent 1px); background-size: 28px 28px; }
@@ -339,18 +366,51 @@
     const { useState, useEffect, useRef, createContext, useContext } = React;
 
     const SERVICE_TYPES = [
-      { key: 'mechanic', label: 'Mobile Mechanic', icon: '⚙', desc: 'On-site repairs' },
-      { key: 'tire_change', label: 'Tire Change', icon: '◉', desc: 'Flat tire fix' },
-      { key: 'battery_jump', label: 'Battery Jump', icon: '⚡', desc: 'Dead battery' },
-      { key: 'towing', label: 'Towing', icon: '⊞', desc: 'Vehicle transport' },
-      { key: 'fuel_delivery', label: 'Fuel Delivery', icon: '⛽', desc: 'Gas delivery' },
-      { key: 'lockout', label: 'Lockout', icon: '⊠', desc: 'Key issues' },
+      { key: 'mechanic', label: 'Mobile Mechanic', icon: 'wrench', desc: 'On-site repairs' },
+      { key: 'tire_change', label: 'Tire Change', icon: 'tire', desc: 'Flat tire fix' },
+      { key: 'battery_jump', label: 'Battery Jump', icon: 'battery', desc: 'Dead battery' },
+      { key: 'towing', label: 'Towing', icon: 'truck', desc: 'Vehicle transport' },
+      { key: 'fuel_delivery', label: 'Fuel Delivery', icon: 'fuel', desc: 'Gas delivery' },
+      { key: 'lockout', label: 'Lockout', icon: 'key-round', desc: 'Key issues' },
     ];
 
+    const IS = { stroke: 'currentColor', strokeWidth: 1.5, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
+    function IX(d, w = 22, h = 22) { return <svg width={w} height={h} viewBox="0 0 24 24" {...IS}>{d}</svg>; }
+    const LUCIDE = {
+      wrench: IX(<><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></>),
+      tire: IX(<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>),
+      battery: IX(<><path d="M6 7h4l-4 5h4"/><line x1="14" y1="7" x2="18" y2="7"/><rect x="2" y="7" width="16" height="10" rx="2"/></>),
+      truck: IX(<><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></>),
+      fuel: IX(<><line x1="3" y1="22" x2="21" y2="22"/><path d="M5 22V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v18"/><path d="M7 10h10"/><path d="M7 14h10"/></>),
+      'key-round': IX(<><path d="M2 17.5V21a1 1 0 0 0 1 1h4v-2h2v-2h2l3-3a5.5 5.5 0 1 0-3.5-3.5L2 17.5z"/><circle cx="16.5" cy="7.5" r="1.5" fill="currentColor"/></>),
+      smartphone: IX(<><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></>),
+      'refresh-cw': IX(<><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></>),
+      zap: IX(<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>),
+      dollar: IX(<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>),
+      'mouse-pointer-click': IX(<><path d="M14 4.1 12 6M5.1 8l-2.9 8.3a.5.5 0 0 0 .6.7L7 15.8l3 5.2a.5.5 0 0 0 .9 0l2.5-7.3M9 9l4-4"/><circle cx="18" cy="5" r="2" fill="currentColor"/></>),
+      lock: IX(<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>),
+      check: IX(<polyline points="20 6 9 17 4 12"/>),
+      car: IX(<path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2m10 0a3 3 0 1 1-6 0m6 0a3 3 0 1 0-6 0"/>),
+      'arrow-right': IX(<><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>),
+      'user-circle': IX(<><path d="M18 20a6 6 0 0 0-12 0"/><circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/></>),
+      'search-x': IX(<><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></>),
+      settings: IX(<><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></>),
+      user: IX(<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>),
+      mail: IX(<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>),
+      phone: IX(<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>),
+      'wifi-off': IX(<><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.56 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></>),
+      briefcase: IX(<><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></>),
+      star: IX(<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>),
+      clock: IX(<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>),
+      target: IX(<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>),
+      pin: IX(<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>),
+      bell: IX(<><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>),
+    };
+
     const FEATURES = [
-      { icon: '◉', title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
-      { icon: '⊞', title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
-      { icon: '⊠', title: 'Easy Booking', desc: 'Book in seconds' },
+      { icon: LUCIDE.zap, title: 'Fast Response', desc: 'Mechanics arrive within 30 minutes' },
+      { icon: LUCIDE.dollar, title: 'Transparent Pricing', desc: 'No hidden fees or surprises' },
+      { icon: LUCIDE['mouse-pointer-click'], title: 'Easy Booking', desc: 'Book in seconds' },
     ];
 
     const TESTIMONIALS = [
@@ -360,9 +420,9 @@
     ];
 
     const TRUST_BADGES = [
-      { icon: '🔒', label: 'Secure payments' },
-      { icon: '✓', label: 'Verified mechanics' },
-      { icon: '⚡', label: 'Fast response' },
+      { icon: LUCIDE.lock, label: 'Secure payments' },
+      { icon: LUCIDE.check, label: 'Verified mechanics' },
+      { icon: LUCIDE.zap, label: 'Fast response' },
     ];
 
     const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings' };
@@ -454,24 +514,12 @@
       );
     }
 
-    function SplashScreen({ onComplete }) {
-      const [visible, setVisible] = useState(true);
-      const [gifUrl, setGifUrl] = useState(null);
-      useEffect(() => { fetch('public/splashscreen.gif?v=' + Date.now()).then(r => { if (!r.ok) throw new Error('Failed to load'); return r.blob(); }).then(blob => { setGifUrl(URL.createObjectURL(blob)); }).catch(() => { setGifUrl('public/splashscreen.gif?v=' + Date.now()); }); }, []);
-      useEffect(() => { if (!gifUrl) return; const timer = setTimeout(() => { setVisible(false); setTimeout(onComplete, 500); }, 2000); return () => clearTimeout(timer); }, [gifUrl, onComplete]);
-      if (!gifUrl) return null;
-      return (<div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, opacity: visible ? 1 : 0, transition: 'opacity 0.6s ease-in-out', pointerEvents: visible ? 'auto' : 'none'}}><img key={gifUrl} src={gifUrl} alt="Loading..." style={{width: '100vw', height: '100vh', objectFit: 'contain', maxWidth: '100%', maxHeight: '100%'}} /></div>);
-    }
-
     function App() {
       const { screen, navigate, goBack } = useRouter();
-      const [splashDone, setSplashDone] = useState(false);
-      const [splashVisible, setSplashVisible] = useState(true);
       const [scrollY, setScrollY] = useState(0);
       useEffect(() => { const handleScroll = () => setScrollY(window.scrollY); window.addEventListener('scroll', handleScroll); return () => window.removeEventListener('scroll', handleScroll); }, []);
-      useEffect(() => { if (splashDone) { const timer = setTimeout(() => setSplashVisible(false), 100); return () => clearTimeout(timer); } }, [splashDone]);
       const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} /> };
-      return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div>{splashVisible && <SplashScreen onComplete={() => setSplashDone(true)} />}</UserProvider>);
+      return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div></UserProvider>);
     }
 
     function LandingPage({ onNavigate, scrollY = 0 }) {
@@ -542,19 +590,19 @@
       }, []);
 
       const serviceIcon = (key) => {
-        const icons = { mechanic: '🔧', tire_change: '🛞', battery_jump: '🔋', towing: '🛻', fuel_delivery: '⛽', lockout: '🔑' };
-        return icons[key] || '⚙';
+        const icons = { mechanic: LUCIDE.wrench, tire_change: LUCIDE.tire, battery_jump: LUCIDE.battery, towing: LUCIDE.truck, fuel_delivery: LUCIDE.fuel, lockout: LUCIDE['key-round'] };
+        return icons[key] || LUCIDE.zap;
       };
 
       const HOW_STEPS = [
-        { icon: '📱', title: 'Request Help', desc: 'Describe your issue and location in seconds' },
-        { icon: '🔄', title: 'Get Matched', desc: 'A nearby mechanic accepts your request' },
-        { icon: '🔧', title: 'Get Fixed', desc: 'Help arrives and gets you back on the road' },
+        { icon: LUCIDE.smartphone, title: 'Request Help', desc: 'Describe your issue and location in seconds' },
+        { icon: LUCIDE['refresh-cw'], title: 'Get Matched', desc: 'A nearby mechanic accepts your request' },
+        { icon: LUCIDE.wrench, title: 'Get Fixed', desc: 'Help arrives and gets you back on the road' },
       ];
 
       return (<div className="min-h-screen" style={{overflowY: 'auto'}}>
         <nav ref={navRef} className="top-nav">
-          <span className="logo">Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
+          <span className="logo">Dreamledge <span style={{color: 'var(--brand-accent)'}}>Auto</span></span>
           <div className="row gap-sm" style={{marginLeft: 'auto'}}>
             <button className="btn btn-text" onClick={() => onNavigate('/login')}>Sign In</button>
             <button className="btn" onClick={() => onNavigate('/role-select')}>Get Started</button>
@@ -573,11 +621,11 @@
             </div>
             <div className="hero-text-content">
               <div className="badge-pill hero-badge-pill mb-md blur-reveal blur-delay-1" style={{background: 'var(--canvas)', display: 'inline-flex'}}>
-                <span style={{color: 'var(--success)'}}>✓</span> Trusted by 500+ customers
+                <span style={{color: 'var(--success)', display: 'flex'}}>{LUCIDE.check}</span> Trusted by 500+ customers
               </div>
               <div className="display-lg mb-lg" style={{fontSize: '36px', fontWeight: 800, letterSpacing: '-2px', lineHeight: '1.05', textShadow: '0 2px 20px rgba(0,0,0,0.4)', textAlign: 'center'}}>
                 <div className="blur-reveal blur-delay-1">Get back on the road</div>
-                <div className="blur-reveal-fast blur-delay-2"><div style={{position: 'relative', display: 'inline-block', overflow: 'hidden', height: '1.05em', verticalAlign: 'bottom', lineHeight: 1.05}}>{wordAnim === 'exit' ? <span key={wordIdx + 'o'} style={{color: '#FF3B30', display: 'block', animation: 'carouselOut 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : wordAnim === 'enter' ? <span key={wordIdx + 'i'} style={{color: '#FF3B30', display: 'block', animation: 'carouselIn 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : <span style={{color: '#FF3B30', display: 'block', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span>}</div></div>
+                <div className="blur-reveal-fast blur-delay-2"><div style={{position: 'relative', display: 'inline-block', overflow: 'hidden', height: '1.05em', verticalAlign: 'bottom', lineHeight: 1.05}}>{wordAnim === 'exit' ? <span key={wordIdx + 'o'} style={{color: 'var(--brand-accent)', display: 'block', animation: 'carouselOut 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : wordAnim === 'enter' ? <span key={wordIdx + 'i'} style={{color: 'var(--brand-accent)', display: 'block', animation: 'carouselIn 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : <span style={{color: 'var(--brand-accent)', display: 'block', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span>}</div></div>
               </div>
               <div className="body-md blur-reveal blur-delay-3" style={{color: 'var(--body)', marginBottom: 28, lineHeight: 1.65, textAlign: 'center'}}>Book in seconds, help arrives in minutes.</div>
               <div className="col gap-sm blur-reveal blur-delay-4" style={{alignItems: 'center'}}>
@@ -591,9 +639,9 @@
         {/* Trust badges */}
         <section style={{padding: '28px 20px', background: 'var(--surface-soft)', borderTop: '1px solid var(--hairline-soft)', borderBottom: '1px solid var(--hairline-soft)'}}>
           <div className="row centerV" style={{maxWidth: 1200, margin: '0 auto', justifyContent: 'center', gap: 32, flexWrap: 'wrap'}}>
-            {TRUST_BADGES.map((b, i) => (
+             {TRUST_BADGES.map((b, i) => (
               <div key={i} className="row centerV gap-sm">
-                <span style={{fontSize: 16, opacity: 0.85}}>{b.icon}</span>
+                <span style={{display: 'flex', color: 'var(--muted-soft)'}}>{b.icon}</span>
                 <span className="caption" style={{color: 'var(--body)', letterSpacing: '0.03em'}}>{b.label}</span>
               </div>
             ))}
@@ -681,7 +729,7 @@
               {FEATURES.map((f, i) => (
                 <Reveal key={i} delay={`reveal-delay-${i + 1}`}>
                   <div className="feature-card">
-                    <div className="mb-sm" style={{fontSize: 26}}>{f.icon}</div>
+                    <div className="mb-sm" style={{display: 'flex', color: 'var(--muted-soft)'}}>{f.icon}</div>
                     <div className="title-md mb-xs">{f.title}</div>
                     <div className="body-sm" style={{color: 'var(--body)'}}>{f.desc}</div>
                   </div>
@@ -707,7 +755,7 @@
                 return (
                   <Reveal key={i} delay={`reveal-delay-${i + 1}`}>
                     <div className="card" style={{position: 'relative'}}>
-                      <div style={{position: 'absolute', top: 16, right: 20, fontSize: 48, color: 'var(--hairline-soft)', fontFamily: 'Georgia, serif', lineHeight: 1, pointerEvents: 'none'}}>"</div>
+                      <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'var(--brand-accent)', borderRadius: '3px 3px 0 0', opacity: 0.3}} />
                       <div className="row centerV gap-sm mb-md">
                         <div className="avatar" style={{background: pastelFills[i % 3], color: '#fff'}}>{initials}</div>
                         <div>
@@ -741,7 +789,7 @@
         {/* Footer */}
         <footer style={{background: 'var(--surface-dark)', padding: '56px 20px'}}>
           <div className="col gap-md" style={{maxWidth: 1200, margin: '0 auto'}}>
-            <span className="text-white font-semibold" style={{letterSpacing: '-0.3px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></span>
+            <span className="text-white font-semibold" style={{letterSpacing: '-0.3px'}}>Dreamledge <span style={{color: 'var(--brand-accent)'}}>Auto</span></span>
             <div className="body-sm" style={{color: 'var(--on-dark-soft)'}}>© 2026 Dreamledge Auto. All rights reserved.</div>
           </div>
         </footer>
@@ -752,8 +800,8 @@
       return (<div style={{position: 'relative', minHeight: '100vh'}}>
         <div className="container" style={{padding: '20px 20px 56px'}}>
           <div className="center col" style={{marginBottom: 40}}>
-            <img src="public/sustainable-travel.gif" alt="" style={{width: 88, height: 88, objectFit: 'contain', marginBottom: 16}} />
-            <div className="display-sm text-center" style={{letterSpacing: '-0.75px'}}>Dreamledge <span style={{color: '#FF3B30'}}>Auto</span></div>
+            <div style={{display: 'flex', color: 'var(--muted-soft)', marginBottom: 16}}>{IX(<path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2m10 0a3 3 0 1 1-6 0m6 0a3 3 0 1 0-6 0"/>, 48, 48)}</div>
+            <div className="display-sm text-center" style={{letterSpacing: '-0.75px'}}>Dreamledge <span style={{color: 'var(--brand-accent)'}}>Auto</span></div>
             <div className="body-md text-center mt-xs" style={{color: 'var(--body)'}}>Get back on the road fast</div>
           </div>
           <div className="col" style={{gap: 14}}>
@@ -762,14 +810,14 @@
                 <div className="title-lg mb-xs">I Need Help</div>
                 <div className="body-sm" style={{color: 'var(--body)'}}>Request roadside assistance</div>
               </div>
-              <div style={{width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: 'var(--shadow-md)'}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
+              <div style={{width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: 'var(--shadow-md)'}}><span style={{color: '#fff', display: 'flex'}}>{LUCIDE['arrow-right']}</span></div>
             </div>
             <div className="card-elevated card-hover" onClick={() => onNavigate('/provider/signup')} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: 'var(--radius-lg)', padding: 20}}>
               <div>
                 <div className="title-lg mb-xs">I'm a Mechanic</div>
                 <div className="body-sm" style={{color: 'var(--body)'}}>Offer mobile repair services</div>
               </div>
-              <div style={{width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: 'var(--shadow-md)'}}><span style={{color: '#fff', fontSize: 18}}>→</span></div>
+              <div style={{width: 40, height: 40, borderRadius: '50%', background: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: 'var(--shadow-md)'}}><span style={{color: '#fff', display: 'flex'}}>{LUCIDE['arrow-right']}</span></div>
             </div>
           </div>
         </div>
@@ -789,13 +837,13 @@
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Full name</label>
-          <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>)}</span><input className="input" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Phone</label>
-          <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>)}</span><input className="input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Email</label>
-          <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>)}</span><input className="input" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Password</label>
-          <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>)}</span><input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" /></div>
           <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 28, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Creating...' : 'Create Account'}</button>
         </div>
       </div>);
@@ -810,11 +858,11 @@
         <div className="flex p-lg">
           <div className="step-bar"><div className="step step-active"></div><div className="step"></div></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Full name</label>
-          <input className="input mb-md" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>)}</span><input className="input" value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Email</label>
-          <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>)}</span><input className="input" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Phone</label>
-          <input className="input mb-md" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>)}</span><input className="input" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(937) 555-0123" /></div>
           <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 28, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Next...' : 'Next'}</button>
         </div>
       </div>);
@@ -833,18 +881,17 @@
           <div className="step-bar"><div className="step step-active"></div><div className="step step-active"></div></div>
           <div className="col" style={{gap: 14}}>
             {SERVICE_TYPES.map(s => {
-              const provIcon = { mechanic: '🔧', tire_change: '🛞', battery_jump: '🔋', towing: '🛻', fuel_delivery: '⛽', lockout: '🔑' };
               return (
               <div key={s.key} className="card-elevated card-hover" onClick={() => toggleService(s.key)} style={{display: 'flex', alignItems: 'center', gap: 14, borderRadius: 'var(--radius-lg)', padding: 16, cursor: 'pointer'}}>
-                <div style={{width: 44, height: 44, borderRadius: 'var(--radius-md)', background: services.includes(s.key) ? 'var(--primary)' : 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, border: '1px solid ' + (services.includes(s.key) ? 'var(--primary)' : 'var(--hairline-soft)'), transition: 'all 0.2s var(--ease-out)'}}>
-                  {provIcon[s.key] || s.icon}
+                <div style={{width: 44, height: 44, borderRadius: 'var(--radius-md)', background: services.includes(s.key) ? 'var(--primary)' : 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: services.includes(s.key) ? '#fff' : 'var(--muted-soft)', border: '1px solid ' + (services.includes(s.key) ? 'var(--primary)' : 'var(--hairline-soft)'), transition: 'all 0.2s var(--ease-out)'}}>
+                  {LUCIDE[s.icon]}
                 </div>
                 <div style={{flex: 1}}>
                   <div className="title-sm">{s.label}</div>
                   <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                 </div>
                 <div style={{width: 36, height: 36, borderRadius: '50%', background: services.includes(s.key) ? 'var(--primary)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, border: services.includes(s.key) ? 'none' : '1.5px solid var(--hairline)', transition: 'all 0.2s var(--ease-out)'}}>
-                  <span style={{color: services.includes(s.key) ? '#fff' : 'transparent', fontSize: 16, fontWeight: 700}}>✓</span>
+                  <span style={{color: services.includes(s.key) ? '#fff' : 'transparent', display: 'flex'}}>{LUCIDE.check}</span>
                 </div>
               </div>
               );
@@ -863,9 +910,9 @@
         <div className="p-lg" style={{paddingTop: 8}}><div className="title-lg" style={{letterSpacing: '-0.3px'}}>Welcome back</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Sign in to continue</div></div>
         <div className="flex p-lg">
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Email</label>
-          <input className="input mb-md" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>)}</span><input className="input" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Password</label>
-          <input className="input mb-md" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" />
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>)}</span><input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" /></div>
           <button className="btn btn-lg" onClick={handleLogin} disabled={loading || !email || !password} style={{width: '100%', marginTop: 28, opacity: loading || !email || !password ? 0.5 : 1}}>{loading ? 'Signing in...' : 'Sign In'}</button>
         </div>
       </div>);
@@ -881,7 +928,7 @@
           <div className="grid grid-2">
             {SERVICE_TYPES.map((s, i) => (
               <div key={s.key} className="card-elevated card-hover" style={{padding: 18, textAlign: 'center', cursor: 'pointer', borderRadius: 'var(--radius-lg)'}} onClick={() => onNavigate('/customer/request')}>
-                <div className="mb-sm" style={{fontSize: 26}}>{s.icon}</div>
+                <div className="mb-sm" style={{display: 'flex', color: 'var(--muted-soft)'}}>{LUCIDE[s.icon]}</div>
                 <div className="title-sm">{s.label}</div>
               </div>
             ))}
@@ -904,7 +951,7 @@
           <div className="grid grid-2 mb-md" style={{gap: 10}}>
             {SERVICE_TYPES.map(s => (
               <div key={s.key} className={`service-card ${service === s.key ? 'selected' : ''}`} onClick={() => setService(s.key)}>
-                <div className="service-icon">{s.icon}</div>
+                <div className="service-icon" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{LUCIDE[s.icon]}</div>
                 <div className="service-label">{s.label}</div>
               </div>
             ))}
@@ -931,7 +978,7 @@
           {offers.map(offer => (
             <div key={offer.id} className="card-elevated card-hover mb-md" onClick={() => onNavigate('/customer/home')} style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
               <div className="row centerV gap-md mb-sm">
-                <div style={{fontSize: 26}}>◉</div>
+                <div style={{display: 'flex', color: 'var(--muted-soft)'}}>{LUCIDE['user-circle']}</div>
                 <div style={{flex: 1}}>
                   <div className="title-sm">{offer.name}</div>
                   <div className="body-sm" style={{color: 'var(--body)'}}>{offer.rating} · {offer.time}</div>
@@ -948,75 +995,177 @@
       </div>);
     }
 
+    const jobLat = 39.7512;
+    const jobLng = -84.1865;
+    const jobLabel = 'Jump Start - 123 Main St, Dayton';
+
+    function openMaps(e) {
+      e.stopPropagation();
+      const ua = navigator.userAgent;
+      if (/iPad|iPhone|iPod/.test(ua)) {
+        window.location.href = `maps://app?d=${jobLat},${jobLng}&q=${encodeURIComponent(jobLabel)}`;
+      } else if (/android/i.test(ua)) {
+        window.location.href = `geo:${jobLat},${jobLng}?q=${jobLat},${jobLng}(${encodeURIComponent(jobLabel)})`;
+      } else {
+        window.open(`https://www.google.com/maps/dir/?api=1&destination=${jobLat},${jobLng}`, '_blank');
+      }
+    }
+
     function ProviderHomeScreen({ onNavigate, goBack }) {
       const { userData, toggleOnline } = useContext(UserContext);
-      const [navTab, setNavTab] = useState('home'); const [isOnline, setIsOnline] = useState(userData?.isOnline || false);
-      const hour = new Date().getHours(); const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+      const [navTab, setNavTab] = useState('home');
+      const [isOnline, setIsOnline] = useState(userData?.isOnline || false);
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
       const name = userData?.name || 'there';
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
       const handleToggle = () => { const newStatus = !isOnline; setIsOnline(newStatus); if (userData?.uid) toggleOnline(userData.uid, newStatus); };
-      const nearbyJobs = [{ id: '1', service: 'Oil Change', address: '456 Oak Ave', time: '20 min away', payout: '$45 - $60' }, { id: '2', service: 'Tire Rotation', address: '789 Elm St', time: '25 min away', payout: '$35 - $50' }];
+      const nearbyJobs = [
+        { id: '1', service: 'Oil Change', address: '456 Oak Ave, Dayton', distance: '2.3 mi', payout: '$45 - $60', time: '20 min' },
+        { id: '2', service: 'Tire Rotation', address: '789 Elm St, Dayton', distance: '1.8 mi', payout: '$35 - $50', time: '15 min' },
+        { id: '3', service: 'Battery Check', address: '321 Pine Rd, Dayton', distance: '3.1 mi', payout: '$25 - $40', time: '25 min' },
+      ];
+      const weekData = [28, 45, 32, 58, 41, 72, 49];
+      const maxVal = Math.max(...weekData);
+
+      const mapRef = useRef(null);
+      const mapInst = useRef(null);
+      useEffect(() => {
+        if (mapRef.current && !mapInst.current && window.L) {
+          mapInst.current = window.L.map(mapRef.current, {
+            center: [jobLat, jobLng],
+            zoom: 15,
+            zoomControl: false,
+            attributionControl: false,
+            dragging: false,
+            scrollWheelZoom: false,
+          });
+          window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(mapInst.current);
+          window.L.marker([jobLat, jobLng]).addTo(mapInst.current);
+        }
+        return () => { if (mapInst.current) { mapInst.current.remove(); mapInst.current = null; } };
+      }, []);
+
+      const S = { stroke: 'currentColor', strokeWidth: 1.5, fill: 'none', strokeLinecap: 'round', strokeLinejoin: 'round' };
+      const icon = (d, w = 20, h = 20) => <svg width={w} height={h} viewBox="0 0 24 24" {...S}>{d}</svg>;
+      const icons = {
+        jobs: icon(<><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></>),
+        star: icon(<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>),
+        earnings: icon(<><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>),
+        clock: icon(<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>),
+        target: icon(<><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></>, 18, 18),
+        pin: icon(<><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>, 14, 14),
+        bell: icon(<><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>),
+      };
+
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '80px'}}>
-        <div style={{flex: 1, overflowY: 'auto', padding: '20px'}}>
+        <div style={{flex: 1, overflowY: 'auto', padding: '20px', paddingTop: 16}}>
+          {/* Header */}
           <div className="row between centerV mb-lg">
-            <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>{greeting}, {name}</div><div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Ready to get some jobs done?</div></div>
-            <div className="row centerV" style={{gap: 14}}>
-              <div style={{position: 'relative'}}><span style={{fontSize: 24}}>◉</span><div style={{position: 'absolute', top: -2, right: -2, width: 8, height: 8, borderRadius: '50%', background: 'var(--primary)'}} /></div>
-              <div style={{position: 'relative'}}><div className="avatar">M</div><div style={{position: 'absolute', bottom: 0, right: 0, width: 10, height: 10, borderRadius: '50%', background: 'var(--success)', border: '2px solid var(--canvas)'}} /></div>
-            </div>
-          </div>
-          <div className="row between centerV card-flat mb-lg" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
-            <div className="row centerV" style={{gap: 14}}>
-              <span style={{fontSize: 30, color: isOnline ? 'var(--success)' : 'var(--muted)'}}>◉</span>
-              <div><div className="title-sm">{isOnline ? "You're Online" : "You're Offline"}</div><div className="body-sm" style={{color: 'var(--body)'}}>{isOnline ? "Visible to customers" : "Go online to receive jobs"}</div></div>
-            </div>
-            <button onClick={handleToggle} className={`btn btn-sm ${isOnline ? 'btn-outline' : ''}`}>{isOnline ? 'Go Offline' : 'Go Online'}</button>
-          </div>
-          <div className="grid grid-4 mb-lg" style={{gap: 10}}>
-            {[{ label: 'Jobs Today', value: '3' }, { label: 'Rating', value: '4.9' }, { label: 'Earnings', value: '$256' }, { label: 'Time', value: '8h' }].map((item, index) => (
-              <div key={index} className="card-flat" style={{padding: '14px 10px', textAlign: 'center', borderRadius: 'var(--radius-md)'}}>
-                <div className="title-sm">{item.value}</div>
-                <div className="caption" style={{color: 'var(--body)'}}>{item.label}</div>
-              </div>
-            ))}
-          </div>
-          <div className="card-flat mb-lg" style={{padding: 20, borderRadius: 'var(--radius-lg)', display: 'flex', flexDirection: 'column', gap: 18}}>
             <div>
-              <div className="caption" style={{letterSpacing: '0.06em', color: 'var(--body)'}}>Upcoming</div>
-              <div className="display-sm" style={{marginTop: 6, letterSpacing: '-0.5px'}}>10:30 AM</div>
-              <div className="title-sm mt-xs">Jump Start</div>
-              <div className="body-sm" style={{color: 'var(--body)'}}>123 Main St</div>
-              <div className="body-sm" style={{color: 'var(--body)'}}>2.4 mi away</div>
-              <button className="btn btn-sm" style={{marginTop: 14}}>Start Navigation</button>
+              <div className="display-sm" style={{letterSpacing: '-0.5px'}}>{greeting}, {name}</div>
+              <div className="body-sm mt-xs" style={{color: 'var(--body)'}}>Ready to earn?</div>
             </div>
-            <div style={{width: '100%', height: 130, background: 'var(--surface-soft)', borderRadius: 'var(--radius-lg)', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--hairline-soft)'}}><span style={{color: 'var(--muted)', fontSize: 12}}>Map</span></div>
-          </div>
-          <div className="col gap-sm mb-lg">
-            <div className="card-flat" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
-              <div className="caption" style={{color: 'var(--body)'}}>Earnings Today</div>
-              <div className="display-sm" style={{letterSpacing: '-0.5px'}}>$256</div>
-              <div className="body-sm" style={{color: 'var(--body)', marginTop: 6}}>4 Jobs Completed</div>
-            </div>
-            <div className="card-flat" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
-              <div className="caption" style={{color: 'var(--body)'}}>Incentives</div>
-              <div className="body-sm">Complete 2 more jobs to earn $50 bonus</div>
-              <div style={{height: 6, background: 'var(--surface-strong)', borderRadius: 4, marginTop: 10, marginBottom: 6}}><div style={{width: '50%', height: '100%', background: 'var(--primary)', borderRadius: 4}} /></div>
-              <div className="caption" style={{color: 'var(--body)'}}>2 / 4 Jobs</div>
+            <div className="row centerV" style={{gap: 12}}>
+              <div style={{position: 'relative', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'}}>
+                <span style={{color: 'var(--muted-soft)'}}>{icons.bell}</span>
+                <div style={{position: 'absolute', top: 2, right: 2, width: 7, height: 7, borderRadius: '50%', background: 'var(--brand-accent)'}} />
+              </div>
+              <div style={{position: 'relative'}}>
+                <div className="avatar" style={{width: 36, height: 36, fontSize: 13}}>{name.charAt(0).toUpperCase()}</div>
+                <div style={{position: 'absolute', bottom: 0, right: 0, width: 9, height: 9, borderRadius: '50%', background: isOnline ? 'var(--success)' : 'var(--muted)', border: '2px solid var(--canvas)'}} />
+              </div>
             </div>
           </div>
-          <div style={{marginBottom: 24}}>
+          {/* Online toggle */}
+          <div className="card-elevated mb-lg" style={{padding: 16, borderRadius: 'var(--radius-lg)', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+            <div className="row centerV" style={{gap: 12}}>
+              <span style={{fontSize: 12, color: isOnline ? 'var(--success)' : 'var(--muted)'}}>●</span>
+              <div>
+                <div className="title-sm">{isOnline ? "You're Online" : "You're Offline"}</div>
+                <div className="body-sm" style={{color: 'var(--body)'}}>{isOnline ? "Visible to customers nearby" : "Go online to receive jobs"}</div>
+              </div>
+            </div>
+            <div className={`toggle-track ${isOnline ? 'active' : ''}`} onClick={handleToggle}>
+              <div className="toggle-thumb" />
+            </div>
+          </div>
+          {/* Nearby jobs */}
+          <div style={{marginBottom: 20}}>
             <div className="title-sm mb-md" style={{letterSpacing: '-0.1px'}}>Nearby Jobs</div>
-            {nearbyJobs.map((job) => (
-              <div key={job.id} className="card-flat card-hover mb-md" style={{padding: 16, display: 'flex', justifyContent: 'space-between', borderRadius: 'var(--radius-md)'}}>
-                <div>
-                  <div className="caption" style={{color: 'var(--body)'}}>{job.time}</div>
-                  <div className="title-sm mt-xs">{job.service}</div>
-                  <div className="body-sm" style={{color: 'var(--body)'}}>{job.address}</div>
+            <div className="scroll-x">
+              {nearbyJobs.map((job) => (
+                <div key={job.id} className="card-elevated" style={{width: 220, padding: 16, borderRadius: 'var(--radius-lg)', flexShrink: 0}}>
+                  <div className="caption mb-xs" style={{color: 'var(--muted)'}}>{job.time} · {job.distance}</div>
+                  <div className="title-sm mb-xs">{job.service}</div>
+                  <div className="row centerV gap-xs mb-md" style={{color: 'var(--muted)'}}>
+                    <span style={{display: 'flex'}}>{icons.pin}</span>
+                    <span className="body-sm">{job.address}</span>
+                  </div>
+                  <div className="row between centerV">
+                    <div className="title-sm">{job.payout}</div>
+                    <button className="btn btn-sm">Accept</button>
+                  </div>
                 </div>
-                <div className="title-sm">{job.payout}</div>
+              ))}
+            </div>
+          </div>
+          {/* Stats grid */}
+          <div className="grid grid-2" style={{gap: 12, marginBottom: 20}}>
+            {[
+              { icon: 'jobs', value: '3', label: 'Jobs Today' },
+              { icon: 'star', value: '4.9', label: 'Rating' },
+              { icon: 'earnings', value: '$256', label: 'Earnings' },
+              { icon: 'clock', value: '8h', label: 'Online' },
+            ].map((item, i) => (
+              <div key={i} className="card-elevated" style={{padding: 16, borderRadius: 'var(--radius-lg)'}}>
+                <div style={{color: 'var(--muted-soft)', marginBottom: 8, display: 'flex', alignItems: 'center'}}>{icons[item.icon]}</div>
+                <div className="title-lg" style={{letterSpacing: '-0.3px'}}>{item.value}</div>
+                <div className="caption" style={{color: 'var(--muted)', marginTop: 2}}>{item.label}</div>
               </div>
             ))}
           </div>
+          {/* Upcoming job */}
+          <div className="card-elevated mb-lg" style={{padding: 20, borderRadius: 'var(--radius-lg)', position: 'relative', overflow: 'hidden'}}>
+            <div style={{position: 'absolute', top: 0, left: 0, width: 4, height: '100%', background: 'var(--brand-accent)', borderRadius: '0 2px 2px 0'}} />
+            <div className="caption mb-sm" style={{color: 'var(--muted)', letterSpacing: '0.06em', fontWeight: 600}}>Upcoming</div>
+            <div className="display-lg" style={{letterSpacing: '-1px', marginBottom: 4}}>10:30 AM</div>
+            <div className="title-sm" style={{marginBottom: 2}}>Jump Start</div>
+            <div className="body-sm mb-md" style={{color: 'var(--body)'}}>123 Main St · 2.4 mi away</div>
+            <div ref={mapRef} className="mini-map" style={{width: '100%', height: 120, marginBottom: 14}} />
+            <button className="btn btn-lg" style={{width: '100%'}} onClick={openMaps}>Start Navigation</button>
+          </div>
+          {/* Earnings + Incentives */}
+          <div className="col mb-lg" style={{gap: 12}}>
+            <div className="card-elevated" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
+              <div className="caption mb-sm" style={{color: 'var(--muted)', fontWeight: 600}}>Earnings Today</div>
+              <div className="title-lg mb-sm" style={{letterSpacing: '-0.3px'}}>$256</div>
+              <div className="mini-chart">
+                {weekData.map((v, i) => (
+                  <div key={i} className="bar" style={{height: Math.max(4, (v / maxVal) * 32) + 'px'}} />
+                ))}
+              </div>
+              <div className="row between centerV mt-xs">
+                <span className="caption" style={{color: 'var(--muted)'}}>Mon</span>
+                <span className="caption" style={{color: 'var(--muted)'}}>Today</span>
+              </div>
+            </div>
+            <div className="card-elevated" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
+              <div className="row between centerV mb-sm">
+                <div className="caption" style={{color: 'var(--muted)', fontWeight: 600}}>Incentive</div>
+                <span style={{color: 'var(--muted-soft)', display: 'flex'}}>{icons.target}</span>
+              </div>
+              <div className="body-sm mb-sm">Complete 2 more jobs to earn <strong style={{color: 'var(--brand-accent)'}}>$50 bonus</strong></div>
+              <div style={{height: 6, background: 'var(--hairline)', borderRadius: 3, marginBottom: 6, overflow: 'hidden'}}>
+                <div style={{width: '50%', height: '100%', background: 'var(--brand-accent)', borderRadius: 3}} />
+              </div>
+              <div className="row between centerV">
+                <span className="caption" style={{color: 'var(--muted)'}}>2 / 4 Jobs</span>
+                <span className="caption" style={{color: 'var(--brand-accent)', fontWeight: 600}}>$50 bonus</span>
+              </div>
+            </div>
+          </div>
+
         </div>
         <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
       </div>);
@@ -1042,7 +1191,7 @@
         <div style={{background: 'var(--surface-dark)', padding: '16px 20px 12px'}}>
           <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
             <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
-            <div className="row centerV" style={{gap: 10}}><div style={{width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: '#fff'}}>◉</div></div>
+            <div className="row centerV" style={{gap: 10}}><div style={{width: 36, height: 36, borderRadius: '50%', background: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.6)'}}>{LUCIDE.settings}</div></div>
           </div>
           <div className="row between centerV" style={{background: isOnline ? 'var(--surface-dark-elevated)' : 'rgba(255,255,255,0.12)', borderRadius: 'var(--radius-md)', padding: 14}}>
             <div><div className="title-sm text-white">Available Jobs Nearby</div><div className="display-sm text-white" style={{marginTop: 4, letterSpacing: '-0.5px'}}>{isOnline ? filteredJobs.length : 0}</div>{isOnline && <div className="caption text-white" style={{opacity: 0.8}}>Live jobs in your area</div>}</div>
@@ -1075,7 +1224,7 @@
                 </div>
               </div>
             </div>
-          ))) : (<div className="text-center" style={{padding: 48}}><div style={{fontSize: 40, marginBottom: 18, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">No jobs found</div><div className="body-sm" style={{color: 'var(--body)'}}>Try a different filter or check back soon</div></div>)) : (<div className="card text-center" style={{padding: 40, borderRadius: 'var(--radius-lg)'}}><div style={{fontSize: 40, marginBottom: 18, color: 'var(--muted)'}}>—</div><div className="title-sm mb-xs">Go Online to Start Receiving Jobs</div><div className="body-sm" style={{color: 'var(--body)'}}>Toggle online above to begin accepting jobs</div></div>)}
+          ))) : (<div className="text-center" style={{padding: 48}}><div style={{display: 'flex', justifyContent: 'center', marginBottom: 18, color: 'var(--muted)'}}>{LUCIDE['search-x']}</div><div className="title-sm mb-xs">No jobs found</div><div className="body-sm" style={{color: 'var(--body)'}}>Try a different filter or check back soon</div></div>)) : (<div className="card text-center" style={{padding: 40, borderRadius: 'var(--radius-lg)'}}><div style={{display: 'flex', justifyContent: 'center', marginBottom: 18, color: 'var(--muted)'}}>{LUCIDE['wifi-off']}</div><div className="title-sm mb-xs">Go Online to Start Receiving Jobs</div><div className="body-sm" style={{color: 'var(--body)'}}>Toggle online above to begin accepting jobs</div></div>)}
         </div>
         {activeJob && (<>
           <div style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'flex-end'}} onClick={() => setActiveJob(null)}>
@@ -1095,7 +1244,7 @@
               <div className="col" style={{gap: 10}}>
                 {remainingServices.map(s => (
                   <div key={s.key} onClick={() => handleAddService(s.key)} className="row centerV card-hover" style={{gap: 14, padding: 14, background: 'var(--surface-card)', borderRadius: 'var(--radius-md)', cursor: 'pointer'}}>
-                    <span style={{fontSize: 26}}>{s.icon}</span>
+                    <span style={{display: 'flex'}}>{LUCIDE[s.icon]}</span>
                     <div style={{flex: 1}}><div className="title-sm">{s.label}</div><div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div></div>
                   </div>
                 ))}
@@ -1110,17 +1259,45 @@
     function ProviderEarningsScreen({ onNavigate, goBack }) {
       const [navTab, setNavTab] = useState('earnings');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); };
-      return (<div className="container" style={{paddingBottom: '80px'}}>
-        <div className="p-lg pt-xl"><span className="display-sm cursor-pointer" onClick={goBack} style={{opacity: 0.7}}>←</span></div>
-        <div className="p-lg">
-          <div className="title-lg mb-lg" style={{letterSpacing: '-0.3px'}}>Earnings</div>
-          <div className="card-flat" style={{background: 'var(--surface-dark)', padding: 28, borderRadius: 'var(--radius-xl)', marginBottom: 28}}>
-            <div className="caption" style={{color: 'var(--muted)'}}>Total</div>
-            <div className="display-xl text-white" style={{marginTop: 6, letterSpacing: '-2px'}}>$1,250</div>
-            <div className="row gap-xl mt-lg">
-              <div><div className="display-sm text-white" style={{letterSpacing: '-0.5px'}}>18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
-              <div><div className="display-sm text-white" style={{letterSpacing: '-0.5px'}}>$69</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
+      const weekData = [28, 45, 32, 58, 41, 72, 65];
+      const maxVal = Math.max(...weekData);
+      const payouts = [
+        { job: 'Jump Start', date: 'Today, 10:30 AM', amount: '$45' },
+        { job: 'Oil Change', date: 'Today, 8:15 AM', amount: '$60' },
+        { job: 'Tire Rotation', date: 'Yesterday, 2:40 PM', amount: '$50' },
+        { job: 'Battery Check', date: 'Yesterday, 11:20 AM', amount: '$35' },
+      ];
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden', paddingBottom: '80px'}}>
+        <div style={{flex: 1, overflowY: 'auto', padding: '20px', paddingTop: 16}}>
+          <div className="display-sm mb-lg" style={{letterSpacing: '-0.5px'}}>Earnings</div>
+          <div className="card-elevated" style={{padding: 24, borderRadius: 'var(--radius-xl)', marginBottom: 20}}>
+            <div className="caption mb-xs" style={{color: 'var(--muted)', fontWeight: 600}}>Total Earnings</div>
+            <div className="display-xl" style={{letterSpacing: '-2px', marginBottom: 16}}>$1,250</div>
+            <div className="mini-chart" style={{height: 40}}>
+              {weekData.map((v, i) => (
+                <div key={i} className="bar" style={{height: Math.max(4, (v / maxVal) * 40) + 'px'}} />
+              ))}
             </div>
+            <div className="row between centerV mt-xs">
+              <span className="caption" style={{color: 'var(--muted)'}}>Mon</span>
+              <span className="caption" style={{color: 'var(--muted)'}}>Today</span>
+            </div>
+            <div className="row mt-lg" style={{gap: 24}}>
+              <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>18</div><div className="caption" style={{color: 'var(--muted)'}}>Jobs</div></div>
+              <div><div className="title-lg" style={{letterSpacing: '-0.3px'}}>$69</div><div className="caption" style={{color: 'var(--muted)'}}>Avg</div></div>
+            </div>
+          </div>
+          <div className="title-sm mb-md" style={{letterSpacing: '-0.1px'}}>Recent Payouts</div>
+          <div className="col" style={{gap: 10}}>
+            {payouts.map((p, i) => (
+              <div key={i} className="card-elevated" style={{padding: 16, borderRadius: 'var(--radius-lg)', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                <div>
+                  <div className="title-sm">{p.job}</div>
+                  <div className="body-sm" style={{color: 'var(--body)'}}>{p.date}</div>
+                </div>
+                <div className="title-lg" style={{letterSpacing: '-0.3px'}}>{p.amount}</div>
+              </div>
+            ))}
           </div>
         </div>
         <BottomNav activeTab={navTab} onTabChange={handleNavTabChange} variant="provider" />
