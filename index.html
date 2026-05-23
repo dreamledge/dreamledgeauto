@@ -52,8 +52,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body, #root { height: 100%; }
     html { scroll-behavior: smooth; }
-    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: pan-y; font-family: var(--font-body), sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
-    #root { min-height: 100%; width: 100%; touch-action: pan-y; }
+    body { min-height: 100%; width: 100%; overflow-x: hidden; touch-action: manipulation; font-family: var(--font-body), sans-serif; background: var(--canvas); color: var(--ink); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-text-size-adjust: 100%; }
+    #root { min-height: 100%; width: 100%; touch-action: manipulation; }
     input, textarea, button, select { font-family: inherit; }
     img { max-width: 100%; height: auto; display: block; }
     a { color: inherit; text-decoration: none; }
@@ -375,6 +375,7 @@
   </style>
 </head>
 <body>
+  <script>document.addEventListener('gesturestart',e=>e.preventDefault());document.addEventListener('touchmove',e=>{if(e.touches.length>1)e.preventDefault()},{passive:false});</script>
   <div id="root"></div>
   <script type="text/babel">
     const { useState, useEffect, useRef, createContext, useContext } = React;
