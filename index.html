@@ -1193,7 +1193,7 @@
       const handleAddService = async (serviceKey) => { const newServices = [...userServices, serviceKey]; await saveServices(userData.uid, newServices); setUserData(prev => ({ ...prev, services: newServices })); setShowAddModal(false); };
       const remainingServices = getRemainingServices(); const canAddMore = remainingServices.length > 0;
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
-        <div style={{background: 'var(--surface-dark)', padding: '16px 20px 12px'}}>
+        <div style={{background: 'var(--surface-dark)', padding: '56px 20px 12px'}}>
           <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
             <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
             <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer', background: 'rgba(255,255,255,0.15)', border: '2px solid rgba(255,255,255,0.2)', color: '#fff'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
