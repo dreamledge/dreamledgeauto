@@ -151,7 +151,7 @@
     .avatar { width: 44px; height: 44px; border-radius: var(--radius-full); background: var(--surface-card); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--ink); flex-shrink: 0; border: 2px solid var(--canvas); box-shadow: var(--shadow-sm); }
 
     /* Bottom nav */
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--hairline-soft); padding: 8px 16px calc(8px + env(safe-area-inset-bottom)); z-index: 1000; }
+    .bottom-nav { flex-shrink: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--hairline-soft); padding: 8px 16px calc(8px + env(safe-area-inset-bottom)); }
     .bottom-nav-inner { display: flex; align-items: center; justify-content: space-around; background: var(--surface-soft); border-radius: var(--radius-full); padding: 4px; max-width: 440px; margin: 0 auto; border: 1px solid rgba(0,0,0,0.04); box-shadow: var(--shadow-md); }
     .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 6px 4px; border-radius: var(--radius-full); min-height: 44px; transition: all 0.2s var(--ease-out); position: relative; }
     .bottom-nav-item svg { width: 20px; height: 20px; color: var(--muted-soft); margin-bottom: 1px; transition: color 0.2s ease; }
@@ -928,7 +928,7 @@
       const [navTab, setNavTab] = useState('home');
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'settings') onNavigate('/customer/request'); };
       return (<div style={{height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
-        <div style={{flex: 1, overflowY: 'auto', padding: '20px 20px 80px', paddingTop: 56}}>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 56}}>
           <div className="title-lg" style={{letterSpacing: '-0.3px'}}>Hello!</div>
           <div className="body-sm mt-xs" style={{color: 'var(--body)'}}>How can we help?</div>
           <div className="title-sm mb-md mt-lg" style={{letterSpacing: '-0.1px'}}>Services</div>
@@ -1065,8 +1065,8 @@
         bell: icon(<><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></>),
       };
 
-      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', paddingBottom: '80px'}}>
-        <div style={{flex: 1, overflowY: 'auto', padding: '20px', paddingTop: 16}}>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden'}}>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 16}}>
           {/* Header */}
           <div className="row between centerV mb-lg">
             <div>
@@ -1196,7 +1196,7 @@
       const handleCompleteJob = () => { const payout = parseInt(activeJob.payout.split('-')[1].replace('$','')); setTodayEarnings(todayEarnings + payout); setJobsCompleted(jobsCompleted + 1); setActiveJob(null); };
       const handleAddService = async (serviceKey) => { const newServices = [...userServices, serviceKey]; await saveServices(userData.uid, newServices); setUserData(prev => ({ ...prev, services: newServices })); setShowAddModal(false); };
       const remainingServices = getRemainingServices(); const canAddMore = remainingServices.length > 0;
-      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', paddingBottom: '80px'}}>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden'}}>
         <div style={{background: 'var(--surface-dark)', padding: '16px 20px 12px'}}>
           <div className="row centerV" style={{justifyContent: 'space-between', marginBottom: 14}}>
             <div><div className="title-md text-white" style={{letterSpacing: '-0.15px'}}>{greeting}!</div><div className="body-sm text-white" style={{opacity: 0.7}}>Ready to work?</div></div>
@@ -1216,7 +1216,7 @@
             {canAddMore && (<button onClick={() => setShowAddModal(true)} className="btn btn-sm btn-outline" style={{whiteSpace: 'nowrap', minWidth: 44}}>+ Add</button>)}
           </div>
         </div>
-        <div style={{flex: 1, overflowY: 'auto', padding: 14}}>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: 14}}>
           <div className="row between centerV mb-md"><span className="title-sm" style={{letterSpacing: '-0.1px'}}>{isOnline ? 'Live Jobs' : 'Jobs Available'}</span>{!isOnline && <span className="caption" style={{color: 'var(--muted)'}}>Go online to see jobs</span>}</div>
           {isOnline ? (filteredJobs.length > 0 ? (filteredJobs.map((job) => (
             <div key={job.id} className="card-elevated mb-md animate-fade-in-up" style={{padding: 18, borderRadius: 'var(--radius-lg)'}}>
@@ -1293,8 +1293,8 @@
         { job: 'Tire Rotation', date: 'Yesterday, 2:40 PM', amount: '$50' },
         { job: 'Battery Check', date: 'Yesterday, 11:20 AM', amount: '$35' },
       ];
-      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', paddingBottom: '80px'}}>
-        <div style={{flex: 1, overflowY: 'auto', padding: '20px', paddingTop: 16}}>
+      return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden'}}>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', padding: '20px', paddingTop: 16}}>
           <div className="display-sm mb-lg" style={{letterSpacing: '-0.5px'}}>Earnings</div>
           <div className="card-elevated" style={{padding: 24, borderRadius: 'var(--radius-xl)', marginBottom: 20}}>
             <div className="row between centerV mb-sm">
