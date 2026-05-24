@@ -440,10 +440,24 @@
     ];
 
     const TESTIMONIALS = [
-      { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5 },
-      { name: 'Mike D.', text: 'Best pricing ever. Highly recommend!', rating: 5 },
-      { name: 'Lisa K.', text: 'So easy to use. Found help instantly.', rating: 5 },
+      { name: 'Sarah M.', text: 'Saved my day! Mechanic showed up in 20 mins.', rating: 5, photo: 'https://picsum.photos/id/64/80/80' },
+      { name: 'Mike D.', text: 'Best pricing ever. Highly recommend!', rating: 5, photo: 'https://picsum.photos/id/65/80/80' },
+      { name: 'Lisa K.', text: 'So easy to use. Found help instantly.', rating: 5, photo: 'https://picsum.photos/id/177/80/80' },
     ];
+
+    const PROVIDERS = [
+      { id: 1, name: "Mike's Mobile Auto", rating: 4.9, reviews: 184, eta: '12 mins away', distance: '4.2 mi', specialty: 'Diagnostics', available: 'Available Now', img: 'https://picsum.photos/id/91/120/120' },
+      { id: 2, name: 'QuickFix Pro', rating: 4.8, reviews: 142, eta: '8 mins away', distance: '2.1 mi', specialty: 'Tires & Brakes', available: 'Available Now', img: 'https://picsum.photos/id/177/120/120' },
+      { id: 3, name: "Ron's Roadside Rescue", rating: 4.7, reviews: 98, eta: '18 mins away', distance: '8.7 mi', specialty: 'Roadside Assistance', available: 'Open 24/7', img: 'https://picsum.photos/id/191/120/120' },
+      { id: 4, name: 'Elite Auto Care', rating: 4.9, reviews: 256, eta: '5 mins away', distance: '1.3 mi', specialty: 'Full Service', available: 'Available Now', img: 'https://picsum.photos/id/315/120/120' },
+      { id: 5, name: 'Tire & Tow Express', rating: 4.6, reviews: 73, eta: '22 mins away', distance: '11.5 mi', specialty: 'Tire Change', available: 'Busy', img: 'https://picsum.photos/id/338/120/120' },
+      { id: 6, name: 'Battery Rescue Co.', rating: 4.8, reviews: 117, eta: '10 mins away', distance: '3.8 mi', specialty: 'Battery Jump', available: 'Available Now', img: 'https://picsum.photos/id/344/120/120' },
+      { id: 7, name: "Jack's Towing", rating: 4.5, reviews: 61, eta: '15 mins away', distance: '6.4 mi', specialty: 'Towing', available: 'Open 24/7', img: 'https://picsum.photos/id/354/120/120' },
+      { id: 8, name: 'Fuel & Go', rating: 4.7, reviews: 89, eta: '20 mins away', distance: '9.2 mi', specialty: 'Fuel Delivery', available: 'Available Now', img: 'https://picsum.photos/id/433/120/120' },
+    ];
+
+    const AVATAR_URL = (name, size = 80) => `https://picsum.photos/seed/${encodeURIComponent((name || 'user').replace(/[^a-zA-Z0-9]/g, '').toLowerCase())}/${size}/${size}`;
+    const AVATAR_FALLBACK = (name, size = 80) => { const c = ['B91C1C','1a1a1a','2563eb','7c3aed','059669','d97706','0891b2']; const i = (name||'?').charAt(0).toUpperCase(); const b = c[(name||'').split('').reduce((a,c)=>a+c.charCodeAt(0),0)%c.length]; return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '"%3E%3Ccircle cx="' + (size/2) + '" cy="' + (size/2) + '" r="' + (size/2) + '" fill="%23' + b + '"/%3E%3Ctext x="' + (size/2) + '" y="' + (size/2) + '" text-anchor="middle" dy=".35em" fill="%23fff" font-size="' + (size*0.42) + 'px" font-family="sans-serif" font-weight="700"%3E' + encodeURIComponent(i) + '%3C/text%3E%3C/svg%3E'; };
 
     const TRUST_BADGES = [
       { icon: LUCIDE.lock, label: 'Secure payments' },
@@ -451,7 +465,7 @@
       { icon: LUCIDE.zap, label: 'Fast response' },
     ];
 
-    const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/customer/messages': 'customer-messages', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings', '/provider/messages': 'provider-messages', '/profile-edit': 'profile-edit', '/about': 'about', '/contact': 'contact', '/careers': 'careers', '/privacy': 'privacy', '/terms': 'terms', '/disclaimer': 'disclaimer', '/diagnosis': 'diagnosis' };
+    const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/customer/messages': 'customer-messages', '/customer/providers': 'customer-providers', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings', '/provider/messages': 'provider-messages', '/profile-edit': 'profile-edit', '/about': 'about', '/contact': 'contact', '/careers': 'careers', '/privacy': 'privacy', '/terms': 'terms', '/disclaimer': 'disclaimer', '/diagnosis': 'diagnosis' };
     const PATH_MAP = Object.fromEntries(Object.entries(ROUTE_MAP).map(([k, v]) => [v, k]));
     function getPath(screen) { return PATH_MAP[screen] || '/'; }
     function getScreen(path) { return ROUTE_MAP[path] || 'landing'; }
@@ -545,7 +559,7 @@
       const { screen, navigate, goBack } = useRouter();
       const [scrollY, setScrollY] = useState(0);
       useEffect(() => { const handleScroll = () => setScrollY(window.scrollY); window.addEventListener('scroll', handleScroll); return () => window.removeEventListener('scroll', handleScroll); }, []);
-      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'customer-messages': <CustomerMessagesScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'provider-messages': <ProviderMessagesScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} />, 'about': <AboutScreen onNavigate={navigate} goBack={goBack} />, 'contact': <ContactScreen onNavigate={navigate} goBack={goBack} />, 'careers': <CareersScreen onNavigate={navigate} goBack={goBack} />, 'privacy': <PrivacyScreen onNavigate={navigate} goBack={goBack} />, 'terms': <TermsScreen onNavigate={navigate} goBack={goBack} />, 'disclaimer': <DisclaimerScreen onNavigate={navigate} goBack={goBack} />, 'diagnosis': <DiagnosisScreen onNavigate={navigate} goBack={goBack} /> };
+      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'customer-messages': <CustomerMessagesScreen onNavigate={navigate} goBack={goBack} />, 'customer-providers': <CustomerProvidersScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'provider-messages': <ProviderMessagesScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} />, 'about': <AboutScreen onNavigate={navigate} goBack={goBack} />, 'contact': <ContactScreen onNavigate={navigate} goBack={goBack} />, 'careers': <CareersScreen onNavigate={navigate} goBack={goBack} />, 'privacy': <PrivacyScreen onNavigate={navigate} goBack={goBack} />, 'terms': <TermsScreen onNavigate={navigate} goBack={goBack} />, 'disclaimer': <DisclaimerScreen onNavigate={navigate} goBack={goBack} />, 'diagnosis': <DiagnosisScreen onNavigate={navigate} goBack={goBack} /> };
       return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div></UserProvider>);
     }
 
@@ -655,9 +669,9 @@
                 <div className="blur-reveal-fast blur-delay-2"><div style={{position: 'relative', display: 'inline-block', overflow: 'hidden', height: '1.05em', verticalAlign: 'bottom', lineHeight: 1.05}}>{wordAnim === 'exit' ? <span key={wordIdx + 'o'} style={{color: 'var(--brand-accent)', display: 'block', animation: 'carouselOut 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : wordAnim === 'enter' ? <span key={wordIdx + 'i'} style={{color: 'var(--brand-accent)', display: 'block', animation: 'carouselIn 0.4s var(--ease-out) both', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span> : <span style={{color: 'var(--brand-accent)', display: 'block', whiteSpace: 'nowrap'}}>{carouselWords[wordIdx]}</span>}</div></div>
               </div>
               <div className="body-md blur-reveal blur-delay-3" style={{color: 'var(--body)', marginBottom: 28, lineHeight: 1.65, textAlign: 'center'}}>Book in seconds, help arrives in minutes.</div>
-              <div className="col gap-sm blur-reveal blur-delay-4" style={{alignItems: 'center'}}>
+              <div className="col blur-reveal blur-delay-4" style={{alignItems: 'center', gap: 16}}>
                 <button className="btn btn-lg" style={{paddingLeft: 48, paddingRight: 48}} onClick={() => onNavigate('/customer/signup')}>Request Help</button>
-                <button className="btn btn-text" onClick={() => onNavigate('/provider/signup')}>I'm a Mechanic</button>
+                <span style={{fontSize: 14, fontWeight: 600, color: '#fff', cursor: 'pointer', opacity: 0.85, letterSpacing: '0.02em', display: 'flex', alignItems: 'center', gap: 6}} onClick={() => onNavigate('/provider/signup')}>Mechanic / Service Provider →</span>
               </div>
             </div>
           </div>
@@ -782,26 +796,24 @@
                 <div className="body-md mt-sm" style={{color: 'var(--body)'}}>Trusted by drivers everywhere</div>
               </div>
             </Reveal>
-            <div className="grid grid-3">
+            <div className="row" style={{gap: 16, overflowX: 'auto', overflowY: 'hidden', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', paddingBottom: 8, flexWrap: 'nowrap'}}>
               {TESTIMONIALS.map((t, i) => {
-                const pastelFills = ['var(--badge-orange)', 'var(--badge-pink)', 'var(--badge-violet)'];
-                const initials = t.name.split(' ').map(n => n[0]).join('');
                 return (
-                  <Reveal key={i} delay={`reveal-delay-${i + 1}`}>
-                    <div className="card" style={{position: 'relative'}}>
+                  <Reveal key={i} delay={`reveal-delay-${i + 1}`}><div style={{flexShrink: 0}}>
+                    <div className="card" style={{position: 'relative', minWidth: 280, maxWidth: 320, flexShrink: 0, scrollSnapAlign: 'start', textAlign: 'center'}}>
                       <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'var(--brand-accent)', borderRadius: '3px 3px 0 0', opacity: 0.3}} />
-                      <div className="row centerV gap-sm mb-md">
-                        <div className="avatar" style={{background: pastelFills[i % 3], color: '#fff'}}>{initials}</div>
-                        <div>
+                      <div className="col centerV gap-sm mb-md">
+                        <img src={t.photo} alt={t.name} style={{width: 56, height: 56, borderRadius: '50%', objectFit: 'cover'}} onError={e => e.target.src = AVATAR_FALLBACK(t.name, 80)} />
+                        <div className="text-center">
                           <div className="title-sm">{t.name}</div>
-                          <div className="row" style={{gap: 2}}>
+                          <div className="row" style={{gap: 2, justifyContent: 'center'}}>
                             {Array.from({length: t.rating}).map((_, j) => <span key={j} style={{color: '#fb923c', fontSize: 14}}>★</span>)}
                           </div>
                         </div>
                       </div>
-                      <div className="body-md" style={{lineHeight: 1.65, fontStyle: 'italic', color: 'var(--body)'}}>{"\u201C"}{t.text}{"\u201D"}</div>
+                      <div className="body-md" style={{lineHeight: 1.65, fontStyle: 'italic', color: 'var(--body)', textAlign: 'center'}}>{"\u201C"}{t.text}{"\u201D"}</div>
                     </div>
-                  </Reveal>
+                  </div></Reveal>
                 );
               })}
             </div>
@@ -877,7 +889,8 @@
 
     function CustomerSignupScreen({ onNavigate, goBack }) {
       const { setUserData } = useContext(UserContext);
-      const [name, setName] = useState(''); const [phone, setPhone] = useState(''); const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [loading, setLoading] = useState(false);
+      const [name, setName] = useState(''); const [phone, setPhone] = useState(''); const [email, setEmail] = useState(''); const [password, setPassword] = useState(''); const [confirmPassword, setConfirmPassword] = useState(''); const [loading, setLoading] = useState(false);
+      const pwMatch = password === confirmPassword && password.length > 0;
       const handleSubmit = () => { setLoading(true); localStorage.setItem('dl_user_' + email.toLowerCase(), JSON.stringify({ role: 'customer', name, phone })); setUserData(prev => ({ ...prev, name, role: 'customer' })); setTimeout(() => onNavigate('/customer/home'), 1000); };
       return (<div className="container">
         <div className="p-md cursor-pointer" onClick={goBack}><span className="display-sm" style={{opacity: 0.7}}>←</span></div>
@@ -892,7 +905,10 @@
           <div className="input-wrap mb-md"><span className="input-icon">{IX(<><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></>)}</span><input className="input" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" /></div>
           <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Password</label>
           <div className="input-wrap mb-md"><span className="input-icon">{IX(<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>)}</span><input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="********" /></div>
-          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone} style={{width: '100%', marginTop: 28, opacity: loading || !name || !email || !phone ? 0.5 : 1}}>{loading ? 'Creating...' : 'Create Account'}</button>
+          <label className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>Re-enter password</label>
+          <div className="input-wrap mb-md"><span className="input-icon">{IX(<><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></>)}</span><input className="input" type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} placeholder="********" style={{borderColor: confirmPassword && !pwMatch ? 'var(--error, #dc2626)' : undefined}} /></div>
+          {confirmPassword && !pwMatch && <div className="body-sm mb-md" style={{color: 'var(--error, #dc2626)', marginTop: -12}}>Passwords do not match</div>}
+          <button className="btn btn-lg" onClick={handleSubmit} disabled={loading || !name || !email || !phone || !pwMatch} style={{width: '100%', marginTop: 28, opacity: loading || !name || !email || !phone || !pwMatch ? 0.5 : 1}}>{loading ? 'Creating...' : 'Create Account'}</button>
         </div>
       </div>);
     }
@@ -987,15 +1003,31 @@
               <div style={{position: 'relative', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--muted-soft)'}} onClick={() => setShowNotifications(true)}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
               </div>
-              <div className="avatar" style={{width: 40, height: 40, fontSize: 14, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+              <img src={AVATAR_URL(userData?.name)} alt="" style={{width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', cursor: 'pointer', border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(userData?.name)} onClick={() => onNavigate('/profile-edit')} />
             </div>
           </div>
-          <div className="title-sm mb-md mt-lg" style={{letterSpacing: '-0.1px'}}>Services</div>
-          <div className="grid grid-2">
-            {SERVICE_TYPES.map((s, i) => (
-              <div key={s.key} className="card-elevated card-hover" style={{padding: 18, textAlign: 'center', cursor: 'pointer', borderRadius: 'var(--radius-lg)'}} onClick={() => onNavigate('/customer/request')}>
-                <div className="mb-sm" style={{display: 'flex', color: 'var(--muted-soft)'}}>{LUCIDE[s.icon]}</div>
-                <div className="title-sm">{s.label}</div>
+          <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24, marginBottom: 14}}>
+            <div className="title-sm" style={{letterSpacing: '-0.1px'}}>Mechanics / Service Providers Near You</div>
+            <span style={{fontSize: 12, color: 'var(--brand-accent)', fontWeight: 600, cursor: 'pointer'}} onClick={() => onNavigate('/customer/providers')}>See All</span>
+          </div>
+          <div style={{display: 'flex', gap: 14, overflowX: 'auto', overflowY: 'hidden', scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch', paddingBottom: 8, flexWrap: 'nowrap', minHeight: 220}}>
+            {PROVIDERS.map(p => (
+              <div key={p.id} style={{flexShrink: 0, width: 220, scrollSnapAlign: 'start', borderRadius: 'var(--radius-lg)', background: 'var(--canvas)', border: '1px solid var(--hairline-soft)', boxShadow: 'var(--shadow-md)', cursor: 'pointer', transition: 'all 0.25s var(--ease-out)', padding: '20px 16px 16px', textAlign: 'center'}} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }} onClick={() => onNavigate('/customer/request')}>
+                <div style={{position: 'relative', display: 'inline-block', marginBottom: 12}}>
+                  <img src={p.img} alt={p.name} style={{width: 64, height: 64, borderRadius: '50%', objectFit: 'cover', display: 'block', border: '2px solid var(--canvas)', boxShadow: '0 2px 8px rgba(0,0,0,0.12)'}} loading="lazy" onError={e => e.target.src = AVATAR_FALLBACK(p.name, 80)} />
+                  <div style={{position: 'absolute', bottom: 0, right: -2, width: 14, height: 14, borderRadius: '50%', background: p.available === 'Available Now' ? 'var(--success)' : p.available === 'Open 24/7' ? '#8b5cf6' : 'var(--error)', border: '2px solid #fff'}} />
+                </div>
+                <div className="title-sm" style={{fontSize: 14, marginBottom: 2}}>{p.name}</div>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 3, marginBottom: 4}}>
+                  <span style={{color: '#fb923c', fontSize: 12}}>★</span>
+                  <span style={{fontSize: 12, fontWeight: 600, color: 'var(--ink)'}}>{p.rating}</span>
+                  <span style={{fontSize: 11, color: 'var(--muted)'}}>({p.reviews})</span>
+                </div>
+                <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 3, marginBottom: 3}}>
+                  <span style={{display: 'flex', color: 'var(--muted-soft)', width: 11, height: 11}}>{LUCIDE.pin}</span>
+                  <span style={{fontSize: 11, color: 'var(--body)', fontWeight: 500}}>{p.eta}</span>
+                </div>
+                <div style={{display: 'inline-block', padding: '2px 10px', borderRadius: 'var(--radius-full)', background: 'var(--brand-accent-soft)', fontSize: 11, fontWeight: 600, color: 'var(--brand-accent)', marginTop: 4}}>{p.specialty}</div>
               </div>
             ))}
           </div>
@@ -1025,6 +1057,49 @@
             </div>
           </div>
         )}
+      </div>);
+    }
+
+    function CustomerProvidersScreen({ onNavigate, goBack }) {
+      return (<div style={{height: '100dvh', display: 'flex', flexDirection: 'column', background: 'var(--canvas)'}}>
+        <div className="row centerV" style={{padding: '60px 20px 12px', borderBottom: '1px solid var(--hairline-soft)', background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 10}}>
+          <div onClick={goBack} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 14}}>{IX(<><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></>)}</div>
+          <div>
+            <div className="title-sm" style={{letterSpacing: '-0.1px'}}>Nearby Providers</div>
+            <div className="caption" style={{color: 'var(--muted)', marginTop: 1, fontSize: 11, textTransform: 'none', letterSpacing: '0.01em'}}>Within 30 miles · {PROVIDERS.length} found</div>
+          </div>
+        </div>
+        <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '16px 20px 24px'}}>
+          <div className="col" style={{gap: 14}}>
+            {PROVIDERS.map(p => (
+              <div key={p.id} className="card-elevated card-hover" style={{padding: 16, borderRadius: 'var(--radius-lg)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14}} onClick={() => onNavigate('/customer/request')}>
+                <div style={{position: 'relative', flexShrink: 0}}>
+                  <img src={p.img} alt={p.name} style={{width: 56, height: 56, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--canvas)', boxShadow: '0 2px 8px rgba(0,0,0,0.1)'}} onError={e => e.target.src = AVATAR_FALLBACK(p.name, 80)} />
+                  <div style={{position: 'absolute', bottom: 1, right: 1, width: 12, height: 12, borderRadius: '50%', background: p.available === 'Available Now' ? 'var(--success)' : p.available === 'Open 24/7' ? '#8b5cf6' : 'var(--error)', border: '2px solid #fff'}} />
+                </div>
+                <div style={{flex: 1, minWidth: 0}}>
+                  <div className="row between centerV mb-xs">
+                    <span className="title-sm" style={{fontSize: 14}}>{p.name}</span>
+                    <span style={{fontSize: 12, fontWeight: 600, color: p.available === 'Available Now' ? 'var(--success)' : p.available === 'Open 24/7' ? '#8b5cf6' : 'var(--error)'}}>{p.available === 'Available Now' ? '● Available' : p.available}</span>
+                  </div>
+                  <div className="row centerV" style={{gap: 3, marginBottom: 4}}>
+                    <span style={{color: '#fb923c', fontSize: 12}}>★</span>
+                    <span style={{fontSize: 12, fontWeight: 600, color: 'var(--ink)'}}>{p.rating}</span>
+                    <span style={{fontSize: 11, color: 'var(--muted)'}}>({p.reviews})</span>
+                    <span style={{fontSize: 10, color: 'var(--muted-soft)', margin: '0 6px'}}>·</span>
+                    <span style={{display: 'flex', color: 'var(--muted-soft)', width: 11, height: 11}}>{LUCIDE.pin}</span>
+                    <span style={{fontSize: 12, color: 'var(--body)', fontWeight: 500}}>{p.eta}</span>
+                  </div>
+                  <div className="row centerV" style={{gap: 6}}>
+                    <div style={{padding: '2px 10px', borderRadius: 'var(--radius-full)', background: 'var(--brand-accent-soft)', fontSize: 11, fontWeight: 600, color: 'var(--brand-accent)'}}>{p.specialty}</div>
+                    <span style={{fontSize: 11, color: 'var(--muted)'}}>{p.distance}</span>
+                  </div>
+                </div>
+                <div style={{display: 'flex', color: 'var(--muted-soft)'}}>{IX(<><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></>, 18, 18)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>);
     }
 
@@ -1092,10 +1167,10 @@
       const [activeConv, setActiveConv] = useState(null);
       const [messageInput, setMessageInput] = useState('');
       const [conversations, setConversations] = useState([
-        { id: 'c1', otherUserId: 'mike', otherUserName: 'Mike D.', otherUserInitial: 'M', lastMessage: "I'm on my way, ETA 8 min", lastMessageTime: '2 min ago', unread: 2 },
-        { id: 'c2', otherUserId: 'sarah', otherUserName: 'Sarah J.', otherUserInitial: 'S', lastMessage: 'All done! Your car is ready.', lastMessageTime: '1 hour ago', unread: 0 },
-        { id: 'c3', otherUserId: 'james', otherUserName: 'James T.', otherUserInitial: 'J', lastMessage: 'Can you confirm your location?', lastMessageTime: '3 hours ago', unread: 1 },
-        { id: 'c4', otherUserId: 'lisa', otherUserName: 'Lisa M.', otherUserInitial: 'L', lastMessage: 'Thanks for choosing us!', lastMessageTime: '1 day ago', unread: 0 },
+        { id: 'c1', otherUserId: 'mike', otherUserName: 'Mike D.', otherUserAvatar: AVATAR_URL('Mike D.'), lastMessage: "I'm on my way, ETA 8 min", lastMessageTime: '2 min ago', unread: 2 },
+        { id: 'c2', otherUserId: 'sarah', otherUserName: 'Sarah J.', otherUserAvatar: AVATAR_URL('Sarah J.'), lastMessage: 'All done! Your car is ready.', lastMessageTime: '1 hour ago', unread: 0 },
+        { id: 'c3', otherUserId: 'james', otherUserName: 'James T.', otherUserAvatar: AVATAR_URL('James T.'), lastMessage: 'Can you confirm your location?', lastMessageTime: '3 hours ago', unread: 1 },
+        { id: 'c4', otherUserId: 'lisa', otherUserName: 'Lisa M.', otherUserAvatar: AVATAR_URL('Lisa M.'), lastMessage: 'Thanks for choosing us!', lastMessageTime: '1 day ago', unread: 0 },
       ]);
       const [convMessages, setConvMessages] = useState({
         c1: [
@@ -1133,10 +1208,10 @@
           <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', paddingTop: 60}}>
             <div className="row between centerV mb-lg">
               <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Messages</div>
-              <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+              <img src={AVATAR_URL(userData?.name)} alt="" style={{width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', cursor: 'pointer', border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(userData?.name)} onClick={() => onNavigate('/profile-edit')} />
             </div>
             {conversations.map((conv, i) => (<div key={conv.id} className="animate-fade-in-up" style={{display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0', borderBottom: i < conversations.length - 1 ? '1px solid var(--hairline)' : 'none', cursor: 'pointer'}} onClick={() => openThread(conv)}>
-              <div className="avatar" style={{width: 44, height: 44, fontSize: 16, background: 'var(--surface-strong)', color: 'var(--ink)'}}>{conv.otherUserInitial}</div>
+              <img src={conv.otherUserAvatar} alt="" style={{width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(conv.otherUserName)} />
               <div style={{flex: 1, minWidth: 0}}>
                 <div className="row between centerV mb-xs">
                   <span className="title-sm" style={{fontWeight: conv.unread > 0 ? 600 : 500}}>{conv.otherUserName}</span>
@@ -1156,7 +1231,7 @@
               <div onClick={goBackToList} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 12}}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
               </div>
-              <div className="avatar" style={{width: 34, height: 34, fontSize: 13, background: 'var(--surface-strong)', color: 'var(--ink)', marginRight: 10}}>{activeConv?.otherUserInitial}</div>
+              <img src={activeConv?.otherUserAvatar} alt="" style={{width: 34, height: 34, borderRadius: '50%', objectFit: 'cover', marginRight: 10, border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(activeConv?.otherUserName)} />
               <div className="title-md" style={{flex: 1}}>{activeConv?.otherUserName}</div>
               <div onClick={sendLocation} style={{color: 'var(--brand-accent)', cursor: 'pointer', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4}}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -1286,7 +1361,7 @@
                 <div style={{position: 'absolute', top: 2, right: 2, width: 7, height: 7, borderRadius: '50%', background: 'var(--brand-accent)'}} />
               </div>
               <div style={{position: 'relative', cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>
-                <div className="avatar" style={{width: 36, height: 36, fontSize: 13}}>{name.charAt(0).toUpperCase()}</div>
+                <img src={AVATAR_URL(name)} alt="" style={{width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(name)} />
               </div>
             </div>
           </div>
@@ -1567,10 +1642,10 @@
       const [activeConv, setActiveConv] = useState(null);
       const [messageInput, setMessageInput] = useState('');
       const [conversations, setConversations] = useState([
-        { id: 'p1', otherUserId: 'john', otherUserName: 'John D.', otherUserInitial: 'J', lastMessage: 'Hey, need a jump start at 123 Main St', lastMessageTime: '2 min ago', unread: 1 },
-        { id: 'p2', otherUserId: 'emily', otherUserName: 'Emily R.', otherUserInitial: 'E', lastMessage: 'Thanks for the quick service!', lastMessageTime: '1 hour ago', unread: 0 },
-        { id: 'p3', otherUserId: 'mark', otherUserName: 'Mark T.', otherUserInitial: 'M', lastMessage: '📍 Shared location', lastMessageTime: 'Just now', unread: 1 },
-        { id: 'p4', otherUserId: 'anna', otherUserName: 'Anna K.', otherUserInitial: 'A', lastMessage: 'I need a tire change please', lastMessageTime: '1 day ago', unread: 0 },
+        { id: 'p1', otherUserId: 'john', otherUserName: 'John D.', otherUserAvatar: AVATAR_URL('John D.'), lastMessage: 'Hey, need a jump start at 123 Main St', lastMessageTime: '2 min ago', unread: 1 },
+        { id: 'p2', otherUserId: 'emily', otherUserName: 'Emily R.', otherUserAvatar: AVATAR_URL('Emily R.'), lastMessage: 'Thanks for the quick service!', lastMessageTime: '1 hour ago', unread: 0 },
+        { id: 'p3', otherUserId: 'mark', otherUserName: 'Mark T.', otherUserAvatar: AVATAR_URL('Mark T.'), lastMessage: '📍 Shared location', lastMessageTime: 'Just now', unread: 1 },
+        { id: 'p4', otherUserId: 'anna', otherUserName: 'Anna K.', otherUserAvatar: AVATAR_URL('Anna K.'), lastMessage: 'I need a tire change please', lastMessageTime: '1 day ago', unread: 0 },
       ]);
       const [convMessages, setConvMessages] = useState({
         p1: [
@@ -1607,10 +1682,10 @@
           <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', paddingTop: 60}}>
             <div className="row between centerV mb-lg">
               <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Messages</div>
-              <div className="avatar" style={{width: 36, height: 36, fontSize: 13, cursor: 'pointer'}} onClick={() => onNavigate('/profile-edit')}>{(userData?.name || '?').charAt(0).toUpperCase()}</div>
+              <img src={AVATAR_URL(userData?.name)} alt="" style={{width: 36, height: 36, borderRadius: '50%', objectFit: 'cover', cursor: 'pointer', border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(userData?.name)} onClick={() => onNavigate('/profile-edit')} />
             </div>
             {conversations.map((conv, i) => (<div key={conv.id} className="animate-fade-in-up" style={{display: 'flex', alignItems: 'center', gap: 12, padding: '14px 0', borderBottom: i < conversations.length - 1 ? '1px solid var(--hairline)' : 'none', cursor: 'pointer'}} onClick={() => openThread(conv)}>
-              <div className="avatar" style={{width: 44, height: 44, fontSize: 16, background: 'var(--surface-strong)', color: 'var(--ink)'}}>{conv.otherUserInitial}</div>
+              <img src={conv.otherUserAvatar} alt="" style={{width: 44, height: 44, borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(conv.otherUserName)} />
               <div style={{flex: 1, minWidth: 0}}>
                 <div className="row between centerV mb-xs">
                   <span className="title-sm" style={{fontWeight: conv.unread > 0 ? 600 : 500}}>{conv.otherUserName}</span>
@@ -1630,7 +1705,7 @@
               <div onClick={goBackToList} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 12}}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
               </div>
-              <div className="avatar" style={{width: 34, height: 34, fontSize: 13, background: 'var(--surface-strong)', color: 'var(--ink)', marginRight: 10}}>{activeConv?.otherUserInitial}</div>
+              <img src={activeConv?.otherUserAvatar} alt="" style={{width: 34, height: 34, borderRadius: '50%', objectFit: 'cover', marginRight: 10, border: '2px solid var(--canvas)', boxShadow: 'var(--shadow-sm)'}} onError={e => e.target.src = AVATAR_FALLBACK(activeConv?.otherUserName)} />
               <div className="title-md" style={{flex: 1}}>{activeConv?.otherUserName}</div>
               <div onClick={sendLocation} style={{color: 'var(--brand-accent)', cursor: 'pointer', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4}}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -2624,7 +2699,7 @@
         </div>
         <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px'}}>
           <div style={{display: 'flex', justifyContent: 'center', marginBottom: 32}}>
-            <div className="avatar" style={{width: 80, height: 80, fontSize: 28, border: '3px solid var(--brand-accent)'}}>{(name || '?').charAt(0).toUpperCase()}</div>
+            <img src={AVATAR_URL(name, 120)} alt="" style={{width: 80, height: 80, borderRadius: '50%', objectFit: 'cover', border: '3px solid var(--brand-accent)', boxShadow: '0 4px 16px rgba(0,0,0,0.12)'}} onError={e => e.target.src = AVATAR_FALLBACK(name, 120)} />
           </div>
           <label className="caption mb-sm" style={{color: 'var(--muted)'}}>Full name</label>
           <div className="input-wrap mb-lg"><span className="input-icon">{IX(<><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>)}</span><input className="input" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" /></div>
