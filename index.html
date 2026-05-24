@@ -372,6 +372,18 @@
       .hero-grid { grid-template-columns: 7fr 5fr; }
       .hero-band { padding: 100px 32px; }
     }
+
+    /* Footer links */
+    .footer-link { color: var(--on-dark-soft); font-size: 13px; cursor: pointer; transition: color 0.2s ease, opacity 0.2s ease; position: relative; }
+    .footer-link:hover { color: #fff; }
+    .footer-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--brand-accent); transition: width 0.2s var(--ease-out); }
+    .footer-link:hover::after { width: 100%; }
+    .footer-link-accent { color: var(--brand-accent); font-size: 13px; font-weight: 600; cursor: pointer; transition: opacity 0.2s ease; position: relative; }
+    .footer-link-accent:hover { opacity: 0.8; }
+    .footer-link-accent::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--brand-accent); transition: width 0.2s var(--ease-out); }
+    .footer-link-accent:hover::after { width: 100%; }
+    .footer-heading { color: var(--muted); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 16px; }
+    .footer-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 14px 0; }
   </style>
 </head>
 <body>
@@ -439,7 +451,7 @@
       { icon: LUCIDE.zap, label: 'Fast response' },
     ];
 
-    const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/customer/messages': 'customer-messages', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings', '/provider/messages': 'provider-messages', '/profile-edit': 'profile-edit' };
+    const ROUTE_MAP = { '/': 'landing', '/role-select': 'role-select', '/login': 'login', '/customer/signup': 'customer-signup', '/provider/signup': 'provider-signup', '/provider/services': 'provider-services', '/customer/home': 'customer-home', '/customer/request': 'customer-request', '/customer/offers': 'customer-offers', '/customer/messages': 'customer-messages', '/provider/home': 'provider-home', '/provider/jobs': 'provider-jobs', '/provider/earnings': 'provider-earnings', '/provider/messages': 'provider-messages', '/profile-edit': 'profile-edit', '/about': 'about', '/contact': 'contact', '/careers': 'careers', '/privacy': 'privacy', '/terms': 'terms', '/disclaimer': 'disclaimer', '/diagnosis': 'diagnosis' };
     const PATH_MAP = Object.fromEntries(Object.entries(ROUTE_MAP).map(([k, v]) => [v, k]));
     function getPath(screen) { return PATH_MAP[screen] || '/'; }
     function getScreen(path) { return ROUTE_MAP[path] || 'landing'; }
@@ -533,7 +545,7 @@
       const { screen, navigate, goBack } = useRouter();
       const [scrollY, setScrollY] = useState(0);
       useEffect(() => { const handleScroll = () => setScrollY(window.scrollY); window.addEventListener('scroll', handleScroll); return () => window.removeEventListener('scroll', handleScroll); }, []);
-      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'customer-messages': <CustomerMessagesScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'provider-messages': <ProviderMessagesScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} /> };
+      const screens = { 'landing': <LandingPage onNavigate={navigate} scrollY={scrollY} goBack={goBack} />, 'role-select': <RoleSelectScreen onNavigate={navigate} goBack={goBack} />, 'customer-signup': <CustomerSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-signup': <ProviderSignupScreen onNavigate={navigate} goBack={goBack} />, 'provider-services': <ProviderServicesScreen onNavigate={navigate} goBack={goBack} />, 'login': <LoginScreen onNavigate={navigate} goBack={goBack} />, 'customer-home': <CustomerHomeScreen onNavigate={navigate} goBack={goBack} />, 'customer-request': <CustomerRequestScreen onNavigate={navigate} goBack={goBack} />, 'customer-offers': <CustomerOffersScreen onNavigate={navigate} goBack={goBack} />, 'customer-messages': <CustomerMessagesScreen onNavigate={navigate} goBack={goBack} />, 'provider-home': <ProviderHomeScreen onNavigate={navigate} goBack={goBack} />, 'provider-jobs': <ProviderJobsScreen onNavigate={navigate} goBack={goBack} />, 'provider-earnings': <ProviderEarningsScreen onNavigate={navigate} goBack={goBack} />, 'provider-messages': <ProviderMessagesScreen onNavigate={navigate} goBack={goBack} />, 'profile-edit': <ProfileEditScreen onNavigate={navigate} goBack={goBack} />, 'about': <AboutScreen onNavigate={navigate} goBack={goBack} />, 'contact': <ContactScreen onNavigate={navigate} goBack={goBack} />, 'careers': <CareersScreen onNavigate={navigate} goBack={goBack} />, 'privacy': <PrivacyScreen onNavigate={navigate} goBack={goBack} />, 'terms': <TermsScreen onNavigate={navigate} goBack={goBack} />, 'disclaimer': <DisclaimerScreen onNavigate={navigate} goBack={goBack} />, 'diagnosis': <DiagnosisScreen onNavigate={navigate} goBack={goBack} /> };
       return (<UserProvider><div className="h-full w-full">{screen === 'landing' && screens[screen]}{screen !== 'landing' && (<div className="animate-fade-in" key={screen}>{screens[screen]}</div>)}</div></UserProvider>);
     }
 
@@ -717,24 +729,31 @@
                 <div className="body-md" style={{color: 'var(--body)'}}>From dead batteries to flat tires, we've got you covered</div>
               </div>
             </Reveal>
-            <div className="grid grid-3">
-              {SERVICE_TYPES.map((s, i) => (
-                <Reveal key={s.key} delay={`reveal-delay-${(i % 5) + 1}`}>
-                  <div className="feature-icon-card card-hover" style={{textAlign: 'center'}}>
-                    <div className="mb-sm" style={{
-                      width: 44, height: 44, borderRadius: 'var(--radius-md)',
-                      background: 'var(--surface-soft)', display: 'flex',
-                      alignItems: 'center', justifyContent: 'center',
-                      margin: '0 auto 12px', fontSize: 22, border: '1px solid var(--hairline-soft)'
-                    }}>
-                      {serviceIcon(s.key)}
+              <div className="scroll-x" style={{paddingRight: 20}}>
+              {(() => {
+                const cardSrcs = ['card1.png', 'card2real.jpeg', 'card3.jpeg', 'card4.jpeg', 'card5.jpeg', 'card6.jpeg'];
+                return SERVICE_TYPES.map((s, i) => (
+                  <div key={s.key} className="feature-icon-card card-hover" style={{width: 230, padding: 0, overflow: 'hidden', border: 'none', boxShadow: 'var(--shadow-md)'}}>
+                    <img src={`public/${cardSrcs[i]}`} alt={s.label} style={{width: '100%', height: 140, objectFit: 'cover', display: 'block'}} />
+                    <div style={{padding: '14px 16px', textAlign: 'center'}}>
+                      <div className="title-sm mb-xs">{s.label}</div>
+                      <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                     </div>
-                    <div className="title-sm mb-xs">{s.label}</div>
-                    <div className="body-sm" style={{color: 'var(--body)'}}>{s.desc}</div>
                   </div>
-                </Reveal>
-              ))}
+                ));
+              })()}
             </div>
+          </div>
+        </section>
+        {/* AI Diagnosis CTA */}
+        <section className="p-section" style={{background: 'linear-gradient(135deg, var(--surface-dark) 0%, #2A201A 100%)'}}>
+          <div style={{maxWidth: 800, margin: '0 auto', textAlign: 'center'}}>
+            <Reveal>
+              <div style={{fontSize: 40, marginBottom: 16}}>🔍</div>
+              <div className="display-md mb-sm" style={{color: '#fff', letterSpacing: '-0.75px'}}>Not sure what's wrong?</div>
+              <div className="title-md mb-lg" style={{color: 'var(--on-dark-soft)', fontWeight: 400}}>Try our AI diagnosis in 30 seconds</div>
+              <button className="btn btn-lg" style={{background: 'var(--brand-accent)', border: 'none', boxShadow: '0 4px 20px rgba(234,88,12,0.35)', minWidth: 240, letterSpacing: '0.02em'}} onClick={() => onNavigate('/diagnosis')}>Start AI Diagnosis</button>
+            </Reveal>
           </div>
         </section>
         {/* Features */}
@@ -806,6 +825,19 @@
           <div className="col gap-md" style={{maxWidth: 1200, margin: '0 auto'}}>
             <span className="text-white font-semibold" style={{letterSpacing: '-0.3px'}}>Dreamledge <span style={{color: 'var(--brand-accent)'}}>Auto</span></span>
             <div className="body-sm" style={{color: 'var(--on-dark-soft)'}}>© 2026 Dreamledge Auto. All rights reserved.</div>
+            <div className="row" style={{gap: 24, flexWrap: 'wrap', marginTop: 10}}>
+              <span className="footer-link" onClick={() => onNavigate('/about')}>About Us</span>
+              <span className="footer-link" onClick={() => onNavigate('/contact')}>Contact Support</span>
+              <span className="footer-link" onClick={() => onNavigate('/careers')}>Careers</span>
+              <span className="footer-link-accent" onClick={() => onNavigate('/provider/signup')}>Partner with Us</span>
+            </div>
+            <div className="footer-divider" />
+            <div className="footer-heading">Legal</div>
+            <div className="row" style={{gap: 24, flexWrap: 'wrap', marginTop: 4}}>
+              <span className="footer-link" onClick={() => onNavigate('/privacy')}>Privacy Policy</span>
+              <span className="footer-link" onClick={() => onNavigate('/terms')}>Terms of Service</span>
+              <span className="footer-link" onClick={() => onNavigate('/disclaimer')}>Disclaimer</span>
+            </div>
           </div>
         </footer>
       </div>);
@@ -1625,6 +1657,955 @@
             </div>
           </div>
         )}
+      </div>);
+    }
+
+    function PageHeader({ title, goBack }) {
+      return (<div style={{position: 'relative', padding: '60px 20px 24px', background: 'linear-gradient(180deg, var(--surface-soft) 0%, var(--canvas) 100%)', borderBottom: '1px solid var(--hairline-soft)', marginBottom: 0}}>
+        <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'linear-gradient(90deg, var(--brand-accent), var(--brand-teal))', opacity: 0.4}} />
+        <div className="row centerV">
+          <div onClick={goBack} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 14, width: 36, height: 36, borderRadius: '50%', background: 'var(--canvas)', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)', transition: 'all 0.2s ease'}} onMouseEnter={e => { e.currentTarget.style.background = 'var(--surface-card)'; e.currentTarget.style.boxShadow = 'var(--shadow-md)'; }} onMouseLeave={e => { e.currentTarget.style.background = 'var(--canvas)'; e.currentTarget.style.boxShadow = 'var(--shadow-sm)'; }}>{IX(<><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></>)}</div>
+          <div className="title-lg">{title}</div>
+        </div>
+      </div>);
+    }
+
+    function FadeIn({ children, delay = 0 }) {
+      const [vis, setVis] = useState(false);
+      const ref = useRef(null);
+      useEffect(() => { const el = ref.current; if (!el) return; const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setTimeout(() => setVis(true), delay); o.unobserve(el); } }, { threshold: 0.1 }); o.observe(el); return () => o.disconnect(); }, [delay]);
+      return (<div ref={ref} style={{opacity: vis ? 1 : 0, transform: vis ? 'translateY(0)' : 'translateY(12px)', transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'}}>{children}</div>);
+    }
+
+    function AboutScreen({ onNavigate, goBack }) {
+      return (<div style={{minHeight: '100dvh', background: 'var(--canvas)'}}>
+        <PageHeader title="About Us" goBack={goBack} />
+        <div style={{maxWidth: 720, margin: '0 auto', padding: '36px 20px 60px'}}>
+          <FadeIn>
+            <div style={{display: 'flex', gap: 16, marginBottom: 32, alignItems: 'flex-start'}}>
+              <div style={{width: 4, height: 48, borderRadius: 2, background: 'linear-gradient(180deg, var(--brand-accent), var(--brand-teal))', flexShrink: 0, marginTop: 4}} />
+              <div>
+                <div className="display-sm" style={{letterSpacing: '-0.5px', marginBottom: 8}}>Getting drivers back on the road, fast.</div>
+                <div className="body-md" style={{color: 'var(--body)', lineHeight: 1.8, maxWidth: 600}}>Dreamledge Auto connects drivers in need with verified mobile mechanics nearby. Founded in Dayton, OH, we believe roadside help should be fast, fair, and transparent — no towing required, no hidden fees.</div>
+              </div>
+            </div>
+          </FadeIn>
+          <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 32}}>
+            <FadeIn delay={100}>
+              <div className="card-elevated" style={{padding: 28, borderRadius: 'var(--radius-lg)', position: 'relative', overflow: 'hidden'}}>
+                <div style={{position: 'absolute', top: 0, left: 0, width: 3, height: 48, background: 'var(--brand-accent)', borderRadius: '0 0 3px 0'}} />
+                <div style={{color: 'var(--brand-accent)', marginBottom: 12, fontSize: 28}}>{LUCIDE.target}</div>
+                <div className="title-sm mb-sm">Our Mission</div>
+                <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.7}}>Eliminate the stress of roadside emergencies by putting a trusted mechanic in your pocket.</div>
+              </div>
+            </FadeIn>
+            <FadeIn delay={200}>
+              <div className="card-elevated" style={{padding: 28, borderRadius: 'var(--radius-lg)', position: 'relative', overflow: 'hidden'}}>
+                <div style={{position: 'absolute', top: 0, left: 0, width: 3, height: 48, background: 'var(--brand-teal)', borderRadius: '0 0 3px 0'}} />
+                <div style={{color: 'var(--brand-teal)', marginBottom: 12, fontSize: 28}}>{LUCIDE.star}</div>
+                <div className="title-sm mb-sm">Our Team</div>
+                <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.7}}>Automotive enthusiasts, engineers, and service pros making every breakdown a minor inconvenience.</div>
+              </div>
+            </FadeIn>
+          </div>
+          <FadeIn delay={300}>
+            <div style={{background: 'var(--surface-card)', borderRadius: 'var(--radius-lg)', padding: 28, border: '1px solid var(--hairline-soft)'}}>
+              <div className="title-sm mb-sm" style={{color: 'var(--brand-accent)'}}>Our Values</div>
+              <div className="row" style={{gap: 24, flexWrap: 'wrap'}}>
+                {[{v:'Transparency',d:'No hidden fees, ever'},{v:'Speed',d:'Help within 30 minutes'},{v:'Trust',d:'Verified mechanics only'},{v:'Community',d:'Supporting local pros'}].map((item, i) => (
+                  <div key={i} style={{flex: '1 0 40%', minWidth: 140}}>
+                    <div className="title-sm mb-xs">{item.v}</div>
+                    <div className="body-sm" style={{color: 'var(--body)'}}>{item.d}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </div>);
+    }
+
+    function ContactScreen({ onNavigate, goBack }) {
+      return (<div style={{minHeight: '100dvh', background: 'var(--canvas)'}}>
+        <PageHeader title="Contact Support" goBack={goBack} />
+        <div style={{maxWidth: 720, margin: '0 auto', padding: '36px 20px 60px'}}>
+          <FadeIn>
+            <div className="body-md mb-lg" style={{color: 'var(--body)', lineHeight: 1.8}}>Need help? Reach out and we'll get back to you within 24 hours. For urgent roadside assistance, request service through the app for the fastest response.</div>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div style={{maxWidth: 340, margin: '0 auto 28px'}}>
+              <div className="card-elevated" style={{padding: 28, borderRadius: 'var(--radius-lg)', textAlign: 'center', transition: 'transform 0.2s ease, box-shadow 0.2s ease', cursor: 'default'}} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = 'var(--shadow-lg)'; }} onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}>
+                <div style={{width: 48, height: 48, borderRadius: 'var(--radius-md)', background: 'var(--surface-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px', color: 'var(--brand-accent)', fontSize: 24}}>{LUCIDE.mail}</div>
+                <div className="title-sm mb-xs">Email</div>
+                <div className="body-sm" style={{color: 'var(--muted)', wordBreak: 'break-all'}}>dreamledge@gmail.com</div>
+              </div>
+            </div>
+          </FadeIn>
+          <FadeIn delay={200}>
+            <div className="card-flat" style={{padding: 20, borderRadius: 'var(--radius-md)', borderLeft: '3px solid var(--brand-accent)'}}>
+              <div className="row centerV gap-sm">
+                <span style={{fontSize: 18}}>{LUCIDE.clock}</span>
+                <div><div className="title-sm">Hours of Operation</div><div className="body-sm" style={{color: 'var(--body)'}}>Monday – Saturday, 7 AM – 9 PM EST</div></div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </div>);
+    }
+
+    function CareersScreen({ onNavigate, goBack }) {
+      return (<div style={{minHeight: '100dvh', background: 'var(--canvas)'}}>
+        <PageHeader title="Careers" goBack={goBack} />
+        <div style={{maxWidth: 720, margin: '0 auto', padding: '36px 20px 60px'}}>
+          <FadeIn>
+            <div className="body-md mb-lg" style={{color: 'var(--body)', lineHeight: 1.8}}>Join us in transforming roadside assistance. We're always looking for talented mobile mechanics who want to be their own boss.</div>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div style={{background: 'linear-gradient(135deg, var(--surface-dark) 0%, #2A201A 100%)', borderRadius: 'var(--radius-xl)', padding: 36, textAlign: 'center', position: 'relative', overflow: 'hidden'}}>
+              <div style={{position: 'absolute', top: -40, right: -40, width: 120, height: 120, borderRadius: '50%', background: 'rgba(234,88,12,0.1)', pointerEvents: 'none'}} />
+              <div style={{position: 'absolute', bottom: -30, left: -30, width: 100, height: 100, borderRadius: '50%', background: 'rgba(13,148,136,0.08)', pointerEvents: 'none'}} />
+              <div style={{fontSize: 40, marginBottom: 16, color: 'var(--brand-accent)', opacity: 0.8}}>{LUCIDE['user-circle']}</div>
+              <div className="title-lg mb-sm" style={{color: '#fff'}}>Mobile Mechanics Wanted</div>
+              <div className="body-md mb-lg" style={{color: 'var(--on-dark-soft)', maxWidth: 400, margin: '0 auto', lineHeight: 1.7}}>Set your own hours, earn competitive pay, and help drivers in your community. No franchise fees. No schedules.</div>
+              <button className="btn btn-lg" style={{background: 'var(--brand-accent)', border: 'none', boxShadow: '0 4px 16px rgba(234,88,12,0.3)'}} onClick={() => onNavigate('/provider/signup')}>Apply as a Mechanic</button>
+            </div>
+          </FadeIn>
+        </div>
+      </div>);
+    }
+
+    function PrivacyScreen({ onNavigate, goBack }) {
+      return (<div style={{minHeight: '100dvh', background: 'var(--canvas)'}}>
+        <PageHeader title="Privacy Policy" goBack={goBack} />
+        <div style={{maxWidth: 720, margin: '0 auto', padding: '36px 20px 60px'}}>
+          <FadeIn><div className="body-sm" style={{color: 'var(--muted)', marginBottom: 28, letterSpacing: '0.02em'}}>Last updated: May 2026</div></FadeIn>
+          {[
+            {t:'Information We Collect',d:'We collect only what\'s needed to connect you with a mechanic: your name, phone number, vehicle location, and service details. No unnecessary data gathering.'},
+            {t:'How We Use Your Data',d:'Your location is used solely to match you with nearby providers. We do not share your personal information for marketing purposes.'},
+            {t:'Data Security',d:'We use industry-standard encryption for all data transmission. Your account information is stored securely and is never sold to third parties.'},
+            {t:'Your Rights',d:'You may request deletion of your account and associated data at any time by contacting our support team.'},
+          ].map((s, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div style={{marginBottom: 24, paddingLeft: 20, borderLeft: '2px solid var(--hairline-strong)', position: 'relative'}}>
+                <div style={{position: 'absolute', left: -5, top: 6, width: 8, height: 8, borderRadius: '50%', background: i === 0 ? 'var(--brand-accent)' : 'var(--hairline-strong)'}} />
+                <div className="title-sm mb-sm" style={{color: i === 0 ? 'var(--brand-accent)' : 'var(--ink)'}}>{s.t}</div>
+                <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.8}}>{s.d}</div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>);
+    }
+
+    function TermsScreen({ onNavigate, goBack }) {
+      return (<div style={{minHeight: '100dvh', background: 'var(--canvas)'}}>
+        <PageHeader title="Terms of Service" goBack={goBack} />
+        <div style={{maxWidth: 720, margin: '0 auto', padding: '36px 20px 60px'}}>
+          <FadeIn><div className="body-sm" style={{color: 'var(--muted)', marginBottom: 28, letterSpacing: '0.02em'}}>Last updated: May 2026</div></FadeIn>
+          {[
+            {t:'Acceptance of Terms',d:'By using Dreamledge Auto, you agree to these terms. Our platform connects drivers with independent mobile mechanics. All service agreements, pricing, and work performed are between you and the mechanic.'},
+            {t:'Platform Role',d:'Dreamledge Auto facilitates the connection but is not responsible for the quality or outcome of services rendered by third-party providers. We vet our mechanics but each provider operates independently.'},
+            {t:'Pricing Estimates',d:'Pricing estimates are generated by AI and are provided as a guide only. Final pricing is determined between you and the mechanic before any work begins.'},
+            {t:'Eligibility',d:'You must be at least 18 years old to use this service. Use of the platform constitutes acceptance of these terms and conditions.'},
+          ].map((s, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div style={{marginBottom: 24, paddingLeft: 20, borderLeft: '2px solid var(--hairline-strong)', position: 'relative'}}>
+                <div style={{position: 'absolute', left: -5, top: 6, width: 8, height: 8, borderRadius: '50%', background: i === 0 ? 'var(--brand-teal)' : 'var(--hairline-strong)'}} />
+                <div className="title-sm mb-sm" style={{color: i === 0 ? 'var(--brand-teal)' : 'var(--ink)'}}>{s.t}</div>
+                <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.8}}>{s.d}</div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>);
+    }
+
+    function DisclaimerScreen({ onNavigate, goBack }) {
+      return (<div style={{minHeight: '100dvh', background: 'var(--canvas)'}}>
+        <PageHeader title="Disclaimer" goBack={goBack} />
+        <div style={{maxWidth: 720, margin: '0 auto', padding: '36px 20px 60px'}}>
+          <FadeIn>
+            <div style={{background: 'linear-gradient(135deg, rgba(234,88,12,0.06) 0%, rgba(245,158,11,0.04) 100%)', borderRadius: 'var(--radius-xl)', padding: 32, border: '1px solid rgba(234,88,12,0.1)', marginBottom: 28}}>
+              <div className="row centerV gap-sm mb-sm">
+                <span style={{fontSize: 24, color: 'var(--brand-accent)'}}>{LUCIDE['search-x']}</span>
+                <div className="title-md" style={{color: 'var(--brand-accent)'}}>AI Pricing Estimates</div>
+              </div>
+              <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.8}}>Pricing estimates are generated by AI based on historical data and are <strong>estimates only</strong>. They do not constitute a binding quote.</div>
+            </div>
+          </FadeIn>
+          {[
+            {t:'Not a Guarantee',d:'Final pricing is determined between you and the assigned mechanic. Factors such as parts availability, vehicle condition, time of day, and required tools may affect the final price.'},
+            {t:'No Binding Quote',d:'Dreamledge Auto does not guarantee that the estimated price will match the final charge. AI-generated estimates are for informational purposes only.'},
+          ].map((s, i) => (
+            <FadeIn key={i} delay={100 + i * 80}>
+              <div style={{marginBottom: 20, padding: 20, background: 'var(--surface-card)', borderRadius: 'var(--radius-md)', border: '1px solid var(--hairline-soft)'}}>
+                <div className="title-sm mb-xs">{s.t}</div>
+                <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.7}}>{s.d}</div>
+              </div>
+            </FadeIn>
+          ))}
+          <FadeIn delay={300}>
+            <div style={{padding: 20, borderRadius: 'var(--radius-md)', background: 'rgba(234,88,12,0.06)', border: '1px solid rgba(234,88,12,0.15)', borderLeft: '3px solid var(--brand-accent)'}}>
+              <div className="row centerV gap-sm mb-xs"><span style={{color: 'var(--brand-accent)', fontSize: 18}}>{LUCIDE['mouse-pointer-click']}</span><div className="title-sm" style={{color: 'var(--brand-accent)'}}>Important</div></div>
+              <div className="body-sm" style={{color: 'var(--body)', lineHeight: 1.7}}>Always confirm pricing with your mechanic before authorizing any work. You are under no obligation to accept service if the final price exceeds the estimate.</div>
+            </div>
+          </FadeIn>
+        </div>
+      </div>);
+    }
+
+    const SYNONYMS = {
+      bang: 'noise', thump: 'noise', clunk: 'noise', knocking: 'noise', screech: 'noise',
+      screeching: 'noise', screaming: 'noise', chirp: 'noise', chirping: 'noise',
+      shudder: 'vibration', shuddering: 'vibration', shake: 'vibration', shaky: 'vibration',
+      shaking: 'vibration', wobble: 'vibration', wobbling: 'vibration', vibrating: 'vibration',
+      bent: 'dent', bending: 'dent', ding: 'dent', dents: 'dent', dented: 'dent',
+      smashed: 'dent', crumpled: 'dent', smashed: 'dent',
+      collision: 'accident', crashed: 'accident', crash: 'accident', wreck: 'accident',
+      "won't": 'wont', wont: 'wont', dead: 'battery_dead', jump: 'boost',
+      cranks: 'crank', crank: 'crank', cranking: 'crank',
+      pulls: 'pull', pulling: 'pull', drifts: 'pull', drifting: 'pull', veers: 'pull',
+      curvature: 'alignment', camber: 'alignment',
+      sputtering: 'sputter', hesitates: 'hesitation', hesitating: 'hesitation',
+      squeaks: 'squeak', squeaking: 'squeak', squealed: 'squeal', squealing: 'squeal',
+      grinds: 'grind', grinding: 'grind', grinded: 'grind',
+      knocks: 'knock', knocking: 'knock', rattles: 'rattle', rattling: 'rattle',
+      ticks: 'tick', ticking: 'tick', hums: 'hum', humming: 'hum',
+      whines: 'whine', whining: 'whine', overheats: 'overheat', overheating: 'overheat',
+      stalls: 'stall', stalling: 'stall', stall: 'stall', died: 'dies',
+      surging: 'surge', surges: 'surge',
+      overheat: 'overheating', hot: 'overheating', steam: 'overheating',
+      brake: 'brakes', braking: 'brakes',
+      shifter: 'shift', shifting: 'shift', shift: 'shift',
+      transmission: 'transmission', trans: 'transmission',
+    };
+
+    function analyzeText(text) {
+      const raw = text.toLowerCase().replace(/[^a-z0-9'\s-]/g, ' ').replace(/\s+/g, ' ').trim();
+      const tokens = raw.split(/\s+/).filter(Boolean);
+      const mapped = tokens.map(t => SYNONYMS[t] || t);
+      const stems = mapped.map(t => t.replace(/(ing|ed|s|es|ly|tion|ness)$/, ''));
+      return { tokens: mapped, stems, raw };
+    }
+
+    const AI_DB = [
+      { key: 'noise', label: 'Strange noise', icon: '🔊',
+        match: { primary: ['noise', 'sound', 'squeak', 'squeal', 'grind', 'click', 'knock', 'rattle', 'hum', 'whine', 'tick', 'clunk', 'bang', 'screech', 'chirp'], secondary: ['vibration', 'shaking', 'loud', 'rumble', 'scrape', 'metal', 'scream'], tertiary: ['engine', 'wheel', 'brake', 'belt', 'fan', 'bearing', 'pulley', 'serpentine'] },
+        followUps: {
+        first: { q: 'When does the noise happen?', opts: ['While accelerating', 'While braking', 'While idling', 'All the time'] },
+        then: {
+          'While accelerating': [
+            { q: 'Is it a clicking or grinding sound?', opts: ['Clicking', 'Grinding', 'Rattling', 'Humming'] },
+            { q: 'Does the sound change when you turn?', opts: ['Gets louder turning', 'Goes away turning', 'No change'] },
+          ],
+          'While braking': [
+            { q: 'Do you hear it from front or back?', opts: ['Front wheels', 'Back wheels', 'Both', 'Not sure'] },
+            { q: 'Does the pedal feel different?', opts: ['Pulsing', 'Spongy', 'Normal', 'Vibrating'] },
+          ],
+          'While idling': [
+            { q: 'Is the engine running rough or smooth?', opts: ['Rough, vibrating', 'Knocking noise', 'Smooth', 'Sputtering'] },
+            { q: 'Does the sound change when you rev the engine?', opts: ['Goes away', 'Gets worse', 'Stays the same', 'Not sure'] },
+          ],
+          default: [
+            { q: 'Is it louder inside or outside the car?', opts: ['Inside', 'Outside', 'Both equally'] },
+            { q: 'Have you hit any potholes or curbs recently?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Worn brake pads', baseConfidence: 80, parts: '$40–$80', labor: '$80–$150', time: '1–2 hrs', action: 'Replace brake pads', urgency: 'yellow', note: 'Squealing indicates wear indicators — replace soon', triggers: { answers: ['Squealing noise', 'Front wheels', 'While accelerating', 'While braking'], boost: 12 } },
+          { name: 'Wheel bearing failure', baseConfidence: 55, parts: '$80–$200', labor: '$120–$250', time: '2–3 hrs', action: 'Replace wheel bearing assembly', urgency: 'yellow', note: 'Grinding that changes with speed — get inspected promptly', triggers: { answers: ['Grinding', 'Gets louder turning', 'All the time', 'While accelerating'], boost: 14 } },
+          { name: 'CV joint wear', baseConfidence: 45, parts: '$100–$250', labor: '$100–$200', time: '2–3 hrs', action: 'Replace CV axle', urgency: 'yellow', note: 'Clicking sound when turning — safe for short trips', triggers: { answers: ['Clicking', 'Gets louder turning', 'While accelerating'], boost: 15 } },
+          { name: 'Serpentine belt wear', baseConfidence: 35, parts: '$25–$60', labor: '$50–$100', time: '30 min – 1 hr', action: 'Replace serpentine belt', urgency: 'yellow', note: 'Squealing that changes with engine RPM', triggers: { answers: ['Squealing noise', 'At idle'], boost: 10 } }] },
+      { key: 'no_start', label: 'Car won\'t start', icon: '🚗',
+        match: { primary: ['wont', 'crank', 'ignition', 'no_start', 'battery_dead', 'boost', 'no crank', 'solenoid', 'starter', 'clicking'], secondary: ['battery', 'alternator', 'key', 'dash', 'dim', 'silence', 'click', 'jump'], tertiary: ['electrical', 'charge', 'cables', 'terminal', 'corrosion', 'parasitic'], phrases: [['battery', 'dead'], ['no', 'crank'], ['no', 'start'], ['dash', 'light'], ['turn', 'over'], ['won\'t', 'turn'], ['won\'t', 'crank'], ['won\'t', 'start'], ['dead', 'battery'], ['key', 'turn']] },
+        followUps: {
+        first: { q: 'What happens when you turn the key?', opts: ['Just silence', 'Single loud click', 'Rapid clicking', 'Engine turns slowly'] },
+        then: {
+          'Just silence': [
+            { q: 'Are the dashboard lights on?', opts: ['No lights at all', 'Dim lights', 'Normal lights', 'Flashing lights'] },
+            { q: 'Did this happen suddenly or gradually?', opts: ['Suddenly', 'Gradually over days', 'Intermittent', 'First time'] },
+          ],
+          'Single loud click': [
+            { q: 'Can you jump start it?', opts: ['Haven\'t tried', 'Tried — no change', 'Tried — it worked', 'Don\'t have cables'] },
+            { q: 'Is the battery terminal clean?', opts: ['Clean', 'Corroded', 'Loose', 'Not sure'] },
+          ],
+          'Rapid clicking': [
+            { q: 'How old is the battery?', opts: ['Under 2 years', '2–4 years', 'Over 4 years', 'Not sure'] },
+            { q: 'Were the headlights left on?', opts: ['Yes, left on', 'No', 'Not sure', 'Maybe'] },
+          ],
+          default: [
+            { q: 'Does the engine crank at all?', opts: ['Cranks slowly', 'Cranks then stops', 'No crank at all', 'Cranks but won\'t start'] },
+            { q: 'Do you smell gas or fuel?', opts: ['Yes, gas smell', 'No smell', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Dead battery', baseConfidence: 85, parts: '$100–$200', labor: '$0–$50', time: '30 min – 1 hr', action: 'Jump start or replace battery', urgency: 'green', note: 'Safe to drive once started, but replace battery soon', triggers: { answers: ['Just silence', 'Rapid clicking', 'Dim lights', 'Tried — it worked', 'Yes, left on'], boost: 10 } },
+          { name: 'Bad starter motor', baseConfidence: 60, parts: '$150–$350', labor: '$100–$200', time: '1–2 hrs', action: 'Replace starter motor', urgency: 'red', note: 'Single loud click or silence — will need towing', triggers: { answers: ['Single loud click', 'Just silence', 'Normal lights', 'Tried — no change'], boost: 15 } },
+          { name: 'Faulty alternator', baseConfidence: 45, parts: '$200–$400', labor: '$100–$150', time: '1–2 hrs', action: 'Replace alternator', urgency: 'red', note: 'Car died while driving — do not drive', triggers: { answers: ['Dim lights', 'Flashing lights', 'Died while driving (answers from prev questions)'], boost: 12 } }] },
+      { key: 'brakes', label: 'Braking issues', icon: '🛑',
+        match: { primary: ['brake', 'brakes', 'squeal', 'grind', 'pedal', 'stopping', 'rotor', 'pad', 'braking', 'caliper', 'abs'], secondary: ['spongy', 'squishy', 'vibration', 'pull', 'pulsate', 'soft', 'hard', 'squeak', 'squealing'], tertiary: ['wheel', 'fluid', 'line', 'drum', 'hydraulic', 'master', 'cylinder'], phrases: [['brake', 'pedal'], ['brake', 'pad'], ['brake', 'rotor'], ['abs', 'light'], ['pull', 'one', 'side'], ['pull', 'right'], ['pull', 'left']] },
+        followUps: {
+        first: { q: 'What do you notice when braking?', opts: ['Squealing noise', 'Grinding noise', 'Pedal feels off', 'Car pulls to one side'] },
+        then: {
+          'Squealing noise': [
+            { q: 'Is it worse in the morning or wet weather?', opts: ['Morning only', 'Wet weather', 'All the time', 'Just started'] },
+            { q: 'How long has it been making noise?', opts: ['A few days', 'A week or more', 'Just started today', 'Off and on'] },
+          ],
+          'Grinding noise': [
+            { q: 'Does it sound like metal on metal?', opts: ['Yes, metal grinding', 'Deep rumble', 'Scraping', 'Not sure'] },
+            { q: 'Do you feel vibration when it grinds?', opts: ['Strong vibration', 'Slight vibration', 'No vibration'] },
+          ],
+          'Pedal feels off': [
+            { q: 'Describe the pedal feel:', opts: ['Spongy / soft', 'Hard to press', 'Pulsing / vibrating', 'Pedal goes to floor'] },
+            { q: 'Has the brake warning light come on?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+          default: [
+            { q: 'Is the steering wheel pulling?', opts: ['Pulls left', 'Pulls right', 'No pull', 'Not sure'] },
+            { q: 'Did this start after service?', opts: ['Yes, after brake work', 'After hitting something', 'No reason', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Worn brake pads', baseConfidence: 85, parts: '$40–$80', labor: '$80–$150', time: '1–2 hrs', action: 'Replace brake pads', urgency: 'yellow', note: 'Squealing noise — safe for short trips, replace soon', triggers: { answers: ['Squealing noise', 'Front wheels', 'Morning only', 'Just started', 'A few days'], boost: 12 } },
+          { name: 'Warped rotors', baseConfidence: 60, parts: '$80–$200', labor: '$100–$200', time: '1–2 hrs', action: 'Resurface or replace rotors', urgency: 'yellow', note: 'Pedal vibration — safe at low speeds', triggers: { answers: ['Pulsing / vibrating', 'Strong vibration', 'Wet weather'], boost: 15 } },
+          { name: 'Low brake fluid', baseConfidence: 40, parts: '$15–$30', labor: '$50–$100', time: '30 min – 1 hr', action: 'Top off fluid and inspect for leaks', urgency: 'red', note: 'Spongy pedal or warning light — do not drive', triggers: { answers: ['Spongy / soft', 'Pedal goes to floor', 'Yes'], boost: 15 } },
+          { name: 'Brake caliper sticking', baseConfidence: 30, parts: '$80–$200', labor: '$100–$200', time: '1–2 hrs', action: 'Replace or rebuild caliper', urgency: 'yellow', note: 'Car pulling while braking — get inspected', triggers: { answers: ['Pulls left', 'Pulls right', 'Burning smell while driving'], boost: 14 } }] },
+      { key: 'electrical', label: 'Electrical problem', icon: '⚡',
+        match: { primary: ['electrical', 'dim', 'flicker', 'accessory', 'radio', 'window', 'power', 'fuse', 'bulb', 'wiring', 'short'], secondary: ['dashboard', 'indicator', 'interior', 'stereo', 'infotainment', 'dash', 'cluster', 'module', 'sensor'], tertiary: ['startup', 'ground', 'harness', 'connector', 'relay', 'switch', 'lighting'], phrases: [['warning', 'light'], ['dash', 'light'], ['battery', 'light'], ['power', 'window'], ['interior', 'light'], ['dome', 'light'], ['head', 'light']] },
+        followUps: {
+        first: { q: 'Which electrical issue are you experiencing?', opts: ['Warning light is on', 'Accessories not working', 'Car won\'t turn over', 'Lights flickering'] },
+        then: {
+          'Warning light is on': [
+            { q: 'Which warning light is illuminated?', opts: ['Battery', 'Check Engine', 'Oil', 'Multiple lights'] },
+            { q: 'Is the light steady or flashing?', opts: ['Steady', 'Flashing', 'Flickering', 'Comes and goes'] },
+          ],
+          'Accessories not working': [
+            { q: 'Which accessories are affected?', opts: ['Radio / infotainment', 'Power windows', 'Interior lights', 'All of them'] },
+            { q: 'Did this happen after installing something?', opts: ['After new stereo', 'No recent changes', 'After rain / car wash', 'Not sure'] },
+          ],
+          'Car won\'t turn over': [
+            { q: 'Do you hear any sound when trying?', opts: ['Silence', 'Clicking', 'Whirring', 'Nothing at all'] },
+            { q: 'Are the interior lights working?', opts: ['Yes, normal', 'Dim', 'No', 'Flickering'] },
+          ],
+          default: [
+            { q: 'Do the lights dim when you accelerate?', opts: ['Yes', 'No', 'Not sure'] },
+            { q: 'Has the battery been tested recently?', opts: ['Yes — fine', 'Yes — weak', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Battery connection issue', baseConfidence: 70, parts: '$5–$20', labor: '$20–$50', time: '15–30 min', action: 'Clean and tighten battery terminals', urgency: 'yellow', note: 'Intermittent power loss — usually a simple fix', triggers: { answers: ['Dim', 'Flickering', 'Clicking', 'All of them'], boost: 10 } },
+          { name: 'Blown fuse', baseConfidence: 55, parts: '$5–$15', labor: '$20–$40', time: '15–30 min', action: 'Replace blown fuse', urgency: 'green', note: 'Specific component not working — easy fix', triggers: { answers: ['Radio / infotainment', 'Power windows', 'Interior lights', 'After new stereo'], boost: 12 } },
+          { name: 'Faulty alternator', baseConfidence: 40, parts: '$200–$400', labor: '$100–$150', time: '1–2 hrs', action: 'Replace alternator', urgency: 'red', note: 'Battery warning light + dimming lights — do not drive far', triggers: { answers: ['Dim', 'Yes', 'Battery', 'Yes — weak'], boost: 14 } },
+          { name: 'Parasitic battery drain', baseConfidence: 30, parts: '$50–$150', labor: '$100–$200', time: '1–3 hrs', action: 'Diagnose and repair parasitic drain', urgency: 'yellow', note: 'Battery dies overnight — needs electrical diagnosis', triggers: { answers: ['No recent changes', 'Intermittent', 'Comes and goes'], boost: 10 } }] },
+      { key: 'overheating', label: 'Overheating', icon: '🌡️',
+        match: { primary: ['overheat', 'overheating', 'hot', 'steam', 'smoke', 'coolant', 'temperature', 'gauge', 'radiator'], secondary: ['boiling', 'thermostat', 'fan', 'heat', 'temp', 'high', 'overheat'], tertiary: ['engine', 'water', 'hose', 'pump', 'cap', 'reservoir', 'antifreeze'], phrases: [['temperature', 'gauge'], ['check', 'engine', 'light'], ['steam', 'hood'], ['overheat', 'light']] },
+        followUps: {
+        first: { q: 'What makes you think it\'s overheating?', opts: ['Temperature gauge in red', 'Steam from under hood', 'Smell of coolant', 'Warning light on'] },
+        then: {
+          'Temperature gauge in red': [
+            { q: 'Does the gauge go back down while driving?', opts: ['Stays in red', 'Fluctuates up and down', 'Goes down when moving', 'Just reached red'] },
+            { q: 'When did you last check coolant?', opts: ['Recently — was full', 'Months ago', 'Never checked', 'Not sure'] },
+          ],
+          'Steam from under hood': [
+            { q: 'Is there a puddle under the car?', opts: ['Yes, green/orange puddle', 'Yes, clear water', 'No puddle', 'Not sure'] },
+            { q: 'Did you notice the smell before the steam?', opts: ['Yes, sweet smell', 'Yes, burning smell', 'No smell', 'Not sure'] },
+          ],
+          'Smell of coolant': [
+            { q: 'Do you see any leaks under the car?', opts: ['Yes, near front', 'Yes, near back', 'No visible leaks', 'Not sure'] },
+            { q: 'Is the heater working?', opts: ['Blows cold', 'Blows hot but weak', 'Works fine', 'Not sure'] },
+          ],
+          default: [
+            { q: 'Have you checked the coolant reservoir?', opts: ['Yes — empty', 'Yes — low', 'Yes — full', 'Haven\'t checked'] },
+            { q: 'Is the cooling fan running?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Low coolant level', baseConfidence: 75, parts: '$15–$30', labor: '$0–$20', time: '15–30 min', action: 'Top off coolant and check for leaks', urgency: 'red', note: 'Stop driving immediately — let engine cool before opening cap', triggers: { answers: ['Yes — empty', 'Yes — low', 'Steam from under hood', 'Smell of coolant'], boost: 12 } },
+          { name: 'Faulty thermostat', baseConfidence: 55, parts: '$30–$80', labor: '$80–$150', time: '1–2 hrs', action: 'Replace thermostat', urgency: 'red', note: 'Engine not reaching normal temp or overheating randomly', triggers: { answers: ['Fluctuates up and down', 'Goes down when moving', 'Stays in red'], boost: 14 } },
+          { name: 'Radiator blockage', baseConfidence: 40, parts: '$150–$350', labor: '$100–$200', time: '2–3 hrs', action: 'Flush or replace radiator', urgency: 'red', note: 'Do not drive — risk of engine damage', triggers: { answers: ['Stays in red', 'No', 'Blows cold'], boost: 12 } },
+          { name: 'Cooling fan failure', baseConfidence: 35, parts: '$100–$300', labor: '$100–$200', time: '1–2 hrs', action: 'Replace cooling fan assembly', urgency: 'red', note: 'Overheating at idle or in traffic — do not drive', triggers: { answers: ['No', 'Stays in red', 'Just reached red'], boost: 13 } }] },
+      { key: 'fuel', label: 'Fuel issues', icon: '⛽',
+        match: { primary: ['fuel', 'gas', 'sputter', 'stall', 'stalling', 'idle', 'fuel pump', 'hesitation', 'surge', 'dies', 'fumes'], secondary: ['empty', 'gasoline', 'diesel', 'hesitat', 'surging', 'smell', 'running', 'rough'], tertiary: ['injector', 'carburetor', 'tank', 'pump', 'pressure', 'vapor', 'canister', 'evap'], phrases: [['fuel', 'pump'], ['check', 'engine', 'light'], ['gas', 'cap'], ['fuel', 'smell'], ['ran', 'out'], ['out', 'gas'], ['bad', 'gas'], ['fuel', 'filter'], ['no', 'power']] },
+        followUps: {
+        first: { q: 'What fuel issue are you having?', opts: ['Engine sputtering', 'Won\'t stay running', 'Fuel smell', 'Low fuel / ran out'] },
+        then: {
+          'Engine sputtering': [
+            { q: 'Does it happen at certain speeds?', opts: ['At low speed', 'At highway speed', 'When accelerating', 'All the time'] },
+            { q: 'Have you filled up recently with a different brand?', opts: ['Yes, different gas station', 'Yes, different octane', 'No, same as always', 'Not sure'] },
+          ],
+          'Won\'t stay running': [
+            { q: 'Does it start then die immediately?', opts: ['Starts then dies', 'Runs for a minute then dies', 'Dies when I press gas', 'Dies when stopped'] },
+            { q: 'Is the check engine light on?', opts: ['Yes, steady', 'Yes, flashing', 'No', 'Not sure'] },
+          ],
+          'Fuel smell': [
+            { q: 'Where do you smell it?', opts: ['Inside the car', 'Outside near engine', 'Outside near rear', 'Strong everywhere'] },
+            { q: 'Did you just fill up?', opts: ['Yes, overfilled', 'Yes, normal fill', 'No, days ago', 'Not sure'] },
+          ],
+          default: [
+            { q: 'How much fuel is in the tank?', opts: ['Empty / near empty', 'Below quarter', 'Half tank', 'Above half'] },
+            { q: 'Have you tried adding more gas?', opts: ['Yes — no change', 'Yes — it helped', 'Haven\'t tried', 'Can\'t get gas'] },
+          ],
+        } },
+        issues: [
+          { name: 'Empty or bad fuel', baseConfidence: 75, parts: '$10–$20', labor: '$0–$50', time: '15–30 min', action: 'Add fresh fuel or call for delivery', urgency: 'green', note: 'Simple fix — fuel delivery available', triggers: { answers: ['Low fuel / ran out', 'Yes — it helped', 'Empty / near empty', 'Below quarter'], boost: 15 } },
+          { name: 'Clogged fuel filter', baseConfidence: 50, parts: '$20–$50', labor: '$50–$100', time: '30 min – 1 hr', action: 'Replace fuel filter', urgency: 'yellow', note: 'Engine hesitation under load — safe to drive slowly', triggers: { answers: ['Engine sputtering', 'When accelerating', 'At highway speed', 'Runs for a minute then dies'], boost: 12 } },
+          { name: 'Fuel pump failure', baseConfidence: 35, parts: '$200–$500', labor: '$150–$300', time: '2–4 hrs', action: 'Replace fuel pump', urgency: 'red', note: 'Car won\'t start or dies while driving — needs towing', triggers: { answers: ['Starts then dies', 'Dies when I press gas', 'Yes — no change', 'Cranks but won\'t start'], boost: 15 } }] },
+      { key: 'warning_lights', label: 'Warning lights', icon: '⚠️',
+        match: { primary: ['check engine', 'warning light', 'service', 'maintenance', 'indicator'], secondary: ['warning', 'light on', 'engine light', 'service light', 'illuminated', 'steady', 'flashing'], tertiary: ['dash', 'dashboard', 'notification', 'alert'], phrases: [['check', 'engine', 'light'], ['warning', 'light'], ['maintenance', 'required'], ['service', 'engine'], ['tire', 'pressure'], ['oil', 'light'], ['battery', 'light'], ['abs', 'light'], ['brake', 'light'], ['check', 'engine']] },
+        followUps: {
+        first: { q: 'Which warning light is on?', opts: ['Check Engine', 'Battery', 'Oil Pressure', 'Tire Pressure'] },
+        then: {
+          'Check Engine': [
+            { q: 'Is the light flashing or steady?', opts: ['Flashing', 'Steady', 'Flickering', 'Comes and goes'] },
+            { q: 'Have you noticed any performance change?', opts: ['Runs rough', 'Lower fuel economy', 'No change', 'Lost power'] },
+          ],
+          'Battery': [
+            { q: 'Did the light come on while driving?', opts: ['Yes, while driving', 'Yes, when starting', 'No, it was already on', 'Not sure'] },
+            { q: 'Are the headlights dim?', opts: ['Yes, noticeably dim', 'Slightly dim', 'Normal', 'Not sure'] },
+          ],
+          'Oil Pressure': [
+            { q: 'Have you checked the oil level recently?', opts: ['Yes — low', 'Yes — normal', 'No, haven\'t checked', 'Not sure how'] },
+            { q: 'Any knocking noise from the engine?', opts: ['Yes, knocking', 'Yes, ticking', 'No unusual noise', 'Not sure'] },
+          ],
+          default: [
+            { q: 'Does the light stay on or go off?', opts: ['Stays on while driving', 'Goes off after starting', 'Flickers on and off', 'Not sure'] },
+            { q: 'Have you checked tire pressure?', opts: ['Yes — all fine', 'Yes — one is low', 'No, haven\'t checked', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Loose gas cap', baseConfidence: 65, parts: '$10–$25', labor: '$0', time: '5 min', action: 'Tighten or replace gas cap', urgency: 'green', note: 'Most common cause of check engine light — easy fix', triggers: { answers: ['Check Engine', 'Steady', 'No change', 'Comes and goes'], boost: 12 } },
+          { name: 'Oxygen sensor failure', baseConfidence: 45, parts: '$50–$150', labor: '$80–$120', time: '1 hr', action: 'Replace O2 sensor', urgency: 'green', note: 'Reduced fuel economy but safe to drive', triggers: { answers: ['Check Engine', 'Steady', 'Lower fuel economy', 'Comes and goes'], boost: 12 } },
+          { name: 'Catalytic converter issue', baseConfidence: 30, parts: '$500–$1,500', labor: '$100–$200', time: '2–3 hrs', action: 'Replace catalytic converter', urgency: 'yellow', note: 'Flashing light means urgent — steady light OK for short trips', triggers: { answers: ['Flashing', 'Lost power', 'Runs rough', 'Yes, knocking'], boost: 14 } }] },
+      { key: 'body_damage', label: 'Body / exterior damage', icon: '🔧',
+        match: { primary: ['dent', 'dents', 'scratch', 'paint', 'bumper', 'panel', 'rust', 'ding', 'chip', 'collision', 'body', 'exterior'], secondary: ['damage', 'smashed', 'crumpled', 'cracked', 'scrape', 'scratched', 'hail', 'keyed'], tertiary: ['door', 'fender', 'hood', 'trunk', 'quarter', 'rocker', 'repair', 'paintless'], phrases: [['body', 'work'], ['paint', 'scratch'], ['hail', 'damage'], ['car', 'wash', 'scratch'], ['door', 'ding'], ['dent', 'repair'], ['dent', 'removal'], ['paint', 'repair'], ['bumper', 'repair'], ['bumper', 'replace']] },
+        followUps: {
+        first: { q: 'What type of body damage are you dealing with?', opts: ['Dent or ding', 'Scratch or paint damage', 'Cracked bumper or panel', 'Rust or corrosion', 'Collision / accident damage'] },
+        then: {
+          'Dent or ding': [
+            { q: 'How big is the dent?', opts: ['Small (under 1 inch)', 'Medium (1–3 inches)', 'Large (3+ inches)', 'Multiple dents'] },
+            { q: 'Where is the dent located?', opts: ['Door panel', 'Fender or quarter panel', 'Hood or trunk', 'Bumper'] },
+          ],
+          'Scratch or paint damage': [
+            { q: 'Is the scratch down to bare metal?', opts: ['Yes, bare metal visible', 'No, just clear coat', 'Deep but no metal', 'Not sure'] },
+            { q: 'How long is the scratch?', opts: ['Under 2 inches', '2–6 inches', 'Over 6 inches', 'Multiple scratches'] },
+          ],
+          'Cracked bumper or panel': [
+            { q: 'Is the bumper cracked through or just cosmetic?', opts: ['Cracked all the way through', 'Surface crack only', 'Bumper cover damaged', 'Not sure'] },
+            { q: 'Is the bumper loose or hanging?', opts: ['Yes, it\'s loose', 'No, still secure', 'Partially detached', 'Not sure'] },
+          ],
+          'Rust or corrosion': [
+            { q: 'How large is the rusted area?', opts: ['Small spot (under 1 inch)', 'Medium area (1–3 inches)', 'Large area (3+ inches)', 'Bubbling under paint'] },
+            { q: 'Is the rust through the metal?', opts: ['Yes, hole in metal', 'No, just surface rust', 'Bubbling paint only', 'Not sure'] },
+          ],
+          default: [
+            { q: 'How did the damage happen?', opts: ['Parking lot incident', 'Hit something while driving', 'Weather / hail damage', 'Unknown / found it this way'] },
+            { q: 'Do you have insurance coverage for this?', opts: ['Yes, comprehensive', 'Yes, collision', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Paintless dent repair', baseConfidence: 80, parts: '$0–$50', labor: '$75–$250', time: '1–3 hrs', action: 'Paintless dent removal', urgency: 'green', note: 'Minor dents can often be repaired without repainting', triggers: { answers: ['Dent or ding', 'Small (under 1 inch)', 'Medium (1–3 inches)', 'Door panel', 'Parking lot incident'], boost: 15 } },
+          { name: 'Scratch repair / touch-up', baseConfidence: 65, parts: '$30–$150', labor: '$50–$300', time: '1–3 hrs', action: 'Touch-up paint or full panel respray', urgency: 'green', note: 'Deep scratches exposing metal should be repaired to prevent rust', triggers: { answers: ['Scratch or paint damage', 'No, just clear coat', 'Under 2 inches', 'Just clear coat'], boost: 12 } },
+          { name: 'Bumper repair or replacement', baseConfidence: 55, parts: '$200–$800', labor: '$150–$400', time: '2–4 hrs', action: 'Repair or replace bumper', urgency: 'yellow', note: 'Drivable but should be repaired for safety', triggers: { answers: ['Cracked bumper or panel', 'Cracked all the way through', 'Yes, it\'s loose', 'Bumper cover damaged'], boost: 14 } },
+          { name: 'Rust repair', baseConfidence: 45, parts: '$50–$300', labor: '$200–$800', time: '2–6 hrs', action: 'Sand, treat, and repaint rusted area', urgency: 'yellow', note: 'Rust spreads — repair sooner rather than later', triggers: { answers: ['Rust or corrosion', 'Yes, hole in metal', 'Large area (3+ inches)', 'Bubbling under paint'], boost: 12 } }] },
+      { key: 'suspension_steering', label: 'Suspension / steering', icon: '🔩',
+        match: { primary: ['suspension', 'shock', 'strut', 'bounce', 'alignment', 'wobble', 'pull', 'camber', 'curvature', 'steering', 'drift'], secondary: ['wheel', 'curvature', 'vibration', 'shaky', 'bumpy', 'bouncy', 'rough', 'control', 'arm'], tertiary: ['stabilizer', 'sway', 'bushing', 'ball', 'joint', 'tie', 'rod', 'spring', 'coil'], phrases: [['pulls', 'the', 'left'], ['pulls', 'the', 'right'], ['steering', 'wheel', 'vibration'], ['alignment', 'issue'], ['bouncy', 'ride'], ['curb', 'hit'], ['hit', 'curb'], ['hit', 'pothole'], ['steering', 'wheel', 'shakes'], ['steering', 'wheel', 'wobble'], ['pulls', 'one', 'side']] },
+        followUps: {
+        first: { q: 'What steering or suspension symptom are you experiencing?', opts: ['Car pulls to one side', 'Steering wheel vibration', 'Bouncy or rough ride', 'Clunking noise over bumps', 'Uneven tire wear'] },
+        then: {
+          'Car pulls to one side': [
+            { q: 'When does the pulling happen?', opts: ['All the time while driving', 'Only when braking', 'Only when accelerating', 'Only on rough roads'] },
+            { q: 'Did this start after hitting something?', opts: ['Yes, hit a curb/pothole', 'Yes, after an accident', 'No, gradual onset', 'Not sure'] },
+          ],
+          'Steering wheel vibration': [
+            { q: 'At what speed does the vibration occur?', opts: ['Low speed (under 30 mph)', 'Highway speed (55+ mph)', 'All speeds', 'Only when braking'] },
+            { q: 'Is the vibration through the wheel or the seat?', opts: ['Through the steering wheel', 'Through the seat / floor', 'Both', 'Hard to tell'] },
+          ],
+          'Bouncy or rough ride': [
+            { q: 'When did this start?', opts: ['Just recently', 'After hitting a big bump', 'Gradually over time', 'After loading heavy cargo'] },
+            { q: 'Does the car keep bouncing after a bump?', opts: ['Yes, bounces several times', 'No, settles quickly', 'Just feels harsh', 'Not sure'] },
+          ],
+          'Clunking noise over bumps': [
+            { q: 'Where does the noise come from?', opts: ['Front end', 'Rear end', 'Both', 'Not sure'] },
+            { q: 'Does it happen on every bump or just big ones?', opts: ['Every small bump', 'Only big bumps', 'When turning and hitting bumps', 'Randomly'] },
+          ],
+          default: [
+            { q: 'Can you see uneven wear on the tires?', opts: ['Yes, inner edge worn', 'Yes, outer edge worn', 'Yes, center worn', 'No, looks even'] },
+            { q: 'Have you had an alignment recently?', opts: ['Yes, within 6 months', 'Yes, over a year ago', 'No, never', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Wheel alignment needed', baseConfidence: 75, parts: '$0', labor: '$80–$120', time: '1 hr', action: 'Four-wheel alignment', urgency: 'yellow', note: 'Causes uneven tire wear and pulling — safe to drive', triggers: { answers: ['Car pulls to one side', 'All the time while driving', 'No, gradual onset', 'Yes, inner edge worn', 'Yes, outer edge worn'], boost: 15 } },
+          { name: 'Worn shock or strut', baseConfidence: 60, parts: '$150–$400', labor: '$100–$200', time: '2–3 hrs', action: 'Replace shocks or struts', urgency: 'yellow', note: 'Bouncy ride affects handling — replace in pairs', triggers: { answers: ['Bouncy or rough ride', 'Yes, bounces several times', 'Gradually over time', 'Rear end', 'Both'], boost: 14 } },
+          { name: 'Bent wheel', baseConfidence: 50, parts: '$100–$300', labor: '$20–$60', time: '1 hr', action: 'Repair or replace bent wheel', urgency: 'yellow', note: 'Vibration at highway speeds — safe at low speeds', triggers: { answers: ['Steering wheel vibration', 'Highway speed (55+ mph)', 'Through the steering wheel', 'Yes, hit a curb/pothole'], boost: 15 } },
+          { name: 'Worn suspension bushing', baseConfidence: 40, parts: '$50–$200', labor: '$200–$500', time: '2–4 hrs', action: 'Replace worn bushings', urgency: 'yellow', note: 'Clunking over bumps — get inspected before it worsens', triggers: { answers: ['Clunking noise over bumps', 'Front end', 'Every small bump', 'When turning and hitting bumps'], boost: 14 } }] },
+      { key: 'transmission', label: 'Transmission issue', icon: '⚙️',
+        match: { primary: ['transmission', 'trans', 'shift', 'gear', 'slip', 'clutch', 'automatic', 'manual', 'reverse', 'drive'], secondary: ['neutral', 'park', 'grinding', 'hard', 'delayed', 'solenoid', 'fluid'], tertiary: ['band', 'torque', 'converter', 'cvt', 'differential', 'drivetrain', 'axle'], phrases: [['check', 'engine', 'light'], ['transmission', 'fluid'], ['hard', 'shifting'], ['slipping', 'gears'], ['shift', 'smooth'], ['reverse', 'not', 'working'], ['drive', 'not', 'engaging'], ['transmission', 'light'], ['overdrive', 'issue']] },
+        followUps: {
+        first: { q: 'What transmission symptom are you experiencing?', opts: ['Hard shifting or clunky shifts', 'Slipping between gears', 'Delayed engagement', 'Strange noise when shifting', 'Transmission warning light'] },
+        then: {
+          'Hard shifting or clunky shifts': [
+            { q: 'Does it happen in all gears or specific ones?', opts: ['All gears', 'Only when shifting into drive', 'Only in reverse', 'Only between certain gears'] },
+            { q: 'Does the fluid look clean?', opts: ['Red and clean', 'Dark or burnt smell', 'Low fluid level', 'Haven\'t checked'] },
+          ],
+          'Slipping between gears': [
+            { q: 'Does the engine rev up but the car doesn\'t accelerate?', opts: ['Yes, revs go up with no speed', 'Yes, then it catches abruptly', 'Only when going uphill', 'Only from a stop'] },
+            { q: 'Has the check engine light come on?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+          'Delayed engagement': [
+            { q: 'How long does it take to engage?', opts: ['1–2 seconds', '3–5 seconds', 'Over 5 seconds', 'Intermittent'] },
+            { q: 'Is it worse when cold or hot?', opts: ['Worse when cold', 'Worse when hot', 'Both equally', 'No difference'] },
+          ],
+          'Strange noise when shifting': [
+            { q: 'What does it sound like?', opts: ['Grinding', 'Whining or humming', 'Clunking', 'Whirring'] },
+            { q: 'Is the transmission manual or automatic?', opts: ['Automatic', 'Manual', 'CVT', 'Not sure'] },
+          ],
+          default: [
+            { q: 'Did the problem come on suddenly or gradually?', opts: ['Suddenly', 'Gradually over time', 'After service', 'Not sure'] },
+            { q: 'Have you checked the transmission fluid?', opts: ['Yes — low', 'Yes — normal', 'No', 'Not sure how'] },
+          ],
+        } },
+        issues: [
+          { name: 'Low transmission fluid', baseConfidence: 70, parts: '$15–$30', labor: '$50–$100', time: '30 min – 1 hr', action: 'Top off fluid and inspect for leaks', urgency: 'yellow', note: 'Can cause hard shifting and slipping — check level ASAP', triggers: { answers: ['Hard shifting or clunky shifts', 'Dark or burnt smell', 'Low fluid level', 'Delayed engagement', 'Yes — low'], boost: 14 } },
+          { name: 'Worn clutch (manual)', baseConfidence: 55, parts: '$200–$500', labor: '$300–$600', time: '4–6 hrs', action: 'Replace clutch kit', urgency: 'yellow', note: 'Slipping clutch needs replacement — avoid hard acceleration', triggers: { answers: ['Manual', 'Slipping between gears', 'Yes, revs go up with no speed', 'Only from a stop'], boost: 15 } },
+          { name: 'Transmission solenoid fault', baseConfidence: 45, parts: '$100–$300', labor: '$200–$400', time: '3–5 hrs', action: 'Replace faulty solenoid', urgency: 'yellow', note: 'Check engine light + shifting issues — get scanned', triggers: { answers: ['Yes', 'Hard shifting or clunky shifts', 'Only between certain gears', 'Automatic'], boost: 12 } },
+          { name: 'Transmission failure', baseConfidence: 30, parts: '$1,500–$4,000', labor: '$500–$1,000', time: '6–10 hrs', action: 'Rebuild or replace transmission', urgency: 'red', note: 'Major transmission issues — do not drive without inspection', triggers: { answers: ['Over 5 seconds', 'Sudden onset', 'Grinding', 'Yes, then it catches abruptly'], boost: 15 } }] },
+      { key: 'ac_heating', label: 'AC / heating issue', icon: '❄️',
+        match: { primary: ['ac', 'conditioning', 'heat', 'heater', 'blower', 'fan', 'cold', 'warm', 'vent', 'defrost'], secondary: ['compressor', 'condenser', 'refrigerant', 'cool', 'hot', 'cabin', 'filter'], tertiary: ['actuator', 'blend', 'door', 'evaporator', 'hvac', 'climate', 'temperature'], phrases: [['air', 'conditioning'], ['ac', 'working'], ['ac', 'not', 'working'], ['heat', 'not', 'working'], ['no', 'heat'], ['no', 'cold'], ['no', 'cold', 'air'], ['blows', 'warm'], ['blows', 'cold'], ['defrost', 'not', 'working']] },
+        followUps: {
+        first: { q: 'What AC or heating issue are you experiencing?', opts: ['Blows warm when AC is on', 'Blows cold when heat is on', 'No air flow at all', 'Strange smell from vents', 'Loud noise when running'] },
+        then: {
+          'Blows warm when AC is on': [
+            { q: 'Is the AC blowing any air or just warm?', opts: ['Blows air but not cold', 'Very weak airflow', 'No air at all', 'Intermittent cold'] },
+            { q: 'Does it get cold if you drive at highway speed?', opts: ['Yes, gets colder on highway', 'No, stays warm', 'Only gets cold at night', 'Not sure'] },
+          ],
+          'Blows cold when heat is on': [
+            { q: 'Does the temperature change if you turn the dial?', opts: ['No change', 'Changes but still cold', 'Only works on max heat', 'Intermittent'] },
+            { q: 'Is the engine reaching normal operating temp?', opts: ['Yes, normal temp', 'No, runs cold', 'Runs hot', 'Not sure'] },
+          ],
+          'No air flow at all': [
+            { q: 'Can you hear the blower motor running?', opts: ['No sound at all', 'Yes, I hear it but no air', 'Clicking sound only', 'Only works on high speed'] },
+            { q: 'Did the blower stop suddenly or gradually?', opts: ['Suddenly', 'Gradually got weaker', 'After loud noise', 'Not sure'] },
+          ],
+          'Strange smell from vents': [
+            { q: 'What does it smell like?', opts: ['Musty or moldy', 'Burning smell', 'Sweet smell', 'Chemical smell'] },
+            { q: 'Does the smell go away after a few minutes?', opts: ['Yes, goes away', 'No, stays the whole time', 'Only when first turned on', 'Only when AC is on'] },
+          ],
+          default: [
+            { q: 'When did this start?', opts: ['Just today', 'A few days ago', 'Several weeks ago', 'After service'] },
+            { q: 'Is the check engine light on?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Low refrigerant / AC recharge needed', baseConfidence: 70, parts: '$50–$150', labor: '$100–$200', time: '1–2 hrs', action: 'Recharge AC system and check for leaks', urgency: 'yellow', note: 'Most common AC issue — safe to drive but uncomfortable', triggers: { answers: ['Blows warm when AC is on', 'Yes, gets colder on highway', 'Blows air but not cold', 'No, stays warm'], boost: 15 } },
+          { name: 'Blower motor failure', baseConfidence: 55, parts: '$100–$250', labor: '$100–$200', time: '1–2 hrs', action: 'Replace blower motor or resistor', urgency: 'yellow', note: 'No airflow — needs repair for defrosting safety', triggers: { answers: ['No air flow at all', 'No sound at all', 'Only works on high speed', 'Suddenly', 'Gradually got weaker'], boost: 14 } },
+          { name: 'Faulty AC compressor', baseConfidence: 45, parts: '$400–$800', labor: '$200–$400', time: '3–5 hrs', action: 'Replace AC compressor', urgency: 'yellow', note: 'Compressor failure requires professional repair', triggers: { answers: ['Loud noise when running', 'No, stays warm', 'Intermittent cold', 'Clicking sound only'], boost: 13 } },
+          { name: 'Cabin air filter clogged', baseConfidence: 35, parts: '$15–$40', labor: '$0–$30', time: '15 min', action: 'Replace cabin air filter', urgency: 'green', note: 'Easy DIY fix — reduced airflow is the main symptom', triggers: { answers: ['Musty or moldy', 'Weak airflow', 'Very weak airflow'], boost: 10 } }] },
+      { key: 'tires_wheels', label: 'Tires & wheels', icon: '🛞',
+        match: { primary: ['tire', 'tires', 'wheel', 'flat', 'pressure', 'tread', 'puncture', 'balance', 'tpms'], secondary: ['rotation', 'valve', 'stem', 'sidewall', 'bead', 'rim', 'wear', 'alignment'], tertiary: ['sensor', 'lug', 'nut', 'torque', 'spare', 'jack', 'roadside'], phrases: [['tire', 'pressure'], ['flat', 'tire'], ['tire', 'rotation'], ['wheel', 'bearing'], ['tpms', 'light'], ['tire', 'sensor'], ['low', 'tire'], ['uneven', 'wear'], ['tire', 'repair'], ['tread', 'depth']] },
+        followUps: {
+        first: { q: 'What tire or wheel issue are you having?', opts: ['Low tire pressure / TPMS light', 'Flat tire or puncture', 'Vibration while driving', 'Uneven or excessive tread wear', 'Wheel / rim damage'] },
+        then: {
+          'Low tire pressure / TPMS light': [
+            { q: 'How many tires are affected?', opts: ['One tire', 'Two tires', 'All four tires', 'Not sure'] },
+            { q: 'Have you checked the pressure with a gauge?', opts: ['Yes — significantly low', 'Yes — slightly low', 'Yes — normal but light is on', 'No'] },
+          ],
+          'Flat tire or puncture': [
+            { q: 'Is the tire completely flat or just losing air?', opts: ['Completely flat', 'Slow leak (loses air over days)', 'Sudden air loss while driving', 'Not sure'] },
+            { q: 'Where is the damage on the tire?', opts: ['Tread area', 'Sidewall', 'Valve stem', 'Not visible'] },
+          ],
+          'Vibration while driving': [
+            { q: 'At what speed does the vibration happen?', opts: ['Low speed (under 30 mph)', 'Highway speed (55+ mph)', 'All speeds', 'Only when braking'] },
+            { q: 'Did this start after tire service?', opts: ['After new tires installed', 'After tire rotation', 'After hitting something', 'No recent service'] },
+          ],
+          'Uneven or excessive tread wear': [
+            { q: 'Which part of the tire is worn?', opts: ['Inner edge', 'Outer edge', 'Center of tread', 'Feathering / cupping'] },
+            { q: 'How long since the last alignment?', opts: ['Under 6 months', '6–12 months', 'Over a year', 'Never had one'] },
+          ],
+          default: [
+            { q: 'Is the check engine or TPMS light on?', opts: ['TPMS light is on', 'Check engine light', 'No lights', 'Not sure'] },
+            { q: 'Have you hit any curbs or potholes recently?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Low tire pressure', baseConfidence: 85, parts: '$0–$5', labor: '$0–$20', time: '10 min', action: 'Inflate tires to recommended pressure', urgency: 'green', note: 'Easy fix — check all tires and refill', triggers: { answers: ['Low tire pressure / TPMS light', 'Yes — significantly low', 'Yes — slightly low', 'TPMS light is on', 'One tire'], boost: 10 } },
+          { name: 'Tire puncture / flat repair', baseConfidence: 70, parts: '$20–$50', labor: '$20–$50', time: '30 min – 1 hr', action: 'Plug or patch puncture', urgency: 'yellow', note: 'Tread punctures can be repaired — sidewall damage needs replacement', triggers: { answers: ['Flat tire or puncture', 'Completely flat', 'Slow leak (loses air over days)', 'Tread area'], boost: 14 } },
+          { name: 'Tire imbalance', baseConfidence: 55, parts: '$0–$20', labor: '$30–$60', time: '30 min', action: 'Balance tires', urgency: 'green', note: 'Vibration at highway speed — quick fix at any tire shop', triggers: { answers: ['Vibration while driving', 'Highway speed (55+ mph)', 'After new tires installed', 'After tire rotation'], boost: 14 } },
+          { name: 'Wheel / rim damage', baseConfidence: 45, parts: '$100–$300', labor: '$20–$60', time: '1 hr', action: 'Repair or replace damaged wheel', urgency: 'yellow', note: 'Bent rim causes vibration and may leak air', triggers: { answers: ['Vibration while driving', 'Low speed (under 30 mph)', 'After hitting something', 'Yes, hit curb/pothole', 'Wheel / rim damage'], boost: 15 } }] },
+      { key: 'exhaust', label: 'Exhaust issue', icon: '💨',
+        match: { primary: ['exhaust', 'muffler', 'pipe', 'catalytic', 'emission', 'smoke', 'rattling'], secondary: ['loud', 'gas', 'smell', 'rust', 'hole', 'leak', 'manifold', 'gasket'], tertiary: ['downstream', 'o2', 'sensor', 'resonator', 'tailpipe', 'hanger', 'heat', 'shield'], phrases: [['exhaust', 'leak'], ['catalytic', 'converter'], ['loud', 'exhaust'], ['check', 'engine', 'light'], ['rotten', 'egg'], ['exhaust', 'manifold'], ['exhaust', 'pipe'], ['blue', 'smoke'], ['white', 'smoke'], ['black', 'smoke']] },
+        followUps: {
+        first: { q: 'What exhaust issue are you noticing?', opts: ['Loud or rattling exhaust', 'Smoke from exhaust pipe', 'Rotten egg or gas smell', 'Exhaust leak smell inside car', 'Check engine light related to emissions'] },
+        then: {
+          'Loud or rattling exhaust': [
+            { q: 'Where is the noise coming from?', opts: ['Front of car (manifold area)', 'Middle of car', 'Rear (muffler area)', 'Under the car / rattling'] },
+            { q: 'Did the noise start suddenly or gradually?', opts: ['Suddenly after hitting something', 'Gradually got louder', 'Just noticed it', 'After rust hole appeared'] },
+          ],
+          'Smoke from exhaust pipe': [
+            { q: 'What color is the smoke?', opts: ['White / light gray', 'Blue / bluish', 'Black / dark gray', 'Not sure'] },
+            { q: 'Does it smoke all the time or only when starting?', opts: ['Only at startup', 'All the time while running', 'Only when accelerating', 'Only when decelerating'] },
+          ],
+          'Rotten egg or gas smell': [
+            { q: 'Do you smell it inside or outside the car?', opts: ['Inside the car', 'Outside the car', 'Both', 'Only at stops'] },
+            { q: 'Has the check engine light come on?', opts: ['Yes, steady', 'Yes, flashing', 'No', 'Not sure'] },
+          ],
+          'Exhaust leak smell inside car': [
+            { q: 'Do you hear any hissing or ticking from the engine bay?', opts: ['Yes, ticking noise', 'Yes, hissing', 'No unusual noise', 'Not sure'] },
+            { q: 'Is the smell worse when the heater or fan is on?', opts: ['Yes, much worse', 'No difference', 'Only with windows down', 'Not sure'] },
+          ],
+          default: [
+            { q: 'Have you noticed a decrease in fuel economy?', opts: ['Yes, worse than usual', 'No, about the same', 'Not sure', 'Haven\'t tracked it'] },
+            { q: 'Do you hear any hissing or blowing sounds?', opts: ['Yes', 'No', 'Occasionally', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Exhaust leak / gasket failure', baseConfidence: 65, parts: '$20–$80', labor: '$100–$250', time: '1–2 hrs', action: 'Replace exhaust gasket or repair leak', urgency: 'yellow', note: 'Ticking noise and smell — CO can enter cabin, get repaired soon', triggers: { answers: ['Loud or rattling exhaust', 'Front of car (manifold area)', 'Exhaust leak smell inside car', 'Yes, ticking noise', 'Yes, hissing', 'Yes, much worse'], boost: 15 } },
+          { name: 'Muffler replacement needed', baseConfidence: 55, parts: '$100–$400', labor: '$100–$200', time: '1–2 hrs', action: 'Replace muffler', urgency: 'yellow', note: 'Loud exhaust from rusted muffler — safe but noisy', triggers: { answers: ['Rear (muffler area)', 'Gradually got louder', 'Loud or rattling exhaust', 'After rust hole appeared'], boost: 14 } },
+          { name: 'Catalytic converter issue', baseConfidence: 45, parts: '$500–$1,500', labor: '$100–$200', time: '2–3 hrs', action: 'Replace catalytic converter', urgency: 'yellow', note: 'Rotten egg smell and check engine light — get diagnosed', triggers: { answers: ['Rotten egg or gas smell', 'Inside the car', 'Yes, steady', 'Check engine light related to emissions'], boost: 14 } },
+          { name: 'Oxygen sensor failure', baseConfidence: 35, parts: '$50–$150', labor: '$80–$120', time: '1 hr', action: 'Replace O2 sensor', urgency: 'green', note: 'Decreased fuel economy and check engine light — safe to drive', triggers: { answers: ['Yes, worse than usual', 'Yes, steady', 'Check engine light related to emissions'], boost: 10 } }] },
+      { key: 'fluids_leaks', label: 'Fluid leak', icon: '💧',
+        match: { primary: ['leak', 'drip', 'puddle', 'oil', 'fluid', 'coolant', 'antifreeze', 'stain'], secondary: ['low', 'level', 'spot', 'wet', 'underneath', 'dripping', 'slip', 'slick'], tertiary: ['transmission', 'brake', 'power', 'steering', 'washer', 'differential', 'axle'], phrases: [['oil', 'leak'], ['coolant', 'leak'], ['fluid', 'leak'], ['burning', 'smell'], ['low', 'oil'], ['puddle', 'under', 'car'], ['leaking', 'fluid'], ['power', 'steering', 'fluid'], ['brake', 'fluid'], ['transmission', 'fluid']] },
+        followUps: {
+        first: { q: 'What kind of leak are you seeing?', opts: ['Oil leak (dark / brown / black)', 'Coolant leak (green / orange / pink)', 'Transmission fluid (red)', 'Brake fluid (clear / yellow)', 'Water (clear, under AC)', 'Not sure of the color'] },
+        then: {
+          'Oil leak (dark / brown / black)': [
+            { q: 'Where is the oil leaking?', opts: ['Front of engine', 'Rear of engine / near firewall', 'Under the car (middle)', 'From the oil pan / drain plug'] },
+            { q: 'How fast is the leak?', opts: ['Slow drip (few drops overnight)', 'Steady drip', 'Puddle after parking', 'Major gush'] },
+          ],
+          'Coolant leak (green / orange / pink)': [
+            { q: 'Where do you see the puddle?', opts: ['Front of car (radiator area)', 'Under the engine', 'Under the dashboard (inside)', 'Under the water pump area'] },
+            { q: 'Is the engine overheating?', opts: ['Yes, temperature gauge is high', 'No, temp is normal', 'Not sure', 'Only after driving a while'] },
+          ],
+          'Transmission fluid (red)': [
+            { q: 'Where is the fluid leaking?', opts: ['Under the middle of the car', 'Front of the car', 'Near the transmission pan', 'Not sure'] },
+            { q: 'Are you having shifting issues?', opts: ['Yes, hard shifting', 'Yes, slipping', 'No, drives fine', 'Not sure'] },
+          ],
+          'Brake fluid (clear / yellow)': [
+            { q: 'Where is the leak located?', opts: ['Near one wheel', 'Under the master cylinder (driver side firewall)', 'Under the middle of the car', 'Not sure'] },
+            { q: 'Does the brake pedal feel different?', opts: ['Spongy or soft', 'Pedal goes to the floor', 'Brake warning light is on', 'No, feels normal'] },
+          ],
+          default: [
+            { q: 'What color is the fluid?', opts: ['Clear / light yellow', 'Dark brown / black', 'Red or pink', 'Green / orange / pink'] },
+            { q: 'Where is the puddle located under the car?', opts: ['Front', 'Middle', 'Rear', 'Driver side / passenger side'] },
+          ],
+        } },
+        issues: [
+          { name: 'Oil leak (gasket or seal)', baseConfidence: 65, parts: '$20–$100', labor: '$100–$400', time: '1–3 hrs', action: 'Replace leaking gasket or seal', urgency: 'yellow', note: 'Small drips are manageable — large leaks risk engine damage', triggers: { answers: ['Oil leak (dark / brown / black)', 'Slow drip (few drops overnight)', 'Steady drip', 'Front of engine'], boost: 12 } },
+          { name: 'Coolant leak', baseConfidence: 55, parts: '$15–$50', labor: '$50–$200', time: '1–2 hrs', action: 'Repair coolant leak and replace hose or component', urgency: 'red', note: 'Can cause overheating and engine damage — address promptly', triggers: { answers: ['Coolant leak (green / orange / pink)', 'Yes, temperature gauge is high', 'Front of car (radiator area)', 'Yes, temp is normal'], boost: 14 } },
+          { name: 'Automatic transmission fluid leak', baseConfidence: 45, parts: '$20–$80', labor: '$100–$300', time: '1–3 hrs', action: 'Repair transmission leak and replace pan gasket', urgency: 'yellow', note: 'Low fluid causes transmission damage — get inspected', triggers: { answers: ['Transmission fluid (red)', 'Under the middle of the car', 'Yes, hard shifting', 'Yes, slipping'], boost: 14 } },
+          { name: 'Brake fluid leak', baseConfidence: 40, parts: '$10–$30', labor: '$100–$250', time: '1–2 hrs', action: 'Repair brake fluid leak and bleed brakes', urgency: 'red', note: 'Brake fluid leak is dangerous — do not drive', triggers: { answers: ['Brake fluid (clear / yellow)', 'Spongy or soft', 'Pedal goes to the floor', 'Brake warning light is on', 'Near one wheel'], boost: 16 } }] },
+      { key: 'general', label: 'General issue', icon: '🔧',
+        match: { primary: [], secondary: [], tertiary: ['help', 'issue', 'problem', 'wrong', 'broken', 'fix', 'repair', 'need', 'check', 'examine', 'look', 'car', 'vehicle', 'auto', 'problem', 'thing'] },
+        followUps: {
+        first: { q: 'Where is the issue located?', opts: ['Engine / Under the hood', 'Brakes / Wheels', 'Electrical / Interior', 'Body / Exterior', 'Transmission / Drivetrain', 'Exhaust / Emissions', 'AC / Heating / Cooling', 'Suspension / Steering', 'Tires / Wheels', 'Leaks / Fluids', 'Not sure / General'] },
+        then: {
+          'Engine / Under the hood': [
+            { q: 'Which best describes your engine issue?', opts: ['Strange noise from engine', 'Loss of power or hesitation', 'Check engine light is on', 'Overheating or temperature issue', 'Runs rough or misfires'] },
+            { q: 'How long has this been going on?', opts: ['Just started', 'A few days', 'A week or more', 'Intermittent'] },
+          ],
+          'Brakes / Wheels': [
+            { q: 'What brake symptom are you experiencing?', opts: ['Squealing or grinding', 'Vibration when braking', 'Car pulls to one side', 'Brake warning light'] },
+            { q: 'How urgent does it feel?', opts: ['Minor — still stops fine', 'Moderate — stopping takes longer', 'Urgent — pedal goes to floor', 'Not sure'] },
+          ],
+          'Body / Exterior': [
+            { q: 'What kind of body damage?', opts: ['Dent or ding', 'Scratch or paint damage', 'Cracked panel or bumper', 'Rust or corrosion'] },
+            { q: 'Is this affecting the car\'s function or just appearance?', opts: ['Just appearance', 'Affects door / trunk opening', 'Causing a leak or wind noise', 'Safety concern'] },
+          ],
+          'Transmission / Drivetrain': [
+            { q: 'What transmission symptom are you having?', opts: ['Hard or rough shifting', 'Slipping or delayed engagement', 'Strange noise', 'Warning light on'] },
+            { q: 'Is the issue with automatic or manual?', opts: ['Automatic', 'Manual / standard', 'CVT', 'Not sure'] },
+          ],
+          'Electrical / Interior': [
+            { q: 'Which electrical system is affected?', opts: ['Battery / charging', 'Lights (headlights, interior, dash)', 'Infotainment / radio', 'Power windows / locks / seats'] },
+            { q: 'Did this start after any recent work?', opts: ['Yes, after installing something', 'Yes, after rain or car wash', 'No, random onset', 'Not sure'] },
+          ],
+          'Exhaust / Emissions': [
+            { q: 'What exhaust issue are you noticing?', opts: ['Loud noise from exhaust', 'Smoke coming from tailpipe', 'Smell of gas or fumes', 'Check engine light on'] },
+            { q: 'Have you noticed any performance loss?', opts: ['Yes, feels sluggish', 'Yes, worse gas mileage', 'No, drives fine', 'Not sure'] },
+          ],
+          'AC / Heating / Cooling': [
+            { q: 'Is the issue with AC, heat, or both?', opts: ['AC not blowing cold', 'Heat not working', 'No airflow at all', 'Strange smells or noises'] },
+            { q: 'Does the airflow change with fan speed?', opts: ['Changes normally', 'No change — works intermittently', 'Only works on high', 'Makes noise at certain speeds'] },
+          ],
+          'Suspension / Steering': [
+            { q: 'Which symptom best matches?', opts: ['Car pulls or drifts', 'Steering wheel vibrates', 'Rough or bouncy ride', 'Noise over bumps'] },
+            { q: 'Did this start after hitting something?', opts: ['Yes, hit a curb or pothole', 'Yes, after an accident', 'No, gradual onset', 'Not sure'] },
+          ],
+          'Tires / Wheels': [
+            { q: 'What tire issue are you experiencing?', opts: ['Low pressure or TPMS light', 'Flat tire or puncture', 'Vibration while driving', 'Uneven tread wear'] },
+            { q: 'Have you checked the tire pressure?', opts: ['Yes, it was low', 'Yes, it was normal', 'No, not yet', 'The light just came on'] },
+          ],
+          'Leaks / Fluids': [
+            { q: 'What color is the leaking fluid?', opts: ['Dark brown / black (oil)', 'Green / orange / pink (coolant)', 'Red (transmission fluid)', 'Clear / light yellow (brake fluid)', 'Clear water (normal AC condensation)'] },
+            { q: 'How large is the puddle?', opts: ['Small — few drops', 'Medium — about 6 inches wide', 'Large — spreading beyond the car', 'Just a stain, no active drip'] },
+          ],
+          default: [
+            { q: 'How long has this issue been present?', opts: ['Just noticed it today', 'Been going on for days', 'Been going on for weeks', 'It comes and goes'] },
+            { q: 'Have you noticed any warning lights?', opts: ['Yes', 'No', 'Not sure'] },
+          ],
+        } },
+        issues: [
+          { name: 'Needs professional inspection', baseConfidence: 60, parts: '$0', labor: '$100–$200', time: '1 hr', action: 'Full vehicle inspection recommended', urgency: 'yellow', note: 'Our best recommendation is to have a professional look at it', triggers: { answers: ['Not sure / General', 'Just noticed it today', 'It comes and goes'], boost: 10 } },
+          { name: 'Diagnostic service required', baseConfidence: 50, parts: '$0', labor: '$100–$200', time: '1–2 hrs', action: 'Computer diagnostic scan', urgency: 'yellow', note: 'A diagnostic scan can pinpoint the exact issue', triggers: { answers: ['Yes', 'Not sure', 'Been going on for weeks'], boost: 8 } },
+          { name: 'Scheduled maintenance needed', baseConfidence: 40, parts: '$50–$500', labor: '$50–$200', time: '1–3 hrs', action: 'Check owner\'s manual for service schedule', urgency: 'green', note: 'Regular maintenance prevents bigger issues', triggers: { answers: ['Been going on for days', 'No'], boost: 5 } }] },
+    ];
+
+    function getBestCategory(description) {
+      const { tokens, stems, raw } = analyzeText(description);
+      let best = null; let bestScore = 0;
+      for (const entry of AI_DB) {
+        if (!entry.match) continue;
+        let score = 0;
+        for (const phrase of (entry.match.phrases || [])) {
+          if (raw.includes(phrase.join(' '))) score += 5;
+        }
+        for (const token of [...tokens, ...stems]) {
+          if ((entry.match.primary || []).includes(token)) score += 3;
+          if ((entry.match.secondary || []).includes(token)) score += 2;
+          if ((entry.match.tertiary || []).includes(token)) score += 1;
+        }
+        if (score > bestScore) { bestScore = score; best = entry.key; }
+      }
+      return bestScore >= 3 ? best : 'general';
+    }
+
+    function findDiagnoses(symptomKey, answers) {
+      const entry = AI_DB.find(d => d.key === symptomKey);
+      if (!entry) return [];
+      const answeredCount = answers.filter(a => a && a.length > 0).length;
+      const countBoost = answeredCount * 5;
+      const answerSet = new Set(answers.filter(Boolean));
+      return entry.issues.map((issue) => {
+        let conf = issue.baseConfidence + countBoost;
+        if (issue.triggers) {
+          for (const trigger of (issue.triggers.answers || [])) {
+            if (answerSet.has(trigger)) conf += (issue.triggers.boost || 0);
+          }
+        }
+        return {
+          name: issue.name,
+          confidence: Math.min(98, conf),
+          parts: issue.parts,
+          labor: issue.labor,
+          time: issue.time,
+          action: issue.action,
+          urgency: issue.urgency,
+          note: issue.note,
+        };
+      }).sort((a, b) => b.confidence - a.confidence);
+    }
+
+    function DiagnosisScreen({ onNavigate, goBack }) {
+      const [step, setStep] = useState(1);
+      const [vehicle, setVehicle] = useState({ year: '', make: '', model: '', engine: '' });
+      const [selectedSymptom, setSelectedSymptom] = useState(null);
+      const [customDesc, setCustomDesc] = useState('');
+      const [answers, setAnswers] = useState([]);
+      const [results, setResults] = useState(null);
+      const [animKey, setAnimKey] = useState(0);
+      const [followIdx, setFollowIdx] = useState(0);
+      const [ans, setAns] = useState(null);
+      const [firstAnswer, setFirstAnswer] = useState(null);
+
+      const scrollRef = useRef(null);
+      const nextStep = () => { setStep(s => s + 1); setAnimKey(k => k + 1); if (scrollRef.current) scrollRef.current.scrollTo(0, 0); };
+      const prevStep = () => { setStep(s => Math.max(1, s - 1)); setAnimKey(k => k + 1); if (scrollRef.current) scrollRef.current.scrollTo(0, 0); };
+      const goHome = () => onNavigate('/');
+
+      const q = selectedSymptom?.followUps || { first: { q: '', opts: [] }, then: {} };
+      const getBranchQuestions = () => {
+        if (!firstAnswer) return [];
+        return q.then[firstAnswer] || q.then.default || [];
+      };
+      const branchQs = getBranchQuestions();
+      const totalQs = 1 + branchQs.length;
+
+      const handleSymptomSelect = (symptom) => {
+        setSelectedSymptom(symptom);
+        setFollowIdx(0);
+        setFirstAnswer(null);
+        setAnswers([]);
+        setAns(null);
+        setTimeout(() => nextStep(), 300);
+      };
+
+      const handleAnswer = (answer) => {
+        setAnswers(a => [...a, answer]);
+      };
+
+      const handleAnalyze = () => {
+        const diag = findDiagnoses(selectedSymptom.key, answers);
+        setResults(diag);
+        setStep(4);
+        setAnimKey(k => k + 1);
+        window.scrollTo(0, 0);
+      };
+
+      const sym = selectedSymptom || AI_DB[0];
+
+      const StepIndicator = ({ current, total }) => (
+        <div className="row centerV" style={{justifyContent: 'center', gap: 8, marginBottom: 24}}>
+          {Array.from({length: total}).map((_, i) => (
+            <div key={i} style={{width: i + 1 === current ? 28 : 8, height: 8, borderRadius: 4, background: i + 1 <= current ? 'var(--brand-accent)' : 'var(--hairline)', transition: 'all 0.3s var(--ease-out)'}} />
+          ))}
+        </div>
+      );
+
+      const fadeStyle = {animation: `fadeIn 0.35s ease-out both`};
+
+      const StepVehicle = () => (
+        <div style={fadeStyle}>
+          <div className="display-sm mb-sm" style={{letterSpacing: '-0.5px'}}>Vehicle Info</div>
+          <div className="body-md mb-lg" style={{color: 'var(--body)'}}>Tell us about your car so we can give accurate results.</div>
+          <div className="col" style={{gap: 14}}>
+            <div><label className="caption mb-sm" style={{color: 'var(--muted)', display: 'block'}}>Year</label>
+              <div className="input-wrap"><input className="input" value={vehicle.year} onChange={e => setVehicle(p => ({...p, year: e.target.value}))} placeholder="e.g. 2020" inputMode="numeric" /></div></div>
+            <div className="row" style={{gap: 12}}><div style={{flex: 1}}><label className="caption mb-sm" style={{color: 'var(--muted)', display: 'block'}}>Make</label>
+              <div className="input-wrap"><input className="input" value={vehicle.make} onChange={e => setVehicle(p => ({...p, make: e.target.value}))} placeholder="e.g. Toyota" /></div></div>
+              <div style={{flex: 1}}><label className="caption mb-sm" style={{color: 'var(--muted)', display: 'block'}}>Model</label>
+              <div className="input-wrap"><input className="input" value={vehicle.model} onChange={e => setVehicle(p => ({...p, model: e.target.value}))} placeholder="e.g. Camry" /></div></div></div>
+            <div><label className="caption mb-sm" style={{color: 'var(--muted)', display: 'block'}}>Engine (optional)</label>
+              <div className="input-wrap"><input className="input" value={vehicle.engine} onChange={e => setVehicle(p => ({...p, engine: e.target.value}))} placeholder="e.g. 2.4L 4-cyl" /></div></div>
+          </div>
+          <button className="btn btn-lg mt-lg" onClick={nextStep} disabled={!vehicle.year || !vehicle.make || !vehicle.model} style={{width: '100%', opacity: vehicle.year && vehicle.make && vehicle.model ? 1 : 0.4}}>Continue</button>
+        </div>
+      );
+
+      const StepSymptoms = () => (
+        <div style={fadeStyle}>
+          <div className="display-sm mb-sm" style={{letterSpacing: '-0.5px'}}>What's happening?</div>
+          <div className="body-md mb-lg" style={{color: 'var(--body)'}}>Describe your issue in your own words and we'll help diagnose it.</div>
+          <div className="card-flat" style={{padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--hairline)'}}>
+            <textarea className="input" value={customDesc} onChange={e => setCustomDesc(e.target.value)} placeholder="e.g. My car makes a weird noise when I turn left, and the check engine light just came on..." style={{minHeight: 120}} autoFocus />
+          </div>
+          <button className="btn btn-lg mt-lg" onClick={() => { if (!customDesc.trim()) return; const matched = getBestCategory(customDesc); const pick = matched ? AI_DB.find(s => s.key === matched) : AI_DB[0]; setSelectedSymptom(pick); setFollowIdx(0); setFirstAnswer(null); setAnswers([]); setAns(null); nextStep(); }} disabled={!customDesc.trim()} style={{width: '100%', opacity: customDesc.trim() ? 1 : 0.4}}>Continue</button>
+        </div>
+      );
+
+      const StepFollowUp = () => {
+        if (followIdx >= totalQs) {
+          return (<div style={fadeStyle}>
+            <div style={{textAlign: 'center', padding: '40px 0'}}>
+              <div style={{fontSize: 48, marginBottom: 16}}>✅</div>
+              <div className="title-lg mb-sm">All set!</div>
+              <div className="body-md mb-lg" style={{color: 'var(--body)'}}>We have enough info to analyze your issue.</div>
+              <button className="btn btn-lg" style={{background: 'var(--brand-accent)', width: '100%', border: 'none'}} onClick={handleAnalyze}>Analyze Now</button>
+            </div>
+          </div>);
+        }
+        const isFirst = followIdx === 0;
+        const currentQ = isFirst ? q.first : branchQs[followIdx - 1];
+        const convHeader = customDesc.trim() ? `Based on what you described${selectedSymptom ? ', we need more details about your ' + selectedSymptom.label.toLowerCase() : ''}` : `Let's narrow down your ${selectedSymptom?.label?.toLowerCase() || 'issue'}`;
+        return (<div style={fadeStyle}>
+          <div className="display-sm mb-sm" style={{letterSpacing: '-0.5px', fontSize: 18}}>{selectedSymptom?.icon} Smart Questions</div>
+          <div className="body-md mb-lg" style={{color: 'var(--muted)', fontStyle: 'italic'}}>{convHeader}</div>
+          <div className="body-md mb-lg" style={{color: 'var(--body)'}}>Question {followIdx + 1} of {totalQs}</div>
+          <div className="card-elevated" style={{padding: 28, borderRadius: 'var(--radius-xl)', marginBottom: 24}}>
+            <div className="title-md mb-lg" style={{lineHeight: 1.4, textAlign: 'center'}}>{currentQ.q}</div>
+            <div className="col" style={{gap: 10}}>
+              {currentQ.opts.map((opt) => (
+                <div key={opt} onClick={() => setAns(opt)} style={{padding: '14px 18px', borderRadius: 'var(--radius-md)', background: ans === opt ? 'var(--brand-accent)' : 'var(--surface-card)', color: ans === opt ? '#fff' : 'var(--ink)', cursor: 'pointer', fontWeight: ans === opt ? 600 : 400, fontSize: 14, textAlign: 'center', transition: 'all 0.2s ease', border: ans === opt ? 'none' : '1px solid var(--hairline)'}}>{opt}</div>
+              ))}
+            </div>
+          </div>
+          <button className="btn btn-lg" style={{width: '100%', opacity: ans ? 1 : 0.4}} disabled={!ans} onClick={() => { handleAnswer(ans); if (isFirst) setFirstAnswer(ans); setAns(null); setFollowIdx(i => i + 1); }}>Next</button>
+        </div>);
+      };
+
+      const urgencyConfig = {
+        green: { label: 'Safe to drive', color: '#16A34A', bg: 'rgba(22,163,74,0.08)', border: 'rgba(22,163,74,0.2)' },
+        yellow: { label: 'Drive with caution', color: '#F59E0B', bg: 'rgba(245,158,11,0.08)', border: 'rgba(245,158,11,0.2)' },
+        red: { label: 'Do not drive', color: '#DC2626', bg: 'rgba(220,38,38,0.08)', border: 'rgba(220,38,38,0.2)' },
+      };
+
+      const StepUrgency = () => {
+        const topIssue = findDiagnoses(selectedSymptom?.key, answers)[0];
+        const urg = urgencyConfig[topIssue?.urgency || 'green'];
+        return (<div style={fadeStyle}>
+          <div className="display-sm mb-sm" style={{letterSpacing: '-0.5px'}}>Urgency Assessment</div>
+          <div className="body-md mb-lg" style={{color: 'var(--body)'}}>Based on what you told us, here's the severity level.</div>
+          <div className="card-elevated" style={{padding: 32, borderRadius: 'var(--radius-xl)', textAlign: 'center', marginBottom: 24, background: urg.bg, border: `2px solid ${urg.border}`}}>
+            <div style={{fontSize: 64, marginBottom: 12}}>{topIssue?.urgency === 'red' ? '🔴' : topIssue?.urgency === 'yellow' ? '🟡' : '🟢'}</div>
+            <div className="title-lg mb-sm">{urg.label}</div>
+            <div className="body-md" style={{color: 'var(--body)'}}>{topIssue?.note || 'No issues detected'}</div>
+          </div>
+          <div className="col" style={{gap: 10}}>
+            <button className="btn btn-lg" style={{background: 'var(--brand-accent)', width: '100%', border: 'none', boxShadow: '0 4px 16px rgba(234,88,12,0.3)'}} onClick={() => { setStep(5); setAnimKey(k => k + 1); window.scrollTo(0, 0); }}>View Full Results</button>
+          </div>
+        </div>);
+      };
+
+      const StepResults = () => {
+        if (!results || results.length === 0) return <div className="body-md" style={{color: 'var(--body)', padding: 40, textAlign: 'center'}}>No results — please try again.</div>;
+        const topIssue = results[0];
+        const urg = urgencyConfig[topIssue.urgency] || urgencyConfig.yellow;
+        return (<div style={fadeStyle}>
+          <div style={{textAlign: 'center', marginBottom: 24}}>
+            <div style={{fontSize: 44, marginBottom: 8}}>🔍</div>
+            <div className="display-sm" style={{letterSpacing: '-0.5px'}}>Diagnosis Results</div>
+            <div className="body-sm" style={{color: 'var(--muted)', marginTop: 4}}>for {vehicle.year} {vehicle.make} {vehicle.model}</div>
+          </div>
+          <div className="card-elevated" style={{padding: 18, borderRadius: 'var(--radius-lg)', marginBottom: 20, background: urg.bg, border: `1px solid ${urg.border}`}}>
+            <div className="row centerV" style={{justifyContent: 'space-between'}}>
+              <div className="row centerV gap-sm"><span style={{fontSize: 24}}>{topIssue.urgency === 'green' ? '🟢' : topIssue.urgency === 'yellow' ? '🟡' : '🔴'}</span>
+                <div><div className="title-sm">{urg.label}</div><div className="body-sm" style={{color: 'var(--body)'}}>{topIssue.note}</div></div>
+              </div>
+            </div>
+          </div>
+          <div className="title-sm mb-md" style={{color: 'var(--muted)', letterSpacing: '0.05em', textTransform: 'uppercase'}}>Likely Issues</div>
+          <div className="col" style={{gap: 12, marginBottom: 24}}>
+            {results.map((issue, i) => (
+              <div key={i} className="card-elevated" style={{padding: 18, borderRadius: 'var(--radius-lg)', border: i === 0 ? '2px solid var(--brand-accent)' : '1px solid var(--hairline)', transition: 'all 0.2s ease'}}>
+                <div className="row between centerV mb-sm">
+                  <div className="title-md" style={{color: i === 0 ? 'var(--brand-accent)' : 'var(--ink)'}}>{issue.name}</div>
+                  <div className="badge" style={{background: i === 0 ? 'rgba(234,88,12,0.1)' : 'var(--surface-soft)', color: i === 0 ? 'var(--brand-accent)' : 'var(--muted)', border: 'none', fontWeight: 700, fontSize: 13}}>{issue.confidence}%</div>
+                </div>
+                <div style={{height: 4, background: 'var(--hairline)', borderRadius: 2, marginBottom: 14, overflow: 'hidden'}}>
+                  <div style={{width: `${issue.confidence}%`, height: '100%', background: i === 0 ? 'var(--brand-accent)' : 'var(--muted-soft)', borderRadius: 2, transition: 'width 0.8s var(--ease-out)'}} />
+                </div>
+                <div className="row between centerV">
+                  <div><div className="caption" style={{color: 'var(--muted)', marginBottom: 2}}>Est. Cost</div>
+                    <div className="title-sm" style={{color: 'var(--ink)'}}>{issue.parts} + {issue.labor}</div></div>
+                  <div style={{textAlign: 'right'}}><div className="caption" style={{color: 'var(--muted)', marginBottom: 2}}>Time</div>
+                    <div className="body-sm" style={{color: 'var(--body)'}}>{issue.time}</div></div>
+                </div>
+                <div className="body-sm mt-sm" style={{color: 'var(--body)', paddingTop: 12, borderTop: '1px solid var(--hairline-soft)'}}>{issue.action}</div>
+              </div>
+            ))}
+          </div>
+          <div className="title-sm mb-md" style={{color: 'var(--muted)', letterSpacing: '0.05em', textTransform: 'uppercase'}}>Next Steps</div>
+          <div className="col" style={{gap: 10, marginBottom: 24}}>
+            <button className="btn btn-lg" style={{background: 'var(--brand-accent)', border: 'none', width: '100%', boxShadow: '0 4px 16px rgba(234,88,12,0.3)'}} onClick={() => onNavigate('/customer/signup')}>Book a Mobile Mechanic</button>
+            <button className="btn btn-lg btn-secondary" style={{width: '100%'}} onClick={() => onNavigate('/customer/signup')}>Get Instant Quote</button>
+            <button className="btn btn-lg btn-outline" style={{width: '100%'}} onClick={() => { const txt = `Diagnosis: ${topIssue.name} (${topIssue.confidence}% confidence)\nVehicle: ${vehicle.year} ${vehicle.make} ${vehicle.model}\nEst. Cost: ${topIssue.parts} parts + ${topIssue.labor} labor\nAction: ${topIssue.action}`; navigator.clipboard?.writeText(txt); }}>Send Results to Mechanic</button>
+          </div>
+          <button className="btn-text" style={{width: '100%', justifyContent: 'center'}} onClick={goHome}>← Back to Home</button>
+        </div>);
+      };
+
+      const renderStep = () => {
+        switch (step) {
+          case 1: return StepVehicle();
+          case 2: return StepSymptoms();
+          case 3: return StepFollowUp();
+          case 4: return StepUrgency();
+          case 5: return StepResults();
+          default: return null;
+        }
+      };
+
+      return (<div style={{height: '100vh', display: 'flex', flexDirection: 'column', background: 'var(--canvas)', overflow: 'hidden'}}>
+        <div style={{flexShrink: 0, position: 'relative', padding: '60px 20px 16px', borderBottom: '1px solid var(--hairline-soft)', background: 'linear-gradient(180deg, var(--surface-soft) 0%, var(--canvas) 100%)'}}>
+          <div style={{position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'linear-gradient(90deg, var(--brand-accent), var(--brand-teal))', opacity: 0.4}} />
+          <div className="row centerV">
+            <div onClick={step > 1 ? prevStep : goBack} style={{display: 'flex', color: 'var(--ink)', cursor: 'pointer', marginRight: 14, width: 36, height: 36, borderRadius: '50%', background: 'var(--canvas)', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)'}}>{IX(<><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></>)}</div>
+            <div className="title-lg">AI Diagnosis</div>
+          </div>
+        </div>
+        <div ref={scrollRef} style={{flex: 1, overflowY: 'auto', WebkitOverflowScrolling: 'touch', minHeight: 0}}>
+          <div style={{maxWidth: 600, margin: '0 auto', padding: '24px 20px 40px'}} key={animKey}>
+            {step <= 4 && <StepIndicator current={step} total={4} />}
+            {renderStep()}
+          </div>
+        </div>
       </div>);
     }
 
