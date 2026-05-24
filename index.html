@@ -1092,6 +1092,8 @@
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/customer/home'); else if (tabId === 'jobs') onNavigate('/customer/request'); else if (tabId === 'messages') onNavigate('/customer/messages'); else if (tabId === 'settings') onNavigate('/customer/home'); };
       const openThread = (conv) => { setActiveConv(conv); setView('thread'); setConversations(prev => prev.map(c => c.id === conv.id ? { ...c, unread: 0 } : c)); };
       const sendMessage = () => { if (!messageInput.trim() || !activeConv) return; const t = messageInput.trim(); const n = { id: 'm' + Date.now(), senderId: 'me', text: t, time: 'Just now', isMe: true }; setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), n] })); setConversations(p => p.map(c => c.id === activeConv.id ? { ...c, lastMessage: t, lastMessageTime: 'Just now' } : c)); setMessageInput(''); setTimeout(() => { setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), { id: 'm' + Date.now(), senderId: activeConv.otherUserId, text: "On it! I'll be there shortly.", time: 'Just now', isMe: false }] })); }, 2000); };
+      const sendLocation = () => { if (!activeConv) return; const n = { id: 'm' + Date.now(), senderId: 'me', type: 'location', address: '123 Main St, Dayton', distance: '2.4 mi', lat: 39.7512, lng: -84.1865, time: 'Just now', isMe: true }; setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), n] })); setConversations(p => p.map(c => c.id === activeConv.id ? { ...c, lastMessage: '📍 Shared location', lastMessageTime: 'Just now' } : c)); };
+      const openLocationMap = (lat, lng, address) => { const ua = navigator.userAgent; const label = encodeURIComponent(address); if (/iPad|iPhone|iPod/.test(ua)) { window.location.href = `maps://app?d=${lat},${lng}&q=${label}`; } else if (/android/i.test(ua)) { window.location.href = `geo:${lat},${lng}?q=${lat},${lng}(${label})`; } else { window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank'); } };
       const goBackToList = () => { setView('list'); setActiveConv(null); };
       const handleKeyDown = (e) => { if (e.key === 'Enter') sendMessage(); };
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
@@ -1124,13 +1126,21 @@
               </div>
               <div className="avatar" style={{width: 34, height: 34, fontSize: 13, background: 'var(--surface-strong)', color: 'var(--ink)', marginRight: 10}}>{activeConv?.otherUserInitial}</div>
               <div className="title-md" style={{flex: 1}}>{activeConv?.otherUserName}</div>
+              <div onClick={sendLocation} style={{color: 'var(--brand-accent)', cursor: 'pointer', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4}}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Drop Location
+              </div>
             </div>
             <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', display: 'flex', flexDirection: 'column', gap: 8}}>
               {activeConv && convMessages[activeConv.id]?.map((msg) => (<div key={msg.id} className="row" style={{justifyContent: msg.isMe ? 'flex-end' : 'flex-start', animation: 'fadeIn 0.2s ease-out'}}>
-                <div style={{maxWidth: '82%', padding: '12px 16px', lineHeight: 1.45, wordWrap: 'break-word', background: msg.isMe ? 'var(--brand-accent)' : 'var(--surface-card)', color: msg.isMe ? '#fff' : 'var(--ink)', borderRadius: msg.isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px'}}>
-                  <div style={{fontSize: 14}}>{msg.text}</div>
-                  <div style={{fontSize: 10, marginTop: 4, opacity: 0.6, textAlign: msg.isMe ? 'right' : 'left'}}>{msg.time}</div>
-                </div>
+                {msg.type === 'location' ? (
+                  <LocationMapCard msg={msg} />
+                ) : (
+                  <div style={{maxWidth: '82%', padding: '12px 16px', lineHeight: 1.45, wordWrap: 'break-word', background: msg.isMe ? 'var(--brand-accent)' : 'var(--surface-card)', color: msg.isMe ? '#fff' : 'var(--ink)', borderRadius: msg.isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px'}}>
+                    <div style={{fontSize: 14}}>{msg.text}</div>
+                    <div style={{fontSize: 10, marginTop: 4, opacity: 0.6, textAlign: msg.isMe ? 'right' : 'left'}}>{msg.time}</div>
+                  </div>
+                )}
               </div>))}
             </div>
             <div className="row centerV" style={{padding: '12px 16px', borderTop: '1px solid var(--hairline)', background: 'var(--canvas)', gap: 10}}>
@@ -1141,6 +1151,29 @@
             </div>
           </div>
         )}
+      </div>);
+    }
+
+    function LocationMapCard({ msg }) {
+      const mapRef = useRef(null);
+      const mapInst = useRef(null);
+      useEffect(() => {
+        if (mapRef.current && !mapInst.current && window.L) {
+          mapInst.current = window.L.map(mapRef.current, { center: [msg.lat, msg.lng], zoom: 15, zoomControl: false, scrollWheelZoom: false, dragging: false });
+          window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(mapInst.current);
+          window.L.marker([msg.lat, msg.lng]).addTo(mapInst.current);
+        }
+        return () => { if (mapInst.current) { mapInst.current.remove(); mapInst.current = null; } };
+      }, [msg.lat, msg.lng]);
+      const openNav = (lat, lng, address) => { const ua = navigator.userAgent; const label = encodeURIComponent(address); if (/iPad|iPhone|iPod/.test(ua)) { window.location.href = `maps://app?d=${lat},${lng}&q=${label}`; } else if (/android/i.test(ua)) { window.location.href = `geo:${lat},${lng}?q=${lat},${lng}(${label})`; } else { window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank'); } };
+      return (<div style={{maxWidth: '82%', background: 'var(--surface-card)', borderRadius: '16px 16px 16px 4px', overflow: 'hidden'}}>
+        <div ref={mapRef} className="mini-map" style={{width: '100%', height: 120, border: 0, borderRadius: 0}} />
+        <div style={{padding: '10px 14px'}}>
+          <div className="title-sm" style={{marginBottom: 2}}>{msg.address}</div>
+          <div className="caption" style={{color: 'var(--muted)', marginBottom: 8}}>{msg.distance} · Shared location</div>
+          {!msg.isMe && <div onClick={() => openNav(msg.lat, msg.lng, msg.address)} style={{background: 'var(--brand-accent)', color: '#fff', textAlign: 'center', padding: '8px 0', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer'}}>Start Navigation</div>}
+          <div style={{fontSize: 10, marginTop: 6, opacity: 0.5, textAlign: 'right'}}>{msg.time}</div>
+        </div>
       </div>);
     }
 
@@ -1257,21 +1290,6 @@
                 </div>
               ))}
             </div>
-          </div>
-          {/* Stats grid */}
-          <div className="grid grid-2" style={{gap: 12, marginBottom: 20}}>
-            {[
-              { icon: 'jobs', value: '3', label: 'Jobs Today' },
-              { icon: 'star', value: '4.9', label: 'Rating' },
-              { icon: 'earnings', value: '$256', label: 'Earnings' },
-              { icon: 'clock', value: '8h', label: 'Online' },
-            ].map((item, i) => (
-              <div key={i} className="card-clean" style={{padding: 16, borderRadius: 'var(--radius-lg)'}}>
-                <div style={{color: 'var(--muted-soft)', marginBottom: 8, display: 'flex', alignItems: 'center'}}>{icons[item.icon]}</div>
-                <div className="title-lg" style={{letterSpacing: '-0.3px'}}>{item.value}</div>
-                <div className="caption" style={{color: 'var(--muted)', marginTop: 2}}>{item.label}</div>
-              </div>
-            ))}
           </div>
           {/* Upcoming job */}
           <div className="card-clean mb-lg" style={{padding: 20, borderRadius: 'var(--radius-lg)', position: 'relative'}}>
@@ -1519,7 +1537,7 @@
       const [conversations, setConversations] = useState([
         { id: 'p1', otherUserId: 'john', otherUserName: 'John D.', otherUserInitial: 'J', lastMessage: 'Hey, need a jump start at 123 Main St', lastMessageTime: '2 min ago', unread: 1 },
         { id: 'p2', otherUserId: 'emily', otherUserName: 'Emily R.', otherUserInitial: 'E', lastMessage: 'Thanks for the quick service!', lastMessageTime: '1 hour ago', unread: 0 },
-        { id: 'p3', otherUserId: 'mark', otherUserName: 'Mark T.', otherUserInitial: 'M', lastMessage: 'Can you come to 456 Oak Ave?', lastMessageTime: '3 hours ago', unread: 2 },
+        { id: 'p3', otherUserId: 'mark', otherUserName: 'Mark T.', otherUserInitial: 'M', lastMessage: '📍 Shared location', lastMessageTime: 'Just now', unread: 1 },
         { id: 'p4', otherUserId: 'anna', otherUserName: 'Anna K.', otherUserInitial: 'A', lastMessage: 'I need a tire change please', lastMessageTime: '1 day ago', unread: 0 },
       ]);
       const [convMessages, setConvMessages] = useState({
@@ -1537,6 +1555,7 @@
           { id: 'm7', senderId: 'mark', text: 'Are you available for a tow?', time: '9:00 AM', isMe: false },
           { id: 'm8', senderId: 'me', text: 'Yes, what\'s your location?', time: '9:05 AM', isMe: true },
           { id: 'm9', senderId: 'mark', text: 'Can you come to 456 Oak Ave?', time: '9:10 AM', isMe: false },
+          { id: 'm13', senderId: 'mark', type: 'location', address: '456 Oak Ave, Dayton', distance: '3.1 mi', lat: 39.7612, lng: -84.1965, time: '9:15 AM', isMe: false },
         ],
         p4: [
           { id: 'm10', senderId: 'anna', text: 'Do you do tire changes?', time: 'Yesterday', isMe: false },
@@ -1547,6 +1566,8 @@
       const handleNavTabChange = (tabId) => { setNavTab(tabId); if (tabId === 'home') onNavigate('/provider/home'); else if (tabId === 'jobs') onNavigate('/provider/jobs'); else if (tabId === 'earnings') onNavigate('/provider/earnings'); else if (tabId === 'messages') onNavigate('/provider/messages'); else if (tabId === 'profile') onNavigate('/profile-edit'); };
       const openThread = (conv) => { setActiveConv(conv); setView('thread'); setConversations(prev => prev.map(c => c.id === conv.id ? { ...c, unread: 0 } : c)); };
       const sendMessage = () => { if (!messageInput.trim() || !activeConv) return; const t = messageInput.trim(); const n = { id: 'm' + Date.now(), senderId: 'me', text: t, time: 'Just now', isMe: true }; setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), n] })); setConversations(p => p.map(c => c.id === activeConv.id ? { ...c, lastMessage: t, lastMessageTime: 'Just now' } : c)); setMessageInput(''); setTimeout(() => { setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), { id: 'm' + Date.now(), senderId: activeConv.otherUserId, text: 'Got it, thanks!', time: 'Just now', isMe: false }] })); }, 2000); };
+      const sendLocation = () => { if (!activeConv) return; const n = { id: 'm' + Date.now(), senderId: 'me', type: 'location', address: '123 Main St, Dayton', distance: '2.4 mi', lat: 39.7512, lng: -84.1865, time: 'Just now', isMe: true }; setConvMessages(p => ({ ...p, [activeConv.id]: [...(p[activeConv.id] || []), n] })); setConversations(p => p.map(c => c.id === activeConv.id ? { ...c, lastMessage: '📍 Shared location', lastMessageTime: 'Just now' } : c)); };
+      const openLocationMap = (lat, lng, address) => { const ua = navigator.userAgent; const label = encodeURIComponent(address); if (/iPad|iPhone|iPod/.test(ua)) { window.location.href = `maps://app?d=${lat},${lng}&q=${label}`; } else if (/android/i.test(ua)) { window.location.href = `geo:${lat},${lng}?q=${lat},${lng}(${label})`; } else { window.open(`https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`, '_blank'); } };
       const goBackToList = () => { setView('list'); setActiveConv(null); };
       const handleKeyDown = (e) => { if (e.key === 'Enter') sendMessage(); };
       return (<div className="h-full w-full" style={{display: 'flex', flexDirection: 'column', height: '100dvh', overflow: 'hidden'}}>
@@ -1579,13 +1600,21 @@
               </div>
               <div className="avatar" style={{width: 34, height: 34, fontSize: 13, background: 'var(--surface-strong)', color: 'var(--ink)', marginRight: 10}}>{activeConv?.otherUserInitial}</div>
               <div className="title-md" style={{flex: 1}}>{activeConv?.otherUserName}</div>
+              <div onClick={sendLocation} style={{color: 'var(--brand-accent)', cursor: 'pointer', fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4}}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Drop Location
+              </div>
             </div>
             <div style={{flex: 1, overflowY: 'auto', overscrollBehavior: 'contain', minHeight: 0, padding: '20px', display: 'flex', flexDirection: 'column', gap: 8}}>
               {activeConv && convMessages[activeConv.id]?.map((msg) => (<div key={msg.id} className="row" style={{justifyContent: msg.isMe ? 'flex-end' : 'flex-start', animation: 'fadeIn 0.2s ease-out'}}>
-                <div style={{maxWidth: '82%', padding: '12px 16px', lineHeight: 1.45, wordWrap: 'break-word', background: msg.isMe ? 'var(--brand-accent)' : 'var(--surface-card)', color: msg.isMe ? '#fff' : 'var(--ink)', borderRadius: msg.isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px'}}>
-                  <div style={{fontSize: 14}}>{msg.text}</div>
-                  <div style={{fontSize: 10, marginTop: 4, opacity: 0.6, textAlign: msg.isMe ? 'right' : 'left'}}>{msg.time}</div>
-                </div>
+                {msg.type === 'location' ? (
+                  <LocationMapCard msg={msg} />
+                ) : (
+                  <div style={{maxWidth: '82%', padding: '12px 16px', lineHeight: 1.45, wordWrap: 'break-word', background: msg.isMe ? 'var(--brand-accent)' : 'var(--surface-card)', color: msg.isMe ? '#fff' : 'var(--ink)', borderRadius: msg.isMe ? '16px 16px 4px 16px' : '16px 16px 16px 4px'}}>
+                    <div style={{fontSize: 14}}>{msg.text}</div>
+                    <div style={{fontSize: 10, marginTop: 4, opacity: 0.6, textAlign: msg.isMe ? 'right' : 'left'}}>{msg.time}</div>
+                  </div>
+                )}
               </div>))}
             </div>
             <div className="row centerV" style={{padding: '12px 16px', borderTop: '1px solid var(--hairline)', background: 'var(--canvas)', gap: 10}}>
